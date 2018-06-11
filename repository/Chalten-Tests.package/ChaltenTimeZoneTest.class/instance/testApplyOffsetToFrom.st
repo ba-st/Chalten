@@ -7,7 +7,8 @@ testApplyOffsetToFrom
 	dateTime := buenosAiresTimeZone
 		applyOffsetTo: (DateTime
 			date: August fifteenth, 2008
-			timeOfDay: (TimeOfDay hours: 16 minutes: 55 seconds: 45))
+			timeOfDay: (TimeOfDay hours: 16 minutes: 55 seconds: 45)
+			zone: buenosAiresTimeZone)
 		from: otherZone.
 	self assert: dateTime = (DateTime
 		date: August fifteenth, 2008

@@ -1,5 +1,8 @@
-Chaltén
-=======
+# Chaltén
+
+[![Build Status](https://travis-ci.org/ba-st/chalten.svg?branch=development)](https://travis-ci.org/ba-st/chalten)
+[![Coverage Status](https://coveralls.io/repos/github/ba-st/chalten/badge.svg?branch=development)](https://coveralls.io/github/ba-st/chalten?branch=development)
+
 This is a time model that allows to use dates, months, years, etc. in an easy way.
 
 ## Why a new model of Dates?
