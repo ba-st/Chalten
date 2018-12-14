@@ -13,11 +13,26 @@ BaselineOfChalten >> baseline: spec [
 	<baseline>
 	spec
 		for: #common
-		do: [ 
-			self setUpDependencies: spec.
+		do: [ self setUpDependencies: spec.
 			spec
-				package: 'Chalten-Core' with: [ spec requires: 'Aconcagua' ];
-				package: 'Chalten-Tests' with: [ spec requires: 'Chalten-Core' ].
+				package: 'Chalten-Core-Time' with: [ spec requires: 'Aconcagua' ];
+				package: 'Chalten-Core-Filter' with: [ spec requires: 'Chalten-Core-Time' ];
+				package: 'Chalten-Core-Hebrew' with: [ spec requires: 'Chalten-Core-Time' ];
+				package: 'Chalten-Core-Islamic' with: [ spec requires: 'Chalten-Core-Time' ];
+				package: 'Chalten-Core-Roman' with: [ spec requires: 'Chalten-Core-Time' ];
+				package: 'Chalten-Core-Gregorian' with: [ spec requires: 'Chalten-Core-Roman' ];
+				package: 'Chalten-Core-Julian' with: [ spec requires: 'Chalten-Core-Roman' ].
+			spec
+				package: 'Chalten-Tests-Time' with: [ spec requires: 'Chalten-Core-Time' ];
+				package: 'Chalten-Tests-Filter' with: [ spec requires: 'Chalten-Core-Filter' ];
+				package: 'Chalten-Tests-Hebrew' with: [ spec requires: 'Chalten-Core-Hebrew' ];
+				package: 'Chalten-Tests-Islamic' with: [ spec requires: 'Chalten-Core-Islamic' ];
+				package: 'Chalten-Tests-Roman' with: [ spec requires: 'Chalten-Core-Roman' ];
+				package: 'Chalten-Tests-Gregorian' with: [ spec requires: 'Chalten-Core-Gregorian' ];
+				package: 'Chalten-Tests-Julian' with: [ spec requires: 'Chalten-Core-Julian' ].
+			spec
+				group: 'Chalten-Core' with: #('Chalten-Core-Time' 'Chalten-Core-Filter' 'Chalten-Core-Hebrew' 'Chalten-Core-Islamic' 'Chalten-Core-Roman' 'Chalten-Core-Gregorian' 'Chalten-Core-Julian');
+				group: 'Chalten-Tests' with: #('Chalten-Tests-Time' 'Chalten-Tests-Filter' 'Chalten-Tests-Hebrew' 'Chalten-Tests-Islamic' 'Chalten-Tests-Roman' 'Chalten-Tests-Gregorian' 'Chalten-Tests-Julian').
 			spec
 				group: 'Deployment' with: #('Chalten-Core');
 				group: 'Development' with: #('Chalten-Tests');
@@ -30,8 +45,7 @@ BaselineOfChalten >> postLoadInitialization [
 
 	ChaltenEnvironmentBehavior initializeAfterLoad.
 	TimeUnitsGlobals initializeAfterLoad.
-	CalendarDefinition allSubclassesDo: [ :each | each subclasses
-		ifEmpty: [ each initializeAfterLoad ]].
+	CalendarDefinition allSubclassesDo: [ :each | each subclasses ifEmpty: [ each initializeAfterLoad ] ].
 	TimeOfDay initializeAfterLoad.
 	TimeZonesGlobals initializeAfterLoad
 ]
