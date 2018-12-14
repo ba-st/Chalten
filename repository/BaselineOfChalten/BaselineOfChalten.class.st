@@ -30,12 +30,17 @@ BaselineOfChalten >> baseline: spec [
 				package: 'Chalten-Tests-Roman' with: [ spec requires: 'Chalten-Core-Roman' ];
 				package: 'Chalten-Tests-Gregorian' with: [ spec requires: 'Chalten-Core-Gregorian' ];
 				package: 'Chalten-Tests-Julian' with: [ spec requires: 'Chalten-Core-Julian' ].
+
 			spec
-				group: 'Chalten-Core' with: #('Chalten-Core-Time' 'Chalten-Core-Filter' 'Chalten-Core-Hebrew' 'Chalten-Core-Islamic' 'Chalten-Core-Roman' 'Chalten-Core-Gregorian' 'Chalten-Core-Julian');
-				group: 'Chalten-Tests' with: #('Chalten-Tests-Time' 'Chalten-Tests-Filter' 'Chalten-Tests-Hebrew' 'Chalten-Tests-Islamic' 'Chalten-Tests-Roman' 'Chalten-Tests-Gregorian' 'Chalten-Tests-Julian').
+				group: 'Chalten-Core' with: #('Chalten-Core-Time' 'Chalten-Core-Filter');
+				group: 'Chalten-Calendars'
+					with: #('Chalten-Core-Gregorian' 'Chalten-Core-Hebrew' 'Chalten-Core-Islamic' 'Chalten-Core-Roman' 'Chalten-Core-Julian');
+				group: 'Chalten-Tests' with: #('Chalten-Tests-Time' 'Chalten-Tests-Filter');
+				group: 'Chalten-Calendars-Tests'
+					with: #('Chalten-Tests-Gregorian' 'Chalten-Tests-Hebrew' 'Chalten-Tests-Islamic' 'Chalten-Tests-Roman' 'Chalten-Tests-Julian').
+
 			spec
-				group: 'Deployment' with: #('Chalten-Core');
-				group: 'Development' with: #('Chalten-Tests');
+				group: 'Development' with: #('Chalten-Tests' 'Chalten-Calendars-Tests');
 				group: 'default' with: #('Development').
 			spec postLoadDoIt: #postLoadInitialization ]
 ]
