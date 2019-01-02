@@ -61,6 +61,6 @@ BaselineOfChalten >> setUpDependencies: aSpec [
 	aSpec
 		baseline: 'Aconcagua'
 		with: [ aSpec
-				repository: 'github://ba-st/Aconcagua:master/repository';
+				repository: 'github://ba-st/Aconcagua:v7/repository';
 				loads: #('Deployment') ]
 ]
