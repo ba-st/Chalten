@@ -22,17 +22,17 @@ setUpDependencies: spec
 		baseline: 'Chalten'
 			with: [ spec
 				repository: 'github://ba-st/Chalten:v{version}/source';
-				loads: #('Chalten-Core {Calendars}')];
+				loads: #('{Calendars}')];
 		import: 'Chalten'.
 ```
 > Replace `{version}` with the version you want to depend on
 
 > Replace `{Calendars}` with at least one of: 
-- `Chalten-Core-Gregorian` to load the Gregorian calendar 
-- `Chalten-Core-Hebrew` to load the Hebrew calendar 
-- `Chalten-Core-Islamic` to load the Islamic calendar 
-- `Chalten-Core-Julian` to load the Julian calendar 
-- `Chalten-Core-Roman` to load the Roman calendar 
+- `Chalten-Gregorian-Calendar` to load the Gregorian calendar 
+- `Chalten-Hebrew-Calendar` to load the Hebrew calendar 
+- `Chalten-Islamic-Calendar` to load the Islamic calendar 
+- `Chalten-Julian-Calendar` to load the Julian calendar 
+- `Chalten-Roman-Calendar` to load the Roman calendar 
 
 ```smalltalk
 baseline: spec
