@@ -4,7 +4,7 @@ This class is used to load Chalten from github repository
 Class {
 	#name : #BaselineOfChalten,
 	#superclass : #BaselineOf,
-	#category : 'BaselineOfChalten'
+	#category : #BaselineOfChalten
 }
 
 { #category : #baselines }
@@ -15,32 +15,30 @@ BaselineOfChalten >> baseline: spec [
 		for: #common
 		do: [ self setUpDependencies: spec.
 			spec
-				package: 'Chalten-Core-Time' with: [ spec requires: 'Aconcagua' ];
-				package: 'Chalten-Core-Filter' with: [ spec requires: 'Chalten-Core-Time' ];
-				package: 'Chalten-Core-Hebrew' with: [ spec requires: 'Chalten-Core-Time' ];
-				package: 'Chalten-Core-Islamic' with: [ spec requires: 'Chalten-Core-Time' ];
-				package: 'Chalten-Core-Roman' with: [ spec requires: 'Chalten-Core-Time' ];
-				package: 'Chalten-Core-Gregorian' with: [ spec requires: 'Chalten-Core-Roman' ];
-				package: 'Chalten-Core-Julian' with: [ spec requires: 'Chalten-Core-Roman' ].
-			spec
-				package: 'Chalten-Tests-Time' with: [ spec requires: 'Chalten-Core-Time' ];
-				package: 'Chalten-Tests-Filter' with: [ spec requires: 'Chalten-Core-Filter' ];
-				package: 'Chalten-Tests-Hebrew' with: [ spec requires: 'Chalten-Core-Hebrew' ];
-				package: 'Chalten-Tests-Islamic' with: [ spec requires: 'Chalten-Core-Islamic' ];
-				package: 'Chalten-Tests-Roman' with: [ spec requires: 'Chalten-Core-Roman' ];
-				package: 'Chalten-Tests-Gregorian' with: [ spec requires: 'Chalten-Core-Gregorian' ];
-				package: 'Chalten-Tests-Julian' with: [ spec requires: 'Chalten-Core-Julian' ].
+				package: 'Chalten-Core' with: [ spec requires: 'Aconcagua' ];
+				package: 'Chalten-Gregorian-Calendar' with: [ spec requires: 'Chalten-Roman-Calendar' ];
+				package: 'Chalten-Hebrew-Calendar' with: [ spec requires: 'Chalten-Core' ];
+				package: 'Chalten-Islamic-Calendar' with: [ spec requires: 'Chalten-Core' ];
+				package: 'Chalten-Julian-Calendar' with: [ spec requires: 'Chalten-Roman-Calendar' ];
+				package: 'Chalten-Roman-Calendar' with: [ spec requires: 'Chalten-Core' ].
 
 			spec
-				group: 'Chalten-Core' with: #('Chalten-Core-Time' 'Chalten-Core-Filter');
+				package: 'Chalten-Core-Tests' with: [ spec requires: 'Chalten-Core' ];
+				package: 'Chalten-Hebrew-Calendar-Tests' with: [ spec requires: 'Chalten-Hebrew-Calendar' ];
+				package: 'Chalten-Islamic-Calendar-Tests' with: [ spec requires: 'Chalten-Islamic-Calendar' ];
+				package: 'Chalten-Roman-Calendar-Tests' with: [ spec requires: 'Chalten-Roman-Calendar' ];
+				package: 'Chalten-Gregorian-Calendar-Tests' with: [ spec requires: 'Chalten-Gregorian-Calendar' ];
+				package: 'Chalten-Julian-Calendar-Tests' with: [ spec requires: 'Chalten-Julian-Calendar' ].
+
+			spec
 				group: 'Chalten-Calendars'
-					with: #('Chalten-Core-Gregorian' 'Chalten-Core-Hebrew' 'Chalten-Core-Islamic' 'Chalten-Core-Roman' 'Chalten-Core-Julian');
-				group: 'Chalten-Tests' with: #('Chalten-Tests-Time' 'Chalten-Tests-Filter');
+					with: #('Chalten-Gregorian-Calendar' 'Chalten-Hebrew-Calendar' 'Chalten-Islamic-Calendar' 'Chalten-Julian-Calendar' 'Chalten-Roman-Calendar');
 				group: 'Chalten-Calendars-Tests'
-					with: #('Chalten-Tests-Gregorian' 'Chalten-Tests-Hebrew' 'Chalten-Tests-Islamic' 'Chalten-Tests-Roman' 'Chalten-Tests-Julian').
+					with:
+					#('Chalten-Gregorian-Calendar-Tests' 'Chalten-Hebrew-Calendar-Tests' 'Chalten-Islamic-Calendar-Tests' 'Chalten-Julian-Calendar-Tests' 'Chalten-Roman-Calendar-Tests').
 
 			spec
-				group: 'Development' with: #('Chalten-Tests' 'Chalten-Calendars-Tests');
+				group: 'Development' with: #('Chalten-Core-Tests' 'Chalten-Calendars-Tests');
 				group: 'default' with: #('Development').
 			spec postLoadDoIt: #postLoadInitialization ]
 ]
