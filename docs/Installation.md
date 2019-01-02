@@ -22,7 +22,7 @@ setUpDependencies: spec
 		baseline: 'Chalten'
 			with: [ spec
 				repository: 'github://ba-st/Chalten:v{version}/source';
-				loads: #('Chalten-Core-Time Chalten-Core-Filter {Calendars}')];
+				loads: #('Chalten-Core {Calendars}')];
 		import: 'Chalten'.
 ```
 > Replace `{version}` with the version you want to depend on
