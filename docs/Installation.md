@@ -1,4 +1,4 @@
-#Installation
+# Installation
 
 ## Basic Installation
 
@@ -27,12 +27,12 @@ setUpDependencies: spec
 ```
 > Replace `{version}` with the version you want to depend on
 
-> Replace `{Calendars}` with at least one of: 
-- `Chalten-Gregorian-Calendar` to load the Gregorian calendar 
-- `Chalten-Hebrew-Calendar` to load the Hebrew calendar 
-- `Chalten-Islamic-Calendar` to load the Islamic calendar 
-- `Chalten-Julian-Calendar` to load the Julian calendar 
-- `Chalten-Roman-Calendar` to load the Roman calendar 
+> Replace `{Calendars}` as a space-separated list with at least one of: 
+- `Chalten-Gregorian-Calendar` to load the [Gregorian calendar](https://en.wikipedia.org/wiki/Gregorian_calendar)
+- `Chalten-Hebrew-Calendar` to load the [Hebrew calendar](https://en.wikipedia.org/wiki/Hebrew_calendar)
+- `Chalten-Islamic-Calendar` to load the [Islamic calendar](https://en.wikipedia.org/wiki/Islamic_calendar)
+- `Chalten-Julian-Calendar` to load the [Julian calendar](https://en.wikipedia.org/wiki/Julian_calendar)
+- `Chalten-Roman-Calendar` to load the [Roman calendar](https://en.wikipedia.org/wiki/Roman_calendar)
 
 ```smalltalk
 baseline: spec
