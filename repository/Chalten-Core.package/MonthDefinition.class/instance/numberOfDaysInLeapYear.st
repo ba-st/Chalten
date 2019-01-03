@@ -1,4 +1,0 @@
-accessing
-numberOfDaysInLeapYear
-
-	self subclassResponsibility

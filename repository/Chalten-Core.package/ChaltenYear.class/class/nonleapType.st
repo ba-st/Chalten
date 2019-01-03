@@ -1,4 +1,0 @@
-accessing - private
-nonleapType
-
-	^nonleapType

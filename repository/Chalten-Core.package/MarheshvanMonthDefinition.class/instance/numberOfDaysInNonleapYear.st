@@ -1,4 +1,0 @@
-accessing
-numberOfDaysInNonleapYear
-	
-	^self numberOfDays

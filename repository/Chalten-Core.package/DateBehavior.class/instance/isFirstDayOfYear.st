@@ -1,4 +1,0 @@
-testing
-isFirstDayOfYear
-
-	self subclassResponsibility

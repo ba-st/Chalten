@@ -1,9 +1,0 @@
-{
-	"class" : {
-		"isForCurrentPlatform" : "MaximilianoTaborda 9/25/2014 23:33" },
-	"instance" : {
-		"localTimeOffset" : "MaximilianoTaborda 4/28/2014 17:28",
-		"microsecondsClock" : "MaximilianoTaborda 4/28/2014 15:56",
-		"millisecondsClock" : "MaximilianoTaborda 4/28/2014 15:56",
-		"raiseUndefinedEnvironmentExceptionFor:" : "MaximilianoTaborda 4/28/2014 15:55",
-		"secondsClock" : "MaximilianoTaborda 4/28/2014 15:56" } }

@@ -1,5 +1,0 @@
-initialization
-initializeGlobalVariables
-
-	self initializeDaysGlobalVariables.
-	self initializeMonthsGlobalVariables

@@ -1,4 +1,0 @@
-test testing
-testIsForCurrentPlatform
-
-	self deny: ChaltenUndefinedEnvironment isForCurrentPlatform

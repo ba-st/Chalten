@@ -1,4 +1,0 @@
-enumerating
-reset
-	current := from.
-	

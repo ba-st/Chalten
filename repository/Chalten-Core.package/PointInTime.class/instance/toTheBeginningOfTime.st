@@ -1,4 +1,0 @@
-interval protocol
-toTheBeginningOfTime
-
-	^self toTheBeginningOfTimeBy: self defaultIntervalIncrement

@@ -1,4 +1,0 @@
-accessing
-year
-
-	^decoratedRule object

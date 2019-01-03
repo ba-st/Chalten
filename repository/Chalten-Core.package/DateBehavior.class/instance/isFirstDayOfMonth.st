@@ -1,4 +1,0 @@
-testing
-isFirstDayOfMonth
-
-	self subclassResponsibility

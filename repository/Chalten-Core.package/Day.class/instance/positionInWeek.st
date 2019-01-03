@@ -1,4 +1,0 @@
-accessing
-positionInWeek
-
-	^positionInWeek

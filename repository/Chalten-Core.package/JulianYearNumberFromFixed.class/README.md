@@ -1,1 +1,0 @@
-A JulianYearNumberFromFixed is an object used to create a julian year from a number.

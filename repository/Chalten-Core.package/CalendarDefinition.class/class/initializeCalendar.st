@@ -1,5 +1,0 @@
-initialization
-initializeCalendar
-
-	self initializeUniqueInstance.
-	self initializeGlobalNameCalendar

@@ -1,4 +1,0 @@
-day names
-tuesdayName
-	
-	^'Tuesday'

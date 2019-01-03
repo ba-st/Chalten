@@ -1,9 +1,0 @@
-{
-	"class" : {
-		"numberOfDays:" : "mx 2/20/2008 09:29" },
-	"instance" : {
-		"initializeNumberOfDays:" : "mx 2/20/2008 09:29",
-		"numberOfDays" : "mx 2/20/2008 09:29",
-		"numberOfDaysIn:" : "MaximilianoTaborda 8/23/2014 18:06",
-		"numberOfDaysInLeapYear" : "mx 2/20/2008 09:29",
-		"numberOfDaysInNonleapYear" : "mx 2/20/2008 09:29" } }

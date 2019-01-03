@@ -1,5 +1,0 @@
-accessing
-lastTimeOfDay
-
-	^lastTimeOfDay
-	

@@ -1,4 +1,0 @@
-querying
-timeToEndOfDay
-
-	^timeOfDay timeToEndOfDay

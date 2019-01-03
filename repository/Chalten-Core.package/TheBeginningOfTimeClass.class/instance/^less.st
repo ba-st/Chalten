@@ -1,4 +1,0 @@
-magnitude protocol
-< aMagnitude
-
-	^true

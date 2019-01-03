@@ -1,4 +1,0 @@
-accessing
-midnight
-	
-	^self firstTimeOfDay

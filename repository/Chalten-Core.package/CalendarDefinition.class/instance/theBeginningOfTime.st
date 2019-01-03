@@ -1,4 +1,0 @@
-dates accessing
-theBeginningOfTime
-
-	^TheBeginningOfTime

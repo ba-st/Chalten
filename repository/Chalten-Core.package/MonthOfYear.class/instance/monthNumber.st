@@ -1,4 +1,0 @@
-accessing
-monthNumber
-
-	^month number

@@ -1,4 +1,0 @@
-testing
-isForCurrentPlatform
-
-	self subclassResponsibility

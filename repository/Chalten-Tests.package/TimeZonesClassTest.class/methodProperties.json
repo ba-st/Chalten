@@ -1,8 +1,0 @@
-{
-	"class" : {
-		 },
-	"instance" : {
-		"testAccessingTimeZones" : "MaximilianoTaborda 10/3/2014 21:29",
-		"testAccessingTimeZonesNames" : "MaximilianoTaborda 10/3/2014 21:29",
-		"testAccessingTimeZonesOffsets" : "MaximilianoTaborda 10/3/2014 21:30",
-		"testCreateTimeZoneNamedOfsset" : "MaximilianoTaborda 5/15/2014 19:52" } }

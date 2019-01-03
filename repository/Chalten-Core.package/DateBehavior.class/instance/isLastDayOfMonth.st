@@ -1,4 +1,0 @@
-testing
-isLastDayOfMonth
-
-	self subclassResponsibility

@@ -1,4 +1,0 @@
-accessing days
-numberOfDaysFromEpoch
-
-	^self absoluteDate numberOfDaysFromEpoch

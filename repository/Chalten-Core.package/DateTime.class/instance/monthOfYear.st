@@ -1,4 +1,0 @@
-accessing
-monthOfYear
-
-	^date monthOfYear

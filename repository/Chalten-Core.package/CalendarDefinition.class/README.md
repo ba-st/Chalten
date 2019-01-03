@@ -1,2 +1,0 @@
-A CalendarDefinition is an abstract class which defines common behavior for calendars.
-All the calendars, their protocol and conversion was developed according to the description found in the book Calendrical Calculations written by Edward M. Reingold and Nachum Dershowitz.

@@ -1,4 +1,0 @@
-month names
-aprilName
-	
-	^'April'

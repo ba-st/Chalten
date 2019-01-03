@@ -1,4 +1,0 @@
-days accessing
-maximumNumberOfDaysInOneYear
-
-	self subclassResponsibility

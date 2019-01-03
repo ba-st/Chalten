@@ -1,4 +1,0 @@
-accessing
-noon
-	
-	^noon

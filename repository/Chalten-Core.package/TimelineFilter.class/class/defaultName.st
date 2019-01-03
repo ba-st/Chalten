@@ -1,4 +1,0 @@
-defaults
-defaultName
-
-	^'Unnamed'

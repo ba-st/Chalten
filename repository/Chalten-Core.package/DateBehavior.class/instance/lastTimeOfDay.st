@@ -1,4 +1,0 @@
-accessing datetime
-lastTimeOfDay
-
-	self subclassResponsibility

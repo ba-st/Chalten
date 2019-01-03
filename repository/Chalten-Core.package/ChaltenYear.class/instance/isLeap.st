@@ -1,4 +1,0 @@
-testing
-isLeap
-
-	^type isLeap

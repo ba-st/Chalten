@@ -1,4 +1,0 @@
-accessing time
-millisecondsClock
-
-	self raiseUndefinedEnvironmentExceptionFor: #millisecondsClock

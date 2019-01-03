@@ -1,1 +1,0 @@
-This class is used to load Chalten from github repository

@@ -1,4 +1,0 @@
-months accessing
-amountOfMonthsPerYear
-
-	self subclassResponsibility

@@ -1,4 +1,0 @@
-test support
-firstDate
-
-	^self

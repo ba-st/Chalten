@@ -1,4 +1,0 @@
-accessing
-defaultMonthsForCircularStreamStrategy
-
-	^MonthsOfNonleapYearsForCircularStreamStrategy of: self calendar

@@ -1,4 +1,0 @@
-months accessing
-monthsForLeapYears
-
-	^leapYearsMonths

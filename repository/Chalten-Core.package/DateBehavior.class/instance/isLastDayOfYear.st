@@ -1,4 +1,0 @@
-testing
-isLastDayOfYear
-
-	self subclassResponsibility

@@ -1,1 +1,0 @@
-A CorrectionForDateFromFixedWhenOtherwise is a class for corrections made when number is other.

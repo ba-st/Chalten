@@ -1,4 +1,0 @@
-accessing time
-localTimeOffset
-
-	self raiseUndefinedEnvironmentExceptionFor: #localTimeOffset

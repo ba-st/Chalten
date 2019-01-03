@@ -1,4 +1,0 @@
-accessing
-hash
-
-	^timeFromMidnight hash

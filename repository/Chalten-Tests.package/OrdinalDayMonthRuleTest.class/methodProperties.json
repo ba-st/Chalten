@@ -1,9 +1,0 @@
-{
-	"class" : {
-		 },
-	"instance" : {
-		"testDifferentMonth" : "MaximilianoTaborda 8/3/2014 20:34",
-		"testIncludesDayMovesToTheThirdMonday" : "MaximilianoTaborda 7/15/2014 16:10",
-		"testIncludesDayWhenDayIsSaturday" : "MaximilianoTaborda 7/15/2014 16:10",
-		"testOrdinal" : "MaximilianoTaborda 10/3/2014 20:38",
-		"testPrintOn" : "MaximilianoTaborda 7/15/2014 16:49" } }

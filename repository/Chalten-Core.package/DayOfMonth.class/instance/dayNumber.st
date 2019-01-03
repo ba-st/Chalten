@@ -1,4 +1,0 @@
-accessing
-dayNumber
-
-	^dayNumber
