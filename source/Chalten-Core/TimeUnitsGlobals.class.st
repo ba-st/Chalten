@@ -197,7 +197,9 @@ TimeUnitsGlobals >> initializeWeek [
 { #category : #'initialize - private' }
 TimeUnitsGlobals >> initializeYear [
 
-	year := BaseUnit nameForOne: 'year' nameForMany: 'years'
+	year := ProportionalDerivedUnit baseUnit: month
+		        conversionFactor: GregorianCalendar amountOfMonthsPerYear
+		        named: 'year'
 ]
 
 { #category : #'accessing - units' }
