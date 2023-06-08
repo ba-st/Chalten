@@ -22,8 +22,8 @@ GregorianCalendarConcepts class >> initialize [
 { #category : #initialization }
 GregorianCalendarConcepts class >> initializeAfterLoad [
 
-	GregorianCalendar := GregorianCalendarDefinition new.
-	self initializeTimeUnits
+	self initializeTimeUnits.
+	GregorianCalendar := GregorianCalendarDefinition new
 ]
 
 { #category : #initialization }

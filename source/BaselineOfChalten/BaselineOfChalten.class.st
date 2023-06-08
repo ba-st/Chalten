@@ -16,7 +16,7 @@ BaselineOfChalten >> baseline: spec [
 		do: [ self setUpDependencies: spec.
 			spec
 				package: 'Chalten-Core' with: [ spec requires: 'Aconcagua-Deployment' ];
-				package: 'Chalten-Gregorian-Calendar' with: [ spec requires: 'Chalten-Roman-Calendar' ];
+				package: 'Chalten-Gregorian-Calendar' with: [ spec requires: #('Chalten-Roman-Calendar' 'Buoy-Deployment') ];
 				package: 'Chalten-Hebrew-Calendar' with: [ spec requires: 'Chalten-Core' ];
 				package: 'Chalten-Islamic-Calendar' with: [ spec requires: 'Chalten-Core' ];
 				package: 'Chalten-Julian-Calendar' with: [ spec requires: 'Chalten-Roman-Calendar' ];
@@ -67,5 +67,9 @@ BaselineOfChalten >> setUpDependencies: spec [
 
 	spec
 		baseline: 'Aconcagua' with: [ spec repository: 'github://ba-st/Aconcagua:v8' ];
-		project: 'Aconcagua-Deployment' copyFrom: 'Aconcagua' with: [ spec loads: #('Deployment') ]
+		project: 'Aconcagua-Deployment' copyFrom: 'Aconcagua' with: [ spec loads: #( 'Deployment' ) ].
+
+	spec
+		baseline: 'Buoy' with: [ spec repository: 'github://github://ba-st/Buoy:v6' ];
+		project: 'Buoy-Deployment' copyFrom: 'Buoy' with: [ spec loads: 'Deployment' ]
 ]
