@@ -23,6 +23,9 @@ Class {
 		'months',
 		'days'
 	],
+	#pools : [
+		'JulianTimeConcepts'
+	],
 	#classInstVars : [
 		'uniqueInstance'
 	],
@@ -80,7 +83,7 @@ JulianCalendarDefinition >> distanceInYearsFrom: aFromYear to: aToYear [
 	aFromYear number < 0
 		ifTrue: [aToYear number > 0 ifTrue: [difference := difference - 1]]
 		ifFalse: [aToYear number < 0 ifTrue: [difference := difference + 1]].
-	^difference yearsMeasure
+	^ self yearUnit with: difference
 ]
 
 { #category : #accessing }
@@ -174,6 +177,12 @@ JulianCalendarDefinition >> isYearNumberLeap: aNumber [
 	^aNumber > 0 ifTrue: [aNumber \\ 4 = 0] ifFalse: [aNumber \\ 4 = 3]
 ]
 
+{ #category : #'days accessing' }
+JulianCalendarDefinition >> monthUnit [
+
+	^ JulianTimeUnits >> #month
+]
+
 { #category : #'months accessing' }
 JulianCalendarDefinition >> months [
 
@@ -216,4 +225,10 @@ JulianCalendarDefinition >> numberOfDaysFromDate: aJulianDate [
 JulianCalendarDefinition >> printOn: aStream [
 
 	aStream nextPutAll: 'Julian Calendar'
+]
+
+{ #category : #'days accessing' }
+JulianCalendarDefinition >> yearUnit [
+
+	^ JulianTimeUnits >> #year
 ]

@@ -24,14 +24,14 @@ JulianMonthOfYearTest class >> classUnderTest [
 { #category : #initialization }
 JulianMonthOfYearTest >> setUp [
 	calendar := JulianCalendar.
-	zeroMonths := 0 monthsMeasure.
-	oneMonth := 1 monthMeasure.
-	twoMonths := 2 monthsMeasure.
-	elevenMonths := 11 monthsMeasure.
-	twelveMonths := 12 monthsMeasure.
-	thirteenMonths := 13 monthsMeasure.
-	oneYear := 1 yearMeasure.
-	twoYears := 2 yearsMeasure
+	zeroMonths := calendar monthUnit with: 0.
+	oneMonth := calendar monthUnit with: 1.
+	twoMonths := calendar monthUnit with: 2.
+	elevenMonths := calendar monthUnit with: 11.
+	twelveMonths := calendar monthUnit with: 12.
+	thirteenMonths := calendar monthUnit with: 13.
+	oneYear := calendar yearUnit with: 1.
+	twoYears := calendar yearUnit with: 2
 ]
 
 { #category : #'test comparing' }
@@ -254,8 +254,8 @@ JulianMonthOfYearTest >> testNextANumberOfMonths [
 	self assert: (JulianJanuary , 2004 next: zeroMonths) = (JulianJanuary , 2004).
 	self assert: (JulianJanuary , 2004 next: oneYear) = (JulianJanuary , 2005).
 	self assert: (JulianApril , 2004 next: oneYear) = (JulianApril , 2005).
-	self assert: (JulianJanuary , 2004 next: 0.5 monthsMeasure) = (JulianJanuary , 2004).
-	self assert: (JulianJanuary , 2004 next: 1.5 monthsMeasure) = (JulianFebruary , 2004)
+	self assert: (JulianJanuary , 2004 next: 0.5 julianMonths) = (JulianJanuary , 2004).
+	self assert: (JulianJanuary , 2004 next: 1.5 julianMonths) = (JulianFebruary , 2004)
 ]
 
 { #category : #'test querying' }
@@ -413,7 +413,7 @@ JulianMonthOfYearTest >> testToByYearsDo [
 JulianMonthOfYearTest >> testToNegativeBy [
 	| interval number |
 	interval := (MonthOfYear yearNumber: 2004 monthNumber: 12 calendar: calendar) to:
-		(MonthOfYear yearNumber: 2004 monthNumber: 01 calendar: calendar) by: -2 monthsMeasure.
+		(MonthOfYear yearNumber: 2004 monthNumber: 01 calendar: calendar) by: -2 julianMonths.
 	number := 12.
 	interval
 		do: [ :monthOfYear | 
@@ -426,7 +426,7 @@ JulianMonthOfYearTest >> testToNegativeBy [
 JulianMonthOfYearTest >> testToReverse [
 	| coll number |
 	coll := ((MonthOfYear yearNumber: 2004 monthNumber: 01 calendar: calendar) to:
-		(MonthOfYear yearNumber: 2004 monthNumber: 12 calendar: calendar) by: 2 monthsMeasure) reverse.
+		(MonthOfYear yearNumber: 2004 monthNumber: 12 calendar: calendar) by: 2 julianMonths) reverse.
 	number := 11.
 	coll
 		do: [ :monthOfYear | 

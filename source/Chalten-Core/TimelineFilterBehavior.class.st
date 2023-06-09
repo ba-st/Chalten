@@ -8,6 +8,12 @@ Class {
 	#category : #'Chalten-Core-Filter'
 }
 
+{ #category : #accessing }
+TimelineFilterBehavior >> calendar [
+	
+	self subclassResponsibility 
+]
+
 { #category : #enumerating }
 TimelineFilterBehavior >> daysBetween: aDate and: anotherDate [
 
@@ -86,7 +92,7 @@ TimelineFilterBehavior >> next: aTimespan [
 { #category : #'querying - included' }
 TimelineFilterBehavior >> numberOfDaysBetween: aDate and: anotherDate [
 
-	^Measure amount: (self daysBetween: aDate and: anotherDate) size unit: TimeUnits day
+	^Measure amount: (self daysBetween: aDate and: anotherDate) size unit: self calendar dayUnit
 ]
 
 { #category : #printing }

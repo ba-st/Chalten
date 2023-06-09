@@ -259,7 +259,7 @@ HebrewCalendarDefinitionTest >> testDistanceInYearsFromTo [
 
 	self assert: (HebrewCalendar
 		distanceInYearsFrom: 5773 asHebrewYear
-		to: 5775 asHebrewYear) = 2 yearsMeasure
+		to: 5775 asHebrewYear) = (HebrewCalendar yearUnit with: 2)
 ]
 
 { #category : #'test months accessing' }
@@ -667,7 +667,7 @@ HebrewCalendarDefinitionTest >> testNumberOfDaysPerWeek [
 
 { #category : #'test months accessing' }
 HebrewCalendarDefinitionTest >> testNumberOfMonthsPerYear [
-	self assert: HebrewCalendar numberOfMonthsPerYear = 13 monthsMeasure
+	self assert: HebrewCalendar numberOfMonthsPerYear = 13 hebrewMonth.
 ]
 
 { #category : #'test printing' }

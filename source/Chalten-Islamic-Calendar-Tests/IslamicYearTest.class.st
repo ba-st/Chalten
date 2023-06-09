@@ -24,14 +24,14 @@ IslamicYearTest class >> classUnderTest [
 { #category : #initialization }
 IslamicYearTest >> setUp [
 	calendar := IslamicCalendar.
-	zeroYears := 0 yearsMeasure.
-	oneYear := 1 yearMeasure.
-	twoYears := 2 yearsMeasure.
-	tenYears := 10 yearsMeasure.
-	sixMonths := 6 monthsMeasure.
-	thirteenMonths := 13 monthsMeasure.
-	twentyNineDays := 29 daysMeasure.
-	thirtyDays := 30 daysMeasure
+	zeroYears := calendar yearUnit with: 0.
+	oneYear := calendar yearUnit with: 1.
+	twoYears := calendar yearUnit with: 2.
+	tenYears := calendar yearUnit with: 10.
+	sixMonths := calendar monthUnit with: 6.
+	thirteenMonths := calendar monthUnit with: 13.
+	twentyNineDays := calendar dayUnit with: 29.
+	thirtyDays := calendar dayUnit with: 30
 ]
 
 { #category : #'test accessing' }
@@ -44,7 +44,7 @@ IslamicYearTest >> testDates [
 
 { #category : #'test interval protocol' }
 IslamicYearTest >> testDistanceTo [
-	self assert: (2005 asIslamicYear absoluteDistanceTo: 2008 asIslamicYear) = 3 yearsMeasure
+	self assert: (2005 asIslamicYear absoluteDistanceTo: 2008 asIslamicYear) = 3 islamicYears
 ]
 
 { #category : #'test comparing' }
@@ -304,8 +304,8 @@ IslamicYearTest >> testNumberOfMonths [
 	leapYear := 1535 asIslamicYear.
 	nonleapYear := 1536 asIslamicYear.
 	
-	self assert: leapYear numberOfMonths = 12 monthsMeasure.
-	self assert: nonleapYear numberOfMonths = 12 monthsMeasure
+	self assert: leapYear numberOfMonths = 12 islamicMonths.
+	self assert: nonleapYear numberOfMonths = 12 islamicMonths
 ]
 
 { #category : #'test querying' }

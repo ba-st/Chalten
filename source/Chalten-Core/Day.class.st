@@ -48,7 +48,8 @@ Day >> calendar [
 
 { #category : #'interval protocol - private' }
 Day >> defaultIntervalIncrement [
-	^ 1 dayMeasure
+
+	^ self calendar dayUnit with: 1
 ]
 
 { #category : #querying }
@@ -56,7 +57,7 @@ Day >> distanceTo: aDay [
 
 	| stream |
 	
-	stream := CircularReadStream on: self calendar days moving: TimeUnits day.
+	stream := CircularReadStream on: self calendar days moving: self calendar dayUnit.
 	^stream distanceFrom: self to: aDay
 ]
 
@@ -91,7 +92,7 @@ Day >> next: aNumberOfDays [
 
 	| stream |
 	
-	stream := CircularReadStream on: self calendar days moving: TimeUnits day.
+	stream := CircularReadStream on: self calendar days moving: self calendar dayUnit.
 	stream upTo: self.
 	^stream next: aNumberOfDays
 ]

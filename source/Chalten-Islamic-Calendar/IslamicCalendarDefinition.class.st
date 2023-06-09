@@ -336,7 +336,7 @@ IslamicCalendarDefinition >> distanceInYearsFrom: aFromYear to: aToYear [
 	| difference |
 
 	difference := aToYear number - aFromYear number.
-	^difference yearsMeasure
+	^ self yearUnit with: difference
 ]
 
 { #category : #accessing }
@@ -631,6 +631,12 @@ IslamicCalendarDefinition >> lastMonth [
 { #category : #'days accessing' }
 IslamicCalendarDefinition >> maximumNumberOfDaysInOneYear [
 	^ 355 daysMeasure
+]
+
+{ #category : #'days accessing' }
+IslamicCalendarDefinition >> monthUnit [
+
+	^ IslamicTimeUnits >> #month
 ]
 
 { #category : #'months accessing' }
@@ -999,4 +1005,10 @@ IslamicCalendarDefinition >> yaumAthThalathaName [
 IslamicCalendarDefinition >> yaumAthThalathaPositionInWeek [
 	
 	^3
+]
+
+{ #category : #'days accessing' }
+IslamicCalendarDefinition >> yearUnit [
+
+	^ IslamicTimeUnits >> #year
 ]

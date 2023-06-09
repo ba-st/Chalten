@@ -5,6 +5,9 @@ All the calendars, their protocol and conversion was developed according to the 
 Class {
 	#name : #CalendarDefinition,
 	#superclass : #Object,
+	#pools : [
+		'IslamicTimeConcepts'
+	],
 	#category : #'Chalten-Core-Time'
 }
 
@@ -229,6 +232,12 @@ CalendarDefinition >> dayPositionedInWeek: aNumber [
 ]
 
 { #category : #'days accessing' }
+CalendarDefinition >> dayUnit [
+
+	^ TimeUnits day
+]
+
+{ #category : #'days accessing' }
 CalendarDefinition >> days [
 
 	self subclassResponsibility
@@ -356,6 +365,12 @@ CalendarDefinition >> monthNumbered: aNumber [
 		ifNone: [InvalidMonthNumberException signalNumber: aNumber]
 ]
 
+{ #category : #'days accessing' }
+CalendarDefinition >> monthUnit [
+
+	self subclassResponsibility
+]
+
 { #category : #'months accessing' }
 CalendarDefinition >> months [
 
@@ -418,13 +433,13 @@ CalendarDefinition >> numberOfDaysPerWeek [
 { #category : #'months accessing' }
 CalendarDefinition >> numberOfMonthsPerYear [
 
-	^ self amountOfMonthsPerYear monthsMeasure
+	^ self monthUnit with: self amountOfMonthsPerYear
 ]
 
 { #category : #'days accessing' }
 CalendarDefinition >> sinceFirstDayOfWeek: aNumberOfDays [
 
-	^self dayPositionedInWeek: (aNumberOfDays convertTo: TimeUnits day) amount + 1
+	^ self dayPositionedInWeek: ( aNumberOfDays convertTo: self dayUnit ) amount + 1
 ]
 
 { #category : #'dates accessing' }
@@ -449,6 +464,12 @@ CalendarDefinition >> today [
 CalendarDefinition >> tomorrow [
 
 	^self today next
+]
+
+{ #category : #'days accessing' }
+CalendarDefinition >> yearUnit [
+
+	self subclassResponsibility
 ]
 
 { #category : #'dates accessing' }

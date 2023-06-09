@@ -198,7 +198,8 @@ ChaltenYear >> december [
 
 { #category : #'interval protocol - private' }
 ChaltenYear >> defaultIntervalIncrement [
-	^ 1 yearMeasure
+
+	^ self calendar yearUnit with: 1
 ]
 
 { #category : #'as yet unclassified' }
@@ -421,7 +422,7 @@ ChaltenYear >> newNumberFrom: aNumberOfYears [
 { #category : #enumerating }
 ChaltenYear >> next: aMeasure [
 
-	^self nextNumberOfYears: (aMeasure convertTo: TimeUnits year) amount
+	^self nextNumberOfYears: (aMeasure convertTo: self calendar yearUnit) amount
 ]
 
 { #category : #enumerating }
@@ -476,7 +477,7 @@ ChaltenYear >> numberOfDaysFor: aMonthDefinition [
 { #category : #'accessing months' }
 ChaltenYear >> numberOfMonths [
 
-	^self amountOfMonths monthsMeasure
+	^self calendar monthUnit with: self amountOfMonths
 ]
 
 { #category : #'as yet unclassified' }

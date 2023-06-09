@@ -261,7 +261,7 @@ IslamicCalendarDefinitionTest >> testDistanceInYearsFromTo [
 
 	self assert: (IslamicCalendar
 		distanceInYearsFrom: 1435 asIslamicYear
-		to: 1437 asIslamicYear) = 2 yearsMeasure
+		to: 1437 asIslamicYear) = 2 islamicYear
 ]
 
 { #category : #'test accessing' }
@@ -608,7 +608,7 @@ IslamicCalendarDefinitionTest >> testNumberOfDaysPerWeek [
 
 { #category : #'test months accessing' }
 IslamicCalendarDefinitionTest >> testNumberOfMonthsPerYear [
-	self assert: IslamicCalendar numberOfMonthsPerYear = 12 monthsMeasure
+	self assert: IslamicCalendar numberOfMonthsPerYear = 12 islamicMonth
 ]
 
 { #category : #'test printing' }

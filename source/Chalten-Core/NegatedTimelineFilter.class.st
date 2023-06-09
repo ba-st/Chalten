@@ -23,6 +23,12 @@ NegatedTimelineFilter class >> for: aTimeLineFilter [
 	^self new initializeFor: aTimeLineFilter
 ]
 
+{ #category : #accessing }
+NegatedTimelineFilter >> calendar [
+	
+	^ originalTimelineFilter calendar
+]
+
 { #category : #'querying - included' }
 NegatedTimelineFilter >> includes: aDate [
 

@@ -33,6 +33,12 @@ DaysOfMonthsStream class >> startingOn: aMonthOfYear monthsStrategy: aMonthsStra
 	^self new initializeStartingOn: aMonthOfYear monthsStrategy: aMonthsStrategy
 ]
 
+{ #category : #initialization }
+DaysOfMonthsStream >> calendar [
+
+	^ start calendar
+]
+
 { #category : #querying }
 DaysOfMonthsStream >> distanceTo: aDayOfMonth [
 
@@ -69,7 +75,7 @@ DaysOfMonthsStream >> next: aMeasure [
 	| daysToAdd stream lastDayNumber |
 	
 	aMeasure negative ifTrue: [ ^self previous: aMeasure negated ].
-	daysToAdd := current dayNumber + (aMeasure convertTo: TimeUnits day) amount.
+	daysToAdd := current dayNumber + (aMeasure convertTo: self calendar dayUnit) amount.
 	stream := strategy stream.
 	stream upTo: current month.
 	lastDayNumber := (strategy numberOfDaysOf: current month) amount.
@@ -93,7 +99,7 @@ DaysOfMonthsStream >> previous: aMeasure [
 	| daysToSubtract stream |
 	
 	aMeasure negative ifTrue: [ ^self next: aMeasure negated ].
-	daysToSubtract := current dayNumber - (aMeasure convertTo: TimeUnits day) amount.
+	daysToSubtract := current dayNumber - (aMeasure convertTo: self calendar dayUnit) amount.
 	stream := strategy stream.
 	stream upTo: current month.
 	(daysToSubtract < 1)

@@ -671,26 +671,26 @@ IslamicDateTest >> testNextInNumberOfDays [
 
 { #category : #'test enumerating' }
 IslamicDateTest >> testNextInWeeks [
-	self assert: (Muharram first , 1428 next: 1 weekMeasure) = (Muharram first , 1428 next: 7 daysMeasure).
-	self assert: (Muharram first , 1428 next: 2 weeksMeasure) = (Muharram first , 1428 next: 14 daysMeasure)
+	self assert: (Muharram first , 1428 next: 1 islamicWeek) = (Muharram first , 1428 next: 7 daysMeasure).
+	self assert: (Muharram first , 1428 next: 2 islamicWeek) = (Muharram first , 1428 next: 14 daysMeasure)
 ]
 
 { #category : #'test enumerating' }
 IslamicDateTest >> testNextMonth [
 	| day |
 	day := Muharram first , 1428.
-	self assert: (day nextMonth: 1 monthMeasure) = (Safar first , 1428).
-	self assert: (day nextMonth: 2 monthsMeasure) = (RabiI first , 1428).
-	self assert: (day nextMonth: 3 monthsMeasure) = (RabiII first , 1428).
-	self assert: (day nextMonth: 4 monthsMeasure) = (JumadaI first , 1428).
-	self assert: (day nextMonth: 5 monthsMeasure) = (JumadaII first , 1428).
-	self assert: (day nextMonth: 6 monthsMeasure) = (Rajab first , 1428).
-	self assert: (day nextMonth: 7 monthsMeasure) = (Shaban first , 1428).
-	self assert: (day nextMonth: 8 monthsMeasure) = (Ramadan first , 1428).
-	self assert: (day nextMonth: 9 monthsMeasure) = (Shawwal first , 1428).
-	self assert: (day nextMonth: 10 monthsMeasure) = (DhuAlQada first , 1428).
-	self assert: (day nextMonth: 11 monthsMeasure) = (DhuAlHijja first , 1428).
-	self assert: (day nextMonth: 12 monthsMeasure) = (Muharram first , 1429)
+	self assert: (day nextMonth: 1 islamicMonth) = (Safar first , 1428).
+	self assert: (day nextMonth: 2 islamicMonths) = (RabiI first , 1428).
+	self assert: (day nextMonth: 3 islamicMonths) = (RabiII first , 1428).
+	self assert: (day nextMonth: 4 islamicMonths) = (JumadaI first , 1428).
+	self assert: (day nextMonth: 5 islamicMonths) = (JumadaII first , 1428).
+	self assert: (day nextMonth: 6 islamicMonths) = (Rajab first , 1428).
+	self assert: (day nextMonth: 7 islamicMonths) = (Shaban first , 1428).
+	self assert: (day nextMonth: 8 islamicMonths) = (Ramadan first , 1428).
+	self assert: (day nextMonth: 9 islamicMonths) = (Shawwal first , 1428).
+	self assert: (day nextMonth: 10 islamicMonths) = (DhuAlQada first , 1428).
+	self assert: (day nextMonth: 11 islamicMonths) = (DhuAlHijja first , 1428).
+	self assert: (day nextMonth: 12 islamicMonths) = (Muharram first , 1429)
 ]
 
 { #category : #'test accessing' }
@@ -778,8 +778,8 @@ IslamicDateTest >> testPreviousInNumberOfDays [
 
 { #category : #'test enumerating' }
 IslamicDateTest >> testPreviousInWeeks [
-	self assert: (Muharram first , 1428 previous: 1 weekMeasure) = (Muharram first , 1428 previous: 7 daysMeasure).
-	self assert: (Muharram first , 1428 previous: 2 weeksMeasure) = (Muharram first , 1428 previous: 14 daysMeasure)
+	self assert: (Muharram first , 1428 previous: 1 islamicWeek) = (Muharram first , 1428 previous: 7 daysMeasure).
+	self assert: (Muharram first , 1428 previous: 2 islamicWeek) = (Muharram first , 1428 previous: 14 daysMeasure)
 ]
 
 { #category : #'test printing' }

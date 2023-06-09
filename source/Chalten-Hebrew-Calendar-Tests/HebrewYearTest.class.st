@@ -24,14 +24,14 @@ HebrewYearTest class >> classUnderTest [
 { #category : #initialization }
 HebrewYearTest >> setUp [
 	calendar := HebrewCalendar.
-	zeroYears := 0 yearsMeasure.
-	oneYear := 1 yearMeasure.
-	twoYears := 2 yearsMeasure.
-	tenYears := 10 yearsMeasure.
-	sixMonths := 6 monthsMeasure.
-	fourteenMonths := 14 monthsMeasure.
-	twentyNineDays := 29 daysMeasure.
-	thirtyDays := 30 daysMeasure
+	zeroYears := calendar yearUnit with: 0.
+	oneYear := calendar yearUnit with: 1.
+	twoYears := calendar yearUnit with: 2.
+	tenYears := calendar yearUnit with: 10.
+	sixMonths := calendar monthUnit with: 6.
+	fourteenMonths := calendar monthUnit with: 14.
+	twentyNineDays := calendar dayUnit with: 29.
+	thirtyDays := calendar dayUnit with: 30
 ]
 
 { #category : #'test accessing' }
@@ -44,7 +44,7 @@ HebrewYearTest >> testDates [
 
 { #category : #'test interval protocol' }
 HebrewYearTest >> testDistanceTo [
-	self assert: (5767 asHebrewYear absoluteDistanceTo: 5770 asHebrewYear) = 3 yearsMeasure
+	self assert: (5767 asHebrewYear absoluteDistanceTo: 5770 asHebrewYear) = 3 hebrewYear
 ]
 
 { #category : #'test comparing' }
@@ -328,8 +328,8 @@ HebrewYearTest >> testNumberOfMonths [
 	leapYear := 5776 asHebrewYear.
 	nonleapYear := 5775 asHebrewYear.
 	
-	self assert: leapYear numberOfMonths = 13 monthsMeasure.
-	self assert: nonleapYear numberOfMonths = 12 monthsMeasure
+	self assert: leapYear numberOfMonths = 13 hebrewMonth.
+	self assert: nonleapYear numberOfMonths = 12 hebrewMonth
 ]
 
 { #category : #'test querying' }

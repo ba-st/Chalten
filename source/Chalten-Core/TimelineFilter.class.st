@@ -22,7 +22,8 @@ Class {
 	#instVars : [
 		'inclusionSet',
 		'name',
-		'negatedTimeLineFilter'
+		'negatedTimeLineFilter',
+		'calendar'
 	],
 	#category : #'Chalten-Core-Filter'
 }
@@ -57,6 +58,12 @@ TimelineFilter class >> defaultName [
 	^'Unnamed'
 ]
 
+{ #category : #'instance creation' }
+TimelineFilter class >> filtering: aCalendar [
+
+	^self named: self defaultName filtering: aCalendar
+]
+
 { #category : #'rules - creating' }
 TimelineFilter class >> monthOfYearRule: aMonthOfYear [
 
@@ -72,13 +79,19 @@ TimelineFilter class >> monthRule: aMonth [
 { #category : #'instance creation' }
 TimelineFilter class >> named: aName [
 
-	^super new initializeNamed: aName
+	^ self named: aName filtering: GregorianCalendar
+]
+
+{ #category : #'instance creation' }
+TimelineFilter class >> named: aName filtering: aCalendar [
+
+ 	^super new initializeNamed: aName filtering: aCalendar
 ]
 
 { #category : #'instance creation' }
 TimelineFilter class >> new [
 
-	^self named: self defaultName
+	^self named: self defaultName filtering: GregorianCalendar
 ]
 
 { #category : #'rules - creating' }
@@ -218,6 +231,12 @@ TimelineFilter >> argentineLaw23555Rule: aGregorianDayOfMonth [
 	^self class argentineLaw23555Rule: aGregorianDayOfMonth
 ]
 
+{ #category : #accessing }
+TimelineFilter >> calendar [
+
+	^ calendar
+]
+
 { #category : #'rules - creating' }
 TimelineFilter >> dateRule: aDate [
 
@@ -249,10 +268,11 @@ TimelineFilter >> includes: aDate [
 ]
 
 { #category : #initialization }
-TimelineFilter >> initializeNamed: aName [
+TimelineFilter >> initializeNamed: aName filtering: aCalendar [
 
 	name := aName.
 	inclusionSet := Set new.
+	calendar := aCalendar.
 	negatedTimeLineFilter := NegatedTimelineFilter for: self
 ]
 

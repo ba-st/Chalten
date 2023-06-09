@@ -23,6 +23,9 @@ Class {
 		'months',
 		'days'
 	],
+	#pools : [
+		'GregorianTimeConcepts'
+	],
 	#classInstVars : [
 		'uniqueInstance'
 	],
@@ -69,6 +72,12 @@ GregorianCalendarDefinition >> currentDateTime [
 ]
 
 { #category : #'days accessing' }
+GregorianCalendarDefinition >> dayUnit [
+
+	^ TimeUnits day
+]
+
+{ #category : #'days accessing' }
 GregorianCalendarDefinition >> days [
 
 	^days
@@ -80,7 +89,7 @@ GregorianCalendarDefinition >> distanceInYearsFrom: aFromYear to: aToYear [
 	| difference |
 
 	difference := aToYear number - aFromYear number.
-	^difference yearsMeasure
+	^ self yearUnit with: difference
 ]
 
 { #category : #accessing }
@@ -175,6 +184,12 @@ GregorianCalendarDefinition >> isYearNumberLeap: aNumber [
 	^aNumber \\ 4 = 0 and: [(aNumber \\ 100 ~= 0 or: [aNumber \\ 400 = 0])]
 ]
 
+{ #category : #'days accessing' }
+GregorianCalendarDefinition >> monthUnit [
+
+	^ GregorianTimeUnits >> #month
+]
+
 { #category : #'months accessing' }
 GregorianCalendarDefinition >> months [
 
@@ -220,4 +235,10 @@ GregorianCalendarDefinition >> pharoEpoch [
 GregorianCalendarDefinition >> printOn: aStream [
 
 	aStream nextPutAll: 'Gregorian Calendar'
+]
+
+{ #category : #'days accessing' }
+GregorianCalendarDefinition >> yearUnit [
+	
+	^ GregorianTimeUnits >> #year
 ]

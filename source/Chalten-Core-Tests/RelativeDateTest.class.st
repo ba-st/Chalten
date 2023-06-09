@@ -12,7 +12,7 @@ Class {
 
 { #category : #initialization }
 RelativeDateTest >> setUp [
-	timelineFilter := TimelineFilter new.
+	timelineFilter := TimelineFilter filtering: GregorianCalendar.
 	timelineFilter addDayRule: GregorianCalendar saturday.
 	timelineFilter addDayRule: GregorianCalendar sunday.
 	relativeDate := RelativeDate

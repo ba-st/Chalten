@@ -235,9 +235,9 @@ FixedDate >> monthOfYear [
 { #category : #enumerating }
 FixedDate >> next: aMeasure [
 
-	^(TimeUnits day sameDomainAs: aMeasure unit)
-		ifTrue: [calendar dateFromDays: (self dayNumberFromEpoch + aMeasure)]
-		ifFalse: [self nextMonth: aMeasure]
+	^ ( calendar dayUnit sameDomainAs: aMeasure unit ) 
+		ifTrue: [ calendar dateFromDays: self dayNumberFromEpoch + aMeasure ]
+		ifFalse: [ self nextMonth: aMeasure ]
 ]
 
 { #category : #enumerating }

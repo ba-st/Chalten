@@ -28,6 +28,9 @@ Class {
 		'nonleapYearsMonths',
 		'leapYearsMonths'
 	],
+	#pools : [
+		'HebrewTimeConcepts'
+	],
 	#classInstVars : [
 		'uniqueInstance'
 	],
@@ -425,6 +428,12 @@ HebrewCalendarDefinition >> dateFromNumberOfDays: aNumberOfDays [
 ]
 
 { #category : #'days accessing' }
+HebrewCalendarDefinition >> dayUnit [
+
+	^ TimeUnits day
+]
+
+{ #category : #'days accessing' }
 HebrewCalendarDefinition >> days [
 
 	^days
@@ -436,7 +445,7 @@ HebrewCalendarDefinition >> distanceInYearsFrom: aFromYear to: aToYear [
 	| difference |
 
 	difference := aToYear number - aFromYear number.
-	^difference yearsMeasure
+	^ self yearUnit with: difference
 ]
 
 { #category : #'months accessing' }
@@ -895,6 +904,12 @@ HebrewCalendarDefinition >> monthNumbered: aNumber [
 				ifNone: [anException signal]]
 ]
 
+{ #category : #'days accessing' }
+HebrewCalendarDefinition >> monthUnit [
+
+	^ HebrewTimeUnits >> #month
+]
+
 { #category : #'months accessing' }
 HebrewCalendarDefinition >> months [
 
@@ -1002,7 +1017,7 @@ HebrewCalendarDefinition >> numberOfDaysIn: anHebrewYear [
 
 { #category : #'months accessing' }
 HebrewCalendarDefinition >> numberOfMonthsPerYear [
-	^ 13 monthsMeasure
+	^ self monthUnit with: 13
 ]
 
 { #category : #printing }
@@ -1139,6 +1154,12 @@ HebrewCalendarDefinition >> tishriName [
 HebrewCalendarDefinition >> tishriNumber [
 
 	^7
+]
+
+{ #category : #'days accessing' }
+HebrewCalendarDefinition >> yearUnit [
+
+	^ HebrewTimeUnits >> #year
 ]
 
 { #category : #'days accessing' }

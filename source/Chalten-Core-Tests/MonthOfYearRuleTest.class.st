@@ -5,7 +5,7 @@ A MonthOfYearRuleTest is xxxxxxxxx.
 Class {
 	#name : #MonthOfYearRuleTest,
 	#superclass : #TestCase,
-	#category : #'Chalten-Core-Tests-Filter'
+	#category : #'Chalten-Core-Tests'
 }
 
 { #category : #test }
@@ -30,6 +30,6 @@ MonthOfYearRuleTest >> testIncludes [
 	self
 		assert: (rule includes: includedDate);
 		assert: (rule includes: includedDate next);
-		deny: (rule includes: (includedDate next: 1 monthMeasure));
-		deny: (rule includes: (includedDate next: 1 yearMeasure))
+		deny: (rule includes: (includedDate next: 1 gregorianMonth));
+		deny: (rule includes: (includedDate next: 1 gregorianYear))
 ]

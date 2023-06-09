@@ -1,8 +1,23 @@
 Class {
 	#name : #GregorianCalendarDefinitionTest,
 	#superclass : #TestCase,
+	#pools : [
+		'GregorianTimeConcepts'
+	],
 	#category : #'Chalten-Gregorian-Calendar-Tests'
 }
+
+{ #category : #'not categorized' }
+GregorianCalendarDefinitionTest >> gregorianMonthUnit [
+
+	^ GregorianTimeUnits >> #month
+]
+
+{ #category : #'not categorized' }
+GregorianCalendarDefinitionTest >> gregorianYearUnit [
+
+	^ GregorianTimeUnits >> #year
+]
 
 { #category : #'test days accessing' }
 GregorianCalendarDefinitionTest >> testAmountOfDaysPerWeek [
@@ -260,7 +275,7 @@ GregorianCalendarDefinitionTest >> testDistanceInYearsFromTo [
 
 	self assert: (GregorianCalendar
 		distanceInYearsFrom: 2012 asGregorianYear
-		to: 2015 asGregorianYear) = 3 yearsMeasure
+		to: 2015 asGregorianYear) = (self gregorianYearUnit with: 3)
 ]
 
 { #category : #'test accessing' }
@@ -738,7 +753,7 @@ GregorianCalendarDefinitionTest >> testNumberOfDaysPerWeek [
 
 { #category : #'test months accessing' }
 GregorianCalendarDefinitionTest >> testNumberOfMonthsPerYear [
-	self assert: GregorianCalendar numberOfMonthsPerYear = 12 monthsMeasure
+	self assert: GregorianCalendar numberOfMonthsPerYear = (self gregorianMonthUnit with: 12)
 ]
 
 { #category : #'test months accessing' }

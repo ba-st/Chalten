@@ -24,14 +24,14 @@ IslamicMonthOfYearTest class >> classUnderTest [
 { #category : #initialization }
 IslamicMonthOfYearTest >> setUp [
 	calendar := IslamicCalendar.
-	zeroMonths := 0 monthsMeasure.
-	oneMonth := 1 monthMeasure.
-	twoMonths := 2 monthsMeasure.
-	elevenMonths := 11 monthsMeasure.
-	twelveMonths := 12 monthsMeasure.
-	thirteenMonths := 13 monthsMeasure.
-	oneYear := 1 yearMeasure.
-	twoYears := 2 yearsMeasure
+	zeroMonths := calendar monthUnit with: 0.
+	oneMonth := calendar monthUnit with: 1.
+	twoMonths := calendar monthUnit with: 2.
+	elevenMonths := calendar monthUnit with: 11.
+	twelveMonths := calendar monthUnit with: 12.
+	thirteenMonths := calendar monthUnit with: 13.
+	oneYear := calendar yearUnit with: 1.
+	twoYears := calendar yearUnit with: 2
 ]
 
 { #category : #'test comparing' }
@@ -342,8 +342,8 @@ IslamicMonthOfYearTest >> testNextANumberOfMonths [
 	self assert: (Muharram , 2004 next: zeroMonths) = (Muharram , 2004).
 	self assert: (Muharram , 2004 next: oneYear) = (Muharram , 2005).
 	self assert: (RabiII , 2004 next: oneYear) = (RabiII , 2005).
-	self assert: (Muharram , 2004 next: 0.5 monthsMeasure) = (Muharram , 2004).
-	self assert: (Muharram , 2004 next: 1.5 monthsMeasure) = (Safar , 2004)
+	self assert: (Muharram , 2004 next: 0.5 islamicMonth) = (Muharram , 2004).
+	self assert: (Muharram , 2004 next: 1.5 islamicMonths) = (Safar , 2004)
 ]
 
 { #category : #'test querying' }
@@ -495,7 +495,7 @@ IslamicMonthOfYearTest >> testToByYearsDo [
 { #category : #'test interval protocol' }
 IslamicMonthOfYearTest >> testToNegativeBy [
 	| interval number |
-	interval := DhuAlHijja , 2004 to: Muharram , 2004 by: -2 monthsMeasure.
+	interval := DhuAlHijja , 2004 to: Muharram , 2004 by: -2 islamicMonths.
 	number := 12.
 	interval
 		do: [ :monthOfYear | 
@@ -507,7 +507,7 @@ IslamicMonthOfYearTest >> testToNegativeBy [
 { #category : #'test interval protocol' }
 IslamicMonthOfYearTest >> testToReverse [
 	| coll number |
-	coll := (Muharram , 2004 to: DhuAlHijja , 2004 by: 2 monthsMeasure) reverse.
+	coll := (Muharram , 2004 to: DhuAlHijja , 2004 by: 2 islamicMonths) reverse.
 	number := 11.
 	coll
 		do: [ :monthOfYear | 

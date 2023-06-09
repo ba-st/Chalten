@@ -24,14 +24,14 @@ GregorianMonthOfYearTest class >> classUnderTest [
 { #category : #initialization }
 GregorianMonthOfYearTest >> setUp [
 	calendar := GregorianCalendar.
-	zeroMonths := 0 monthsMeasure.
-	oneMonth := 1 monthMeasure.
-	twoMonths := 2 monthsMeasure.
-	elevenMonths := 11 monthsMeasure.
-	twelveMonths := 12 monthsMeasure.
-	thirteenMonths := 13 monthsMeasure.
-	oneYear := 1 yearMeasure.
-	twoYears := 2 yearsMeasure
+	zeroMonths := calendar monthUnit with: 0.
+	oneMonth := calendar monthUnit with: 1.
+	twoMonths := calendar monthUnit with: 2.
+	elevenMonths := calendar monthUnit with: 11.
+	twelveMonths := calendar monthUnit with: 12.
+	thirteenMonths := calendar monthUnit with: 13.
+	oneYear := calendar yearUnit with: 1.
+	twoYears := calendar yearUnit with: 2
 ]
 
 { #category : #'test comparing' }
@@ -260,8 +260,8 @@ GregorianMonthOfYearTest >> testNextANumberOfMonths [
 	self assert: (January , 2004 next: zeroMonths) = (January , 2004).
 	self assert: (January , 2004 next: oneYear) = (January , 2005).
 	self assert: (April , 2004 next: oneYear) = (April , 2005).
-	self assert: (January , 2004 next: 0.5 monthsMeasure) = (January , 2004).
-	self assert: (January , 2004 next: 1.5 monthsMeasure) = (February , 2004)
+	self assert: (January , 2004 next: 0.5 gregorianMonth) = (January , 2004).
+	self assert: (January , 2004 next: 1.5 gregorianMonth) = (February , 2004)
 ]
 
 { #category : #'test querying' }
@@ -419,7 +419,7 @@ GregorianMonthOfYearTest >> testToByYearsDo [
 GregorianMonthOfYearTest >> testToNegativeBy [
 	| interval number |
 	interval := (MonthOfYear yearNumber: 2004 monthNumber: 12 calendar: calendar) to:
-		(MonthOfYear yearNumber: 2004 monthNumber: 01 calendar: calendar) by: -2 monthsMeasure.
+		(MonthOfYear yearNumber: 2004 monthNumber: 01 calendar: calendar) by: (calendar monthUnit with: -2).
 	number := 12.
 	interval
 		do: [ :monthOfYear | 
@@ -432,7 +432,7 @@ GregorianMonthOfYearTest >> testToNegativeBy [
 GregorianMonthOfYearTest >> testToReverse [
 	| coll number |
 	coll := ((MonthOfYear yearNumber: 2004 monthNumber: 01 calendar: calendar) to:
-		(MonthOfYear yearNumber: 2004 monthNumber: 12 calendar: calendar) by: 2 monthsMeasure) reverse.
+		(MonthOfYear yearNumber: 2004 monthNumber: 12 calendar: calendar) by: 2 gregorianMonths) reverse.
 	number := 11.
 	coll
 		do: [ :monthOfYear | 

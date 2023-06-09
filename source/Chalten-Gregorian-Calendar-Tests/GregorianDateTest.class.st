@@ -667,26 +667,26 @@ GregorianDateTest >> testNextInNumberOfDays [
 
 { #category : #'test enumerating' }
 GregorianDateTest >> testNextInWeeks [
-	self assert: (January first , 2007 next: 1 weekMeasure) = (January first , 2007 next: 7 daysMeasure).
-	self assert: (January first , 2007 next: 2 weeksMeasure) = (January first , 2007 next: 14 daysMeasure)
+	self assert: (January first , 2007 next: 1 gregorianWeek) = (January first , 2007 next: 7 gregorianDay).
+	self assert: (January first , 2007 next: 2 gregorianWeek) = (January first , 2007 next: 14 gregorianDay)
 ]
 
 { #category : #'test enumerating' }
 GregorianDateTest >> testNextMonth [
 	| date |
 	date := January first , 2007.
-	self assert: (date nextMonth: 1 monthMeasure) = (February first , 2007).
-	self assert: (date nextMonth: 2 monthsMeasure) = (March first , 2007).
-	self assert: (date nextMonth: 3 monthsMeasure) = (April first , 2007).
-	self assert: (date nextMonth: 4 monthsMeasure) = (May first , 2007).
-	self assert: (date nextMonth: 5 monthsMeasure) = (June first , 2007).
-	self assert: (date nextMonth: 6 monthsMeasure) = (July first , 2007).
-	self assert: (date nextMonth: 7 monthsMeasure) = (August first , 2007).
-	self assert: (date nextMonth: 8 monthsMeasure) = (September first , 2007).
-	self assert: (date nextMonth: 9 monthsMeasure) = (October first , 2007).
-	self assert: (date nextMonth: 10 monthsMeasure) = (November first , 2007).
-	self assert: (date nextMonth: 11 monthsMeasure) = (December first , 2007).
-	self assert: (date nextMonth: 12 monthsMeasure) = (January first , 2008)
+	self assert: (date nextMonth: 1 gregorianMonth) = (February first , 2007).
+	self assert: (date nextMonth: 2 gregorianMonths) = (March first , 2007).
+	self assert: (date nextMonth: 3 gregorianMonths) = (April first , 2007).
+	self assert: (date nextMonth: 4 gregorianMonths) = (May first , 2007).
+	self assert: (date nextMonth: 5 gregorianMonths) = (June first , 2007).
+	self assert: (date nextMonth: 6 gregorianMonths) = (July first , 2007).
+	self assert: (date nextMonth: 7 gregorianMonths) = (August first , 2007).
+	self assert: (date nextMonth: 8 gregorianMonths) = (September first , 2007).
+	self assert: (date nextMonth: 9 gregorianMonths) = (October first , 2007).
+	self assert: (date nextMonth: 10 gregorianMonths) = (November first , 2007).
+	self assert: (date nextMonth: 11 gregorianMonths) = (December first , 2007).
+	self assert: (date nextMonth: 12 gregorianMonths) = (January first , 2008)
 ]
 
 { #category : #'test accessing' }
@@ -777,8 +777,8 @@ GregorianDateTest >> testPreviousInNumberOfDays [
 
 { #category : #'test enumerating' }
 GregorianDateTest >> testPreviousInWeeks [
-	self assert: (January first , 2007 previous: 1 weekMeasure) = (January first , 2007 previous: 7 daysMeasure).
-	self assert: (January first , 2007 previous: 2 weeksMeasure) = (January first , 2007 previous: 14 daysMeasure)
+	self assert: (January first , 2007 previous: 1 gregorianWeek) = (January first , 2007 previous: 7 gregorianDay).
+	self assert: (January first , 2007 previous: 2 gregorianWeeks) = (January first , 2007 previous: 14 gregorianDays)
 ]
 
 { #category : #'test printing' }

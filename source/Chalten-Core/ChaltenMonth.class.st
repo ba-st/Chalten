@@ -68,7 +68,8 @@ ChaltenMonth >> calendar [
 
 { #category : #'interval protocol - private' }
 ChaltenMonth >> defaultIntervalIncrement [
-	^ 1 monthMeasure
+
+	^ calendar monthUnit with: 1
 ]
 
 { #category : #'accessing - private' }
@@ -177,7 +178,7 @@ ChaltenMonth >> isPreviousTo: aMonth in: aYear [
 	
 	stream := CircularReadStream
 		on: aYear arrayOfMonths
-		moving: TimeUnits month
+		moving: calendar monthUnit
 		startingCircleAt: calendar firstMonth.
 	^stream isPrevious: self to: aMonth
 ]

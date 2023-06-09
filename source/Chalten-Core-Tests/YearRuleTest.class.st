@@ -30,5 +30,5 @@ YearRuleTest >> testIncludes [
 	self
 		assert: (rule includes: includedDate);
 		assert: (rule includes: includedDate next);
-		deny: (rule includes: (includedDate next: 1 yearMeasure))
+		deny: (rule includes: (includedDate next: 1 gregorianYear))
 ]

@@ -250,7 +250,7 @@ JulianCalendarDefinitionTest >> testDistanceInYearsFromTo [
 
 	self assert: (JulianCalendar
 		distanceInYearsFrom: 2012 asJulianYear
-		to: 2015 asJulianYear) = 3 yearsMeasure
+		to: 2015 asJulianYear) = 3 julianYears
 ]
 
 { #category : #'test accessing' }
@@ -731,7 +731,7 @@ JulianCalendarDefinitionTest >> testNumberOfDaysPerWeek [
 
 { #category : #'test months accessing' }
 JulianCalendarDefinitionTest >> testNumberOfMonthsPerYear [
-	self assert: JulianCalendar numberOfMonthsPerYear = 12 monthsMeasure
+	self assert: JulianCalendar numberOfMonthsPerYear = 12 julianMonths
 ]
 
 { #category : #'test months accessing' }

@@ -24,14 +24,14 @@ HebrewMonthOfYearTest class >> classUnderTest [
 { #category : #initialization }
 HebrewMonthOfYearTest >> setUp [
 	calendar := HebrewCalendar.
-	zeroMonths := 0 monthsMeasure.
-	oneMonth := 1 monthMeasure.
-	twoMonths := 2 monthsMeasure.
-	elevenMonths := 11 monthsMeasure.
-	twelveMonths := 12 monthsMeasure.
-	thirteenMonths := 13 monthsMeasure.
-	oneYear := 1 yearMeasure.
-	twoYears := 2 yearsMeasure
+	zeroMonths := calendar monthUnit with: 0.
+	oneMonth := calendar monthUnit with: 1.
+	twoMonths := calendar monthUnit with: 2 .
+	elevenMonths := calendar monthUnit with: 11 .
+	twelveMonths := calendar monthUnit with: 12 .
+	thirteenMonths := calendar monthUnit with: 13 .
+	oneYear := calendar yearUnit with: 1 .
+	twoYears := calendar yearUnit with: 2
 ]
 
 { #category : #'test comparing' }
@@ -274,16 +274,16 @@ HebrewMonthOfYearTest >> testLastDayNumber [
 { #category : #'test querying' }
 HebrewMonthOfYearTest >> testMonthsFrom [
 	self assert: (Nisan , 5768 distanceFrom: AdarII , 5768) = oneMonth.
-	self assert: (Nisan , 5768 distanceFrom: Adar , 5767) = 14 monthsMeasure.
+	self assert: (Nisan , 5768 distanceFrom: Adar , 5767) = 14 hebrewMonth.
 	self assert: (Nisan , 5768 distanceFrom: Nisan , 5768) = zeroMonths.
 	self assert: (Nisan , 5768 distanceFrom: Nisan , 5767) = thirteenMonths
 ]
 
 { #category : #'test querying' }
 HebrewMonthOfYearTest >> testMonthsTo [
-	self assert: (Tishri , 5768 distanceTo: AdarII , 5768) = 6 monthsMeasure.
+	self assert: (Tishri , 5768 distanceTo: AdarII , 5768) = 6 hebrewMonth.
 	self assert: (Nisan , 5768 distanceTo: AdarII , 5768) = oneMonth negated.
-	self assert: (Nisan , 5768 distanceTo: Adar , 5767) = 14 monthsMeasure negated.
+	self assert: (Nisan , 5768 distanceTo: Adar , 5767) = 14 hebrewMonth negated.
 	self assert: (Nisan , 5768 distanceTo: Nisan , 5768) = zeroMonths.
 	self assert: (Nisan , 5768 distanceTo: Nisan , 5769) = twelveMonths
 ]
@@ -322,8 +322,8 @@ HebrewMonthOfYearTest >> testNextANumberOfMonths [
 	self assert: (Nisan , 5768 next: zeroMonths) = (Nisan , 5768).
 	self assert: (Nisan , 5768 next: oneYear) = (Nisan , 5769).
 	self assert: (Sivan , 5768 next: oneYear) = (Sivan , 5769).
-	self assert: (Nisan , 5768 next: 0.5 monthsMeasure) = (Nisan , 5768).
-	self assert: (Nisan , 5768 next: 1.5 monthsMeasure) = (Iyyar , 5768)
+	self assert: (Nisan , 5768 next: 0.5 hebrewMonth) = (Nisan , 5768).
+	self assert: (Nisan , 5768 next: 1.5 hebrewMonth) = (Iyyar , 5768)
 ]
 
 { #category : #'test querying' }
@@ -485,7 +485,7 @@ HebrewMonthOfYearTest >> testToByYearsDo [
 { #category : #'test interval protocol' }
 HebrewMonthOfYearTest >> testToNegativeBy [
 	| interval number |
-	interval := Elul , 5768 to: Tishri , 5768 by: -2 monthsMeasure.
+	interval := Elul , 5768 to: Tishri , 5768 by: -2 hebrewMonth.
 	number := 6.
 	interval
 		do: [ :monthOfYear | 
@@ -494,7 +494,7 @@ HebrewMonthOfYearTest >> testToNegativeBy [
 			self assert: monthOfYear monthNumber = number.
 			number := number - 2 ].
 	self assert: number = 5.
-	interval := Elul , 5767 to: Tishri , 5767 by: -2 monthsMeasure.
+	interval := Elul , 5767 to: Tishri , 5767 by: -2 hebrewMonth.
 	number := 6.
 	interval
 		do: [ :monthOfYear | 
@@ -508,7 +508,7 @@ HebrewMonthOfYearTest >> testToNegativeBy [
 { #category : #'test interval protocol' }
 HebrewMonthOfYearTest >> testToReverse [
 	| coll number |
-	coll := (Tishri , 5768 to: Elul , 5768 by: 2 monthsMeasure) reverse.
+	coll := (Tishri , 5768 to: Elul , 5768 by: 2 hebrewMonth) reverse.
 	number := 6.
 	coll
 		do: [ :monthOfYear | 
@@ -517,7 +517,7 @@ HebrewMonthOfYearTest >> testToReverse [
 			self assert: monthOfYear monthNumber = number.
 			number := number - 2 ].
 	self assert: number = 5.
-	coll := (Tishri , 5767 to: Elul , 5767 by: 2 monthsMeasure) reverse.
+	coll := (Tishri , 5767 to: Elul , 5767 by: 2 hebrewMonth) reverse.
 	number := 5.
 	coll
 		do: [ :monthOfYear | 

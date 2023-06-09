@@ -20,18 +20,6 @@ ChaltenExtensionsTest >> testAsTimeSpan [
 ]
 
 { #category : #'test number' }
-ChaltenExtensionsTest >> testCenturiesMeasure [
-
-	self assert: 12 centuriesMeasure = (TimeUnits century with: 12)
-]
-
-{ #category : #'test number' }
-ChaltenExtensionsTest >> testCenturyMeasure [
-
-	self assert: 1 centuryMeasure = (TimeUnits century with: 1)
-]
-
-{ #category : #'test number' }
 ChaltenExtensionsTest >> testDayMeasure [
 
 	self assert: 1 dayMeasure = (TimeUnits day with: 1)
@@ -41,18 +29,6 @@ ChaltenExtensionsTest >> testDayMeasure [
 ChaltenExtensionsTest >> testDaysMeasure [
 
 	self assert: 15 daysMeasure = (TimeUnits day with: 15)
-]
-
-{ #category : #'test number' }
-ChaltenExtensionsTest >> testDecadeMeasure [
-
-	self assert: 1 decadeMeasure = (TimeUnits decade with: 1)
-]
-
-{ #category : #'test number' }
-ChaltenExtensionsTest >> testDecadesMeasure [
-
-	self assert: 20 decadesMeasure = (TimeUnits decade with: 20)
 ]
 
 { #category : #'test interval' }
@@ -81,18 +57,6 @@ ChaltenExtensionsTest >> testInfinityDaysMeasure [
 	self assert: Infinity daysMeasure = (TimeUnits day with: Infinity).
 	self assert: Infinity daysMeasure > 365 daysMeasure.
 	self assert: 1500 daysMeasure < Infinity daysMeasure
-]
-
-{ #category : #'test number' }
-ChaltenExtensionsTest >> testMillenniumMeasure [
-
-	self assert: 1 millenniumMeasure = (TimeUnits millennium with: 1)
-]
-
-{ #category : #'test number' }
-ChaltenExtensionsTest >> testMillenniumsMeasure [
-
-	self assert: 5 millenniumsMeasure = (TimeUnits millennium with: 5)
 ]
 
 { #category : #'test number' }
@@ -128,18 +92,6 @@ ChaltenExtensionsTest >> testMinutesMeasure [
 ]
 
 { #category : #'test number' }
-ChaltenExtensionsTest >> testMonthMeasure [
-
-	self assert: 1 monthMeasure = (TimeUnits month with: 1)
-]
-
-{ #category : #'test number' }
-ChaltenExtensionsTest >> testMonthsMeasure [
-
-	self assert: 12 monthsMeasure = (TimeUnits month with: 12)
-]
-
-{ #category : #'test number' }
 ChaltenExtensionsTest >> testSecondMeasure [
 
 	self assert: 1 secondMeasure = (TimeUnits second with: 1)
@@ -157,28 +109,4 @@ ChaltenExtensionsTest >> testTo [
 	| interval |
 	interval := 1 to: 10.
 	self assert: interval to = 10
-]
-
-{ #category : #'test number' }
-ChaltenExtensionsTest >> testWeekMeasure [
-
-	self assert: 1 weekMeasure = (TimeUnits week with: 1)
-]
-
-{ #category : #'test number' }
-ChaltenExtensionsTest >> testWeeksMeasure [
-
-	self assert: 1 weekMeasure = (TimeUnits week with: 1)
-]
-
-{ #category : #'test number' }
-ChaltenExtensionsTest >> testYearMeasure [
-
-	self assert: 1 yearMeasure = (TimeUnits year with: 1)
-]
-
-{ #category : #'test number' }
-ChaltenExtensionsTest >> testYearsMeasure [
-
-	self assert: 10 yearsMeasure = (TimeUnits year with: 10)
 ]

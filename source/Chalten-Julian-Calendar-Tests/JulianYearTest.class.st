@@ -24,14 +24,14 @@ JulianYearTest class >> classUnderTest [
 { #category : #initialization }
 JulianYearTest >> setUp [
 	calendar := JulianCalendar.
-	zeroYears := 0 yearsMeasure.
-	oneYear := 1 yearMeasure.
-	twoYears := 2 yearsMeasure.
-	tenYears := 10 yearsMeasure.
-	sixMonths := 6 monthsMeasure.
-	thirteenMonths := 13 monthsMeasure.
-	twentyEightDays := 28 daysMeasure.
-	twentyNineDays := 29 daysMeasure
+	zeroYears := calendar yearUnit with: 0.
+	oneYear := calendar yearUnit with: 1.
+	twoYears := calendar yearUnit with: 2.
+	tenYears := calendar yearUnit with: 10.
+	sixMonths := calendar monthUnit with: 6.
+	thirteenMonths := calendar monthUnit with: 13.
+	twentyEightDays := calendar dayUnit with: 28.
+	twentyNineDays := calendar dayUnit with: 29
 ]
 
 { #category : #'test accessing' }
@@ -46,7 +46,7 @@ JulianYearTest >> testDates [
 JulianYearTest >> testDistanceTo [
 	| absoluteDistance |
 	absoluteDistance := 2007 asJulianYear absoluteDistanceTo: 2010 asJulianYear.
-	self assert: absoluteDistance = 3 yearsMeasure
+	self assert: absoluteDistance = 3 julianYears
 ]
 
 { #category : #'test comparing' }
@@ -287,8 +287,8 @@ JulianYearTest >> testNumberOfMonths [
 	leapYear := 2012 asJulianYear.
 	nonleapYear := 2014 asJulianYear.
 	
-	self assert: leapYear numberOfMonths = 12 monthsMeasure.
-	self assert: nonleapYear numberOfMonths = 12 monthsMeasure
+	self assert: leapYear numberOfMonths = 12 julianMonths.
+	self assert: nonleapYear numberOfMonths = 12 julianMonths
 ]
 
 { #category : #'test querying' }

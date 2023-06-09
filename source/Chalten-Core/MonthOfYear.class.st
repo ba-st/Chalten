@@ -321,7 +321,8 @@ MonthOfYear >> dates [
 
 { #category : #'interval protocol - private' }
 MonthOfYear >> defaultIntervalIncrement [
-	^ 1 monthMeasure
+
+	^ self calendar monthUnit with: 1
 ]
 
 { #category : #querying }
@@ -435,10 +436,10 @@ MonthOfYear >> next: aMeasure [
 
 { #category : #enumerating }
 MonthOfYear >> nextMonth: aMonth [
+
 	| yearsToMove |
-	yearsToMove := (month >= aMonth
-		ifTrue: [ 1 ]
-		ifFalse: [ 0 ]) yearsMeasure.
+
+	yearsToMove := self calendar yearUnit with: ( month >= aMonth ifTrue: [ 1 ] ifFalse: [ 0 ] ).
 	^ self nextMonth: aMonth in: yearsToMove
 ]
 
@@ -485,10 +486,10 @@ MonthOfYear >> ordinal: aNumber day: aDay [
 
 { #category : #enumerating }
 MonthOfYear >> previousMonth: aMonth [
+
 	| yearsToMove |
-	yearsToMove := (month <= aMonth
-		ifTrue: [ 1 ]
-		ifFalse: [ 0 ]) yearsMeasure.
+
+	yearsToMove := self calendar yearUnit with: ( month <= aMonth ifTrue: [ 1 ] ifFalse: [ 0 ] ).
 	^ self previousMonth: aMonth in: yearsToMove
 ]
 

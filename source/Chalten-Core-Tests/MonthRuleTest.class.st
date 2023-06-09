@@ -1,7 +1,7 @@
 Class {
 	#name : #MonthRuleTest,
 	#superclass : #TestCase,
-	#category : #'Chalten-Core-Tests-Filter'
+	#category : #'Chalten-Core-Tests'
 }
 
 { #category : #test }
@@ -26,5 +26,5 @@ MonthRuleTest >> testIncludes [
 	self
 		assert: (rule includes: includedDate);
 		assert: (rule includes: includedDate next);
-		deny: (rule includes: (includedDate next: 1 monthMeasure))
+		deny: (rule includes: (includedDate next: 1 gregorianMonth))
 ]

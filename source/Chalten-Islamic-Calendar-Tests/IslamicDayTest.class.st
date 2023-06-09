@@ -35,11 +35,11 @@ IslamicDayTest >> setUp [
 	yaumAlHamis := calendar yaumAlHamis.
 	yaumAlJuma := calendar yaumAlJuma.
 	yaumAsSabt := calendar yaumAsSabt.
-	zeroDays := 0 daysMeasure.
-	oneDay := 1 dayMeasure.
-	twoDays := 2 daysMeasure.
-	sevenDays := 7 daysMeasure.
-	minusOneDay := -1 dayMeasure
+	zeroDays := calendar dayUnit with: 0.
+	oneDay := calendar dayUnit with: 1.
+	twoDays := calendar dayUnit with: 2.
+	sevenDays := calendar dayUnit with: 7.
+	minusOneDay := calendar dayUnit with: -1
 ]
 
 { #category : #'test comparing' }

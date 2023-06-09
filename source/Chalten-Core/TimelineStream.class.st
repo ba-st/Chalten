@@ -110,7 +110,7 @@ TimelineStream >> skip: aNumberOfDays [
 
 	| daysToSkip |
 	
-	daysToSkip := (aNumberOfDays convertTo: TimeUnits day) amount.
+	daysToSkip := (aNumberOfDays convertTo: timelineFilter calendar dayUnit) amount.
 	daysToSkip > 0 
 		ifTrue: [ daysToSkip timesRepeat: [ self next ] ]
 		ifFalse: [ daysToSkip negated timesRepeat: [ self previous ] ]

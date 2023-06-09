@@ -24,14 +24,14 @@ GregorianYearTest class >> classUnderTest [
 { #category : #initialization }
 GregorianYearTest >> setUp [
 	calendar := GregorianCalendar.
-	zeroYears := 0 yearsMeasure.
-	oneYear := 1 yearMeasure.
-	twoYears := 2 yearsMeasure.
-	tenYears := 10 yearsMeasure.
-	sixMonths := 6 monthsMeasure.
-	thirteenMonths := 13 monthsMeasure.
-	twentyEightDays := 28 daysMeasure.
-	twentyNineDays := 29 daysMeasure
+	zeroYears := calendar yearUnit with: 0.
+	oneYear := calendar yearUnit with: 1.
+	twoYears := calendar yearUnit with: 2.
+	tenYears := calendar yearUnit with: 10.
+	sixMonths := calendar monthUnit with: 6.
+	thirteenMonths := calendar monthUnit with: 13.
+	twentyEightDays := calendar dayUnit with: 28.
+	twentyNineDays := calendar dayUnit with: 29
 ]
 
 { #category : #'test accessing' }
@@ -46,7 +46,7 @@ GregorianYearTest >> testDates [
 GregorianYearTest >> testDistanceTo [
 	| absoluteDistance |
 	absoluteDistance := 2007 asGregorianYear absoluteDistanceTo: 2010 asGregorianYear.
-	self assert: absoluteDistance = 3 yearsMeasure
+	self assert: absoluteDistance = (calendar yearUnit with: 3)
 ]
 
 { #category : #'test comparing' }
@@ -257,8 +257,8 @@ GregorianYearTest >> testNextANumberOfYears [
 	self assert: (2007 asGregorianYear next: oneYear) = 2008 asGregorianYear.
 	self assert: (2007 asGregorianYear next: tenYears) = 2017 asGregorianYear.
 	self assert: (-1 asGregorianYear next: oneYear) = 0 asGregorianYear.
-	self should: [ 2007 asGregorianYear next: thirteenMonths ] raise: CanNotConvertMeasureException.
-	self should: [ 2007 asGregorianYear next: sixMonths ] raise: CanNotConvertMeasureException
+	self should: [ 2007 asGregorianYear next: thirteenMonths ] raise: InvalidYearNumberException.
+	self should: [ 2007 asGregorianYear next: sixMonths ] raise: InvalidYearNumberException
 ]
 
 { #category : #'test querying' }
@@ -287,8 +287,8 @@ GregorianYearTest >> testNumberOfMonths [
 	leapYear := 2016 asGregorianYear.
 	nonleapYear := 2015 asGregorianYear.
 	
-	self assert: leapYear numberOfMonths = 12 monthsMeasure.
-	self assert: nonleapYear numberOfMonths = 12 monthsMeasure
+	self assert: leapYear numberOfMonths = (calendar monthUnit with: 12).
+	self assert: nonleapYear numberOfMonths = (calendar monthUnit with: 12)
 ]
 
 { #category : #'test querying' }
@@ -303,8 +303,8 @@ GregorianYearTest >> testPreviousANumberOfYears [
 	self assert: (2007 asGregorianYear previous: oneYear) = 2006 asGregorianYear.
 	self assert: (2007 asGregorianYear previous: tenYears) = 1997 asGregorianYear.
 	self assert: (1 asGregorianYear previous: oneYear) = 0 asGregorianYear.
-	self should: [ 2007 asGregorianYear previous: thirteenMonths ] raise: CanNotConvertMeasureException.
-	self should: [ 2007 asGregorianYear previous: sixMonths ] raise: CanNotConvertMeasureException
+	self should: [ 2007 asGregorianYear previous: thirteenMonths ] raise: InvalidYearNumberException.
+	self should: [ 2007 asGregorianYear previous: sixMonths ] raise: InvalidYearNumberException
 ]
 
 { #category : #'test querying' }

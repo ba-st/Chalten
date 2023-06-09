@@ -674,27 +674,27 @@ HebrewDateTest >> testNextInNumberOfDays [
 
 { #category : #'test enumerating' }
 HebrewDateTest >> testNextInWeeks [
-	self assert: (Nisan first , 5767 next: 1 weekMeasure) = (Nisan first , 5767 next: 7 daysMeasure).
-	self assert: (Nisan first , 5767 next: 2 weeksMeasure) = (Nisan first , 5767 next: 14 daysMeasure)
+	self assert: (Nisan first , 5767 next: 1 hebrewWeek) equals: (Nisan first , 5767 next: 7 daysMeasure).
+	self assert: (Nisan first , 5767 next: 2 hebrewWeek) equals: (Nisan first , 5767 next: 14 daysMeasure)
 ]
 
 { #category : #'test enumerating' }
 HebrewDateTest >> testNextMonth [
 	| day |
 	day := Nisan first , 5767.
-	self assert: (day nextMonth: 1 monthMeasure) = (Iyyar first , 5767).
-	self assert: (day nextMonth: 2 monthsMeasure) = (Sivan first , 5767).
-	self assert: (day nextMonth: 3 monthsMeasure) = (Tammuz first , 5767).
-	self assert: (day nextMonth: 4 monthsMeasure) = (Av first , 5767).
-	self assert: (day nextMonth: 5 monthsMeasure) = (Elul first , 5767).
-	self assert: (day nextMonth: 6 monthsMeasure) = (Tishri first , 5768).
-	self assert: (day nextMonth: 7 monthsMeasure) = (Marheshvan first , 5768).
-	self assert: (day nextMonth: 8 monthsMeasure) = (Kislev first , 5768).
-	self assert: (day nextMonth: 9 monthsMeasure) = (Tevet first , 5768).
-	self assert: (day nextMonth: 10 monthsMeasure) = (Shevat first , 5768).
-	self assert: (day nextMonth: 11 monthsMeasure) = (AdarI first , 5768).
-	self assert: (day nextMonth: 12 monthsMeasure) = (AdarII first , 5768).
-	self assert: (day nextMonth: 13 monthsMeasure) = (Nisan first , 5768)
+	self assert: (day nextMonth: 1 hebrewMonth) = (Iyyar first , 5767).
+	self assert: (day nextMonth: 2 hebrewMonth) = (Sivan first , 5767).
+	self assert: (day nextMonth: 3 hebrewMonth) = (Tammuz first , 5767).
+	self assert: (day nextMonth: 4 hebrewMonth) = (Av first , 5767).
+	self assert: (day nextMonth: 5 hebrewMonth) = (Elul first , 5767).
+	self assert: (day nextMonth: 6 hebrewMonth) = (Tishri first , 5768).
+	self assert: (day nextMonth: 7 hebrewMonth) = (Marheshvan first , 5768).
+	self assert: (day nextMonth: 8 hebrewMonth) = (Kislev first , 5768).
+	self assert: (day nextMonth: 9 hebrewMonth) = (Tevet first , 5768).
+	self assert: (day nextMonth: 10 hebrewMonth) = (Shevat first , 5768).
+	self assert: (day nextMonth: 11 hebrewMonth) = (AdarI first , 5768).
+	self assert: (day nextMonth: 12 hebrewMonth) = (AdarII first , 5768).
+	self assert: (day nextMonth: 13 hebrewMonth) = (Nisan first , 5768)
 ]
 
 { #category : #'test accessing' }
@@ -782,8 +782,8 @@ HebrewDateTest >> testPreviousInNumberOfDays [
 
 { #category : #'test enumerating' }
 HebrewDateTest >> testPreviousInWeeks [
-	self assert: (Nisan first , 5767 previous: 1 weekMeasure) = (Nisan first , 5767 previous: 7 daysMeasure).
-	self assert: (Nisan first , 5767 previous: 2 weeksMeasure) = (Nisan first , 5767 previous: 14 daysMeasure)
+	self assert: (Nisan first , 5767 previous: 1 hebrewWeek) equals: (Nisan first , 5767 previous: 7 hebrewDay).
+	self assert: (Nisan first , 5767 previous: 2 hebrewWeek) equals: (Nisan first , 5767 previous: 14 hebrewDay)
 ]
 
 { #category : #'test printing' }

@@ -26,7 +26,7 @@ MonthsOfLeapYearsForCircularStreamStrategy class >> of: aCalendar [
 { #category : #initialization }
 MonthsOfLeapYearsForCircularStreamStrategy >> initializeOf: aCalendar [
 
-	stream := CircularReadStream on: aCalendar monthsForLeapYears moving: TimeUnits month
+	stream := CircularReadStream on: aCalendar monthsForLeapYears moving: aCalendar monthUnit
 ]
 
 { #category : #'months days accessing' }

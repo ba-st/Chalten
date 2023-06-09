@@ -45,11 +45,11 @@ IslamicMonthTest >> setUp [
 	shawwal := calendar shawwal.
 	dhuAlQada := calendar dhuAlQada.
 	dhuAlHijja := calendar dhuAlHijja.
-	zeroMonths := 0 monthsMeasure.
-	oneMonth := 1 monthMeasure.
-	twoMonths := 2 monthsMeasure.
-	elevenMonths := 11 monthsMeasure.
-	twelveMonths := 12 monthsMeasure
+	zeroMonths := calendar monthUnit with: 0.
+	oneMonth := calendar monthUnit with: 1.
+	twoMonths := calendar monthUnit with: 2.
+	elevenMonths := calendar monthUnit with: 11.
+	twelveMonths := calendar monthUnit with: 12
 ]
 
 { #category : #'test month of year creation' }
@@ -390,7 +390,7 @@ IslamicMonthTest >> testMonthsFrom [
 
 	| stream |
 	
-	stream := CircularReadStream on: IslamicCalendar monthsForLeapYears moving: TimeUnits month.
+	stream := CircularReadStream on: IslamicCalendar monthsForLeapYears moving: IslamicCalendar monthUnit.
 	
 	self assert: (stream distanceFrom: muharram to: muharram) = zeroMonths.
 	self assert: (stream distanceFrom: safar to: muharram) = elevenMonths.
@@ -405,7 +405,7 @@ IslamicMonthTest >> testMonthsTo [
 
 	| stream |
 	
-	stream := CircularReadStream on: IslamicCalendar monthsForLeapYears moving: TimeUnits month.
+	stream := CircularReadStream on: IslamicCalendar monthsForLeapYears moving: IslamicCalendar monthUnit.
 	
 	self assert: (stream distanceTo: muharram from: muharram) = zeroMonths.
 	self assert: (stream distanceTo: safar from: muharram) = oneMonth.
@@ -427,7 +427,7 @@ IslamicMonthTest >> testNextInLeapYears [
 
 	| stream |
 	
-	stream := CircularReadStream on: IslamicCalendar monthsForLeapYears moving: TimeUnits month.
+	stream := CircularReadStream on: IslamicCalendar monthsForLeapYears moving: IslamicCalendar monthUnit.
 	
 	self assert: stream next = safar.
 	self assert: stream next = rabiI.
@@ -448,7 +448,7 @@ IslamicMonthTest >> testNextInLeapYearsInANumberOfMonths [
 
 	| stream |
 	
-	stream := CircularReadStream on: IslamicCalendar monthsForLeapYears moving: TimeUnits month.
+	stream := CircularReadStream on: IslamicCalendar monthsForLeapYears moving: IslamicCalendar monthUnit.
 	
 	stream upToEnd.
 	self assert: (stream next: oneMonth) = muharram.
@@ -465,7 +465,7 @@ IslamicMonthTest >> testNextInNonleapYears [
 
 	| stream |
 	
-	stream := CircularReadStream on: IslamicCalendar monthsForNonleapYears moving: TimeUnits month.
+	stream := CircularReadStream on: IslamicCalendar monthsForNonleapYears moving: IslamicCalendar monthUnit.
 	
 	self assert: stream next = safar.
 	self assert: stream next = rabiI.
@@ -486,7 +486,7 @@ IslamicMonthTest >> testNextInNonleapYearsInANumberOfMonths [
 
 	| stream |
 	
-	stream := CircularReadStream on: IslamicCalendar monthsForNonleapYears moving: TimeUnits month.
+	stream := CircularReadStream on: IslamicCalendar monthsForNonleapYears moving: IslamicCalendar monthUnit.
 	
 	stream upToEnd.
 	self assert: (stream next: oneMonth) = muharram.
@@ -592,7 +592,7 @@ IslamicMonthTest >> testPreviousInLeapYears [
 
 	| stream |
 	
-	stream := CircularReadStream on: IslamicCalendar monthsForLeapYears moving: TimeUnits month.
+	stream := CircularReadStream on: IslamicCalendar monthsForLeapYears moving: IslamicCalendar monthUnit.
 	
 	self assert: stream previous = dhuAlHijja.
 	self assert: stream previous = dhuAlQada.
@@ -613,7 +613,7 @@ IslamicMonthTest >> testPreviousInLeapYearsInANumberOfMonths [
 
 	| stream |
 	
-	stream := CircularReadStream on: IslamicCalendar monthsForLeapYears moving: TimeUnits month.
+	stream := CircularReadStream on: IslamicCalendar monthsForLeapYears moving: IslamicCalendar monthUnit.
 	
 	stream upToEnd.
 	self assert: (stream previous: oneMonth) = dhuAlQada.
@@ -630,7 +630,7 @@ IslamicMonthTest >> testPreviousInNonleapYears [
 
 	| stream |
 	
-	stream := CircularReadStream on: IslamicCalendar monthsForNonleapYears moving: TimeUnits month.
+	stream := CircularReadStream on: IslamicCalendar monthsForNonleapYears moving: IslamicCalendar monthUnit.
 	
 	self assert: stream previous = dhuAlHijja.
 	self assert: stream previous = dhuAlQada.
@@ -651,7 +651,7 @@ IslamicMonthTest >> testPreviousInNonleapYearsInANumberOfMonths [
 
 	| stream |
 	
-	stream := CircularReadStream on: IslamicCalendar monthsForNonleapYears moving: TimeUnits month.
+	stream := CircularReadStream on: IslamicCalendar monthsForNonleapYears moving: IslamicCalendar monthUnit.
 	
 	stream upToEnd.
 	self assert: (stream previous: oneMonth) = dhuAlQada.

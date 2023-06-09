@@ -45,11 +45,11 @@ GregorianMonthTest >> setUp [
 	october := calendar october.
 	november := calendar november.
 	december := calendar december.
-	zeroMonths := 0 monthsMeasure.
-	oneMonth := 1 monthMeasure.
-	twoMonths := 2 monthsMeasure.
-	elevenMonths := 11 monthsMeasure.
-	twelveMonths := 12 monthsMeasure
+	zeroMonths := calendar monthUnit with: 0.
+	oneMonth := calendar monthUnit with: 1.
+	twoMonths := calendar monthUnit with: 2.
+	elevenMonths := calendar monthUnit with: 11.
+	twelveMonths := calendar monthUnit with: 12
 ]
 
 { #category : #'test accessing' }
