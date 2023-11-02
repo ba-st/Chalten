@@ -154,7 +154,7 @@ CalendarDefinition >> convertToSmalltalkDate: aDate [
 	gregorianDate := aDate asGregorian.
 	^Date
 		newDay: gregorianDate dayNumber
-		month: gregorianDate month name
+		monthNumber: gregorianDate month number
 		year: gregorianDate year number
 ]
 

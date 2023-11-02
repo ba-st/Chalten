@@ -154,7 +154,7 @@ HebrewCalendarDefinitionTest >> testConvertToSmalltalkDate [
 
 	| hebrewDate smalltalkDate |
 	hebrewDate := Iyyar twentyfirst , 5767.
-	smalltalkDate := Date newDay: 9 month: 5 year: 2007.
+	smalltalkDate := Date newDay: 9 monthNumber: 5 year: 2007.
 	self
 		assert: (calendar convertToSmalltalkDate: hebrewDate)
 		equals: smalltalkDate

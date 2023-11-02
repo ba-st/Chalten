@@ -131,7 +131,7 @@ GregorianCalendarDefinitionTest >> testConvertToSmalltalkDate [
 		                 monthNumber: 2
 		                 dayNumber: 21
 		                 calendar: calendar.
-	smalltalkDate := Date newDay: 21 month: 2 year: 2007.
+	smalltalkDate := Date newDay: 21 monthNumber: 2 year: 2007.
 	self
 		assert: (calendar convertToSmalltalkDate: gregorianDate)
 		equals: smalltalkDate

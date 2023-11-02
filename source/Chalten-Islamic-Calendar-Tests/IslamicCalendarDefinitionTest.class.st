@@ -106,7 +106,7 @@ IslamicCalendarDefinitionTest >> testConvertToSmalltalkDate [
 
 	| islamicDate smalltalkDate |
 	islamicDate := Safar twentyfirst , 1430.
-	smalltalkDate := Date newDay: 17 month: 2 year: 2009.
+	smalltalkDate := Date newDay: 17 monthNumber: 2 year: 2009.
 	self
 		assert: (calendar convertToSmalltalkDate: islamicDate)
 		equals: smalltalkDate
