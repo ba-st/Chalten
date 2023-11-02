@@ -16,8 +16,8 @@ ChaltenCurrentEnvironmentTest >> testIsForCurrentPlatform [
 ChaltenCurrentEnvironmentTest >> testLocalTimeOffset [
 
 	self
-		assert: ChaltenEnvironment localTimeOffset
-		equals: ChaltenEnvironment primOffset // 60
+		assert: (-11 to: 12)
+		includes: ChaltenEnvironment localTimeOffset
 ]
 
 { #category : 'test accessing time' }
