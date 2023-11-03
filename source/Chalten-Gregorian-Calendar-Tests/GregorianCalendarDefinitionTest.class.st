@@ -118,8 +118,8 @@ GregorianCalendarDefinitionTest >> testConvert [
 		raise: Error
 		withExceptionDo: [ :ex |
 			self
-				assert: ex description
-				equals: 'Error: 1 can`t be converted to Date nor DateTime' ]
+				assert: ex messageText
+				equals: '1 can`t be converted to Date nor DateTime' ]
 ]
 
 { #category : 'test converting' }
