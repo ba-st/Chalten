@@ -42,7 +42,8 @@ ChaltenUndefinedEnvironmentTest >> testLocalTimeOffset [
 			self
 				assert: exception description
 				equals:
-				'There is no environment defined to resolve #localTimeOffset' ]
+					('There is no environment defined to resolve <1p>'
+						 expandMacrosWith: #localTimeOffset) ]
 ]
 
 { #category : 'test accessing time' }
@@ -55,7 +56,8 @@ ChaltenUndefinedEnvironmentTest >> testMicrosecondsClock [
 			self
 				assert: exception description
 				equals:
-				'There is no environment defined to resolve #microsecondsClock' ]
+					('There is no environment defined to resolve <1p>'
+						 expandMacrosWith: #microsecondsClock) ]
 ]
 
 { #category : 'test accessing time' }
@@ -68,7 +70,8 @@ ChaltenUndefinedEnvironmentTest >> testMillisecondsClock [
 			self
 				assert: exception description
 				equals:
-				'There is no environment defined to resolve #millisecondsClock' ]
+					('There is no environment defined to resolve <1p>'
+						 expandMacrosWith: #millisecondsClock) ]
 ]
 
 { #category : 'test accessing time' }
@@ -80,5 +83,7 @@ ChaltenUndefinedEnvironmentTest >> testSecondsClock [
 		withExceptionDo: [ :exception |
 			self
 				assert: exception description
-				equals: 'There is no environment defined to resolve #secondsClock' ]
+				equals:
+					('There is no environment defined to resolve <1p>'
+						 expandMacrosWith: #secondsClock) ]
 ]
