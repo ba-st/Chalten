@@ -78,9 +78,9 @@ Offset >> measureSameAs: aMeasure [
 Offset >> print: aTimeOfDay on: aStream [
 
 	aStream
-		nextPutAll: (aTimeOfDay hours amount asString padLeftTo: 2 with: $0);
+		nextPutAll: (aTimeOfDay hours amount printStringLength: 2 padded: true);
 		nextPut: $:;
-		nextPutAll: (aTimeOfDay minutes amount asString padLeftTo: 2 with: $0)
+		nextPutAll: (aTimeOfDay minutes amount printStringLength: 2 padded: true)
 ]
 
 { #category : 'printing' }
