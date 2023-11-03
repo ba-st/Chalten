@@ -86,8 +86,7 @@ IntervalConstrainedInclusionRuleTest >> testPrintString [
 		assert:
 			(IntervalConstrainedInclusionRule on: (1 to: 10) apply: self)
 				printString
-		equals:
-		'From: 1 to: 10 -> IntervalConstrainedInclusionRuleTest>>#testPrintString'
+		equals: ('From: 1 to: 10 -> <1s>' expandMacrosWith: self printString)
 ]
 
 { #category : 'test' }
