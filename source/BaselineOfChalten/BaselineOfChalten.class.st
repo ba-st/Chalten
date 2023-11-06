@@ -44,7 +44,7 @@ BaselineOfChalten >> baseline: spec [
 					#('Chalten-Gregorian-Calendar-Tests' 'Chalten-Hebrew-Calendar-Tests' 'Chalten-Islamic-Calendar-Tests' 'Chalten-Julian-Calendar-Tests' 'Chalten-Roman-Calendar-Tests').
 
 			spec
-				group: 'Tests' with: #('Chalten-Core-Tests' 'Chalten-Core-Pharo-Extensions-Tests' 'Chalten-Calendars-Tests');
+				group: 'Tests' with: #('Chalten-Core-Tests' 'Chalten-Calendars-Tests');
 				group: 'CI' with: 'Tests';
 				group: 'Development' with: 'Tests'.
 			spec postLoadDoIt: #postLoadInitialization
