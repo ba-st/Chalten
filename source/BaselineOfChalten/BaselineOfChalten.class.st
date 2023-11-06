@@ -28,7 +28,6 @@ BaselineOfChalten >> baseline: spec [
 
 			spec
 				package: 'Chalten-Core-Tests' with: [ spec requires: 'Chalten-Core' ];
-				package: 'Chalten-Core-Pharo-Extensions-Tests' with: [ spec requires: 'Chalten-Core-Pharo-Extensions' ];
 				package: 'Chalten-Hebrew-Calendar-Tests' with: [ spec requires: 'Chalten-Hebrew-Calendar' ];
 				package: 'Chalten-Islamic-Calendar-Tests' with: [ spec requires: 'Chalten-Islamic-Calendar' ];
 				package: 'Chalten-Roman-Calendar-Tests' with: [ spec requires: 'Chalten-Roman-Calendar' ];
