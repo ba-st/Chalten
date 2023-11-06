@@ -56,7 +56,7 @@ GregorianCalendarDefinition >> currentDateTime [
 
 	| millisecondsFromEpoch |
 	millisecondsFromEpoch := ChaltenEnvironment millisecondsClock millisecondsMeasure.
-	^(self pharoEpoch
+	^(self unixEpoch
 		next: millisecondsFromEpoch) convertTo: TimeZones local
 ]
 
@@ -168,19 +168,18 @@ GregorianCalendarDefinition >> numberOfDaysFromDate: aDate [
 	^priorNonleapDays + priorLeapDays + priorDays - februaryCorrection + dayNumber
 ]
 
-{ #category : 'accessing - private' }
-GregorianCalendarDefinition >> pharoEpoch [
-	"Answer the Squeak/Pharo epoch.
-	That is 00:00:00 on the morning of January 1, 1901 UTC"
-
-	^ChaltenDateTime
-		date: January first, 1901
-		timeOfDay: TimeOfDay firstTimeOfDay
-		zone: TimeZones universalTime
-]
-
 { #category : 'printing' }
 GregorianCalendarDefinition >> printOn: aStream [
 
 	aStream nextPutAll: 'Gregorian Calendar'
+]
+
+{ #category : 'accessing - private' }
+GregorianCalendarDefinition >> unixEpoch [
+	"January 1, 1970, at midnight UTC"
+
+	^ChaltenDateTime
+		date: January first, 1970
+		timeOfDay: TimeOfDay firstTimeOfDay
+		zone: TimeZones universalTime
 ]

@@ -15,6 +15,24 @@ ChaltenPharoEnvironment class >> isForCurrentPlatform [
 	^ LanguagePlatform current class name = #PharoPlatform
 ]
 
+{ #category : 'accessing time - private' }
+ChaltenPharoEnvironment >> applyOffsetInMicrosecondsTo: aMicrosecondsAmount [
+
+	^self offsetInSeconds * 1000000 + aMicrosecondsAmount
+]
+
+{ #category : 'accessing time - private' }
+ChaltenPharoEnvironment >> applyOffsetInMillisecondsTo: aMillisecondsAmount [
+
+	^self offsetInSeconds * 1000 + aMillisecondsAmount
+]
+
+{ #category : 'accessing time - private' }
+ChaltenPharoEnvironment >> applyOffsetInSecondsTo: aSecondsAmount [
+
+	^self offsetInSeconds + aSecondsAmount
+]
+
 { #category : 'accessing time' }
 ChaltenPharoEnvironment >> localTimeOffset [
 
@@ -23,14 +41,22 @@ ChaltenPharoEnvironment >> localTimeOffset [
 
 { #category : 'accessing time' }
 ChaltenPharoEnvironment >> microsecondsClock [
+	"Apply offset to standardize with Unix epoch"
 
-	^self primUTCMicrosecondsClock
+	^self applyOffsetInMicrosecondsTo: self primUTCMicrosecondsClock
 ]
 
 { #category : 'accessing time' }
 ChaltenPharoEnvironment >> millisecondsClock [
+	"Apply offset to standardize with Unix epoch"
 
-	^self primUTCMillisecondsClock
+	^self applyOffsetInMillisecondsTo: self primUTCMillisecondsClock
+]
+
+{ #category : 'accessing time - private' }
+ChaltenPharoEnvironment >> offsetInSeconds [
+
+	^2177452800 negated
 ]
 
 { #category : 'primitives - private' }
@@ -70,6 +96,7 @@ ChaltenPharoEnvironment >> primUTCSecondsClock [
 
 { #category : 'accessing time' }
 ChaltenPharoEnvironment >> secondsClock [
+	"Apply offset to standardize with Unix epoch"
 
-	^self primUTCSecondsClock
+	^self applyOffsetInSecondsTo: self primUTCSecondsClock
 ]
