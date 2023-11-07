@@ -19,7 +19,7 @@ BaselineOfChalten >> baseline: spec [
 				package: 'Chalten-Core' with: [ spec requires: 'Aconcagua-Deployment' ];
 				package: 'Chalten-Core-Aconcagua-Extensions' with: [ spec requires: 'Chalten-Core' ];
 				package: 'Chalten-Core-Base-Extensions' with: [ spec requires: 'Chalten-Core' ];
-				package: 'Chalten-Core-Pharo-Extensions' with: [ spec requires: 'Chalten-Core' ];
+				package: 'Chalten-Core-Pharo-Extensions' with: [ spec requires: #('Chalten-Core' 'Buoy-Deployment') ];
 				package: 'Chalten-Gregorian-Calendar' with: [ spec requires: 'Chalten-Roman-Calendar' ];
 				package: 'Chalten-Hebrew-Calendar' with: [ spec requires: 'Chalten-Core' ];
 				package: 'Chalten-Islamic-Calendar' with: [ spec requires: 'Chalten-Core' ];
@@ -44,10 +44,10 @@ BaselineOfChalten >> baseline: spec [
 					#('Chalten-Gregorian-Calendar-Tests' 'Chalten-Hebrew-Calendar-Tests' 'Chalten-Islamic-Calendar-Tests' 'Chalten-Julian-Calendar-Tests' 'Chalten-Roman-Calendar-Tests').
 
 			spec
-				group: 'Deployment' with: #('Chalten-Core' 'Chalten-Core-Aconcagua-Extensions' 'Chalten-Core-Base-Extensions' 'Chalten-Core-Pharo-Extensions' 'Chalten-Gregorian-Calendar');
+				group: 'Deployment' with: #('Chalten-Core' 'Chalten-Core-Aconcagua-Extensions' 'Chalten-Core-Base-Extensions' 'Chalten-Core-Pharo-Extensions' 'Chalten-Calendars');
 				group: 'Tests' with: #('Chalten-Core-Tests' 'Chalten-Calendars-Tests');
 				group: 'CI' with: 'Tests';
-				group: 'Development' with: 'Tests'.
+				group: 'Development' with: #('Deployment' 'Tests').
 			spec postLoadDoIt: #postLoadInitialization
 			]
 ]
