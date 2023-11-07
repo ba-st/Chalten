@@ -19,6 +19,10 @@ BaselineOfChalten >> baseline: spec [
 				package: 'Chalten-Core' with: [ spec requires: 'Aconcagua-Deployment' ];
 				package: 'Chalten-Core-Aconcagua-Extensions' with: [ spec requires: 'Chalten-Core' ];
 				package: 'Chalten-Core-Base-Extensions' with: [ spec requires: 'Chalten-Core' ];
+				package: 'Chalten-Core-Pharo-Extensions' with: [
+					spec requires:
+						#( 'Chalten-Core' 'Buoy-Deployment' 'Chalten-Gregorian-Calendar'
+						   'Chalten-Roman-Calendar' ) ];
 				package: 'Chalten-Core-Pharo-Extensions' with: [ spec requires: #('Chalten-Core' 'Buoy-Deployment') ];
 				package: 'Chalten-Gregorian-Calendar' with: [ spec requires: 'Chalten-Roman-Calendar' ];
 				package: 'Chalten-Hebrew-Calendar' with: [ spec requires: 'Chalten-Core' ];
