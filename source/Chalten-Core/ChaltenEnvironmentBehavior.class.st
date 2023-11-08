@@ -50,6 +50,12 @@ ChaltenEnvironmentBehavior >> calendars [
 ]
 
 { #category : 'accessing time' }
+ChaltenEnvironmentBehavior >> calendarsDo: aBlock [
+
+	self calendars do: aBlock
+]
+
+{ #category : 'accessing time' }
 ChaltenEnvironmentBehavior >> defineCalendarNamed: aCalendarName with: aCalendar [
 
 	self calendars at: aCalendarName put: aCalendar 
