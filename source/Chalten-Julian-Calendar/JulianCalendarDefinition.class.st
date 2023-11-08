@@ -27,7 +27,7 @@ Class {
 	#package : 'Chalten-Julian-Calendar'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 JulianCalendarDefinition class >> calendarName [
 
 	^ #JulianCalendar

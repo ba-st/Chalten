@@ -27,7 +27,7 @@ Class {
 	#package : 'Chalten-Islamic-Calendar'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accesing' }
 IslamicCalendarDefinition class >> calendarName [
 
 	^ #IslamicCalendar

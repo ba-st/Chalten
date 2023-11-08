@@ -10,7 +10,7 @@ Class {
 	#tag : 'Time'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 CalendarDefinition class >> calendarName [
 
 	self subclassResponsibility

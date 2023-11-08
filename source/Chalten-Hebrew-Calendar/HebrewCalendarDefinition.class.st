@@ -32,7 +32,7 @@ Class {
 	#package : 'Chalten-Hebrew-Calendar'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accesing' }
 HebrewCalendarDefinition class >> calendarName [
 
 	^ #HebrewCalendar

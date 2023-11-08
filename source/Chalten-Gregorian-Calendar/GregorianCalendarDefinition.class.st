@@ -27,7 +27,7 @@ Class {
 	#package : 'Chalten-Gregorian-Calendar'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accesing' }
 GregorianCalendarDefinition class >> calendarName [
 
 	^ #GregorianCalendar
