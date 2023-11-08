@@ -86,6 +86,6 @@ BaselineOfChalten >> setUpDependencies: spec [
 		project: 'Buoy-Tools' copyFrom: 'Buoy' with: [ spec loads: 'Tools' ].
 
 	spec
-		baseline: 'Aconcagua' with: [ spec repository: 'github://ba-st/Aconcagua:v8' ];
+		baseline: 'Aconcagua' with: [ spec repository: 'github://ba-st/Aconcagua:v9' ];
 		project: 'Aconcagua-Deployment' copyFrom: 'Aconcagua' with: [ spec loads: #('Deployment') ]
 ]
