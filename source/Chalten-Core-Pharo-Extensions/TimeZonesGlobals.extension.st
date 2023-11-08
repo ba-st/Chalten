@@ -3,6 +3,6 @@ Extension { #name : 'TimeZonesGlobals' }
 { #category : '*Chalten-Core-Pharo-Extensions' }
 TimeZonesGlobals class >> initializeAfterLoad [
 
-	self initialize.
+	self initializeUniqueInstance.
 	Smalltalk at: #TimeZones put: self new
 ]

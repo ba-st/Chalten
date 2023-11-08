@@ -3,6 +3,6 @@ Extension { #name : 'TheEndOfTimeClass' }
 { #category : '*Chalten-Core-Pharo-Extensions' }
 TheEndOfTimeClass class >> initializeAfterLoad [
 
-	self initialize.
+	self initializeUniqueInstance.
 	Smalltalk at: #TheEndOfTime put: self new
 ]

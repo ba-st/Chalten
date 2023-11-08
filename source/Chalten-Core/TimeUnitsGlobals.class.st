@@ -27,13 +27,6 @@ Class {
 }
 
 { #category : 'initialization' }
-TimeUnitsGlobals class >> initialize [
-
-	<ignoreForCoverage>
-	self initializeUniqueInstance
-]
-
-{ #category : 'initialization' }
 TimeUnitsGlobals class >> initializeUniqueInstance [
 
 	uniqueInstance := super new initialize

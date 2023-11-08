@@ -22,13 +22,6 @@ Class {
 	#tag : 'Time'
 }
 
-{ #category : 'class initialization' }
-TimeZonesGlobals class >> initialize [
-
-	<ignoreForCoverage>
-	self initializeUniqueInstance
-]
-
 { #category : 'initialization' }
 TimeZonesGlobals class >> initializeUniqueInstance [
 	"cannot be invoked by initialize, because environment must be defined"

@@ -14,13 +14,6 @@ Class {
 }
 
 { #category : 'initialization' }
-TheBeginningOfTimeClass class >> initialize [
-
-	<ignoreForCoverage>
-	self initializeUniqueInstance
-]
-
-{ #category : 'initialization' }
 TheBeginningOfTimeClass class >> initializeUniqueInstance [
 
 	uniqueInstance := super new
