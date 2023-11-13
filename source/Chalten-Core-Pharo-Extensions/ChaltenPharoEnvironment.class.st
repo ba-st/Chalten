@@ -55,6 +55,8 @@ ChaltenPharoEnvironment >> millisecondsClock [
 
 { #category : 'accessing time - private' }
 ChaltenPharoEnvironment >> offsetInSeconds [
+	"Offset between Squeak/Pharo and Unix epochs. It's the amount of seconds elapsed since
+	Jan 1, 1901 at midnight (Squeak/Pharo's epoch) until Jan 1, 1970 at midnight (Unix's epoch)"
 
 	^2177452800 negated
 ]

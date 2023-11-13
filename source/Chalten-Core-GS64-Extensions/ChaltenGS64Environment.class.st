@@ -21,32 +21,17 @@ ChaltenGS64Environment >> localTimeOffset [
 { #category : 'accessing time' }
 ChaltenGS64Environment >> microsecondsClock [
 
-	^ self
-		  withGlobalNamed: #System
-		  do: [ :system | system _timeGmtMicroSeconds ]
+	^ System _timeGmtMicroSeconds
 ]
 
 { #category : 'accessing time' }
 ChaltenGS64Environment >> millisecondsClock [
 
-	^ self withGlobalNamed: #System do: [ :system | system _timeMs ]
+	^ System _timeMs
 ]
 
 { #category : 'accessing time' }
 ChaltenGS64Environment >> secondsClock [
 
-	^ self
-		  withGlobalNamed: #DateAndTime
-		  do: [ :dateAndTimeClass | dateAndTimeClass secondsSince2001 ]
-]
-
-{ #category : 'accessing - private' }
-ChaltenGS64Environment >> withGlobalNamed: aGlobalName do: aOneArgBlock [
-
-	^ LanguagePlatform current
-		  globalNamed: aGlobalName
-		  ifPresent: aOneArgBlock
-		  ifAbsent: [
-			  self error: ('<1s> global variable not found' expandMacrosWith:
-					   aGlobalName asString) ]
+	^ DateAndTime secondsSince2001
 ]
