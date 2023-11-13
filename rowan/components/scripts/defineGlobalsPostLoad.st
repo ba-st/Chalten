@@ -1,4 +1,5 @@
-| symbolDictionary |
+| symbolDictionary gregorianCalendar |
+
 symbolDictionary := Rowan image 
 	symbolDictNamed: 'Chalten'
 	ifAbsent: [Error signal: 'Chalten symbol dictionary missing' ].
@@ -15,23 +16,24 @@ symbolDictionary at: #TimeZones put: (TimeZonesGlobals initializeUniqueInstance;
 
 "Gregorian calendar specific globals"
 
-symbolDictionary at: #Monday put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) monday.
-symbolDictionary at: #Tuesday put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) tuesday.
-symbolDictionary at: #Wednesday put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) wednesday.
-symbolDictionary at: #Thursday put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) thursday.
-symbolDictionary at: #Friday put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) friday.
-symbolDictionary at: #Saturday put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) saturday.
-symbolDictionary at: #Sunday put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) sunday.
+gregorianCalendar := ChaltenEnvironment calendarNamed: #GregorianCalendar.
+symbolDictionary at: #Monday put: gregorianCalendar monday.
+symbolDictionary at: #Tuesday put: gregorianCalendar tuesday.
+symbolDictionary at: #Wednesday put: gregorianCalendar wednesday.
+symbolDictionary at: #Thursday put: gregorianCalendar thursday.
+symbolDictionary at: #Friday put: gregorianCalendar friday.
+symbolDictionary at: #Saturday put: gregorianCalendar saturday.
+symbolDictionary at: #Sunday put: gregorianCalendar sunday.
 
-symbolDictionary at: #January put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) january.
-symbolDictionary at: #February put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) february.
-symbolDictionary at: #March put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) march.
-symbolDictionary at: #April put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) april.
-symbolDictionary at: #May put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) may.
-symbolDictionary at: #June put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) june.
-symbolDictionary at: #July put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) july.
-symbolDictionary at: #August put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) august.
-symbolDictionary at: #September put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) september.
-symbolDictionary at: #October put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) october.
-symbolDictionary at: #November put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) november.
-symbolDictionary at: #December put: (ChaltenEnvironment calendarNamed: #GregorianCalendar) december.
+symbolDictionary at: #January put: gregorianCalendar january.
+symbolDictionary at: #February put: gregorianCalendar february.
+symbolDictionary at: #March put: gregorianCalendar march.
+symbolDictionary at: #April put: gregorianCalendar april.
+symbolDictionary at: #May put: gregorianCalendar may.
+symbolDictionary at: #June put: gregorianCalendar june.
+symbolDictionary at: #July put: gregorianCalendar july.
+symbolDictionary at: #August put: gregorianCalendar august.
+symbolDictionary at: #September put: gregorianCalendar september.
+symbolDictionary at: #October put: gregorianCalendar october.
+symbolDictionary at: #November put: gregorianCalendar november.
+symbolDictionary at: #December put: gregorianCalendar december.
