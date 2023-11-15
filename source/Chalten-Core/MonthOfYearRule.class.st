@@ -9,51 +9,53 @@ decoratedRule
 
 "
 Class {
-	#name : #MonthOfYearRule,
-	#superclass : #InclusionRule,
+	#name : 'MonthOfYearRule',
+	#superclass : 'InclusionRule',
 	#instVars : [
 		'decoratedRule'
 	],
-	#category : #'Chalten-Core-Filter'
+	#category : 'Chalten-Core-Filter',
+	#package : 'Chalten-Core',
+	#tag : 'Filter'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MonthOfYearRule class >> monthOfYear: aMonthOfYear [
 
 	^self rule: (ObjectInclusionRule for: aMonthOfYear)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MonthOfYearRule class >> rule: anInclusionRule [
 
 	^self new initializeRule: anInclusionRule
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MonthOfYearRule >> decoratedRule [
 
 	^decoratedRule
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 MonthOfYearRule >> includes: aDate [
 
 	^decoratedRule includes: aDate monthOfYear
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MonthOfYearRule >> initializeRule: anInclusionRule [
 
 	decoratedRule := anInclusionRule
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MonthOfYearRule >> monthOfYear [
 
 	^decoratedRule object
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 MonthOfYearRule >> printOn: aStream [
 
 	decoratedRule printOn: aStream

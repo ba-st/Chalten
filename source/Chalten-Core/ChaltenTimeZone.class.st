@@ -13,41 +13,43 @@ offset
 
 "
 Class {
-	#name : #ChaltenTimeZone,
-	#superclass : #Object,
+	#name : 'ChaltenTimeZone',
+	#superclass : 'Object',
 	#instVars : [
 		'name',
 		'offset'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ChaltenTimeZone class >> named: aName offset: anOffset [
 
 	^self new initializeNamed: aName offset: anOffset
 ]
 
-{ #category : #'offset applying' }
+{ #category : 'offset applying' }
 ChaltenTimeZone >> applyOffsetTo: aDateTime from: aTimeZone [
 
 	^aDateTime nextIn: aTimeZone
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ChaltenTimeZone >> initializeNamed: aName offset: anOffset [
 
 	name := aName.
 	offset := anOffset
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ChaltenTimeZone >> offset [
 
 	^offset
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ChaltenTimeZone >> printOn: aStream [
 
 	aStream nextPutAll: '(GMT'.

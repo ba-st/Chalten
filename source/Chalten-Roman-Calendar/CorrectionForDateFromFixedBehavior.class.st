@@ -3,24 +3,25 @@ A CorrectionForDateFromFixedBehavior is an abstract class for corrections made w
 
 "
 Class {
-	#name : #CorrectionForDateFromFixedBehavior,
-	#superclass : #Object,
-	#category : #'Chalten-Roman-Calendar'
+	#name : 'CorrectionForDateFromFixedBehavior',
+	#superclass : 'Object',
+	#category : 'Chalten-Roman-Calendar',
+	#package : 'Chalten-Roman-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 CorrectionForDateFromFixedBehavior class >> canHandle: aYearNumber fixed: aNumber using: aCalendar [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'accessing - private' }
+{ #category : 'accessing - private' }
 CorrectionForDateFromFixedBehavior class >> firstOfMarchOf: aYearNumber in: aCalendar [
 
 	^aCalendar march first , aYearNumber
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CorrectionForDateFromFixedBehavior class >> for: aYearNumber fixed: aNumber using: aCalendar [
 
 	| handleClass |
@@ -31,7 +32,7 @@ CorrectionForDateFromFixedBehavior class >> for: aYearNumber fixed: aNumber usin
 	^handleClass new
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 CorrectionForDateFromFixedBehavior >> value [
 
 	self subclassResponsibility

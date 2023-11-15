@@ -3,15 +3,16 @@ A HebrewNewYearOneDayDelay is a one day delay.
 
 "
 Class {
-	#name : #HebrewNewYearOneDayDelay,
-	#superclass : #HebrewNewYearDelay,
+	#name : 'HebrewNewYearOneDayDelay',
+	#superclass : 'HebrewNewYearDelay',
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Chalten-Hebrew-Calendar'
+	#category : 'Chalten-Hebrew-Calendar',
+	#package : 'Chalten-Hebrew-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 HebrewNewYearOneDayDelay class >> canHandle: aYear [
 
 	| amountOfDaysInYearNumber amountOfDaysInPreviousYearNumber |
@@ -21,26 +22,26 @@ HebrewNewYearOneDayDelay class >> canHandle: aYear [
 	^(amountOfDaysInYearNumber - amountOfDaysInPreviousYearNumber) amount = 382
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HebrewNewYearOneDayDelay class >> initialize [
 
 	super initialize.
 	self initializeUniqueInstance
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HebrewNewYearOneDayDelay class >> initializeUniqueInstance [
 
 	uniqueInstance := super new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HebrewNewYearOneDayDelay class >> new [
 
 	^uniqueInstance
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 HebrewNewYearOneDayDelay >> value [
 
 	^1

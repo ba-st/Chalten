@@ -17,23 +17,25 @@ strategy
 
 "
 Class {
-	#name : #DaysOfMonthsStream,
-	#superclass : #Object,
+	#name : 'DaysOfMonthsStream',
+	#superclass : 'Object',
 	#instVars : [
 		'start',
 		'current',
 		'strategy'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 DaysOfMonthsStream class >> startingOn: aMonthOfYear monthsStrategy: aMonthsStrategy [
 
 	^self new initializeStartingOn: aMonthOfYear monthsStrategy: aMonthsStrategy
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 DaysOfMonthsStream >> distanceTo: aDayOfMonth [
 
 	| daysCount numberOfDays |
@@ -50,7 +52,7 @@ DaysOfMonthsStream >> distanceTo: aDayOfMonth [
 	^numberOfDays daysMeasure
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 DaysOfMonthsStream >> initializeStartingOn: aDayOfMonth monthsStrategy: aMonthsStrategy [
 
 	start := aDayOfMonth.
@@ -58,12 +60,12 @@ DaysOfMonthsStream >> initializeStartingOn: aDayOfMonth monthsStrategy: aMonthsS
 	strategy := aMonthsStrategy
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 DaysOfMonthsStream >> next [
 	^ self next: 1 dayMeasure
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 DaysOfMonthsStream >> next: aMeasure [
 
 	| daysToAdd stream lastDayNumber |
@@ -82,12 +84,12 @@ DaysOfMonthsStream >> next: aMeasure [
 	^current
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 DaysOfMonthsStream >> previous [
 	^ self previous: 1 dayMeasure
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 DaysOfMonthsStream >> previous: aMeasure [
 
 	| daysToSubtract stream |

@@ -6,41 +6,43 @@ The timeline does not have a known end or beginning, but the mere fact that we, 
 When using these objects, the programmer has to have special care because iterating over an interval with no end and/or beginning will never stop.
 "
 Class {
-	#name : #EndsOfTimeline,
-	#superclass : #PointInTime,
-	#category : #'Chalten-Core-Time'
+	#name : 'EndsOfTimeline',
+	#superclass : 'PointInTime',
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'accessing days - private' }
+{ #category : 'accessing days - private' }
 EndsOfTimeline >> amountOfDaysFromEpoch [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'interval protocol - private' }
+{ #category : 'interval protocol - private' }
 EndsOfTimeline >> defaultIntervalIncrement [
 	^ 1 dayMeasure
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 EndsOfTimeline >> distanceTo: aTimelinePoint [
 
-	^Infinity daysMeasure
+	^ArithmeticObject infinity daysMeasure
 ]
 
-{ #category : #'interval protocol - private' }
+{ #category : 'interval protocol - private' }
 EndsOfTimeline >> intervalStrategy [
 
 	^InfinityIntervalStrategy new
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 EndsOfTimeline >> next: aMeasure [
 
 	^self
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 EndsOfTimeline >> numberOfDaysFromEpoch [
 
 	^self amountOfDaysFromEpoch daysMeasure

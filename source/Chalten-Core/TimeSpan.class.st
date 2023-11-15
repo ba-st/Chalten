@@ -17,28 +17,30 @@ from
 
 "
 Class {
-	#name : #TimeSpan,
-	#superclass : #Object,
+	#name : 'TimeSpan',
+	#superclass : 'Object',
 	#instVars : [
 		'from',
 		'duration'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 TimeSpan class >> from: aDate duration: aTimeMeasure [
 
 	^self new initializeFrom: aDate duration: aTimeMeasure
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 TimeSpan class >> fromInterval: anInterval [
 
 	^self from: anInterval from duration: (anInterval from distanceTo: anInterval to)
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 TimeSpan >> = anObject [
 
 	^self class = anObject class
@@ -46,7 +48,7 @@ TimeSpan >> = anObject [
 		and: [ duration = anObject duration ]]
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 TimeSpan >> asInterval [
 
 	^ArithmeticObjectInterval
@@ -56,32 +58,32 @@ TimeSpan >> asInterval [
 		intervalStrategy: PointInTimeIntervalStrategy new.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TimeSpan >> duration [
 
 	^duration
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TimeSpan >> from [
 
 	^from
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 TimeSpan >> hash [
 
 	^from hash bitXor: duration hash
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 TimeSpan >> initializeFrom: aDate duration: aTimeMeasure [
 
 	from := aDate.
 	duration := aTimeMeasure
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 TimeSpan >> printOn: aStream [
 
 	duration printOn: aStream.
@@ -89,13 +91,13 @@ TimeSpan >> printOn: aStream [
 	from printOn: aStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TimeSpan >> to [
 	
 	^from next: duration
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 TimeSpan >> value [
 
 	^self class from: from value duration: duration

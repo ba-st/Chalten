@@ -1,1 +1,1 @@
-Package { #name : #'Chalten-Julian-Calendar' }
+Package { #name : 'Chalten-Julian-Calendar' }

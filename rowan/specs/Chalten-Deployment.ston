@@ -1,0 +1,9 @@
+RwLoadSpecificationV2 {
+  #specName: 'Chalten-Deployment',
+  #projectName : 'Chalten',
+  #diskUrl : 'Chalten',
+  #projectSpecFile : 'rowan/project.ston',
+  #componentNames : [
+      'Deployment'
+  ]
+}

@@ -3,15 +3,16 @@ A HebrewNewYearTwoDaysDelay is a two days delay.
 
 "
 Class {
-	#name : #HebrewNewYearTwoDaysDelay,
-	#superclass : #HebrewNewYearDelay,
+	#name : 'HebrewNewYearTwoDaysDelay',
+	#superclass : 'HebrewNewYearDelay',
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Chalten-Hebrew-Calendar'
+	#category : 'Chalten-Hebrew-Calendar',
+	#package : 'Chalten-Hebrew-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 HebrewNewYearTwoDaysDelay class >> canHandle: aYear [
 
 	| numberOfDaysInYearNumber numberOfDaysInNextYearNumber |
@@ -21,26 +22,26 @@ HebrewNewYearTwoDaysDelay class >> canHandle: aYear [
 	^(numberOfDaysInNextYearNumber - numberOfDaysInYearNumber) amount = 356
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HebrewNewYearTwoDaysDelay class >> initialize [
 
 	super initialize.
 	self initializeUniqueInstance
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HebrewNewYearTwoDaysDelay class >> initializeUniqueInstance [
 
 	uniqueInstance := super new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HebrewNewYearTwoDaysDelay class >> new [
 
 	^uniqueInstance
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 HebrewNewYearTwoDaysDelay >> value [
 
 	^2

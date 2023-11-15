@@ -3,24 +3,25 @@ A HebrewElapsedDaysInYearCorrectionBehavior is an abstract class for corrections
 
 "
 Class {
-	#name : #HebrewElapsedDaysInYearCorrectionBehavior,
-	#superclass : #Object,
-	#category : #'Chalten-Hebrew-Calendar'
+	#name : 'HebrewElapsedDaysInYearCorrectionBehavior',
+	#superclass : 'Object',
+	#category : 'Chalten-Hebrew-Calendar',
+	#package : 'Chalten-Hebrew-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 HebrewElapsedDaysInYearCorrectionBehavior class >> basicCanHandle: anAmountOfDays [
 
 	^(3 * (anAmountOfDays + 1) \\ 7) < 3
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HebrewElapsedDaysInYearCorrectionBehavior class >> canHandle: anAmountOfDays [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HebrewElapsedDaysInYearCorrectionBehavior class >> for: anAmountOfdays [
 
 	| handleClass |
@@ -29,7 +30,7 @@ HebrewElapsedDaysInYearCorrectionBehavior class >> for: anAmountOfdays [
 	^handleClass new
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 HebrewElapsedDaysInYearCorrectionBehavior >> value [
 
 	self subclassResponsibility

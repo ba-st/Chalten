@@ -3,24 +3,25 @@ A YearRuleTest is xxxxxxxxx.
 
 "
 Class {
-	#name : #YearRuleTest,
-	#superclass : #TestCase,
-	#category : #'Chalten-Core-Tests-Filter'
+	#name : 'YearRuleTest',
+	#superclass : 'TestCase',
+	#category : 'Chalten-Core-Tests-Filter',
+	#package : 'Chalten-Core-Tests',
+	#tag : 'Filter'
 }
 
-{ #category : #test }
+{ #category : 'test' }
 YearRuleTest >> testAccessing [
 
 	| rule decoratedRule |
-
 	decoratedRule := ObjectInclusionRule for: 2014 asGregorianYear.
 	rule := YearRule rule: decoratedRule.
-	self assert: rule decoratedRule = decoratedRule.
-	self assert: rule year = 2014 asGregorianYear.
-	self assert: rule printString = decoratedRule printString
+	self assert: rule decoratedRule equals: decoratedRule.
+	self assert: rule year equals: 2014 asGregorianYear.
+	self assert: rule printString equals: decoratedRule printString
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 YearRuleTest >> testIncludes [
 
 	| rule includedDate |

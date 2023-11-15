@@ -9,8 +9,8 @@ timeFromMidnight
 
 "
 Class {
-	#name : #TimeOfDay,
-	#superclass : #PointInTime,
+	#name : 'TimeOfDay',
+	#superclass : 'PointInTime',
 	#instVars : [
 		'timeFromMidnight'
 	],
@@ -19,63 +19,59 @@ Class {
 		'lastTimeOfDay',
 		'noon'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TimeOfDay class >> firstTimeOfDay [
 
 	^firstTimeOfDay
 	
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 TimeOfDay class >> hours: anHour [
 	^ self timeFromMidnight: anHour hoursMeasure
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 TimeOfDay class >> hours: anHour minutes: aMinute [
 	^ self timeFromMidnight: anHour hoursMeasure + aMinute minutesMeasure
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 TimeOfDay class >> hours: anHour minutes: aMinute seconds: aSecond [
 	^ self timeFromMidnight: anHour hoursMeasure + aMinute minutesMeasure + aSecond secondsMeasure
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 TimeOfDay class >> hours: anHours minutes: aMinutes seconds: aSeconds milliseconds: aMilliseconds [
 	^ self
 		timeFromMidnight:
 			anHours hoursMeasure + aMinutes minutesMeasure + aSeconds secondsMeasure + aMilliseconds millisecondsMeasure
 ]
 
-{ #category : #initialization }
-TimeOfDay class >> initializeAfterLoad [
-
-	self initializeTimesOfDay
-]
-
-{ #category : #initialization }
+{ #category : 'initialization' }
 TimeOfDay class >> initializeFirstTimeOfDay [
 
 	firstTimeOfDay := self timeFromMidnight: 0 hoursMeasure
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 TimeOfDay class >> initializeLastTimeOfDay [
 
 	lastTimeOfDay := self timeFromMidnight: (24 hoursMeasure - 1 millisecondMeasure)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 TimeOfDay class >> initializeNoon [
 
 	noon := self hours: 12
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 TimeOfDay class >> initializeTimesOfDay [
 
 	self initializeFirstTimeOfDay.
@@ -83,26 +79,26 @@ TimeOfDay class >> initializeTimesOfDay [
 	self initializeNoon
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TimeOfDay class >> lastTimeOfDay [
 
 	^lastTimeOfDay
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TimeOfDay class >> midnight [
 	
 	^self firstTimeOfDay
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TimeOfDay class >> noon [
 	
 	^noon
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 TimeOfDay class >> timeFromMidnight: aTimeMeasure [ 
 
 	(aTimeMeasure < 0 hoursMeasure or: [ aTimeMeasure >= 24 hoursMeasure ]) 
@@ -111,25 +107,25 @@ TimeOfDay class >> timeFromMidnight: aTimeMeasure [
 	^self new initializeTimeFromMidnight: aTimeMeasure
 ]
 
-{ #category : #'magnitude protocol' }
+{ #category : 'magnitude protocol' }
 TimeOfDay >> < aTime [
 
 	self assertIsSameKindAs: aTime.
 	^timeFromMidnight < aTime timeFromMidnight
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 TimeOfDay >> = aTime [
 
 	^self class = aTime class and: [ timeFromMidnight = aTime timeFromMidnight ]
 ]
 
-{ #category : #'interval protocol - private' }
+{ #category : 'interval protocol - private' }
 TimeOfDay >> defaultIntervalIncrement [
 	^ 1 secondMeasure
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 TimeOfDay >> distanceTo: aTimeOfDay [ 
 
 	^self <= aTimeOfDay
@@ -137,31 +133,31 @@ TimeOfDay >> distanceTo: aTimeOfDay [
 		ifFalse: [ self timeToEndOfDay + aTimeOfDay timeFromMidnight ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TimeOfDay >> hash [
 
 	^timeFromMidnight hash
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TimeOfDay >> hours [
 	
 	^(timeFromMidnight convertTo: TimeUnits hour) truncated
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 TimeOfDay >> initializeTimeFromMidnight: aTimeMeasure [ 
 
 	timeFromMidnight := aTimeMeasure
 ]
 
-{ #category : #'interval protocol - private' }
+{ #category : 'interval protocol - private' }
 TimeOfDay >> intervalStrategy [
 
 	^RoundedTimelineIntervalStrategy new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TimeOfDay >> milliseconds [
 	
 	| seconds |
@@ -170,19 +166,19 @@ TimeOfDay >> milliseconds [
 	^(seconds - seconds truncated) convertTo: TimeUnits millisecond
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TimeOfDay >> minutes [
 	
 	^((timeFromMidnight - self hours) convertTo: TimeUnits minute) truncated
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 TimeOfDay >> next: aTimeMeasure [ 
 
 	^self class timeFromMidnight: timeFromMidnight + aTimeMeasure
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 TimeOfDay >> printOn: aStream [
 
 	aStream
@@ -193,25 +189,25 @@ TimeOfDay >> printOn: aStream [
 		nextPutAll: (self toString: self seconds)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TimeOfDay >> seconds [
 	
 	^((timeFromMidnight - self hours - self minutes) convertTo: TimeUnits second) truncated
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 TimeOfDay >> timeFromMidnight [
 	
 	^timeFromMidnight
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 TimeOfDay >> timeToEndOfDay [
 
 	^24 hoursMeasure - timeFromMidnight
 ]
 
-{ #category : #'printing - private' }
+{ #category : 'printing - private' }
 TimeOfDay >> toString: aMeasure [
 
 	| string |

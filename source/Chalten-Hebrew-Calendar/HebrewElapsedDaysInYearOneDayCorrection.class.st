@@ -3,39 +3,40 @@ A HebrewElapsedDaysInYearOneDayCorrection is a one day correction.
 
 "
 Class {
-	#name : #HebrewElapsedDaysInYearOneDayCorrection,
-	#superclass : #HebrewElapsedDaysInYearCorrectionBehavior,
+	#name : 'HebrewElapsedDaysInYearOneDayCorrection',
+	#superclass : 'HebrewElapsedDaysInYearCorrectionBehavior',
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Chalten-Hebrew-Calendar'
+	#category : 'Chalten-Hebrew-Calendar',
+	#package : 'Chalten-Hebrew-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 HebrewElapsedDaysInYearOneDayCorrection class >> canHandle: anAmountOfDays [
 
 	^self basicCanHandle: anAmountOfDays
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HebrewElapsedDaysInYearOneDayCorrection class >> initialize [
 
 	self initializeUniqueInstance
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HebrewElapsedDaysInYearOneDayCorrection class >> initializeUniqueInstance [
 
 	uniqueInstance := super new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HebrewElapsedDaysInYearOneDayCorrection class >> new [
 
 	^uniqueInstance
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 HebrewElapsedDaysInYearOneDayCorrection >> value [
 
 	^1

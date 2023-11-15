@@ -3,40 +3,41 @@ A CorrectionForFixedFromDateWhenOtherwise is a class for corrections made when m
 
 "
 Class {
-	#name : #CorrectionForFixedFromDateWhenOtherwise,
-	#superclass : #CorrectionForFixedFromDateBehavior,
+	#name : 'CorrectionForFixedFromDateWhenOtherwise',
+	#superclass : 'CorrectionForFixedFromDateBehavior',
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Chalten-Roman-Calendar'
+	#category : 'Chalten-Roman-Calendar',
+	#package : 'Chalten-Roman-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 CorrectionForFixedFromDateWhenOtherwise class >> canHandle: aChristianDate [
 
 	^(aChristianDate month <= February) not
 		and: [(aChristianDate month > February and: [aChristianDate year isLeap]) not]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CorrectionForFixedFromDateWhenOtherwise class >> initialize [
 
 	self initializeUniqueInstance
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CorrectionForFixedFromDateWhenOtherwise class >> initializeUniqueInstance [
 
 	uniqueInstance := super new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CorrectionForFixedFromDateWhenOtherwise class >> new [
 
 	^uniqueInstance
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 CorrectionForFixedFromDateWhenOtherwise >> value [
 
 	^2

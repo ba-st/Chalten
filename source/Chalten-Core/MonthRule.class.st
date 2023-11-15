@@ -9,51 +9,53 @@ decoratedRule
 
 "
 Class {
-	#name : #MonthRule,
-	#superclass : #InclusionRule,
+	#name : 'MonthRule',
+	#superclass : 'InclusionRule',
 	#instVars : [
 		'decoratedRule'
 	],
-	#category : #'Chalten-Core-Filter'
+	#category : 'Chalten-Core-Filter',
+	#package : 'Chalten-Core',
+	#tag : 'Filter'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MonthRule class >> month: aMonth [
 
 	^self rule: (ObjectInclusionRule for: aMonth)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MonthRule class >> rule: anInclusionRule [
 
 	^self new initializeRule: anInclusionRule
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MonthRule >> decoratedRule [
 
 	^decoratedRule
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 MonthRule >> includes: aDate [
 
 	^decoratedRule includes: aDate month
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MonthRule >> initializeRule: anInclusionRule [
 
 	decoratedRule := anInclusionRule
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MonthRule >> month [
 
 	^decoratedRule object
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 MonthRule >> printOn: aStream [
 
 	decoratedRule printOn: aStream

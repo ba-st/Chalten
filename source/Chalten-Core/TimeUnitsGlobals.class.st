@@ -3,8 +3,8 @@ A TimeUnitsGlobals is a helper object with common time units. Use it calling to 
 
 "
 Class {
-	#name : #TimeUnitsGlobals,
-	#superclass : #Object,
+	#name : 'TimeUnitsGlobals',
+	#superclass : 'Object',
 	#instVars : [
 		'day',
 		'hour',
@@ -21,35 +21,24 @@ Class {
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #initialization }
-TimeUnitsGlobals class >> initializeAfterLoad [
-
-	self initializeTimeUnits
-]
-
-{ #category : #initialization }
-TimeUnitsGlobals class >> initializeTimeUnits [
-
-	self initializeUniqueInstance.
-	Smalltalk at: #TimeUnits put: uniqueInstance
-]
-
-{ #category : #initialization }
+{ #category : 'initialization' }
 TimeUnitsGlobals class >> initializeUniqueInstance [
 
-	uniqueInstance := self basicNew initialize
+	uniqueInstance := super new initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 TimeUnitsGlobals class >> new [
 
 	^uniqueInstance
 ]
 
-{ #category : #'accessing - units' }
+{ #category : 'accessing - units' }
 TimeUnitsGlobals >> allUnits [
 	
 	^OrderedCollection new
@@ -64,37 +53,37 @@ TimeUnitsGlobals >> allUnits [
 		yourself
 ]
 
-{ #category : #'accessing - units' }
+{ #category : 'accessing - units' }
 TimeUnitsGlobals >> century [
 
 	^century
 ]
 
-{ #category : #'accessing - units' }
+{ #category : 'accessing - units' }
 TimeUnitsGlobals >> day [
 	
 	^day
 ]
 
-{ #category : #'accessing - units' }
+{ #category : 'accessing - units' }
 TimeUnitsGlobals >> decade [
 
 	^decade
 ]
 
-{ #category : #'accessing - units' }
+{ #category : 'accessing - units' }
 TimeUnitsGlobals >> hour [
 	
 	^hour
 ]
 
-{ #category : #'initialize - release' }
+{ #category : 'initialize - release' }
 TimeUnitsGlobals >> initialize [
 
 	self initializeTimeUnits
 ]
 
-{ #category : #'initialize - private' }
+{ #category : 'initialize - private' }
 TimeUnitsGlobals >> initializeCentury [
 
 	century := ProportionalDerivedUnit 
@@ -103,13 +92,13 @@ TimeUnitsGlobals >> initializeCentury [
 		named: 'century'
 ]
 
-{ #category : #'initialize - private' }
+{ #category : 'initialize - private' }
 TimeUnitsGlobals >> initializeDay [
 
 	day := BaseUnit named: 'day'
 ]
 
-{ #category : #'initialize - private' }
+{ #category : 'initialize - private' }
 TimeUnitsGlobals >> initializeDecade [
 
 	decade := ProportionalDerivedUnit 
@@ -118,7 +107,7 @@ TimeUnitsGlobals >> initializeDecade [
 		named: 'decade'
 ]
 
-{ #category : #'initialize - private' }
+{ #category : 'initialize - private' }
 TimeUnitsGlobals >> initializeHour [
 
 	hour := ProportionalDerivedUnit 
@@ -127,7 +116,7 @@ TimeUnitsGlobals >> initializeHour [
 		named: 'hour'
 ]
 
-{ #category : #'initialize - private' }
+{ #category : 'initialize - private' }
 TimeUnitsGlobals >> initializeMillennium [
 
 	millennium := ProportionalDerivedUnit 
@@ -136,7 +125,7 @@ TimeUnitsGlobals >> initializeMillennium [
 		named: 'millennium'
 ]
 
-{ #category : #'initialize - private' }
+{ #category : 'initialize - private' }
 TimeUnitsGlobals >> initializeMillisecond [
 
 	millisecond := ProportionalDerivedUnit 
@@ -145,7 +134,7 @@ TimeUnitsGlobals >> initializeMillisecond [
 		named: 'millisecond'
 ]
 
-{ #category : #'initialize - private' }
+{ #category : 'initialize - private' }
 TimeUnitsGlobals >> initializeMinute [
 
 	minute := ProportionalDerivedUnit 
@@ -154,13 +143,13 @@ TimeUnitsGlobals >> initializeMinute [
 		named: 'minute'
 ]
 
-{ #category : #'initialize - private' }
+{ #category : 'initialize - private' }
 TimeUnitsGlobals >> initializeMonth [
 
 	month := BaseUnit nameForOne: 'month' nameForMany: 'months'
 ]
 
-{ #category : #'initialize - private' }
+{ #category : 'initialize - private' }
 TimeUnitsGlobals >> initializeSecond [
 
 	second := ProportionalDerivedUnit 
@@ -169,7 +158,7 @@ TimeUnitsGlobals >> initializeSecond [
 		named: 'second'
 ]
 
-{ #category : #'initialize - private' }
+{ #category : 'initialize - private' }
 TimeUnitsGlobals >> initializeTimeUnits [
 
 	self initializeDay.
@@ -185,7 +174,7 @@ TimeUnitsGlobals >> initializeTimeUnits [
 	self initializeMillennium
 ]
 
-{ #category : #'initialize - private' }
+{ #category : 'initialize - private' }
 TimeUnitsGlobals >> initializeWeek [
 
 	week := ProportionalDerivedUnit 
@@ -194,49 +183,49 @@ TimeUnitsGlobals >> initializeWeek [
 		named: 'week'
 ]
 
-{ #category : #'initialize - private' }
+{ #category : 'initialize - private' }
 TimeUnitsGlobals >> initializeYear [
 
 	year := BaseUnit nameForOne: 'year' nameForMany: 'years'
 ]
 
-{ #category : #'accessing - units' }
+{ #category : 'accessing - units' }
 TimeUnitsGlobals >> millennium [
 
 	^millennium
 ]
 
-{ #category : #'accessing - units' }
+{ #category : 'accessing - units' }
 TimeUnitsGlobals >> millisecond [
 	
 	^millisecond
 ]
 
-{ #category : #'accessing - units' }
+{ #category : 'accessing - units' }
 TimeUnitsGlobals >> minute [
 
 	^minute
 ]
 
-{ #category : #'accessing - units' }
+{ #category : 'accessing - units' }
 TimeUnitsGlobals >> month [
 	
 	^month
 ]
 
-{ #category : #'accessing - units' }
+{ #category : 'accessing - units' }
 TimeUnitsGlobals >> second [
 
 	^second
 ]
 
-{ #category : #'accessing - units' }
+{ #category : 'accessing - units' }
 TimeUnitsGlobals >> week [
 
 	^week
 ]
 
-{ #category : #'accessing - units' }
+{ #category : 'accessing - units' }
 TimeUnitsGlobals >> year [
 
 	^year

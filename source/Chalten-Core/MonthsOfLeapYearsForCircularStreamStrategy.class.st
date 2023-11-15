@@ -9,33 +9,35 @@ stream
 
 "
 Class {
-	#name : #MonthsOfLeapYearsForCircularStreamStrategy,
-	#superclass : #MonthsForCircularStreamStrategyBehavior,
+	#name : 'MonthsOfLeapYearsForCircularStreamStrategy',
+	#superclass : 'MonthsForCircularStreamStrategyBehavior',
 	#instVars : [
 		'stream'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MonthsOfLeapYearsForCircularStreamStrategy class >> of: aCalendar [
 
 	^self new initializeOf: aCalendar
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MonthsOfLeapYearsForCircularStreamStrategy >> initializeOf: aCalendar [
 
 	stream := CircularReadStream on: aCalendar monthsForLeapYears moving: TimeUnits month
 ]
 
-{ #category : #'months days accessing' }
+{ #category : 'months days accessing' }
 MonthsOfLeapYearsForCircularStreamStrategy >> numberOfDaysOf: aMonth [
 
 	^aMonth numberOfDaysInLeapYear
 ]
 
-{ #category : #'accessing - private' }
+{ #category : 'accessing - private' }
 MonthsOfLeapYearsForCircularStreamStrategy >> stream [
 
 	^stream

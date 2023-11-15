@@ -3,40 +3,41 @@ A CorrectionForDateFromFixedWhenNumberIsUpperOrEqualThanMarchFirstAndYearIsLeap 
 
 "
 Class {
-	#name : #CorrectionForDateFromFixedWhenNumberIsUpperOrEqualThanMarchFirstAndYearIsLeap,
-	#superclass : #CorrectionForDateFromFixedBehavior,
+	#name : 'CorrectionForDateFromFixedWhenNumberIsUpperOrEqualThanMarchFirstAndYearIsLeap',
+	#superclass : 'CorrectionForDateFromFixedBehavior',
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Chalten-Roman-Calendar'
+	#category : 'Chalten-Roman-Calendar',
+	#package : 'Chalten-Roman-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 CorrectionForDateFromFixedWhenNumberIsUpperOrEqualThanMarchFirstAndYearIsLeap class >> canHandle: aYearNumber fixed: aNumber using: aCalendar [ 
 	^ aNumber >= (aCalendar 
 				numberOfDaysFromDate: (self firstOfMarchOf: aYearNumber in: aCalendar)) 
 		and: [aCalendar isYearNumberLeap: aYearNumber]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CorrectionForDateFromFixedWhenNumberIsUpperOrEqualThanMarchFirstAndYearIsLeap class >> initialize [
 
 	self initializeUniqueInstance
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CorrectionForDateFromFixedWhenNumberIsUpperOrEqualThanMarchFirstAndYearIsLeap class >> initializeUniqueInstance [
 
 	uniqueInstance := super new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CorrectionForDateFromFixedWhenNumberIsUpperOrEqualThanMarchFirstAndYearIsLeap class >> new [
 
 	^uniqueInstance
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 CorrectionForDateFromFixedWhenNumberIsUpperOrEqualThanMarchFirstAndYearIsLeap >> value [
 
 	^1

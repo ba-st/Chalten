@@ -3,33 +3,35 @@ A PointInTimeIntervalStrategy is an strategy when have one point in time interva
 
 "
 Class {
-	#name : #PointInTimeIntervalStrategy,
-	#superclass : #PointInTimeIntervalStrategyBehavior,
+	#name : 'PointInTimeIntervalStrategy',
+	#superclass : 'PointInTimeIntervalStrategyBehavior',
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PointInTimeIntervalStrategy class >> initialize [
 
 	self initializeUniqueInstance
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PointInTimeIntervalStrategy class >> initializeUniqueInstance [
 
 	uniqueInstance := super new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PointInTimeIntervalStrategy class >> new [
 
 	^uniqueInstance
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 PointInTimeIntervalStrategy >> stepsFrom: fromPointInTime to: toPointInTime by: aDistance [
 
 	| fromToDistance |

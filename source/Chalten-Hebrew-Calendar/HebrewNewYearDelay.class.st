@@ -3,18 +3,19 @@ A HebrewNewYearDelay is an abstract class used to determinate the delay for a ne
 
 "
 Class {
-	#name : #HebrewNewYearDelay,
-	#superclass : #Object,
-	#category : #'Chalten-Hebrew-Calendar'
+	#name : 'HebrewNewYearDelay',
+	#superclass : 'Object',
+	#category : 'Chalten-Hebrew-Calendar',
+	#package : 'Chalten-Hebrew-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 HebrewNewYearDelay class >> canHandle: aYearNumber [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HebrewNewYearDelay class >> for: aYear [
 
 	| delayClass |
@@ -23,7 +24,7 @@ HebrewNewYearDelay class >> for: aYear [
 	^delayClass new
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 HebrewNewYearDelay >> value [
 
 	self subclassResponsibility

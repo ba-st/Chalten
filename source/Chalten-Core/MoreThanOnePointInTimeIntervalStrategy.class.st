@@ -3,39 +3,41 @@ A MoreThanOnePointInTimeIntervalStrategy is an strategy when have more than one 
 
 "
 Class {
-	#name : #MoreThanOnePointInTimeIntervalStrategy,
-	#superclass : #PointInTimeIntervalStrategyBehavior,
+	#name : 'MoreThanOnePointInTimeIntervalStrategy',
+	#superclass : 'PointInTimeIntervalStrategyBehavior',
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MoreThanOnePointInTimeIntervalStrategy class >> initialize [
 
 	self initializeUniqueInstance
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MoreThanOnePointInTimeIntervalStrategy class >> initializeUniqueInstance [
 
 	uniqueInstance := super new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MoreThanOnePointInTimeIntervalStrategy class >> new [
 
 	^uniqueInstance
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MoreThanOnePointInTimeIntervalStrategy >> isValidIntervalFrom: aStart to: aStop by: aStep [
 
 	^(self stepsFrom: aStart to: aStop by: aStep) > 0
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MoreThanOnePointInTimeIntervalStrategy >> stepsFrom: fromPointInTime to: toPointInTime by: aDistance [
 	
 	^(fromPointInTime distanceTo: toPointInTime) / aDistance

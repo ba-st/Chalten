@@ -3,18 +3,20 @@ A PointInTimeIntervalStrategyBehavior is an abstract class which defines common 
 
 "
 Class {
-	#name : #PointInTimeIntervalStrategyBehavior,
-	#superclass : #IntervalStrategy,
-	#category : #'Chalten-Core-Time'
+	#name : 'PointInTimeIntervalStrategyBehavior',
+	#superclass : 'IntervalStrategy',
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 PointInTimeIntervalStrategyBehavior >> advanceFrom: from by: by [
 
 	^from next: by
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 PointInTimeIntervalStrategyBehavior >> advanceFrom: from steps: steps by: by [
 
 	^from next: (steps * by)

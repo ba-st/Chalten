@@ -3,36 +3,38 @@ A YearType is an abstract class wich defines common protocol for a type year. A 
 
 "
 Class {
-	#name : #YearType,
-	#superclass : #Object,
-	#category : #'Chalten-Core-Time'
+	#name : 'YearType',
+	#superclass : 'Object',
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'accessing months' }
+{ #category : 'accessing months' }
 YearType >> amountOfMonthsIn: aYear [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'months stream accessing' }
+{ #category : 'months stream accessing' }
 YearType >> arrayOfMonthsOf: aYear [
 
 	self subclassResponsibility
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 YearType >> isLeap [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'accessing months' }
+{ #category : 'accessing months' }
 YearType >> monthNumbered: aNumber in: aCalendar [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 YearType >> numberOfDaysFor: aMonthDefinition [
 
 	self subclassResponsibility

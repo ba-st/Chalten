@@ -4,18 +4,19 @@ A CorrectionForFixedFromDateBehavior is an abstract class for corrections made w
 
 "
 Class {
-	#name : #CorrectionForFixedFromDateBehavior,
-	#superclass : #Object,
-	#category : #'Chalten-Roman-Calendar'
+	#name : 'CorrectionForFixedFromDateBehavior',
+	#superclass : 'Object',
+	#category : 'Chalten-Roman-Calendar',
+	#package : 'Chalten-Roman-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 CorrectionForFixedFromDateBehavior class >> canHandle: aChristianDate [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CorrectionForFixedFromDateBehavior class >> for: aChristianDate [
 
 	| handleClass |
@@ -24,7 +25,7 @@ CorrectionForFixedFromDateBehavior class >> for: aChristianDate [
 	^handleClass new
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 CorrectionForFixedFromDateBehavior >> value [
 
 	self subclassResponsibility

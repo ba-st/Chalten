@@ -3,71 +3,73 @@ A DateBehavior is an abstract class wich defines common protocol for objects rep
 
 "
 Class {
-	#name : #DateBehavior,
-	#superclass : #PointInTime,
-	#category : #'Chalten-Core-Time'
+	#name : 'DateBehavior',
+	#superclass : 'PointInTime',
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'accessing datetime' }
+{ #category : 'accessing datetime' }
 DateBehavior >> atLastTimeOfDay [
 
 	^self atTimeOfDay: TimeOfDay lastTimeOfDay
 ]
 
-{ #category : #'accessing datetime' }
+{ #category : 'accessing datetime' }
 DateBehavior >> atMidnight [
 
 	^self atTimeOfDay: TimeOfDay midnight
 ]
 
-{ #category : #'accessing datetime' }
+{ #category : 'accessing datetime' }
 DateBehavior >> atNoon [
 
 	^self atTimeOfDay: TimeOfDay noon
 ]
 
-{ #category : #'accessing datetime' }
+{ #category : 'accessing datetime' }
 DateBehavior >> atTimeOfDay: aTimeOfDay [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 DateBehavior >> calendar [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 DateBehavior >> day [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 DateBehavior >> dayNumber [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 DateBehavior >> dayNumberFromEpoch [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 DateBehavior >> dayOfMonth [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'interval protocol - private' }
+{ #category : 'interval protocol - private' }
 DateBehavior >> defaultIntervalIncrement [
 	^ 1 dayMeasure
 ]
 
-{ #category : #'enumerating - private' }
+{ #category : 'enumerating - private' }
 DateBehavior >> distanceInDaysFrom: aDayOfMonth [
 
 	| fromYear |
@@ -78,7 +80,7 @@ DateBehavior >> distanceInDaysFrom: aDayOfMonth [
 	^self distanceFrom: (aDayOfMonth ofYear: fromYear)
 ]
 
-{ #category : #'enumerating - private' }
+{ #category : 'enumerating - private' }
 DateBehavior >> distanceInDaysTo: aDayOfMonth [
 
 	| toYear |
@@ -89,91 +91,91 @@ DateBehavior >> distanceInDaysTo: aDayOfMonth [
 	^self distanceTo: (aDayOfMonth ofYear: toYear)
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 DateBehavior >> distanceTo: aDate [
 
 	^aDate numberOfDaysFromEpoch - self numberOfDaysFromEpoch
 ]
 
-{ #category : #'accessing datetime' }
+{ #category : 'accessing datetime' }
 DateBehavior >> firstTimeOfDay [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'interval protocol - private' }
+{ #category : 'interval protocol - private' }
 DateBehavior >> intervalStrategy [
 
 	^PointInTimeIntervalStrategy new
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 DateBehavior >> is: aDay [
 
 	^self day is: aDay
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 DateBehavior >> isFirstDayOfMonth [
 
 	self subclassResponsibility
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 DateBehavior >> isFirstDayOfYear [
 
 	self subclassResponsibility
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 DateBehavior >> isFirstMonthOfYear [
 
 	^self month isFirstMonthOfYear
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 DateBehavior >> isIn: aMonth [
 
 	^self month is: aMonth
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 DateBehavior >> isLastDayOfMonth [
 
 	self subclassResponsibility
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 DateBehavior >> isLastDayOfYear [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'accessing datetime' }
+{ #category : 'accessing datetime' }
 DateBehavior >> lastTimeOfDay [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 DateBehavior >> month [
 	
 	^self monthOfYear month
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 DateBehavior >> monthNumber [
 
 	^self month number
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 DateBehavior >> monthOfYear [
 
 	self subclassResponsibility
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 DateBehavior >> nextDay: aDay [
 
 	| day |
@@ -184,43 +186,43 @@ DateBehavior >> nextDay: aDay [
 		ifFalse: [self next: (day distanceTo: aDay)]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 DateBehavior >> nextDayOfMonth: aDayOfMonth [
 
 	^self next: (self distanceInDaysTo: aDayOfMonth)
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 DateBehavior >> numberOfDaysFromBeginningOfMonth [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 DateBehavior >> numberOfDaysFromBeginningOfYear [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 DateBehavior >> numberOfDaysFromEpoch [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 DateBehavior >> numberOfDaysToEndOfMonth [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 DateBehavior >> numberOfDaysToEndOfYear [
 
 	self subclassResponsibility
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 DateBehavior >> previousDay: aDay [
 
 	| day |
@@ -231,56 +233,56 @@ DateBehavior >> previousDay: aDay [
 		ifFalse: [self previous: (day distanceFrom: aDay)]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 DateBehavior >> previousDayOfMonth: aDayOfMonth [
 
 	^self previous: (self distanceInDaysFrom: aDayOfMonth)
 ]
 
-{ #category : #'interval protocol' }
+{ #category : 'interval protocol' }
 DateBehavior >> to: aDate every: aCollectionOfDays [
 
 	^(self to: aDate) select: [:date | aCollectionOfDays includes: date day]
 ]
 
-{ #category : #'interval protocol' }
+{ #category : 'interval protocol' }
 DateBehavior >> to: aDate everyDay: aDay [
 
 	^self to: aDate every: (Array with: aDay)
 ]
 
-{ #category : #'interval protocol' }
+{ #category : 'interval protocol' }
 DateBehavior >> to: aDate everyDayNumber: aDayNumber [
 
 	^self to: aDate everyDayNumbers: (Array with: aDayNumber)
 ]
 
-{ #category : #'interval protocol' }
+{ #category : 'interval protocol' }
 DateBehavior >> to: aDate everyDayNumbers: aCollectionOfDayNumbers [
 
 	^(self to: aDate) select: [:date | aCollectionOfDayNumbers includes: date dayNumber]
 ]
 
-{ #category : #'interval protocol' }
+{ #category : 'interval protocol' }
 DateBehavior >> to: aDate everyDayOfMonth: aDayOfMonth [
 
 	^self to: aDate everyDayOfMonths: (Array with: aDayOfMonth)
 ]
 
-{ #category : #'interval protocol' }
+{ #category : 'interval protocol' }
 DateBehavior >> to: aDate everyDayOfMonths: aCollectionOfDayOfMonths [
 
 	^(self to: aDate)
 		select: [:date | aCollectionOfDayOfMonths includes: date dayOfMonth]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 DateBehavior >> year [
 
 	^self monthOfYear year
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 DateBehavior >> yearNumber [
 
 	^self year number

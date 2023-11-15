@@ -1,0 +1,14 @@
+RwLoadSpecificationV2 {
+  #specName: 'Chalten-CI',
+  #projectName : 'Chalten',
+  #diskUrl : 'Chalten',
+  #projectSpecFile : 'rowan/project.ston',
+  #componentNames : [
+      'Tests'
+  ],
+  #customConditionalAttributes : [
+    'sunit',
+    'tests'
+  ],
+  #comment : 'Chalten continuous integration setup'
+}

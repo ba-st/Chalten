@@ -3,18 +3,19 @@ A YearNumberFromFixed is an abstract class used to create a year from a number.
 
 "
 Class {
-	#name : #YearNumberFromFixed,
-	#superclass : #Object,
-	#category : #'Chalten-Roman-Calendar'
+	#name : 'YearNumberFromFixed',
+	#superclass : 'Object',
+	#category : 'Chalten-Roman-Calendar',
+	#package : 'Chalten-Roman-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 YearNumberFromFixed class >> canHandle: aCalendar [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 YearNumberFromFixed class >> for: aNumberOfDays using: aCalendar [
 
 	| handleClass |
@@ -23,7 +24,7 @@ YearNumberFromFixed class >> for: aNumberOfDays using: aCalendar [
 	^handleClass new initializeFor: aNumberOfDays using: aCalendar
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 YearNumberFromFixed >> initializeFor: aNumberOfDays using: aCalendar [
 
 	self subclassResponsibility

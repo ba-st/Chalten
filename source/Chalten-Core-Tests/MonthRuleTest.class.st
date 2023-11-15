@@ -1,22 +1,25 @@
 Class {
-	#name : #MonthRuleTest,
-	#superclass : #TestCase,
-	#category : #'Chalten-Core-Tests-Filter'
+	#name : 'MonthRuleTest',
+	#superclass : 'TestCase',
+	#category : 'Chalten-Core-Tests-Filter',
+	#package : 'Chalten-Core-Tests',
+	#tag : 'Filter'
 }
 
-{ #category : #test }
+{ #category : 'test' }
 MonthRuleTest >> testAccessing [
 
 	| rule decoratedRule |
-
-	decoratedRule := ObjectInclusionRule for: GregorianCalendar january.
+	decoratedRule := ObjectInclusionRule for:
+		                 (ChaltenEnvironment calendarNamed:
+			                  #GregorianCalendar) january.
 	rule := MonthRule rule: decoratedRule.
-	self assert: rule decoratedRule = decoratedRule.
-	self assert: rule month = January.
-	self assert: rule printString = decoratedRule printString
+	self assert: rule decoratedRule equals: decoratedRule.
+	self assert: rule month equals: January.
+	self assert: rule printString equals: decoratedRule printString
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 MonthRuleTest >> testIncludes [
 
 	| rule includedDate |

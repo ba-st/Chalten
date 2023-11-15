@@ -9,39 +9,40 @@ year
 
 "
 Class {
-	#name : #HebrewElapsedDaysInYear,
-	#superclass : #Object,
+	#name : 'HebrewElapsedDaysInYear',
+	#superclass : 'Object',
 	#instVars : [
 		'year'
 	],
-	#category : #'Chalten-Hebrew-Calendar'
+	#category : 'Chalten-Hebrew-Calendar',
+	#package : 'Chalten-Hebrew-Calendar'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HebrewElapsedDaysInYear class >> for: aYear [
 
 	^self new initializeFor: aYear
 ]
 
-{ #category : #'evaluating - private' }
+{ #category : 'evaluating - private' }
 HebrewElapsedDaysInYear >> elapsedMonthsIn: aYearNumber [
 
 	^(235 * aYearNumber - 234) // 19
 ]
 
-{ #category : #'evaluating - private' }
+{ #category : 'evaluating - private' }
 HebrewElapsedDaysInYear >> elapsedPartsIn: aYearNumber [
 
 	^12084 + (13753 * (self elapsedMonthsIn: aYearNumber))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HebrewElapsedDaysInYear >> initializeFor: aYear [
 
 	year := aYear
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 HebrewElapsedDaysInYear >> value [
 	| yearNumber amountOfDays correction |
 	yearNumber := year number.

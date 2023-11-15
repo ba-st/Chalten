@@ -3,33 +3,35 @@ A RoundedTimelineIntervalStrategy is an strategy when have to round point in tim
 
 "
 Class {
-	#name : #RoundedTimelineIntervalStrategy,
-	#superclass : #PointInTimeIntervalStrategyBehavior,
+	#name : 'RoundedTimelineIntervalStrategy',
+	#superclass : 'PointInTimeIntervalStrategyBehavior',
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 RoundedTimelineIntervalStrategy class >> initialize [
 
 	self initializeUniqueInstance
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 RoundedTimelineIntervalStrategy class >> initializeUniqueInstance [
 
 	uniqueInstance := super new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 RoundedTimelineIntervalStrategy class >> new [
 
 	^uniqueInstance
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 RoundedTimelineIntervalStrategy >> stepsFrom: from to: to by: by [
 
 	^by > 0

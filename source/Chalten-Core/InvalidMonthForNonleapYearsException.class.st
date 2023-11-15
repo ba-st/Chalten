@@ -13,34 +13,36 @@ year
 
 "
 Class {
-	#name : #InvalidMonthForNonleapYearsException,
-	#superclass : #Error,
+	#name : 'InvalidMonthForNonleapYearsException',
+	#superclass : 'Error',
 	#instVars : [
 		'month',
 		'year'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 InvalidMonthForNonleapYearsException class >> month: aMonth year: aYear [
 
 	^self new initializeMonth: aMonth year: aYear
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 InvalidMonthForNonleapYearsException class >> signalMonth: aMonth year: aYear [
 
 	(self month: aMonth year: aYear) signal
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 InvalidMonthForNonleapYearsException >> description [
 
 	^'<1p> is an invalid month for nonleap <2p>' expandMacrosWith: month with: year
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 InvalidMonthForNonleapYearsException >> initializeMonth: aMonth year: aYear [
 
 	month := aMonth.

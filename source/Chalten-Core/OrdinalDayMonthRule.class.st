@@ -17,35 +17,37 @@ month
 
 "
 Class {
-	#name : #OrdinalDayMonthRule,
-	#superclass : #InclusionRule,
+	#name : 'OrdinalDayMonthRule',
+	#superclass : 'InclusionRule',
 	#instVars : [
 		'day',
 		'month',
 		'ordinal'
 	],
-	#category : #'Chalten-Core-Filter'
+	#category : 'Chalten-Core-Filter',
+	#package : 'Chalten-Core',
+	#tag : 'Filter'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 OrdinalDayMonthRule class >> ordinal: aNumber day: aDay month: aMonth [
 
 	^self new initializeOrdinal: aNumber day: aDay month: aMonth
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 OrdinalDayMonthRule >> day [
 
 	^day
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 OrdinalDayMonthRule >> includes: aDate [
 
 	^aDate = ((month ofYear: aDate year) ordinal: ordinal day: day)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 OrdinalDayMonthRule >> initializeOrdinal: aNumber day: aDay month: aMonth [
 
 	ordinal := aNumber.
@@ -53,19 +55,19 @@ OrdinalDayMonthRule >> initializeOrdinal: aNumber day: aDay month: aMonth [
 	month := aMonth
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 OrdinalDayMonthRule >> month [
 
 	^month
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 OrdinalDayMonthRule >> ordinal [
 
 	^ordinal
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 OrdinalDayMonthRule >> printOn: aStream [
 
 	self printOrdinalOn: aStream.
@@ -74,7 +76,7 @@ OrdinalDayMonthRule >> printOn: aStream [
 	self month printOn: aStream
 ]
 
-{ #category : #'printing - private' }
+{ #category : 'printing - private' }
 OrdinalDayMonthRule >> printOrdinalOn: aStream [
 
 	| index |

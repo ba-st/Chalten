@@ -1,43 +1,45 @@
 Class {
-	#name : #GenericMonthDefinitionTest,
-	#superclass : #TestCase,
+	#name : 'GenericMonthDefinitionTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'monthDefinition',
 		'otherDefinition'
 	],
-	#category : #'Chalten-Core-Tests-Time'
+	#category : 'Chalten-Core-Tests-Time',
+	#package : 'Chalten-Core-Tests',
+	#tag : 'Time'
 }
 
-{ #category : #'test support' }
+{ #category : 'test support' }
 GenericMonthDefinitionTest >> distanceTo: aMonthDefinition [
 
 	^self ninetyDays
 ]
 
-{ #category : #'test support' }
+{ #category : 'test support' }
 GenericMonthDefinitionTest >> firstDate [
 
 	^self
 ]
 
-{ #category : #'test support' }
+{ #category : 'test support' }
 GenericMonthDefinitionTest >> ninetyDays [
 	^ 30 daysMeasure * 3
 ]
 
-{ #category : #'test support' }
+{ #category : 'test support' }
 GenericMonthDefinitionTest >> numberOfDaysFor: aMonthDefinition [
 	
 	^aMonthDefinition numberOfDaysInLeapYear
 ]
 
-{ #category : #'test support' }
+{ #category : 'test support' }
 GenericMonthDefinitionTest >> ofYear: aYear [
 
 	^self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GenericMonthDefinitionTest >> setUp [
 
 	monthDefinition := GenericMonthDefinition 
@@ -46,7 +48,7 @@ GenericMonthDefinitionTest >> setUp [
 	otherDefinition := GenericMonthDefinition numberOfDays: self thirtyDays
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GenericMonthDefinitionTest >> testIsValidDayNumber [
 
 	self assert: (monthDefinition isValidDayNumber: 29).
@@ -61,46 +63,61 @@ GenericMonthDefinitionTest >> testIsValidDayNumber [
 
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GenericMonthDefinitionTest >> testNumberOfDays [
 
-	self assert: monthDefinition numberOfDays = self thirtyDays.
-	self assert: otherDefinition numberOfDays = self thirtyDays
+	self assert: monthDefinition numberOfDays equals: self thirtyDays.
+	self assert: otherDefinition numberOfDays equals: self thirtyDays
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GenericMonthDefinitionTest >> testNumberOfDaysFromBeginningOfYearIn [
 
-	self assert: (monthDefinition numberOfDaysFromBeginningOfYearIn: self for: self) = self ninetyDays
+	self
+		assert:
+		(monthDefinition numberOfDaysFromBeginningOfYearIn: self for: self)
+		equals: self ninetyDays
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GenericMonthDefinitionTest >> testNumberOfDaysIn [
 
-	self assert: (monthDefinition numberOfDaysIn: self) = self thirtyDays.
-	self assert: (otherDefinition numberOfDaysIn: self) = self thirtyDays
+	self
+		assert: (monthDefinition numberOfDaysIn: self)
+		equals: self thirtyDays.
+	self
+		assert: (otherDefinition numberOfDaysIn: self)
+		equals: self thirtyDays
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GenericMonthDefinitionTest >> testNumberOfDaysInLeapYear [
 
-	self assert: monthDefinition numberOfDaysInLeapYear = self thirtyDays.
-	self assert: otherDefinition numberOfDaysInLeapYear = self thirtyDays
+	self
+		assert: monthDefinition numberOfDaysInLeapYear
+		equals: self thirtyDays.
+	self
+		assert: otherDefinition numberOfDaysInLeapYear
+		equals: self thirtyDays
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 GenericMonthDefinitionTest >> testNumberOfDaysInNonleapYear [
 
-	self assert: monthDefinition numberOfDaysInNonleapYear = self twentynineDays.
-	self assert: otherDefinition numberOfDaysInNonleapYear = self thirtyDays
+	self
+		assert: monthDefinition numberOfDaysInNonleapYear
+		equals: self twentynineDays.
+	self
+		assert: otherDefinition numberOfDaysInNonleapYear
+		equals: self thirtyDays
 ]
 
-{ #category : #'test support' }
+{ #category : 'test support' }
 GenericMonthDefinitionTest >> thirtyDays [
 	^ 30 daysMeasure
 ]
 
-{ #category : #'test support' }
+{ #category : 'test support' }
 GenericMonthDefinitionTest >> twentynineDays [
 	^ 29 daysMeasure
 ]

@@ -13,16 +13,18 @@ numberOfDaysInNonleapYear
 
 "
 Class {
-	#name : #GenericMonthDefinition,
-	#superclass : #MonthDefinition,
+	#name : 'GenericMonthDefinition',
+	#superclass : 'MonthDefinition',
 	#instVars : [
 		'numberOfDaysInNonleapYear',
 		'numberOfDaysInLeapYear'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GenericMonthDefinition class >> numberOfDays: aNumberOfDays [
 	
 	^self
@@ -30,7 +32,7 @@ GenericMonthDefinition class >> numberOfDays: aNumberOfDays [
 		numberOfDaysInLeapYear: aNumberOfDays
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GenericMonthDefinition class >> numberOfDaysInNonleapYear: aNumberOfDaysInNonleapYears numberOfDaysInLeapYear: aNumberOfDaysInLeapYears [
 	
 	^self new
@@ -38,32 +40,32 @@ GenericMonthDefinition class >> numberOfDaysInNonleapYear: aNumberOfDaysInNonlea
 		numberOfDaysInLeapYear: aNumberOfDaysInLeapYears
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GenericMonthDefinition >> initializeNumberOfDaysInNonleapYear: aNumberOfDaysInNonleapYears numberOfDaysInLeapYear: aNumberOfDaysInLeapYears [
 
 	numberOfDaysInNonleapYear := aNumberOfDaysInNonleapYears.
 	numberOfDaysInLeapYear := aNumberOfDaysInLeapYears
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GenericMonthDefinition >> numberOfDays [
 	
 	^self numberOfDaysInLeapYear
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GenericMonthDefinition >> numberOfDaysIn: aYear [
 	
 	^aYear numberOfDaysFor: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GenericMonthDefinition >> numberOfDaysInLeapYear [
 	
 	^numberOfDaysInLeapYear
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GenericMonthDefinition >> numberOfDaysInNonleapYear [
 	
 	^numberOfDaysInNonleapYear

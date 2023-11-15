@@ -3,39 +3,40 @@ A HebrewElapsedDaysInYearZeroDaysCorrection is a zero days correction.
 
 "
 Class {
-	#name : #HebrewElapsedDaysInYearZeroDaysCorrection,
-	#superclass : #HebrewElapsedDaysInYearCorrectionBehavior,
+	#name : 'HebrewElapsedDaysInYearZeroDaysCorrection',
+	#superclass : 'HebrewElapsedDaysInYearCorrectionBehavior',
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Chalten-Hebrew-Calendar'
+	#category : 'Chalten-Hebrew-Calendar',
+	#package : 'Chalten-Hebrew-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 HebrewElapsedDaysInYearZeroDaysCorrection class >> canHandle: anAmountOfDays [
 
 	^(self basicCanHandle: anAmountOfDays) not
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HebrewElapsedDaysInYearZeroDaysCorrection class >> initialize [
 
 	self initializeUniqueInstance
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HebrewElapsedDaysInYearZeroDaysCorrection class >> initializeUniqueInstance [
 
 	uniqueInstance := super new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HebrewElapsedDaysInYearZeroDaysCorrection class >> new [
 
 	^uniqueInstance
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 HebrewElapsedDaysInYearZeroDaysCorrection >> value [
 
 	^0

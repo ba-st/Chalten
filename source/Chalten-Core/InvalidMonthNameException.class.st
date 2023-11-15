@@ -9,33 +9,35 @@ name
 
 "
 Class {
-	#name : #InvalidMonthNameException,
-	#superclass : #Error,
+	#name : 'InvalidMonthNameException',
+	#superclass : 'Error',
 	#instVars : [
 		'name'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 InvalidMonthNameException class >> name: aName [
 
 	^self new initializeName: aName
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 InvalidMonthNameException class >> signalName: aName [
 
 	(self name: aName) signal
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 InvalidMonthNameException >> description [
 
 	^'<1s> is an invalid name for a month' expandMacrosWith: name
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 InvalidMonthNameException >> initializeName: aName [
 
 	name := aName

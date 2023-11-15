@@ -9,33 +9,35 @@ name
 
 "
 Class {
-	#name : #InvalidDayNameException,
-	#superclass : #Error,
+	#name : 'InvalidDayNameException',
+	#superclass : 'Error',
 	#instVars : [
 		'name'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 InvalidDayNameException class >> name: aName [
 
 	^self new initializeName: aName
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 InvalidDayNameException class >> signalName: aName [
 
 	(self name: aName) signal
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 InvalidDayNameException >> description [
 
 	^'The name <1s> is invalid as a day of a week' expandMacrosWith: name
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 InvalidDayNameException >> initializeName: aName [
 
 	name := aName

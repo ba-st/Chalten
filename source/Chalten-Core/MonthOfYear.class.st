@@ -13,275 +13,277 @@ year
 
 "
 Class {
-	#name : #MonthOfYear,
-	#superclass : #PointInTime,
+	#name : 'MonthOfYear',
+	#superclass : 'PointInTime',
 	#instVars : [
 		'year',
 		'month'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> adarIIOf: aYear [
 
-	^self year: aYear month: HebrewCalendar adarII
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #HebrewCalendar) adarII
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> adarIOf: aYear [
 
-	^self year: aYear month: HebrewCalendar adarI
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #HebrewCalendar) adarI
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> adarOf: aYear [
 
-	^self year: aYear month: HebrewCalendar adar
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #HebrewCalendar) adar
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> aprilOf: aYear [
 
 	^self year: aYear month: aYear calendar april
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> augustOf: aYear [
 
 	^self year: aYear month: aYear calendar august
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> avOf: aYear [
 
-	^self year: aYear month: HebrewCalendar av
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #HebrewCalendar) av
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> decemberOf: aYear [
 
 	^self year: aYear month: aYear calendar december
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> dhuAlHijjaOf: aYear [
 
-	^self year: aYear month: IslamicCalendar dhuAlHijja
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #IslamicCalendar) dhuAlHijja
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> dhuAlQadaOf: aYear [
 
-	^self year: aYear month: IslamicCalendar dhuAlQada
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #IslamicCalendar) dhuAlQada
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> elulOf: aYear [
 
-	^self year: aYear month: HebrewCalendar elul
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #HebrewCalendar) elul
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> februaryOf: aYear [
 
 	^self year: aYear month: aYear calendar february
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> iyyarOf: aYear [
 
-	^self year: aYear month: HebrewCalendar iyyar
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #HebrewCalendar) iyyar
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> januaryOf: aYear [
 
 	^self year: aYear month: aYear calendar january
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> julyOf: aYear [
 
 	^self year: aYear month: aYear calendar july
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> jumadaIIOf: aYear [
 
-	^self year: aYear month: IslamicCalendar jumadaII
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #IslamicCalendar) jumadaII
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> jumadaIOf: aYear [
 
-	^self year: aYear month: IslamicCalendar jumadaI
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #IslamicCalendar) jumadaI
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> juneOf: aYear [
 
 	^self year: aYear month: aYear calendar june
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> kislevOf: aYear [
 
-	^self year: aYear month: HebrewCalendar kislev
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #HebrewCalendar) kislev
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> marchOf: aYear [
 
 	^self year: aYear month: aYear calendar march
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> marheshvanOf: aYear [
 
-	^self year: aYear month: HebrewCalendar marheshvan
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #HebrewCalendar) marheshvan
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> mayOf: aYear [
 
 	^self year: aYear month: aYear calendar may
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> muharramOf: aYear [
 
-	^self year: aYear month: IslamicCalendar muharram
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #IslamicCalendar) muharram
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> nisanOf: aYear [
 
-	^self year: aYear month: HebrewCalendar nisan
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #HebrewCalendar) nisan
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> novemberOf: aYear [
 
 	^self year: aYear month: aYear calendar november
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> octoberOf: aYear [
 
 	^self year: aYear month: aYear calendar october
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> rabiIIOf: aYear [
 
-	^self year: aYear month: IslamicCalendar rabiII
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #IslamicCalendar) rabiII
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> rabiIOf: aYear [
 
-	^self year: aYear month: IslamicCalendar rabiI
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #IslamicCalendar) rabiI
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> rajabOf: aYear [
 
-	^self year: aYear month: IslamicCalendar rajab
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #IslamicCalendar) rajab
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> ramadanOf: aYear [
 
-	^self year: aYear month: IslamicCalendar ramadan
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #IslamicCalendar) ramadan
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> safarOf: aYear [
 
-	^self year: aYear month: IslamicCalendar safar
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #IslamicCalendar) safar
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> septemberOf: aYear [
 
 	^self year: aYear month: aYear calendar september
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> shabanOf: aYear [
 
-	^self year: aYear month: IslamicCalendar shaban
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #IslamicCalendar) shaban
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> shawwalOf: aYear [
 
-	^self year: aYear month: IslamicCalendar shawwal
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #IslamicCalendar) shawwal
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> shevatOf: aYear [
 
-	^self year: aYear month: HebrewCalendar shevat
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #HebrewCalendar) shevat
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> sivanOf: aYear [
 
-	^self year: aYear month: HebrewCalendar sivan
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #HebrewCalendar) sivan
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> tammuzOf: aYear [
 
-	^self year: aYear month: HebrewCalendar tammuz
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #HebrewCalendar) tammuz
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> tevetOf: aYear [
 
-	^self year: aYear month: HebrewCalendar tevet
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #HebrewCalendar) tevet
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MonthOfYear class >> tishriOf: aYear [
 
-	^self year: aYear month: HebrewCalendar tishri
+	^self year: aYear month: (ChaltenEnvironment calendarNamed: #HebrewCalendar) tishri
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MonthOfYear class >> year: aYear month: aMonth [
 
 	aMonth assertIsValidIn: aYear.
 	^self new initializeYear: aYear month: aMonth
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MonthOfYear class >> year: aYear monthNumber: aMonthNumber [
 
 	^self year: aYear monthNumber: aMonthNumber calendar: aYear calendar
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MonthOfYear class >> year: aYear monthNumber: aMonthNumber calendar: aCalendar [
 
 	^self year: aYear month: (aCalendar monthNumbered: aMonthNumber)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MonthOfYear class >> yearNumber: aYearNumber month: aMonth [
 
 	^self yearNumber: aYearNumber month: aMonth calendar: aMonth calendar
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MonthOfYear class >> yearNumber: aYearNumber month: aMonth calendar: aCalendar [
 
 	^self year: (ChaltenYear number: aYearNumber calendar: aCalendar) month: aMonth
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MonthOfYear class >> yearNumber: aYearNumber monthNumber: aMonthNumber calendar: aCalendar [
 
 	^self 
@@ -290,7 +292,7 @@ MonthOfYear class >> yearNumber: aYearNumber monthNumber: aMonthNumber calendar:
 		calendar: aCalendar
 ]
 
-{ #category : #'magnitude protocol' }
+{ #category : 'magnitude protocol' }
 MonthOfYear >> < aMonthOfYear [
 
 	self assertIsSameKindAs: aMonthOfYear.
@@ -299,7 +301,7 @@ MonthOfYear >> < aMonthOfYear [
 			self month isPreviousTo: aMonthOfYear month in: year ]]
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 MonthOfYear >> = anObject [
 
 	^self class = anObject class 
@@ -307,24 +309,24 @@ MonthOfYear >> = anObject [
 		and: [year = anObject year]]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MonthOfYear >> calendar [
 
 	^month calendar
 ]
 
-{ #category : #'accessing dates' }
+{ #category : 'accessing dates' }
 MonthOfYear >> dates [
 
 	^self firstDate to: self lastDate
 ]
 
-{ #category : #'interval protocol - private' }
+{ #category : 'interval protocol - private' }
 MonthOfYear >> defaultIntervalIncrement [
 	^ 1 monthMeasure
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 MonthOfYear >> distanceTo: aMonthOfYear [
 
 	| stream |
@@ -334,106 +336,106 @@ MonthOfYear >> distanceTo: aMonthOfYear [
 	^stream distanceFrom: self to: aMonthOfYear
 ]
 
-{ #category : #'accessing dates' }
+{ #category : 'accessing dates' }
 MonthOfYear >> firstDate [
 
 	^FixedDate monthOfYear: self dayNumber: 1
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 MonthOfYear >> firstDay [
 
 	^self firstDate day
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 MonthOfYear >> hash [
 
 	^month hash bitXor: year hash
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 MonthOfYear >> includes: aPointInTime [
 
 	^aPointInTime monthOfYear = self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MonthOfYear >> initializeYear: aYear month: aMonth [
 
 	year := aYear.
 	month := aMonth
 ]
 
-{ #category : #'interval protocol - private' }
+{ #category : 'interval protocol - private' }
 MonthOfYear >> intervalStrategy [
 
 	^PointInTimeIntervalStrategy new
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MonthOfYear >> is: aMonth [
 
 	^month is: aMonth
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MonthOfYear >> isValidDayNumber: aDayNumber [
 
 	^(month isValidDayNumber: aDayNumber) and: [
 		aDayNumber <= self lastDayNumber ]
 ]
 
-{ #category : #'accessing dates' }
+{ #category : 'accessing dates' }
 MonthOfYear >> lastDate [
 
 	^FixedDate monthOfYear: self dayNumber: self lastDayNumber
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 MonthOfYear >> lastDay [
 
 	^self lastDate day
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MonthOfYear >> lastDayNumber [
 
 	^month lastDayNumberIn: year
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 MonthOfYear >> lastDayOfMonth [
 
 	^self lastDate dayOfMonth
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MonthOfYear >> month [
 
 	^month
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MonthOfYear >> monthNumber [
 
 	^month number
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MonthOfYear >> name [
 
 	^month name
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MonthOfYear >> next: aMeasure [
 
 	aMeasure isNothing ifTrue: [^self].
 	^(MonthsOfYearsStream startingOn: self) next: aMeasure
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MonthOfYear >> nextMonth: aMonth [
 	| yearsToMove |
 	yearsToMove := (month >= aMonth
@@ -442,31 +444,31 @@ MonthOfYear >> nextMonth: aMonth [
 	^ self nextMonth: aMonth in: yearsToMove
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MonthOfYear >> nextMonth: aMonth in: aNumberOfYears [
 
 	^(MonthsOfYearsStream startingOn: self) nextMonth: aMonth in: aNumberOfYears
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MonthOfYear >> numberOfDays [
 	
 	^month numberOfDaysIn: year
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 MonthOfYear >> numberOfDaysFromBeginningOfYear [
 
 	^month numberOfDaysFromBeginningOfYearIn: year
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 MonthOfYear >> numberOfDaysFromEpoch [
 
 	^(self calendar numberOfDaysFromEpochTo: year firstDate) + self numberOfDaysFromBeginningOfYear
 ]
 
-{ #category : #'accessing dates' }
+{ #category : 'accessing dates' }
 MonthOfYear >> onOrLast: aDayNumber [
 
 	^(self isValidDayNumber: aDayNumber)
@@ -474,7 +476,7 @@ MonthOfYear >> onOrLast: aDayNumber [
 		ifFalse: [self lastDate]
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 MonthOfYear >> ordinal: aNumber day: aDay [
 
 	| dates |
@@ -483,7 +485,7 @@ MonthOfYear >> ordinal: aNumber day: aDay [
 	^dates at: aNumber
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MonthOfYear >> previousMonth: aMonth [
 	| yearsToMove |
 	yearsToMove := (month <= aMonth
@@ -492,13 +494,13 @@ MonthOfYear >> previousMonth: aMonth [
 	^ self previousMonth: aMonth in: yearsToMove
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MonthOfYear >> previousMonth: aMonth in: aNumberOfYears [
 
 	^self nextMonth: aMonth in: aNumberOfYears negated
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 MonthOfYear >> printOn: aStream [
 
 	month printOn: aStream.
@@ -506,7 +508,7 @@ MonthOfYear >> printOn: aStream [
 	year printOn: aStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MonthOfYear >> year [
 
 	^year

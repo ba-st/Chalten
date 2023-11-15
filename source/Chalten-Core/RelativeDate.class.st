@@ -13,28 +13,30 @@ timespan
 
 "
 Class {
-	#name : #RelativeDate,
-	#superclass : #DateBehavior,
+	#name : 'RelativeDate',
+	#superclass : 'DateBehavior',
 	#instVars : [
 		'timespan',
 		'timelineFilter'
 	],
-	#category : #'Chalten-Core-Filter'
+	#category : 'Chalten-Core-Filter',
+	#package : 'Chalten-Core',
+	#tag : 'Filter'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 RelativeDate class >> timespan: aTimespan using: aTimeLineFilter [
 	
 	^self new initializeTimespan: aTimespan using: aTimeLineFilter
 ]
 
-{ #category : #'magnitude protocol' }
+{ #category : 'magnitude protocol' }
 RelativeDate >> < aDate [
 
 	^self absoluteDate < aDate
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 RelativeDate >> = anObject [
 
 	^self == anObject or: [
@@ -42,7 +44,7 @@ RelativeDate >> = anObject [
 			or: [self absoluteDate = anObject]]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RelativeDate >> absoluteDate [
 	"It is necessary to send #value for not assume that the dates of the time line filter are absolute,
 	and also it is necessary to send #value to the timespan in order to obtain a relative timespan"
@@ -50,170 +52,170 @@ RelativeDate >> absoluteDate [
 	^(timelineFilter next: timespan value) value
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 RelativeDate >> asGregorian [
 
 	^self absoluteDate asGregorian
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 RelativeDate >> asSmalltalkDate [
 
 	^self absoluteDate asSmalltalkDate
 ]
 
-{ #category : #'accessing datetime' }
+{ #category : 'accessing datetime' }
 RelativeDate >> atTimeOfDay: aTimeOfDay [
 
 	^self absoluteDate atTimeOfDay: aTimeOfDay
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RelativeDate >> calendar [
 	
 	^self absoluteDate calendar
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 RelativeDate >> day [
 	
 	^self absoluteDate day
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RelativeDate >> dayNumber [
 	
 	^self absoluteDate dayNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RelativeDate >> dayOfMonth [
 
 	^self absoluteDate dayOfMonth
 ]
 
-{ #category : #'accessing datetime' }
+{ #category : 'accessing datetime' }
 RelativeDate >> firstTimeOfDay [
 
 	^self absoluteDate firstTimeOfDay
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 RelativeDate >> hash [
 
 	^self absoluteDate hash
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 RelativeDate >> initializeTimespan: aTimespan using: aTimeLineFilter [
 	
 	timespan := aTimespan.
 	timelineFilter := aTimeLineFilter
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 RelativeDate >> isFirstDayOfMonth [
 	
 	^self absoluteDate isFirstDayOfMonth
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 RelativeDate >> isFirstDayOfYear [
 
 	^self absoluteDate isFirstDayOfYear
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 RelativeDate >> isLastDayOfMonth [
 
 	^self absoluteDate isLastDayOfMonth
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 RelativeDate >> isLastDayOfYear [
 
 	^self absoluteDate isLastDayOfYear
 ]
 
-{ #category : #'accessing datetime' }
+{ #category : 'accessing datetime' }
 RelativeDate >> lastTimeOfDay [
 
 	^self absoluteDate lastTimeOfDay
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RelativeDate >> month [
 
 	^self absoluteDate month
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RelativeDate >> monthOfYear [
 
 	^self absoluteDate monthOfYear
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 RelativeDate >> next: aMeasure [
 
 	^self absoluteDate next: aMeasure
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 RelativeDate >> numberOfDaysFromBeginningOfMonth [
 
 	^self absoluteDate numberOfDaysFromBeginningOfMonth
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 RelativeDate >> numberOfDaysFromBeginningOfYear [
 
 	^self absoluteDate numberOfDaysFromBeginningOfYear
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 RelativeDate >> numberOfDaysFromEpoch [
 
 	^self absoluteDate numberOfDaysFromEpoch
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 RelativeDate >> numberOfDaysToEndOfMonth [
 
 	^self absoluteDate numberOfDaysToEndOfMonth
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 RelativeDate >> numberOfDaysToEndOfYear [
 
 	^self absoluteDate numberOfDaysToEndOfYear
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 RelativeDate >> printOn: aStream [
 
 	self absoluteDate printOn: aStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RelativeDate >> timelineFilter [
 
 	^timelineFilter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RelativeDate >> timespan [
 
 	^timespan
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 RelativeDate >> value [
 
 	^self absoluteDate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RelativeDate >> year [
 
 	^self absoluteDate year

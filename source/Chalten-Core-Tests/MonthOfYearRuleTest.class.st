@@ -3,24 +3,27 @@ A MonthOfYearRuleTest is xxxxxxxxx.
 
 "
 Class {
-	#name : #MonthOfYearRuleTest,
-	#superclass : #TestCase,
-	#category : #'Chalten-Core-Tests-Filter'
+	#name : 'MonthOfYearRuleTest',
+	#superclass : 'TestCase',
+	#category : 'Chalten-Core-Tests-Filter',
+	#package : 'Chalten-Core-Tests',
+	#tag : 'Filter'
 }
 
-{ #category : #test }
+{ #category : 'test' }
 MonthOfYearRuleTest >> testAccessing [
 
 	| rule decoratedRule |
-
-	decoratedRule := ObjectInclusionRule for: (GregorianCalendar january of: 2014).
+	decoratedRule := ObjectInclusionRule for:
+		                 ((ChaltenEnvironment calendarNamed:
+			                   #GregorianCalendar) january of: 2014).
 	rule := MonthOfYearRule rule: decoratedRule.
-	self assert: rule decoratedRule = decoratedRule.
-	self assert: rule monthOfYear = (January, 2014).
-	self assert: rule printString = decoratedRule printString
+	self assert: rule decoratedRule equals: decoratedRule.
+	self assert: rule monthOfYear equals: January , 2014.
+	self assert: rule printString equals: decoratedRule printString
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 MonthOfYearRuleTest >> testIncludes [
 
 	| rule includedDate |

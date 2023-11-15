@@ -13,34 +13,36 @@ number
 
 "
 Class {
-	#name : #InvalidYearNumberException,
-	#superclass : #Error,
+	#name : 'InvalidYearNumberException',
+	#superclass : 'Error',
 	#instVars : [
 		'number',
 		'calendar'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 InvalidYearNumberException class >> number: aNumber calendar: aCalendar [
 
 	^self new initializeNumber: aNumber calendar: aCalendar
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 InvalidYearNumberException class >> signalNumber: aNumber calendar: aCalendar [
 
 	(self number: aNumber calendar: aCalendar) signal
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 InvalidYearNumberException >> description [
 
 	^'<1p> is an invalid number for a year in the <2p>' expandMacrosWith: number with: calendar
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 InvalidYearNumberException >> initializeNumber: aNumber calendar: aCalendar [
 
 	number := aNumber.

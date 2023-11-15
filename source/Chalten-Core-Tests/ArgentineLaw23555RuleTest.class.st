@@ -1,10 +1,12 @@
 Class {
-	#name : #ArgentineLaw23555RuleTest,
-	#superclass : #TestCase,
-	#category : #'Chalten-Core-Tests-Filter'
+	#name : 'ArgentineLaw23555RuleTest',
+	#superclass : 'TestCase',
+	#category : 'Chalten-Core-Tests-Filter',
+	#package : 'Chalten-Core-Tests',
+	#tag : 'Filter'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 ArgentineLaw23555RuleTest >> testCreation [
 	"The 16 of September move to following Monday.
 	
@@ -17,7 +19,7 @@ ArgentineLaw23555RuleTest >> testCreation [
 	self assert: (rule includes: September nineteenth, 2005)
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ArgentineLaw23555RuleTest >> testIncludesDayMovesToTheNextMonday [
 	"The 02 of April move to following Monday.
 	
@@ -32,7 +34,7 @@ ArgentineLaw23555RuleTest >> testIncludesDayMovesToTheNextMonday [
 	self assert: (rule includes: April fifth, 2004)
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ArgentineLaw23555RuleTest >> testIncludesDayMovesToThePreviousMonday [
 	"The 02 of April move to previous Monday.
 	
@@ -47,7 +49,7 @@ ArgentineLaw23555RuleTest >> testIncludesDayMovesToThePreviousMonday [
 	self assert: (rule includes: March thirtyfirst, 2003)
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ArgentineLaw23555RuleTest >> testIncludesDayWhenDayIsMonday [
 	"The 02 of April move to Monday.
 
@@ -60,7 +62,7 @@ ArgentineLaw23555RuleTest >> testIncludesDayWhenDayIsMonday [
 	self assert: (rule includes: April second, 2007)
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ArgentineLaw23555RuleTest >> testIncludesDayWhenDayIsSaturday [
 	"The 02 of April move to Monday.
 
@@ -77,12 +79,12 @@ ArgentineLaw23555RuleTest >> testIncludesDayWhenDayIsSaturday [
 	self deny: (rule includes: April fourth, 2005)
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ArgentineLaw23555RuleTest >> testPrintOn [
 
 	| rule |
-
 	rule := ArgentineLaw23555Rule monthNumber: 9 dayNumber: 16.
-	
-	self assert: rule printString = 'September 16 transferable holiday by Argentine Law 23555'
+	self
+		assert: rule printString
+		equals: 'September 16 transferable holiday by Argentine Law 23555'
 ]

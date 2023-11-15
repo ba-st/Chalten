@@ -3,33 +3,35 @@ An UndefinedEnvironmentException is an exception reised when there is no environ
 
 "
 Class {
-	#name : #UndefinedEnvironmentException,
-	#superclass : #Error,
+	#name : 'UndefinedEnvironmentException',
+	#superclass : 'Error',
 	#instVars : [
 		'message'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 UndefinedEnvironmentException class >> message: aMessage [
 
 	^self new initializeMessage: aMessage
 ]
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 UndefinedEnvironmentException class >> signalMessage: aMessage [
 
 	(self message: aMessage) signal
 ]
 
-{ #category : #accesing }
+{ #category : 'accesing' }
 UndefinedEnvironmentException >> description [
 
 	^'There is no environment defined to resolve <1p>' expandMacrosWith: message
 ]
 
-{ #category : #'initailize-release' }
+{ #category : 'initailize-release' }
 UndefinedEnvironmentException >> initializeMessage: aMessage [
 
 	message := aMessage

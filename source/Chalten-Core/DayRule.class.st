@@ -9,51 +9,53 @@ decoratedRule
 
 "
 Class {
-	#name : #DayRule,
-	#superclass : #InclusionRule,
+	#name : 'DayRule',
+	#superclass : 'InclusionRule',
 	#instVars : [
 		'decoratedRule'
 	],
-	#category : #'Chalten-Core-Filter'
+	#category : 'Chalten-Core-Filter',
+	#package : 'Chalten-Core',
+	#tag : 'Filter'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 DayRule class >> day: aDay [
 
 	^self rule: (ObjectInclusionRule for: aDay)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 DayRule class >> rule: anInclusionRule [
 
 	^self new initializeRule: anInclusionRule
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 DayRule >> day [
 
 	^decoratedRule object
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 DayRule >> decoratedRule [
 
 	^decoratedRule
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 DayRule >> includes: aDate [
 
 	^decoratedRule includes: aDate day
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 DayRule >> initializeRule: anInclusionRule [
 
 	decoratedRule := anInclusionRule
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 DayRule >> printOn: aStream [
 
 	decoratedRule printOn: aStream

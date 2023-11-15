@@ -9,33 +9,35 @@ dayNumber
 
 "
 Class {
-	#name : #InvalidDayNumberException,
-	#superclass : #Error,
+	#name : 'InvalidDayNumberException',
+	#superclass : 'Error',
 	#instVars : [
 		'dayNumber'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 InvalidDayNumberException class >> dayNumber: aDayNumber [
 
 	^self new initializeDayNumber: aDayNumber
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 InvalidDayNumberException class >> signalDayNumber: aDayNumber [
 
 	(self dayNumber: aDayNumber) signal
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 InvalidDayNumberException >> description [
 
 	^'The number <1p> is invalid as a day of a week' expandMacrosWith: dayNumber
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 InvalidDayNumberException >> initializeDayNumber: aDayNumber [
 
 	dayNumber := aDayNumber

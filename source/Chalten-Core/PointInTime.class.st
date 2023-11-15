@@ -3,12 +3,14 @@ A PointInTime is a representation of certain time entity. This time entities are
 
 "
 Class {
-	#name : #PointInTime,
-	#superclass : #IntervalAwareMagnitude,
-	#category : #'Chalten-Core-Time'
+	#name : 'PointInTime',
+	#superclass : 'IntervalAwareMagnitude',
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #querying }
+{ #category : 'querying' }
 PointInTime >> absoluteDistanceTo: aPointInTime [
 
 	^(self distanceTo: aPointInTime) abs
@@ -16,7 +18,7 @@ PointInTime >> absoluteDistanceTo: aPointInTime [
 
 ]
 
-{ #category : #'magnitude protocol' }
+{ #category : 'magnitude protocol' }
 PointInTime >> assertIsSameKindAs: aPointInTime [
 
 	(aPointInTime isKindOf: self class)
@@ -25,48 +27,48 @@ PointInTime >> assertIsSameKindAs: aPointInTime [
 			and: aPointInTime ]
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 PointInTime >> distanceFrom: aPointInTime [
 
 	^aPointInTime distanceTo: self
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 PointInTime >> distanceTo: aPointInTime [
 
 	self subclassResponsibility
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 PointInTime >> next [
 	
 	^self next: self defaultIntervalIncrement
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 PointInTime >> next: aMeasure [
 	self subclassResponsibility
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 PointInTime >> previous [
 	
 	^self previous: self defaultIntervalIncrement
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 PointInTime >> previous: aMeasure [ 
 	
 	^self next: aMeasure negated
 ]
 
-{ #category : #'interval protocol' }
+{ #category : 'interval protocol' }
 PointInTime >> toTheBeginningOfTime [
 
 	^self toTheBeginningOfTimeBy: self defaultIntervalIncrement
 ]
 
-{ #category : #'interval protocol' }
+{ #category : 'interval protocol' }
 PointInTime >> toTheBeginningOfTimeBy: anIncrement [
 
 	^ArithmeticObjectInterval
@@ -76,13 +78,13 @@ PointInTime >> toTheBeginningOfTimeBy: anIncrement [
 		intervalStrategy: InfinityIntervalStrategy new
 ]
 
-{ #category : #'interval protocol' }
+{ #category : 'interval protocol' }
 PointInTime >> toTheEndOfTime [
 
 	^self toTheEndOfTimeBy: self defaultIntervalIncrement
 ]
 
-{ #category : #'interval protocol' }
+{ #category : 'interval protocol' }
 PointInTime >> toTheEndOfTimeBy: anIncrement [
 
 	^ArithmeticObjectInterval

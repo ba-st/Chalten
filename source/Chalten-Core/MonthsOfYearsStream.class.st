@@ -17,23 +17,25 @@ start
 
 "
 Class {
-	#name : #MonthsOfYearsStream,
-	#superclass : #Object,
+	#name : 'MonthsOfYearsStream',
+	#superclass : 'Object',
 	#instVars : [
 		'start',
 		'current',
 		'currentCircularStream'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MonthsOfYearsStream class >> startingOn: aMonthOfYear [
 
 	^self new initializeStartingOn: aMonthOfYear
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 MonthsOfYearsStream >> distanceFrom: aMonthOfYear to: anotherMonthOfYear [
 	| months |
 	months := 0 monthsMeasure.
@@ -48,14 +50,14 @@ MonthsOfYearsStream >> distanceFrom: aMonthOfYear to: anotherMonthOfYear [
 	^ months
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MonthsOfYearsStream >> initializeCurrentCircularStream [
 
 	currentCircularStream := CircularReadStream on: current year arrayOfMonths moving: TimeUnits month startingCircleAt: current calendar firstMonth.
 	currentCircularStream upTo: current month
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MonthsOfYearsStream >> initializeStartingOn: aMonthOfYear [
 
 	start := aMonthOfYear.
@@ -63,12 +65,12 @@ MonthsOfYearsStream >> initializeStartingOn: aMonthOfYear [
 	self initializeCurrentCircularStream
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MonthsOfYearsStream >> next [
 	^ self next: 1 monthMeasure
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MonthsOfYearsStream >> next: aMeasure [
 	| monthsToAdd distanceToTheEndOfYear |
 	aMeasure negative
@@ -86,7 +88,7 @@ MonthsOfYearsStream >> next: aMeasure [
 	^ current
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MonthsOfYearsStream >> nextInNumberOfYears: aNumberOfYears [
 
 	^aNumberOfYears positive
@@ -94,7 +96,7 @@ MonthsOfYearsStream >> nextInNumberOfYears: aNumberOfYears [
 		ifFalse: [self previousMonth: current month in: aNumberOfYears negated]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MonthsOfYearsStream >> nextMonth: aMonth in: aNumberOfYears [
 
 	aNumberOfYears negative ifTrue: [^self previousMonth: aMonth in: aNumberOfYears negated].
@@ -105,12 +107,12 @@ MonthsOfYearsStream >> nextMonth: aMonth in: aNumberOfYears [
 	^current
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MonthsOfYearsStream >> previous [
 	^ self previous: 1 monthMeasure
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MonthsOfYearsStream >> previous: aMeasure [
 	| monthsToSubstract distanceToTheBeginOfYear |
 	aMeasure negative
@@ -128,7 +130,7 @@ MonthsOfYearsStream >> previous: aMeasure [
 	^ current
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MonthsOfYearsStream >> previousInNumberOfYears: aNumberOfYears [
 
 	^aNumberOfYears positive
@@ -136,7 +138,7 @@ MonthsOfYearsStream >> previousInNumberOfYears: aNumberOfYears [
 		ifFalse: [self nextMonth: current month in: aNumberOfYears negated]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MonthsOfYearsStream >> previousMonth: aMonth in: aNumberOfYears [
 
 	aNumberOfYears negative ifTrue: [^self nextMonth: aMonth in: aNumberOfYears negated].
@@ -147,7 +149,7 @@ MonthsOfYearsStream >> previousMonth: aMonth in: aNumberOfYears [
 	^current
 ]
 
-{ #category : #'positioning - private' }
+{ #category : 'positioning - private' }
 MonthsOfYearsStream >> upTo: aMonthOfYear [
 
 	current := aMonthOfYear

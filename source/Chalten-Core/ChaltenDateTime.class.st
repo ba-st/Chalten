@@ -17,24 +17,26 @@ zone
 
 "
 Class {
-	#name : #DateTime,
-	#superclass : #PointInTime,
+	#name : 'ChaltenDateTime',
+	#superclass : 'PointInTime',
 	#instVars : [
 		'date',
 		'timeOfDay',
 		'zone'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
-DateTime class >> date: aDate timeOfDay: aTimeOfDay [
+{ #category : 'instance creation' }
+ChaltenDateTime class >> date: aDate timeOfDay: aTimeOfDay [
 
 	^self date: aDate timeOfDay: aTimeOfDay zone: TimeZones local
 ]
 
-{ #category : #'instance creation' }
-DateTime class >> date: aDate timeOfDay: aTimeOfDay zone: aZone [
+{ #category : 'instance creation' }
+ChaltenDateTime class >> date: aDate timeOfDay: aTimeOfDay zone: aZone [
 
 	^self new
 		initializeDate: aDate
@@ -42,8 +44,8 @@ DateTime class >> date: aDate timeOfDay: aTimeOfDay zone: aZone [
 		zone: aZone
 ]
 
-{ #category : #'magnitude protocol' }
-DateTime >> < aDateTime [
+{ #category : 'magnitude protocol' }
+ChaltenDateTime >> < aDateTime [
 
 	| dateTimeInSameZone |
 	
@@ -53,38 +55,38 @@ DateTime >> < aDateTime [
 		or: [ date = dateTimeInSameZone date and: [ timeOfDay < dateTimeInSameZone timeOfDay ]]
 ]
 
-{ #category : #comparing }
-DateTime >> = anObject [
+{ #category : 'comparing' }
+ChaltenDateTime >> = anObject [
 
-	^(anObject isKindOf: DateTime) and: [
+	^(anObject isKindOf: ChaltenDateTime) and: [
 		self isTheSameInstantThan: anObject ]
 ]
 
-{ #category : #converting }
-DateTime >> convertTo: aTimeZone [
+{ #category : 'converting' }
+ChaltenDateTime >> convertTo: aTimeZone [
 
 	^zone applyOffsetTo: self from: aTimeZone
 ]
 
-{ #category : #accessing }
-DateTime >> date [
+{ #category : 'accessing' }
+ChaltenDateTime >> date [
 
 	^date
 ]
 
-{ #category : #accessing }
-DateTime >> dayNumber [
+{ #category : 'accessing' }
+ChaltenDateTime >> dayNumber [
 
 	^date dayNumber
 ]
 
-{ #category : #'interval protocol - private' }
-DateTime >> defaultIntervalIncrement [
+{ #category : 'interval protocol - private' }
+ChaltenDateTime >> defaultIntervalIncrement [
 	^ 1 secondMeasure
 ]
 
-{ #category : #querying }
-DateTime >> distanceTo: aDateTime [
+{ #category : 'querying' }
+ChaltenDateTime >> distanceTo: aDateTime [
 	
 	^ (self = aDateTime)
 		ifTrue: [ aDateTime timeFromMidnight - self timeFromMidnight ]
@@ -92,8 +94,8 @@ DateTime >> distanceTo: aDateTime [
 			1 dayMeasure + self timeToEndOfDay + aDateTime timeFromMidnight ]
 ]
 
-{ #category : #enumerating }
-DateTime >> firstTimeOfDay [
+{ #category : 'enumerating' }
+ChaltenDateTime >> firstTimeOfDay [
 
 	^self class
 		date: date
@@ -101,8 +103,8 @@ DateTime >> firstTimeOfDay [
 		zone: zone
 ]
 
-{ #category : #comparing }
-DateTime >> hash [
+{ #category : 'comparing' }
+ChaltenDateTime >> hash [
 
 	| utcDateTime |
 	
@@ -110,22 +112,22 @@ DateTime >> hash [
 	^utcDateTime date hash bitXor: utcDateTime timeOfDay hash
 ]
 
-{ #category : #initialization }
-DateTime >> initializeDate: aDate timeOfDay: aTimeOfDay zone: aZone [
+{ #category : 'initialization' }
+ChaltenDateTime >> initializeDate: aDate timeOfDay: aTimeOfDay zone: aZone [
 
 	date := aDate.
 	timeOfDay := aTimeOfDay.
 	zone := aZone
 ]
 
-{ #category : #'interval protocol - private' }
-DateTime >> intervalStrategy [
+{ #category : 'interval protocol - private' }
+ChaltenDateTime >> intervalStrategy [
 
 	^PointInTimeIntervalStrategy new
 ]
 
-{ #category : #testing }
-DateTime >> isTheSameInstantThan: aDateTime [
+{ #category : 'testing' }
+ChaltenDateTime >> isTheSameInstantThan: aDateTime [
 
 	| dateTimeInSameZone |
 	dateTimeInSameZone := aDateTime convertTo: zone.
@@ -133,8 +135,8 @@ DateTime >> isTheSameInstantThan: aDateTime [
 		timeOfDay = dateTimeInSameZone timeOfDay ]
 ]
 
-{ #category : #enumerating }
-DateTime >> lastTimeOfDay [
+{ #category : 'enumerating' }
+ChaltenDateTime >> lastTimeOfDay [
 
 	^self class
 		date: date
@@ -142,28 +144,28 @@ DateTime >> lastTimeOfDay [
 		zone: zone
 ]
 
-{ #category : #accessing }
-DateTime >> month [
+{ #category : 'accessing' }
+ChaltenDateTime >> month [
 
 	^date month
 ]
 
-{ #category : #accessing }
-DateTime >> monthOfYear [
+{ #category : 'accessing' }
+ChaltenDateTime >> monthOfYear [
 
 	^date monthOfYear
 ]
 
-{ #category : #enumerating }
-DateTime >> next: aTimeMeasure [
+{ #category : 'enumerating' }
+ChaltenDateTime >> next: aTimeMeasure [
 
 	^self
 		next: aTimeMeasure
 		in: zone
 ]
 
-{ #category : #enumerating }
-DateTime >> next: aTimeMeasure in: aTimeZone [
+{ #category : 'enumerating' }
+ChaltenDateTime >> next: aTimeMeasure in: aTimeZone [
 
 	| timeToAdd daysToAdd newTime |
 
@@ -176,16 +178,16 @@ DateTime >> next: aTimeMeasure in: aTimeZone [
 		zone: aTimeZone
 ]
 
-{ #category : #enumerating }
-DateTime >> nextIn: aTimeZone [
+{ #category : 'enumerating' }
+ChaltenDateTime >> nextIn: aTimeZone [
 
 	^self
 		next: aTimeZone offset - zone offset
 		in: aTimeZone
 ]
 
-{ #category : #printing }
-DateTime >> printOn: aStream [
+{ #category : 'printing' }
+ChaltenDateTime >> printOn: aStream [
 
 	date printOn: aStream.
 	aStream space.
@@ -196,32 +198,32 @@ DateTime >> printOn: aStream [
 	aStream nextPut: $}
 ]
 
-{ #category : #querying }
-DateTime >> timeFromMidnight [
+{ #category : 'querying' }
+ChaltenDateTime >> timeFromMidnight [
 
 	^timeOfDay timeFromMidnight
 ]
 
-{ #category : #accessing }
-DateTime >> timeOfDay [
+{ #category : 'accessing' }
+ChaltenDateTime >> timeOfDay [
 
 	^timeOfDay
 ]
 
-{ #category : #querying }
-DateTime >> timeToEndOfDay [
+{ #category : 'querying' }
+ChaltenDateTime >> timeToEndOfDay [
 
 	^timeOfDay timeToEndOfDay
 ]
 
-{ #category : #accessing }
-DateTime >> year [
+{ #category : 'accessing' }
+ChaltenDateTime >> year [
 
 	^date year
 ]
 
-{ #category : #accessing }
-DateTime >> zone [
+{ #category : 'accessing' }
+ChaltenDateTime >> zone [
 
 	^zone
 ]

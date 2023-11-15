@@ -13,65 +13,67 @@ interval
 
 "
 Class {
-	#name : #IntervalConstrainedInclusionRule,
-	#superclass : #InclusionRule,
+	#name : 'IntervalConstrainedInclusionRule',
+	#superclass : 'InclusionRule',
 	#instVars : [
 		'interval',
 		'decoratedRule'
 	],
-	#category : #'Chalten-Core-Filter'
+	#category : 'Chalten-Core-Filter',
+	#package : 'Chalten-Core',
+	#tag : 'Filter'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 IntervalConstrainedInclusionRule class >> from: aMagnitude to: anotherMagnitude  apply: anInclusionRule [
 
 	^self on: (aMagnitude to: anotherMagnitude) apply: anInclusionRule
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 IntervalConstrainedInclusionRule class >> on: anInterval apply: anInclusionRule [ 
 
 	^self new initializeOn: anInterval apply: anInclusionRule
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 IntervalConstrainedInclusionRule >> decoratedRule [
 
 	^decoratedRule
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 IntervalConstrainedInclusionRule >> from [
 
 	^interval from
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 IntervalConstrainedInclusionRule >> includes: anObject [
 
 	^(self shouldHandle: anObject) and: [ decoratedRule includes: anObject ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 IntervalConstrainedInclusionRule >> initializeOn: anInterval apply: anInclusionRule [ 
 
 	interval := anInterval.
 	decoratedRule := anInclusionRule
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 IntervalConstrainedInclusionRule >> interval [
 
 	^interval
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 IntervalConstrainedInclusionRule >> object [
 
 	^decoratedRule object
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 IntervalConstrainedInclusionRule >> printOn: aStream [
 
 	aStream nextPutAll: 'From: '.
@@ -82,13 +84,13 @@ IntervalConstrainedInclusionRule >> printOn: aStream [
 	decoratedRule printOn: aStream
 ]
 
-{ #category : #'querying - private' }
+{ #category : 'querying - private' }
 IntervalConstrainedInclusionRule >> shouldHandle: aMagnitude [
 
 	^interval includes: aMagnitude
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 IntervalConstrainedInclusionRule >> to [
 
 	^interval to

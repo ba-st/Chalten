@@ -3,39 +3,40 @@ A CorrectionForDateFromFixedWhenNumberIsLowerThanMarchFirst is a class for corre
 
 "
 Class {
-	#name : #CorrectionForDateFromFixedWhenNumberIsLowerThanMarchFirst,
-	#superclass : #CorrectionForDateFromFixedBehavior,
+	#name : 'CorrectionForDateFromFixedWhenNumberIsLowerThanMarchFirst',
+	#superclass : 'CorrectionForDateFromFixedBehavior',
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Chalten-Roman-Calendar'
+	#category : 'Chalten-Roman-Calendar',
+	#package : 'Chalten-Roman-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 CorrectionForDateFromFixedWhenNumberIsLowerThanMarchFirst class >> canHandle: aYearNumber fixed: aNumber using: aCalendar [ 
 	^ aNumber < (aCalendar 
 				numberOfDaysFromDate: (self firstOfMarchOf: aYearNumber in: aCalendar))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CorrectionForDateFromFixedWhenNumberIsLowerThanMarchFirst class >> initialize [
 
 	self initializeUniqueInstance
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CorrectionForDateFromFixedWhenNumberIsLowerThanMarchFirst class >> initializeUniqueInstance [
 
 	uniqueInstance := super new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CorrectionForDateFromFixedWhenNumberIsLowerThanMarchFirst class >> new [
 
 	^uniqueInstance
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 CorrectionForDateFromFixedWhenNumberIsLowerThanMarchFirst >> value [
 
 	^0

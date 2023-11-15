@@ -9,51 +9,53 @@ decoratedRule
 
 "
 Class {
-	#name : #YearRule,
-	#superclass : #InclusionRule,
+	#name : 'YearRule',
+	#superclass : 'InclusionRule',
 	#instVars : [
 		'decoratedRule'
 	],
-	#category : #'Chalten-Core-Filter'
+	#category : 'Chalten-Core-Filter',
+	#package : 'Chalten-Core',
+	#tag : 'Filter'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 YearRule class >> rule: anInclusionRule [
 
 	^self new initializeRule: anInclusionRule
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 YearRule class >> year: aYear [
 
 	^self rule: (ObjectInclusionRule for: aYear)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 YearRule >> decoratedRule [
 
 	^decoratedRule
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 YearRule >> includes: aDate [
 
 	^decoratedRule includes: aDate year
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 YearRule >> initializeRule: anInclusionRule [
 
 	decoratedRule := anInclusionRule
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 YearRule >> printOn: aStream [
 
 	decoratedRule printOn: aStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 YearRule >> year [
 
 	^decoratedRule object

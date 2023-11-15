@@ -3,39 +3,40 @@ A CorrectionForFixedFromDateWhenMonthNumberIsUpperThanFebruaryAndYearIsLeap is a
 
 "
 Class {
-	#name : #CorrectionForFixedFromDateWhenMonthNumberIsUpperThanFebruaryAndYearIsLeap,
-	#superclass : #CorrectionForFixedFromDateBehavior,
+	#name : 'CorrectionForFixedFromDateWhenMonthNumberIsUpperThanFebruaryAndYearIsLeap',
+	#superclass : 'CorrectionForFixedFromDateBehavior',
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Chalten-Roman-Calendar'
+	#category : 'Chalten-Roman-Calendar',
+	#package : 'Chalten-Roman-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 CorrectionForFixedFromDateWhenMonthNumberIsUpperThanFebruaryAndYearIsLeap class >> canHandle: aChristianDate [
 
 	^aChristianDate month > February and: [aChristianDate year isLeap]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CorrectionForFixedFromDateWhenMonthNumberIsUpperThanFebruaryAndYearIsLeap class >> initialize [
 
 	self initializeUniqueInstance
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CorrectionForFixedFromDateWhenMonthNumberIsUpperThanFebruaryAndYearIsLeap class >> initializeUniqueInstance [
 
 	uniqueInstance := super new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CorrectionForFixedFromDateWhenMonthNumberIsUpperThanFebruaryAndYearIsLeap class >> new [
 
 	^uniqueInstance
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 CorrectionForFixedFromDateWhenMonthNumberIsUpperThanFebruaryAndYearIsLeap >> value [
 
 	^1

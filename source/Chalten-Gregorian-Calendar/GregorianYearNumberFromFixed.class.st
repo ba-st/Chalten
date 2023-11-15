@@ -3,8 +3,8 @@ A GregorianYearNumberFromFixed is an object used to create a gregorian year from
 
 "
 Class {
-	#name : #GregorianYearNumberFromFixed,
-	#superclass : #YearNumberFromFixed,
+	#name : 'GregorianYearNumberFromFixed',
+	#superclass : 'YearNumberFromFixed',
 	#instVars : [
 		'daysInCyclesOf400Years',
 		'daysInCyclesOf100Years',
@@ -22,16 +22,17 @@ Class {
 		'daysInCyclesOf4YearsMod',
 		'oneRegularYear'
 	],
-	#category : #'Chalten-Gregorian-Calendar'
+	#category : 'Chalten-Gregorian-Calendar',
+	#package : 'Chalten-Gregorian-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GregorianYearNumberFromFixed class >> canHandle: aCalendar [
 
-	^aCalendar = GregorianCalendar
+	^aCalendar = (ChaltenEnvironment calendarNamed: #GregorianCalendar)
 ]
 
-{ #category : #'initialization - private' }
+{ #category : 'initialization - private' }
 GregorianYearNumberFromFixed >> initializeDaysInCycles [
 
 	cycleOf400Years := 146097.
@@ -45,34 +46,34 @@ GregorianYearNumberFromFixed >> initializeDaysInCycles [
 	self initializeDaysInOneRegularYear
 ]
 
-{ #category : #'initialization - private' }
+{ #category : 'initialization - private' }
 GregorianYearNumberFromFixed >> initializeDaysInCyclesOf100Years [
 
 	daysInCyclesOf100Years := daysInCyclesOf400YearsMod // cycleOf100Years.
 	daysInCyclesOf100YearsMod := daysInCyclesOf400YearsMod \\ cycleOf100Years
 ]
 
-{ #category : #'initialization - private' }
+{ #category : 'initialization - private' }
 GregorianYearNumberFromFixed >> initializeDaysInCyclesOf400Years [
 
 	daysInCyclesOf400Years := daysMinusEpoch // cycleOf400Years.
 	daysInCyclesOf400YearsMod := daysMinusEpoch \\ cycleOf400Years
 ]
 
-{ #category : #'initialization - private' }
+{ #category : 'initialization - private' }
 GregorianYearNumberFromFixed >> initializeDaysInCyclesOf4Years [
 
 	daysInCyclesOf4Years := daysInCyclesOf100YearsMod // cycleOf4Years.
 	daysInCyclesOf4YearsMod := daysInCyclesOf100YearsMod \\ cycleOf4Years
 ]
 
-{ #category : #'initialization - private' }
+{ #category : 'initialization - private' }
 GregorianYearNumberFromFixed >> initializeDaysInOneRegularYear [
 
 	daysInOneRegularYear := daysInCyclesOf4YearsMod // oneRegularYear
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GregorianYearNumberFromFixed >> initializeFor: aNumberOfDays using: aCalendar [
 
 	numberOfDays := aNumberOfDays.
@@ -81,14 +82,14 @@ GregorianYearNumberFromFixed >> initializeFor: aNumberOfDays using: aCalendar [
 	self initializeLeapYearCorrection
 ]
 
-{ #category : #'initialization - private' }
+{ #category : 'initialization - private' }
 GregorianYearNumberFromFixed >> initializeLeapYearCorrection [
 
 	leapYearCorrection :=
 		(daysInCyclesOf100Years = 4 or: [daysInOneRegularYear = 4]) ifTrue: [0] ifFalse: [1]
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 GregorianYearNumberFromFixed >> value [
 
 	^(400 * daysInCyclesOf400Years) + (100 * daysInCyclesOf100Years) + (4 * daysInCyclesOf4Years) +

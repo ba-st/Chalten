@@ -2,15 +2,16 @@
 A CorrectionForDateFromFixedWhenOtherwise is a class for corrections made when number is other.
 "
 Class {
-	#name : #CorrectionForDateFromFixedWhenOtherwise,
-	#superclass : #CorrectionForDateFromFixedBehavior,
+	#name : 'CorrectionForDateFromFixedWhenOtherwise',
+	#superclass : 'CorrectionForDateFromFixedBehavior',
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Chalten-Roman-Calendar'
+	#category : 'Chalten-Roman-Calendar',
+	#package : 'Chalten-Roman-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 CorrectionForDateFromFixedWhenOtherwise class >> canHandle: aYearNumber fixed: aNumber using: aCalendar [ 
 	^ (aNumber < (aCalendar 
 				numberOfDaysFromDate: (self firstOfMarchOf: aYearNumber in: aCalendar))) 
@@ -20,25 +21,25 @@ CorrectionForDateFromFixedWhenOtherwise class >> canHandle: aYearNumber fixed: a
 					and: [aCalendar isYearNumberLeap: aYearNumber]) not]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CorrectionForDateFromFixedWhenOtherwise class >> initialize [
 
 	self initializeUniqueInstance
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CorrectionForDateFromFixedWhenOtherwise class >> initializeUniqueInstance [
 
 	uniqueInstance := super new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 CorrectionForDateFromFixedWhenOtherwise class >> new [
 
 	^uniqueInstance
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 CorrectionForDateFromFixedWhenOtherwise >> value [
 
 	^2

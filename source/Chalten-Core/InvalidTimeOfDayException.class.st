@@ -9,33 +9,35 @@ time
 
 "
 Class {
-	#name : #InvalidTimeOfDayException,
-	#superclass : #Error,
+	#name : 'InvalidTimeOfDayException',
+	#superclass : 'Error',
 	#instVars : [
 		'time'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 InvalidTimeOfDayException class >> signalTime: aTime [
 
 	(self time: aTime) signal
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 InvalidTimeOfDayException class >> time: aTime [
 
 	^self new initializeTime: aTime
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 InvalidTimeOfDayException >> description [
 
 	^'The time <1p> is invalid for one day' expandMacrosWith: time
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 InvalidTimeOfDayException >> initializeTime: aTime [
 
 	time := aTime.

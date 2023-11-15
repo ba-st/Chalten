@@ -9,16 +9,17 @@ numberOfDays
 
 "
 Class {
-	#name : #AdarMonthDefinition,
-	#superclass : #MonthDefinition,
+	#name : 'AdarMonthDefinition',
+	#superclass : 'MonthDefinition',
 	#instVars : [
 		'numberOfDaysInNonleapYear',
 		'numberOfDaysInLeapYear'
 	],
-	#category : #'Chalten-Hebrew-Calendar'
+	#category : 'Chalten-Hebrew-Calendar',
+	#package : 'Chalten-Hebrew-Calendar'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AdarMonthDefinition class >> adar [
 
 	^self
@@ -26,7 +27,7 @@ AdarMonthDefinition class >> adar [
 		numberOfDaysInLeapYear: 0 daysMeasure
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AdarMonthDefinition class >> adarI [
 
 	^self
@@ -34,7 +35,7 @@ AdarMonthDefinition class >> adarI [
 		numberOfDaysInLeapYear: 30 daysMeasure
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AdarMonthDefinition class >> adarII [
 
 	^self
@@ -42,7 +43,7 @@ AdarMonthDefinition class >> adarII [
 		numberOfDaysInLeapYear: 29 daysMeasure
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AdarMonthDefinition class >> numberOfDaysInNonleapYear: aNumberOfDaysInNonleapYears numberOfDaysInLeapYear: aNumberOfDaysInLeapYears [
 	
 	^self new
@@ -50,32 +51,32 @@ AdarMonthDefinition class >> numberOfDaysInNonleapYear: aNumberOfDaysInNonleapYe
 		numberOfDaysInLeapYear: aNumberOfDaysInLeapYears
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AdarMonthDefinition >> initializeNumberOfDaysInNonleapYear: aNumberOfDaysInNonleapYears numberOfDaysInLeapYear: aNumberOfDaysInLeapYears [
 
 	numberOfDaysInNonleapYear := aNumberOfDaysInNonleapYears.
 	numberOfDaysInLeapYear := aNumberOfDaysInLeapYears
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AdarMonthDefinition >> numberOfDays [
 	
 	^self numberOfDaysInLeapYear max: self numberOfDaysInNonleapYear
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AdarMonthDefinition >> numberOfDaysIn: aYear [
 	
 	^aYear numberOfDaysFor: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AdarMonthDefinition >> numberOfDaysInLeapYear [
 
 	^numberOfDaysInLeapYear
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AdarMonthDefinition >> numberOfDaysInNonleapYear [
 
 	^numberOfDaysInNonleapYear

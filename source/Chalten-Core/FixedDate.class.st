@@ -17,23 +17,25 @@ monthOfYear
 
 "
 Class {
-	#name : #FixedDate,
-	#superclass : #DateBehavior,
+	#name : 'FixedDate',
+	#superclass : 'DateBehavior',
 	#instVars : [
 		'dayNumber',
 		'monthOfYear',
 		'calendar'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FixedDate class >> monthOfYear: aMonthOfYear dayNumber: aDayNumber [
 
 	^self monthOfYear: aMonthOfYear dayNumber: aDayNumber calendar: aMonthOfYear calendar
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FixedDate class >> monthOfYear: aMonthOfYear dayNumber: aDayNumber calendar: aCalendar [
 
 	(aMonthOfYear isValidDayNumber: aDayNumber) 
@@ -44,7 +46,7 @@ FixedDate class >> monthOfYear: aMonthOfYear dayNumber: aDayNumber calendar: aCa
 		calendar: aCalendar
 ]
 
-{ #category : #'instance creation - private' }
+{ #category : 'instance creation - private' }
 FixedDate class >> monthOfYearWithYearNumber: aYearNumber monthNumber: aMonthNumber calendar: aCalendar [
 
 	| year |
@@ -52,7 +54,7 @@ FixedDate class >> monthOfYearWithYearNumber: aYearNumber monthNumber: aMonthNum
 	^year monthNumbered: aMonthNumber
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FixedDate class >> year: aYear month: aMonth dayNumber: aNumber [
 
 	^self
@@ -61,7 +63,7 @@ FixedDate class >> year: aYear month: aMonth dayNumber: aNumber [
 		calendar: aMonth calendar
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FixedDate class >> yearNumber: aYearNumber month: aMonth dayNumber: aDayNumber [
 
 	^self
@@ -70,7 +72,7 @@ FixedDate class >> yearNumber: aYearNumber month: aMonth dayNumber: aDayNumber [
 		calendar: aMonth calendar
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FixedDate class >> yearNumber: aYearNumber monthNumber: aMonthNumber dayNumber: aDayNumber calendar: aCalendar [
 
 	^self
@@ -79,7 +81,7 @@ FixedDate class >> yearNumber: aYearNumber monthNumber: aMonthNumber dayNumber: 
 		calendar: aCalendar
 ]
 
-{ #category : #'magnitude protocol' }
+{ #category : 'magnitude protocol' }
 FixedDate >> < aDate [
 
 	self assertIsSameKindAs: aDate.
@@ -87,106 +89,106 @@ FixedDate >> < aDate [
 		or: [self monthOfYear = aDate monthOfYear and: [self dayNumber < aDate dayNumber]]
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 FixedDate >> = aDate [
 
 	^(aDate isKindOf: DateBehavior)
 		and: [self numberOfDaysFromEpoch = aDate numberOfDaysFromEpoch]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FixedDate >> asGregorian [
 
 	^calendar convertToGregorianDate: self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FixedDate >> asHebrew [
 
 	^calendar convertToHebrewDate: self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FixedDate >> asIslamic [
 
 	^calendar convertToIslamicDate: self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FixedDate >> asJulian [
 
 	^calendar convertToJulianDate: self
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 FixedDate >> asSmalltalkDate [
 
 	^calendar convertToSmalltalkDate: self
 ]
 
-{ #category : #'accessing datetime' }
+{ #category : 'accessing datetime' }
 FixedDate >> at: aTimeOfDay [
 
 	^self atTimeOfDay: aTimeOfDay
 ]
 
-{ #category : #'accessing datetime' }
+{ #category : 'accessing datetime' }
 FixedDate >> atTimeOfDay: aTimeOfDay [
 
-	^DateTime date: self timeOfDay: aTimeOfDay
+	^ChaltenDateTime date: self timeOfDay: aTimeOfDay
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FixedDate >> calendar [
 
 	^calendar
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 FixedDate >> day [
 
 	^calendar dayOf: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FixedDate >> dayNumber [
 
 	^dayNumber
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 FixedDate >> dayNumberFromEpoch [
 
 	^calendar dayNumberFromEpochTo: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FixedDate >> dayOfMonth [
 
 	^DayOfMonth month: self month dayNumber: self dayNumber
 ]
 
-{ #category : #'accessing datetime' }
+{ #category : 'accessing datetime' }
 FixedDate >> firstTimeOfDay [
 
-	^DateTime
+	^ChaltenDateTime
 		date: self
 		timeOfDay: TimeOfDay firstTimeOfDay
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 FixedDate >> hash [
 
 	^self numberOfDaysFromEpoch hash
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 FixedDate >> includes: aPointInTime [
 
 	^aPointInTime date = self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FixedDate >> initializeMonthOfYear: aMonthOfYear dayNumber: aDayNumber calendar: aCalendar [
 
 	monthOfYear := aMonthOfYear.
@@ -194,45 +196,45 @@ FixedDate >> initializeMonthOfYear: aMonthOfYear dayNumber: aDayNumber calendar:
 	calendar := aCalendar
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FixedDate >> isFirstDayOfMonth [
 
 	^self dayNumber = 1
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FixedDate >> isFirstDayOfYear [
 
 	^self isFirstDayOfMonth and: [self isFirstMonthOfYear]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FixedDate >> isLastDayOfMonth [
 
 	^self monthOfYear lastDayNumber = self dayNumber
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FixedDate >> isLastDayOfYear [
 
 	^self year lastDate = self
 ]
 
-{ #category : #'accessing datetime' }
+{ #category : 'accessing datetime' }
 FixedDate >> lastTimeOfDay [
 
-	^DateTime
+	^ChaltenDateTime
 		date: self
 		timeOfDay: TimeOfDay lastTimeOfDay
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FixedDate >> monthOfYear [
 
 	^monthOfYear
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 FixedDate >> next: aMeasure [
 
 	^(TimeUnits day sameDomainAs: aMeasure unit)
@@ -240,43 +242,43 @@ FixedDate >> next: aMeasure [
 		ifFalse: [self nextMonth: aMeasure]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 FixedDate >> nextMonth: aMeasure [
 
 	^(self monthOfYear next: aMeasure) onOrLast: self dayNumber
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 FixedDate >> numberOfDaysFromBeginningOfMonth [
 
 	^(self dayNumber - 1) daysMeasure
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 FixedDate >> numberOfDaysFromBeginningOfYear [
 
 	^self monthOfYear numberOfDaysFromBeginningOfYear + self numberOfDaysFromBeginningOfMonth
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 FixedDate >> numberOfDaysFromEpoch [
 
 	^calendar numberOfDaysFromEpochTo: self
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 FixedDate >> numberOfDaysToEndOfMonth [
 
 	^self monthOfYear numberOfDays - self dayNumber daysMeasure
 ]
 
-{ #category : #'accessing days' }
+{ #category : 'accessing days' }
 FixedDate >> numberOfDaysToEndOfYear [
 
 	^self distanceTo: self monthOfYear year lastDate
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 FixedDate >> printOn: aStream [
 
 	self month printOn: aStream.

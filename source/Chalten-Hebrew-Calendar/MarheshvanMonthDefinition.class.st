@@ -9,33 +9,34 @@ numberOfDays
 
 "
 Class {
-	#name : #MarheshvanMonthDefinition,
-	#superclass : #MonthDefinition,
+	#name : 'MarheshvanMonthDefinition',
+	#superclass : 'MonthDefinition',
 	#instVars : [
 		'numberOfDays'
 	],
-	#category : #'Chalten-Hebrew-Calendar'
+	#category : 'Chalten-Hebrew-Calendar',
+	#package : 'Chalten-Hebrew-Calendar'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MarheshvanMonthDefinition class >> numberOfDays: aNumberOfDays [
 	
 	^self new initializeNumberOfDays: aNumberOfDays
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MarheshvanMonthDefinition >> initializeNumberOfDays: aNumberOfDays [
 
 	numberOfDays := aNumberOfDays
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MarheshvanMonthDefinition >> numberOfDays [
 	
 	^numberOfDays
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MarheshvanMonthDefinition >> numberOfDaysIn: aYear [
 
 	^aYear
@@ -43,13 +44,13 @@ MarheshvanMonthDefinition >> numberOfDaysIn: aYear [
 		else: [ (aYear numberOfDaysFor: self) - 1 dayMeasure ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MarheshvanMonthDefinition >> numberOfDaysInLeapYear [
 	
 	^self numberOfDays
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MarheshvanMonthDefinition >> numberOfDaysInNonleapYear [
 	
 	^self numberOfDays

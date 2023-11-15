@@ -1,1 +1,1 @@
-Package { #name : #'Chalten-Islamic-Calendar-Tests' }
+Package { #name : 'Chalten-Islamic-Calendar-Tests' }

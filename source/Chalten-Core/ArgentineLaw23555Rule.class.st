@@ -9,49 +9,54 @@ dayOfMonth
 
 "
 Class {
-	#name : #ArgentineLaw23555Rule,
-	#superclass : #InclusionRule,
+	#name : 'ArgentineLaw23555Rule',
+	#superclass : 'InclusionRule',
 	#instVars : [
 		'dayOfMonth'
 	],
-	#category : #'Chalten-Core-Filter'
+	#category : 'Chalten-Core-Filter',
+	#package : 'Chalten-Core',
+	#tag : 'Filter'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ArgentineLaw23555Rule class >> dayOfMonth: aDayOfMonth [ 
 
 	^self new initializeDayOfMonth: aDayOfMonth
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ArgentineLaw23555Rule class >> monthNumber: aMonthNumber dayNumber: aDayNumber [
 
-	^self dayOfMonth: (DayOfMonth monthNumber: aMonthNumber dayNumber: aDayNumber calendar: GregorianCalendar)
+	^ self dayOfMonth: (DayOfMonth
+			   monthNumber: aMonthNumber
+			   dayNumber: aDayNumber
+			   calendar: (ChaltenEnvironment calendarNamed: #GregorianCalendar))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ArgentineLaw23555Rule >> dayOfMonth [
 	
 	^dayOfMonth
 ]
 
-{ #category : #'querying - private' }
+{ #category : 'querying - private' }
 ArgentineLaw23555Rule >> goToNextMondayIfNeeded: aGregorianDate [
 
 	^(self mustGoToNextMonday: aGregorianDate)
-		ifTrue: [aGregorianDate nextDay: GregorianCalendar monday]
+		ifTrue: [aGregorianDate nextDay: (ChaltenEnvironment calendarNamed: #GregorianCalendar) monday]
 		ifFalse: [aGregorianDate]
 ]
 
-{ #category : #'querying - private' }
+{ #category : 'querying - private' }
 ArgentineLaw23555Rule >> goToPreviousMondayIfNeeded: aGregorianDate [
 
 	^(self mustGoToPreviousMonday: aGregorianDate)
-		ifTrue: [aGregorianDate previousDay: GregorianCalendar monday]
+		ifTrue: [aGregorianDate previousDay: (ChaltenEnvironment calendarNamed: #GregorianCalendar) monday]
 		ifFalse: [aGregorianDate]
 ]
 
-{ #category : #'querying - private' }
+{ #category : 'querying - private' }
 ArgentineLaw23555Rule >> goToPreviousOrNextMonday: aGregorianDate [
 
 	| gregorianDate |
@@ -62,7 +67,7 @@ ArgentineLaw23555Rule >> goToPreviousOrNextMonday: aGregorianDate [
 	^gregorianDate
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 ArgentineLaw23555Rule >> includes: aGregorianDate [
 
 	| includedDate |
@@ -73,27 +78,27 @@ ArgentineLaw23555Rule >> includes: aGregorianDate [
 	^aGregorianDate = includedDate
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ArgentineLaw23555Rule >> initializeDayOfMonth: aGregorianDayOfMonth [
 
 	dayOfMonth := aGregorianDayOfMonth
 ]
 
-{ #category : #'querying - private' }
+{ #category : 'querying - private' }
 ArgentineLaw23555Rule >> mustGoToNextMonday: aGregorianDate [
 
-	^aGregorianDate day = GregorianCalendar thursday
-		or: [aGregorianDate day = GregorianCalendar friday]
+	^aGregorianDate day = (ChaltenEnvironment calendarNamed: #GregorianCalendar) thursday
+		or: [aGregorianDate day = (ChaltenEnvironment calendarNamed: #GregorianCalendar) friday]
 ]
 
-{ #category : #'querying - private' }
+{ #category : 'querying - private' }
 ArgentineLaw23555Rule >> mustGoToPreviousMonday: aGregorianDate [
 
-	^aGregorianDate day = GregorianCalendar tuesday
-		or: [aGregorianDate day = GregorianCalendar wednesday]
+	^aGregorianDate day = (ChaltenEnvironment calendarNamed: #GregorianCalendar) tuesday
+		or: [aGregorianDate day = (ChaltenEnvironment calendarNamed: #GregorianCalendar) wednesday]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ArgentineLaw23555Rule >> printOn: aStream [
 
 	self dayOfMonth printOn: aStream.

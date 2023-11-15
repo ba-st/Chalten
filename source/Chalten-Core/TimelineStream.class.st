@@ -17,41 +17,43 @@ timelineFilter
 
 "
 Class {
-	#name : #TimelineStream,
-	#superclass : #Stream,
+	#name : 'TimelineStream',
+	#superclass : 'Stream',
 	#instVars : [
 		'from',
 		'current',
 		'timelineFilter'
 	],
-	#category : #'Chalten-Core-Filter'
+	#category : 'Chalten-Core-Filter',
+	#package : 'Chalten-Core',
+	#tag : 'Filter'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 TimelineStream class >> from: aDate using: aTimeLineFilter [
 
 	^self new initializeFrom: aDate using: aTimeLineFilter
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 TimelineStream class >> new [
 
 	^self basicNew
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 TimelineStream >> atEnd [
 	
 	^false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TimelineStream >> current [
 
 	^current
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 TimelineStream >> initializeFrom: aDate using: aTimeLineFilter [
 
 	from := aDate.
@@ -59,7 +61,7 @@ TimelineStream >> initializeFrom: aDate using: aTimeLineFilter [
 	self reset
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 TimelineStream >> next [
 	
 	current := self peek.	
@@ -67,7 +69,7 @@ TimelineStream >> next [
 
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 TimelineStream >> peek [
 	
 	| currentDate |
@@ -79,7 +81,7 @@ TimelineStream >> peek [
 	^currentDate
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 TimelineStream >> peekPrevious [
 	
 	| nextDate |
@@ -91,7 +93,7 @@ TimelineStream >> peekPrevious [
 	^nextDate
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 TimelineStream >> previous [
 	
 	current := self peekPrevious.	
@@ -99,13 +101,13 @@ TimelineStream >> previous [
 
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 TimelineStream >> reset [
 	current := from.
 	
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 TimelineStream >> skip: aNumberOfDays [
 
 	| daysToSkip |

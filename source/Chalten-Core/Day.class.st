@@ -17,41 +17,43 @@ positionInWeek
 
 "
 Class {
-	#name : #Day,
-	#superclass : #PointInTime,
+	#name : 'Day',
+	#superclass : 'PointInTime',
 	#instVars : [
 		'name',
 		'positionInWeek',
 		'calendar'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 Day class >> named: aString positionInWeek: aNumber calendar: aCalendar [
 
 	^self new initializeNamed: aString positionInWeek: aNumber calendar: aCalendar
 ]
 
-{ #category : #'magnitude protocol' }
+{ #category : 'magnitude protocol' }
 Day >> < aDay [
 
 	self assertIsSameKindAs: aDay.
 	^self positionInWeek < aDay positionInWeek
 ]
 
-{ #category : #'accessing - private' }
+{ #category : 'accessing - private' }
 Day >> calendar [
 
 	^calendar
 ]
 
-{ #category : #'interval protocol - private' }
+{ #category : 'interval protocol - private' }
 Day >> defaultIntervalIncrement [
 	^ 1 dayMeasure
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 Day >> distanceTo: aDay [
 
 	| stream |
@@ -60,7 +62,7 @@ Day >> distanceTo: aDay [
 	^stream distanceFrom: self to: aDay
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 Day >> initializeNamed: aString positionInWeek: aNumber calendar: aCalendar [
 
 	name := aString.
@@ -68,25 +70,25 @@ Day >> initializeNamed: aString positionInWeek: aNumber calendar: aCalendar [
 	calendar := aCalendar
 ]
 
-{ #category : #'interval protocol - private' }
+{ #category : 'interval protocol - private' }
 Day >> intervalStrategy [
 
 	^RoundedTimelineIntervalStrategy new
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 Day >> is: aDay [
 
 	^self = aDay
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Day >> name [
 
 	^name
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 Day >> next: aNumberOfDays [
 
 	| stream |
@@ -96,19 +98,19 @@ Day >> next: aNumberOfDays [
 	^stream next: aNumberOfDays
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Day >> numberOfDaysSinceFirstDayOfWeek [
 
 	^(self positionInWeek - 1) daysMeasure
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 Day >> positionInWeek [
 
 	^positionInWeek
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 Day >> printOn: aStream [
 
 	aStream nextPutAll: name

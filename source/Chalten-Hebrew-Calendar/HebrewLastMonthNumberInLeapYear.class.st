@@ -3,39 +3,40 @@ A HebrewLastMonthNumberInLeapYear is the last month number in an hebrew leap yea
 
 "
 Class {
-	#name : #HebrewLastMonthNumberInLeapYear,
-	#superclass : #HebrewLastMonthNumberInYearBehavior,
+	#name : 'HebrewLastMonthNumberInLeapYear',
+	#superclass : 'HebrewLastMonthNumberInYearBehavior',
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Chalten-Hebrew-Calendar'
+	#category : 'Chalten-Hebrew-Calendar',
+	#package : 'Chalten-Hebrew-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 HebrewLastMonthNumberInLeapYear class >> canHandle: aYear [
 
 	^aYear isLeap
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HebrewLastMonthNumberInLeapYear class >> initialize [
 
 	self initializeUniqueInstance
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HebrewLastMonthNumberInLeapYear class >> initializeUniqueInstance [
 
 	uniqueInstance := super new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HebrewLastMonthNumberInLeapYear class >> new [
 
 	^uniqueInstance
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 HebrewLastMonthNumberInLeapYear >> value [
 
 	^13

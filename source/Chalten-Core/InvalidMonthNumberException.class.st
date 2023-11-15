@@ -9,31 +9,33 @@ number
 
 "
 Class {
-	#name : #InvalidMonthNumberException,
-	#superclass : #Error,
+	#name : 'InvalidMonthNumberException',
+	#superclass : 'Error',
 	#instVars : [
 		'number'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 InvalidMonthNumberException class >> number: aNumber [
 	^ self new initializeNumber: aNumber
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 InvalidMonthNumberException class >> signalNumber: aNumber [ 
 	(self number: aNumber) signal
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 InvalidMonthNumberException >> description [
 
 	^'<1p> is an invalid number for a month' expandMacrosWith: number
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 InvalidMonthNumberException >> initializeNumber: aNumber [
 
 	number := aNumber

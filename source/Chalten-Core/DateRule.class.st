@@ -9,51 +9,53 @@ decoratedRule
 
 "
 Class {
-	#name : #DateRule,
-	#superclass : #InclusionRule,
+	#name : 'DateRule',
+	#superclass : 'InclusionRule',
 	#instVars : [
 		'decoratedRule'
 	],
-	#category : #'Chalten-Core-Filter'
+	#category : 'Chalten-Core-Filter',
+	#package : 'Chalten-Core',
+	#tag : 'Filter'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 DateRule class >> date: aDate [
 
 	^self rule: (ObjectInclusionRule for: aDate)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 DateRule class >> rule: anInclusionRule [
 
 	^self new initializeRule: anInclusionRule
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 DateRule >> date [
 
 	^decoratedRule object
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 DateRule >> decoratedRule [
 
 	^decoratedRule
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 DateRule >> includes: aDate [
 
 	^decoratedRule includes: aDate
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 DateRule >> initializeRule: anInclusionRule [
 
 	decoratedRule := anInclusionRule
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 DateRule >> printOn: aStream [
 
 	decoratedRule printOn: aStream

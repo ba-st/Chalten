@@ -17,61 +17,55 @@ months
 
 "
 Class {
-	#name : #JulianCalendarDefinition,
-	#superclass : #RomanCalendarDefinition,
+	#name : 'JulianCalendarDefinition',
+	#superclass : 'RomanCalendarDefinition',
 	#instVars : [
 		'months',
 		'days'
 	],
-	#classInstVars : [
-		'uniqueInstance'
-	],
-	#category : #'Chalten-Julian-Calendar'
+	#category : 'Chalten-Julian-Calendar',
+	#package : 'Chalten-Julian-Calendar'
 }
 
-{ #category : #initialization }
-JulianCalendarDefinition class >> initializeGlobalNameCalendar [
+{ #category : 'accessing' }
+JulianCalendarDefinition class >> calendarName [
 
-	Smalltalk at: #JulianCalendar put: uniqueInstance
+	^ #JulianCalendar
 ]
 
-{ #category : #initialization }
-JulianCalendarDefinition class >> initializeUniqueInstance [
-
-	uniqueInstance := self basicNew initialize
-]
-
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 JulianCalendarDefinition class >> new [
 
-	^uniqueInstance
+	^super new initialize
 ]
 
-{ #category : #'converting - private' }
+{ #category : 'converting - private' }
 JulianCalendarDefinition >> convertToDate: aDate [
 
 	^self convertToJulianDate: aDate
 ]
 
-{ #category : #'converting - private' }
+{ #category : 'converting - private' }
 JulianCalendarDefinition >> convertToDateTime: aDateTime [
 
 	^self convertToJulianDateTime: aDateTime
 ]
 
-{ #category : #'dates accessing' }
+{ #category : 'dates accessing' }
 JulianCalendarDefinition >> currentDateTime [
 
-	^self convertToJulianDateTime: GregorianCalendar currentDateTime
+	^ self convertToJulianDateTime:
+		  (ChaltenEnvironment calendarNamed: #GregorianCalendar)
+			  currentDateTime
 ]
 
-{ #category : #'days accessing' }
+{ #category : 'days accessing' }
 JulianCalendarDefinition >> days [
 
 	^days
 ]
 
-{ #category : #'year querying' }
+{ #category : 'year querying' }
 JulianCalendarDefinition >> distanceInYearsFrom: aFromYear to: aToYear [
 
 	| difference |
@@ -83,7 +77,7 @@ JulianCalendarDefinition >> distanceInYearsFrom: aFromYear to: aToYear [
 	^difference yearsMeasure
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 JulianCalendarDefinition >> epoch [
 
 	"The epoch or starting date is virtually never the date the calendar was adopted but rather a hypothetical starting point for the first day.
@@ -93,7 +87,7 @@ JulianCalendarDefinition >> epoch [
 	^ -1
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 JulianCalendarDefinition >> initializeDays [
 	"Days begins at midnight. The week begins on sunday The days are named:
 		Sunday
@@ -108,7 +102,7 @@ JulianCalendarDefinition >> initializeDays [
 	super initializeDays
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 JulianCalendarDefinition >> initializeDaysGlobalVariables [
 
 	Smalltalk at: #JulianMonday put: self monday.
@@ -120,7 +114,7 @@ JulianCalendarDefinition >> initializeDaysGlobalVariables [
 	Smalltalk at: #JulianSunday put: self sunday
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 JulianCalendarDefinition >> initializeMonths [
 	"This calendar is based on a 365-day common year divided into 12 months of lengths 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30 and 31 days, and on 366 days in leap years,
 	the extra day being added to make the second month 29 days long:
@@ -142,7 +136,7 @@ JulianCalendarDefinition >> initializeMonths [
 	super initializeMonths
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 JulianCalendarDefinition >> initializeMonthsGlobalVariables [
 
 	Smalltalk at: #JulianJanuary put: self january.
@@ -159,13 +153,13 @@ JulianCalendarDefinition >> initializeMonthsGlobalVariables [
 	Smalltalk at: #JulianDecember put: self december
 ]
 
-{ #category : #'year testing' }
+{ #category : 'year testing' }
 JulianCalendarDefinition >> isValidYearNumber: aNumber [
 
 	^aNumber ~= 0 and: [ aNumber isInteger ]
 ]
 
-{ #category : #'year testing' }
+{ #category : 'year testing' }
 JulianCalendarDefinition >> isYearNumberLeap: aNumber [
 	"A julian year y is a leap year if (y mod 4) = 0 when y > 0 or if (y mod 4) = 3 when y < 0.
 	- Extracted from 'Calendrical Calculations, Third Edition'; page 63."
@@ -174,13 +168,13 @@ JulianCalendarDefinition >> isYearNumberLeap: aNumber [
 	^aNumber > 0 ifTrue: [aNumber \\ 4 = 0] ifFalse: [aNumber \\ 4 = 3]
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 JulianCalendarDefinition >> months [
 
 	^months
 ]
 
-{ #category : #'year accessing' }
+{ #category : 'year accessing' }
 JulianCalendarDefinition >> newYearNumberFrom: aChristianYear adding: aNumberOfYears [
 
 	| newNumber |
@@ -192,7 +186,7 @@ JulianCalendarDefinition >> newYearNumberFrom: aChristianYear adding: aNumberOfY
 	^newNumber
 ]
 
-{ #category : #'dates accessing - private' }
+{ #category : 'dates accessing - private' }
 JulianCalendarDefinition >> numberOfDaysFromDate: aJulianDate [
 	"We add together the number of days before the epoch of the calendar, the number of nonleap days since the epoch, the number of leap days since the epoch,
 	the number of days in prior months of the given date, and the number of days in the given month up to and including the given date. For nonpositive years,
@@ -212,7 +206,7 @@ JulianCalendarDefinition >> numberOfDaysFromDate: aJulianDate [
 	^priorNonleapDays + priorLeapDays + priorDays - februaryCorrection + dayNumber
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 JulianCalendarDefinition >> printOn: aStream [
 
 	aStream nextPutAll: 'Julian Calendar'

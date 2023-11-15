@@ -13,28 +13,30 @@ otherPointInTime
 
 "
 Class {
-	#name : #InvalidComparisonBetweenPointsInTimeException,
-	#superclass : #Error,
+	#name : 'InvalidComparisonBetweenPointsInTimeException',
+	#superclass : 'Error',
 	#instVars : [
 		'onePointInTime',
 		'otherPointInTime'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 InvalidComparisonBetweenPointsInTimeException class >> signalWith: aPointInTime and: anotherPointInTime [
 
 	(self with: aPointInTime and: anotherPointInTime) signal
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 InvalidComparisonBetweenPointsInTimeException class >> with: aPointInTime and: anotherPointInTime [
 
 	^self new initializeWith: aPointInTime and: anotherPointInTime
 ]
 
-{ #category : #acccessing }
+{ #category : 'acccessing' }
 InvalidComparisonBetweenPointsInTimeException >> description [
 
 	^'The <1p> <2p> can not be compared with the <3p> <4p> because are points of different resolution'
@@ -44,7 +46,7 @@ InvalidComparisonBetweenPointsInTimeException >> description [
 		with: otherPointInTime
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 InvalidComparisonBetweenPointsInTimeException >> initializeWith: aPointInTime and: anotherPointInTime [
 
 	onePointInTime := aPointInTime.

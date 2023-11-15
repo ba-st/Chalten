@@ -3,18 +3,19 @@ A HebrewLastMonthNumberInYearBehavior is an abtract class used to determinate th
 
 "
 Class {
-	#name : #HebrewLastMonthNumberInYearBehavior,
-	#superclass : #Object,
-	#category : #'Chalten-Hebrew-Calendar'
+	#name : 'HebrewLastMonthNumberInYearBehavior',
+	#superclass : 'Object',
+	#category : 'Chalten-Hebrew-Calendar',
+	#package : 'Chalten-Hebrew-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 HebrewLastMonthNumberInYearBehavior class >> canHandle: aYear [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HebrewLastMonthNumberInYearBehavior class >> for: aYear [
 
 	| handleClass |
@@ -23,7 +24,7 @@ HebrewLastMonthNumberInYearBehavior class >> for: aYear [
 	^handleClass new
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 HebrewLastMonthNumberInYearBehavior >> value [
 
 	self subclassResponsibility

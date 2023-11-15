@@ -13,34 +13,36 @@ monthOfYear
 
 "
 Class {
-	#name : #InvalidDateException,
-	#superclass : #Error,
+	#name : 'InvalidDateException',
+	#superclass : 'Error',
 	#instVars : [
 		'dayNumber',
 		'monthOfYear'
 	],
-	#category : #'Chalten-Core-Time'
+	#category : 'Chalten-Core-Time',
+	#package : 'Chalten-Core',
+	#tag : 'Time'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 InvalidDateException class >> monthOfYear: aMonthOfYear dayNumber: aDayNumber [
 
 	^self new initializeMonthOfYear: aMonthOfYear dayNumber: aDayNumber
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 InvalidDateException class >> signalMonthOfYear: aMonthOfYear dayNumber: aDayNumber [
 
 	(self monthOfYear: aMonthOfYear dayNumber: aDayNumber) signal
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 InvalidDateException >> description [
 
 	^'The day <1p> is invalid for the month <2p>' expandMacrosWith: dayNumber with: monthOfYear
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 InvalidDateException >> initializeMonthOfYear: aMonthOfYear dayNumber: aDayNumber [
 
 	monthOfYear := aMonthOfYear.

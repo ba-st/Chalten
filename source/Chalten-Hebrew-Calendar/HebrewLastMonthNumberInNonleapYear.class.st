@@ -3,39 +3,40 @@ A HebrewLastMonthNumberInNonleapYear is the last month number in an hebrew nonle
 
 "
 Class {
-	#name : #HebrewLastMonthNumberInNonleapYear,
-	#superclass : #HebrewLastMonthNumberInYearBehavior,
+	#name : 'HebrewLastMonthNumberInNonleapYear',
+	#superclass : 'HebrewLastMonthNumberInYearBehavior',
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Chalten-Hebrew-Calendar'
+	#category : 'Chalten-Hebrew-Calendar',
+	#package : 'Chalten-Hebrew-Calendar'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 HebrewLastMonthNumberInNonleapYear class >> canHandle: aYear [
 
 	^aYear isLeap not
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HebrewLastMonthNumberInNonleapYear class >> initialize [
 
 	self initializeUniqueInstance
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HebrewLastMonthNumberInNonleapYear class >> initializeUniqueInstance [
 
 	uniqueInstance := super new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HebrewLastMonthNumberInNonleapYear class >> new [
 
 	^uniqueInstance
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 HebrewLastMonthNumberInNonleapYear >> value [
 
 	^12

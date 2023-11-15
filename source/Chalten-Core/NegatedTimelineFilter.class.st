@@ -9,39 +9,41 @@ originalTimelineFilter
 
 "
 Class {
-	#name : #NegatedTimelineFilter,
-	#superclass : #TimelineFilterBehavior,
+	#name : 'NegatedTimelineFilter',
+	#superclass : 'TimelineFilterBehavior',
 	#instVars : [
 		'originalTimelineFilter'
 	],
-	#category : #'Chalten-Core-Filter'
+	#category : 'Chalten-Core-Filter',
+	#package : 'Chalten-Core',
+	#tag : 'Filter'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 NegatedTimelineFilter class >> for: aTimeLineFilter [
 
 	^self new initializeFor: aTimeLineFilter
 ]
 
-{ #category : #'querying - included' }
+{ #category : 'querying - included' }
 NegatedTimelineFilter >> includes: aDate [
 
 	^(originalTimelineFilter includes: aDate) not
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 NegatedTimelineFilter >> initializeFor: aTimeLineFilter [
 
 	originalTimelineFilter := aTimeLineFilter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 NegatedTimelineFilter >> name [
 
 	^originalTimelineFilter name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 NegatedTimelineFilter >> negated [
 	
 	^originalTimelineFilter

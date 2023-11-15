@@ -9,33 +9,34 @@ numberOfDays
 
 "
 Class {
-	#name : #KislevMonthDefinition,
-	#superclass : #MonthDefinition,
+	#name : 'KislevMonthDefinition',
+	#superclass : 'MonthDefinition',
 	#instVars : [
 		'numberOfDays'
 	],
-	#category : #'Chalten-Hebrew-Calendar'
+	#category : 'Chalten-Hebrew-Calendar',
+	#package : 'Chalten-Hebrew-Calendar'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 KislevMonthDefinition class >> numberOfDays: aNumberOfDays [
 	
 	^self new initializeNumberOfDays: aNumberOfDays
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 KislevMonthDefinition >> initializeNumberOfDays: aNumberOfDays [
 
 	numberOfDays := aNumberOfDays
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KislevMonthDefinition >> numberOfDays [
 	
 	^numberOfDays
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KislevMonthDefinition >> numberOfDaysIn: aYear [
 
 	^aYear
@@ -43,13 +44,13 @@ KislevMonthDefinition >> numberOfDaysIn: aYear [
 		else: [ aYear numberOfDaysFor: self ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KislevMonthDefinition >> numberOfDaysInLeapYear [
 	
 	^self numberOfDays
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KislevMonthDefinition >> numberOfDaysInNonleapYear [
 	
 	^self numberOfDays

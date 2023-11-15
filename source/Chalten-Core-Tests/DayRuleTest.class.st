@@ -1,22 +1,25 @@
 Class {
-	#name : #DayRuleTest,
-	#superclass : #TestCase,
-	#category : #'Chalten-Core-Tests-Filter'
+	#name : 'DayRuleTest',
+	#superclass : 'TestCase',
+	#category : 'Chalten-Core-Tests-Filter',
+	#package : 'Chalten-Core-Tests',
+	#tag : 'Filter'
 }
 
-{ #category : #test }
+{ #category : 'test' }
 DayRuleTest >> testAccessing [
 
 	| rule decoratedRule |
-
-	decoratedRule := ObjectInclusionRule for: GregorianCalendar friday.
+	decoratedRule := ObjectInclusionRule for:
+		                 (ChaltenEnvironment calendarNamed:
+			                  #GregorianCalendar) friday.
 	rule := DayRule rule: decoratedRule.
-	self assert: rule day = Friday.
-	self assert: rule decoratedRule = decoratedRule.
-	self assert: rule printString = decoratedRule printString
+	self assert: rule day equals: Friday.
+	self assert: rule decoratedRule equals: decoratedRule.
+	self assert: rule printString equals: decoratedRule printString
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 DayRuleTest >> testIncludes [
 
 	| rule includedDate |

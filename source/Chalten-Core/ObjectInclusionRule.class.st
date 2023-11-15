@@ -9,39 +9,41 @@ object
 
 "
 Class {
-	#name : #ObjectInclusionRule,
-	#superclass : #InclusionRule,
+	#name : 'ObjectInclusionRule',
+	#superclass : 'InclusionRule',
 	#instVars : [
 		'object'
 	],
-	#category : #'Chalten-Core-Filter'
+	#category : 'Chalten-Core-Filter',
+	#package : 'Chalten-Core',
+	#tag : 'Filter'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ObjectInclusionRule class >> for: anObject [
 
 	^self new initializeFor: anObject
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 ObjectInclusionRule >> includes: anObject [
 
 	^object = anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ObjectInclusionRule >> initializeFor: anObject [
 
 	object := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ObjectInclusionRule >> object [
 
 	^object
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ObjectInclusionRule >> printOn: aStream [
 
 	aStream nextPutAll: 'Includes: '.

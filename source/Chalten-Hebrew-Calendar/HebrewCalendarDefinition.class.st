@@ -21,155 +21,147 @@ nonleapYearsMonths
 
 "
 Class {
-	#name : #HebrewCalendarDefinition,
-	#superclass : #CalendarDefinition,
+	#name : 'HebrewCalendarDefinition',
+	#superclass : 'CalendarDefinition',
 	#instVars : [
 		'days',
 		'nonleapYearsMonths',
 		'leapYearsMonths'
 	],
-	#classInstVars : [
-		'uniqueInstance'
-	],
-	#category : #'Chalten-Hebrew-Calendar'
+	#category : 'Chalten-Hebrew-Calendar',
+	#package : 'Chalten-Hebrew-Calendar'
 }
 
-{ #category : #initialization }
-HebrewCalendarDefinition class >> initializeGlobalNameCalendar [
+{ #category : 'accesing' }
+HebrewCalendarDefinition class >> calendarName [
 
-	Smalltalk at: #HebrewCalendar put: uniqueInstance
+	^ #HebrewCalendar
 ]
 
-{ #category : #initialization }
-HebrewCalendarDefinition class >> initializeUniqueInstance [
-
-	uniqueInstance := self basicNew initialize
-]
-
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HebrewCalendarDefinition class >> new [
 
-	^uniqueInstance
+	^super new initialize
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> adar [
 
 	^nonleapYearsMonths last
 ]
 
-{ #category : #'month definitions - private' }
+{ #category : 'month definitions - private' }
 HebrewCalendarDefinition >> adarDefinition [
 	^ AdarMonthDefinition adar
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> adarI [
 
 	^leapYearsMonths at: self adarINumber
 ]
 
-{ #category : #'month definitions - private' }
+{ #category : 'month definitions - private' }
 HebrewCalendarDefinition >> adarIDefinition [
 	^ AdarMonthDefinition adarI
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> adarII [
 
 	^leapYearsMonths at: self adarIINumber
 ]
 
-{ #category : #'month definitions - private' }
+{ #category : 'month definitions - private' }
 HebrewCalendarDefinition >> adarIIDefinition [
 	^ AdarMonthDefinition adarII
 ]
 
-{ #category : #'month names' }
+{ #category : 'month names' }
 HebrewCalendarDefinition >> adarIIName [
 
 	^'Adar II'
 ]
 
-{ #category : #'month numbers' }
+{ #category : 'month numbers' }
 HebrewCalendarDefinition >> adarIINumber [
 
 	^13
 ]
 
-{ #category : #'month names' }
+{ #category : 'month names' }
 HebrewCalendarDefinition >> adarIName [
 
 	^'Adar I'
 ]
 
-{ #category : #'month numbers' }
+{ #category : 'month numbers' }
 HebrewCalendarDefinition >> adarINumber [
 
 	^12
 ]
 
-{ #category : #'month names' }
+{ #category : 'month names' }
 HebrewCalendarDefinition >> adarName [
 
 	^'Adar'
 ]
 
-{ #category : #'month numbers' }
+{ #category : 'month numbers' }
 HebrewCalendarDefinition >> adarNumber [
 
 	^12
 ]
 
-{ #category : #'month creation - private' }
+{ #category : 'month creation - private' }
 HebrewCalendarDefinition >> addLeapYearMonth: anHebrewMonth [
 
 	^leapYearsMonths at: anHebrewMonth number put: anHebrewMonth
 ]
 
-{ #category : #'month creation - private' }
+{ #category : 'month creation - private' }
 HebrewCalendarDefinition >> addNonleapYearMonth: anHebrewMonth [
 
 	^nonleapYearsMonths at: anHebrewMonth number put: anHebrewMonth
 ]
 
-{ #category : #'days accessing' }
+{ #category : 'days accessing' }
 HebrewCalendarDefinition >> amountOfDaysIn: anHebrewYear [
 	
 	^(self newYearFrom: anHebrewYear next) - (self newYearFrom: anHebrewYear)
 ]
 
-{ #category : #'days accessing' }
+{ #category : 'days accessing' }
 HebrewCalendarDefinition >> amountOfDaysPerWeek [
 	
 	^7
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> amountOfMonthsInLeapYears [
 
 	^13
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> amountOfMonthsInNonleapYears [
 
 	^12
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> amountOfMonthsInYear: aYear [
 
 	^aYear amountOfMonths
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> amountOfMonthsPerYear [
 
 	^13
 ]
 
-{ #category : #'month preconditions' }
+{ #category : 'month preconditions' }
 HebrewCalendarDefinition >> assert: aMonth isValidIn: aYear [
 
 	(self is: aMonth adarInLeapYear: aYear)
@@ -178,42 +170,42 @@ HebrewCalendarDefinition >> assert: aMonth isValidIn: aYear [
 		ifTrue: [InvalidMonthForNonleapYearsException signalMonth: aMonth year: aYear]
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> av [
 
 	^nonleapYearsMonths at: self avNumber
 ]
 
-{ #category : #'month definitions - private' }
+{ #category : 'month definitions - private' }
 HebrewCalendarDefinition >> avDefinition [
 	^ GenericMonthDefinition numberOfDays: 30 daysMeasure
 ]
 
-{ #category : #'month names' }
+{ #category : 'month names' }
 HebrewCalendarDefinition >> avName [
 
 	^'Av'
 ]
 
-{ #category : #'month numbers' }
+{ #category : 'month numbers' }
 HebrewCalendarDefinition >> avNumber [
 
 	^5
 ]
 
-{ #category : #'converting - private' }
+{ #category : 'converting - private' }
 HebrewCalendarDefinition >> convertToDate: aDate [
 
 	^self convertToHebrewDate: aDate
 ]
 
-{ #category : #'converting - private' }
+{ #category : 'converting - private' }
 HebrewCalendarDefinition >> convertToDateTime: aDateTime [
 
 	^self convertToHebrewDateTime: aDateTime
 ]
 
-{ #category : #'month creation - private' }
+{ #category : 'month creation - private' }
 HebrewCalendarDefinition >> createAdar [
 	^ ChaltenMonth 
 		named: self adarName
@@ -222,7 +214,7 @@ HebrewCalendarDefinition >> createAdar [
 		calendar: self
 ]
 
-{ #category : #'month creation - private' }
+{ #category : 'month creation - private' }
 HebrewCalendarDefinition >> createAdarI [
 	^ ChaltenMonth 
 		named: self adarIName
@@ -231,7 +223,7 @@ HebrewCalendarDefinition >> createAdarI [
 		calendar: self
 ]
 
-{ #category : #'month creation - private' }
+{ #category : 'month creation - private' }
 HebrewCalendarDefinition >> createAdarII [
 	^ ChaltenMonth 
 		named: self adarIIName
@@ -240,7 +232,7 @@ HebrewCalendarDefinition >> createAdarII [
 		calendar: self
 ]
 
-{ #category : #'month creation - private' }
+{ #category : 'month creation - private' }
 HebrewCalendarDefinition >> createAv [
 	^ ChaltenMonth 
 		named: self avName
@@ -249,7 +241,7 @@ HebrewCalendarDefinition >> createAv [
 		calendar: self
 ]
 
-{ #category : #'month creation - private' }
+{ #category : 'month creation - private' }
 HebrewCalendarDefinition >> createElul [
 	^ ChaltenMonth 
 		named: self elulName
@@ -258,7 +250,7 @@ HebrewCalendarDefinition >> createElul [
 		calendar: self
 ]
 
-{ #category : #'month creation - private' }
+{ #category : 'month creation - private' }
 HebrewCalendarDefinition >> createIyyar [
 	^ ChaltenMonth 
 		named: self iyyarName
@@ -267,7 +259,7 @@ HebrewCalendarDefinition >> createIyyar [
 		calendar: self
 ]
 
-{ #category : #'month creation - private' }
+{ #category : 'month creation - private' }
 HebrewCalendarDefinition >> createKislev [
 	^ ChaltenMonth 
 		named: self kislevName
@@ -276,7 +268,7 @@ HebrewCalendarDefinition >> createKislev [
 		calendar: self
 ]
 
-{ #category : #'month creation - private' }
+{ #category : 'month creation - private' }
 HebrewCalendarDefinition >> createMarheshvan [
 	^ ChaltenMonth 
 		named: self marheshvanName
@@ -285,7 +277,7 @@ HebrewCalendarDefinition >> createMarheshvan [
 		calendar: self
 ]
 
-{ #category : #'month creation - private' }
+{ #category : 'month creation - private' }
 HebrewCalendarDefinition >> createNisan [
 	^ ChaltenMonth 
 		named: self nisanName
@@ -294,7 +286,7 @@ HebrewCalendarDefinition >> createNisan [
 		calendar: self
 ]
 
-{ #category : #'month creation - private' }
+{ #category : 'month creation - private' }
 HebrewCalendarDefinition >> createShevat [
 	^ ChaltenMonth 
 		named: self shevatName
@@ -303,7 +295,7 @@ HebrewCalendarDefinition >> createShevat [
 		calendar: self
 ]
 
-{ #category : #'month creation - private' }
+{ #category : 'month creation - private' }
 HebrewCalendarDefinition >> createSivan [
 	^ ChaltenMonth 
 		named: self sivanName
@@ -312,7 +304,7 @@ HebrewCalendarDefinition >> createSivan [
 		calendar: self
 ]
 
-{ #category : #'month creation - private' }
+{ #category : 'month creation - private' }
 HebrewCalendarDefinition >> createTammuz [
 	^ ChaltenMonth 
 		named: self tammuzName
@@ -321,7 +313,7 @@ HebrewCalendarDefinition >> createTammuz [
 		calendar: self
 ]
 
-{ #category : #'month creation - private' }
+{ #category : 'month creation - private' }
 HebrewCalendarDefinition >> createTevet [
 	^ ChaltenMonth 
 		named: self tevetName
@@ -330,7 +322,7 @@ HebrewCalendarDefinition >> createTevet [
 		calendar: self
 ]
 
-{ #category : #'month creation - private' }
+{ #category : 'month creation - private' }
 HebrewCalendarDefinition >> createTishri [
 	^ ChaltenMonth 
 		named: self tishriName
@@ -339,7 +331,7 @@ HebrewCalendarDefinition >> createTishri [
 		calendar: self
 ]
 
-{ #category : #'day creation - private' }
+{ #category : 'day creation - private' }
 HebrewCalendarDefinition >> createYomHamishi [
 	^ Day 
 		named: self yomHamishiName
@@ -347,7 +339,7 @@ HebrewCalendarDefinition >> createYomHamishi [
 		calendar: self
 ]
 
-{ #category : #'day creation - private' }
+{ #category : 'day creation - private' }
 HebrewCalendarDefinition >> createYomRevii [
 	^ Day 
 		named: self yomReviiName
@@ -355,7 +347,7 @@ HebrewCalendarDefinition >> createYomRevii [
 		calendar: self
 ]
 
-{ #category : #'day creation - private' }
+{ #category : 'day creation - private' }
 HebrewCalendarDefinition >> createYomRishon [
 	^ Day 
 		named: self yomRishonName
@@ -363,7 +355,7 @@ HebrewCalendarDefinition >> createYomRishon [
 		calendar: self
 ]
 
-{ #category : #'day creation - private' }
+{ #category : 'day creation - private' }
 HebrewCalendarDefinition >> createYomShabbat [
 	^ Day 
 		named: self yomShabbatName
@@ -371,7 +363,7 @@ HebrewCalendarDefinition >> createYomShabbat [
 		calendar: self
 ]
 
-{ #category : #'day creation - private' }
+{ #category : 'day creation - private' }
 HebrewCalendarDefinition >> createYomShelishi [
 	^ Day 
 		named: self yomShelishiName
@@ -379,7 +371,7 @@ HebrewCalendarDefinition >> createYomShelishi [
 		calendar: self
 ]
 
-{ #category : #'day creation - private' }
+{ #category : 'day creation - private' }
 HebrewCalendarDefinition >> createYomSheni [
 	^ Day 
 		named: self yomSheniName
@@ -387,7 +379,7 @@ HebrewCalendarDefinition >> createYomSheni [
 		calendar: self
 ]
 
-{ #category : #'day creation - private' }
+{ #category : 'day creation - private' }
 HebrewCalendarDefinition >> createYomShishi [
 	^ Day 
 		named: self yomShishiName
@@ -395,13 +387,15 @@ HebrewCalendarDefinition >> createYomShishi [
 		calendar: self
 ]
 
-{ #category : #'dates accessing' }
+{ #category : 'dates accessing' }
 HebrewCalendarDefinition >> currentDateTime [
 
-	^self convertToHebrewDateTime: GregorianCalendar currentDateTime
+	^ self convertToHebrewDateTime:
+		  (ChaltenEnvironment calendarNamed: #GregorianCalendar)
+			  currentDateTime
 ]
 
-{ #category : #'dates accessing - private' }
+{ #category : 'dates accessing - private' }
 HebrewCalendarDefinition >> dateFromNumberOfDays: aNumberOfDays [
 
 	| approximation year start month dayNumber |
@@ -424,13 +418,13 @@ HebrewCalendarDefinition >> dateFromNumberOfDays: aNumberOfDays [
 		dayNumber: dayNumber
 ]
 
-{ #category : #'days accessing' }
+{ #category : 'days accessing' }
 HebrewCalendarDefinition >> days [
 
 	^days
 ]
 
-{ #category : #'year querying' }
+{ #category : 'year querying' }
 HebrewCalendarDefinition >> distanceInYearsFrom: aFromYear to: aToYear [
 
 	| difference |
@@ -439,30 +433,30 @@ HebrewCalendarDefinition >> distanceInYearsFrom: aFromYear to: aToYear [
 	^difference yearsMeasure
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> elul [
 
 	^nonleapYearsMonths at: self elulNumber
 ]
 
-{ #category : #'month definitions - private' }
+{ #category : 'month definitions - private' }
 HebrewCalendarDefinition >> elulDefinition [
 	^ GenericMonthDefinition numberOfDays: 29 daysMeasure
 ]
 
-{ #category : #'month names' }
+{ #category : 'month names' }
 HebrewCalendarDefinition >> elulName [
 
 	^'Elul'
 ]
 
-{ #category : #'month numbers' }
+{ #category : 'month numbers' }
 HebrewCalendarDefinition >> elulNumber [
 
 	^6
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HebrewCalendarDefinition >> epoch [
 
 	"The epoch or starting date is virtually never the date the calendar was adopted but rather a hypothetical starting point for the first day.
@@ -472,13 +466,13 @@ HebrewCalendarDefinition >> epoch [
 	^ -1373427
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> firstMonth [
 
 	^self tishri
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> ifLongMarheshvanIn: aYear do: aBlock else: anotherBlock [
 
 	^(self longMarheshvanIn: aYear)
@@ -486,7 +480,7 @@ HebrewCalendarDefinition >> ifLongMarheshvanIn: aYear do: aBlock else: anotherBl
 		ifFalse: anotherBlock
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> ifShortKislevIn: aYear do: aBlock else: anotherBlock [
 
 	^(self shortKislevIn: aYear)
@@ -494,7 +488,7 @@ HebrewCalendarDefinition >> ifShortKislevIn: aYear do: aBlock else: anotherBlock
 		ifFalse: anotherBlock
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HebrewCalendarDefinition >> initializeDays [
 	"Days begins at sunset. The week begins on yom rishon; wich is sunday in gregorian calendar. The days Sunday-Friday are numbered, not named:
 		Sunday 	yom rishon (the first day)
@@ -516,7 +510,7 @@ HebrewCalendarDefinition >> initializeDays [
 	self addDay: self createYomShabbat
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HebrewCalendarDefinition >> initializeDaysGlobalVariables [
 
 	Smalltalk at: #YomRishon put: self yomRishon.
@@ -528,14 +522,14 @@ HebrewCalendarDefinition >> initializeDaysGlobalVariables [
 	Smalltalk at: #YomShabbat put: self yomShabbat
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HebrewCalendarDefinition >> initializeGlobalVariables [
 
 	self initializeDaysGlobalVariables.
 	self initializeMonthsGlobalVariables
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HebrewCalendarDefinition >> initializeMonths [
 	"The hebrew year consists of 12 months in a common year and 13 in a leap year:
 		(1) Nisan 							30 days
@@ -562,7 +556,7 @@ HebrewCalendarDefinition >> initializeMonths [
 	self initializeMonthsForLeapYears
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HebrewCalendarDefinition >> initializeMonthsForLeapYears [
 
 	leapYearsMonths := Array new: 13.
@@ -581,7 +575,7 @@ HebrewCalendarDefinition >> initializeMonthsForLeapYears [
 	self addLeapYearMonth: self createAdarII
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HebrewCalendarDefinition >> initializeMonthsForNonleapYears [
 
 	nonleapYearsMonths := Array new: 12.
@@ -599,7 +593,7 @@ HebrewCalendarDefinition >> initializeMonthsForNonleapYears [
 	self addNonleapYearMonth: self createAdar
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HebrewCalendarDefinition >> initializeMonthsGlobalVariables [
 
 	Smalltalk at: #Nisan put: self nisan.
@@ -618,121 +612,121 @@ HebrewCalendarDefinition >> initializeMonthsGlobalVariables [
 	Smalltalk at: #AdarII put: self adarII
 ]
 
-{ #category : #'month preconditions' }
+{ #category : 'month preconditions' }
 HebrewCalendarDefinition >> is: aMonth adarIOrAdarIIInNonleapYear: aYear [
 
 	^aYear isLeap not and: [(aMonth is: AdarI) or: [aMonth is: AdarII]]
 ]
 
-{ #category : #'month preconditions' }
+{ #category : 'month preconditions' }
 HebrewCalendarDefinition >> is: aMonth adarInLeapYear: aYear [
 
 	^aYear isLeap and: [aMonth is: Adar]
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> isAdar: aMonth [
 
 	^aMonth is: self adar
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> isAdarI: aMonth [
 
 	^aMonth is: self adarI
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> isAdarII: aMonth [
 
 	^aMonth is: self adarII
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> isAv: aMonth [
 
 	^aMonth is: self av
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> isElul: aMonth [
 
 	^aMonth is: self elul
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> isIyyar: aMonth [
 
 	^aMonth is: self iyyar
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> isKislev: aMonth [
 
 	^aMonth is: self kislev
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> isLongMarheshvan: aMonthOfYear [
 
 	^(aMonthOfYear is: Marheshvan) and: [self longMarheshvanIn: aMonthOfYear year]
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> isMarheshvan: aMonth [
 
 	^aMonth is: self marheshvan
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> isNisan: aMonth [
 
 	^aMonth is: self nisan
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> isShevat: aMonth [
 
 	^aMonth is: self shevat
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> isShortKislev: aMonthOfYear [
 
 	^(aMonthOfYear is: Kislev) and: [self shortKislevIn: aMonthOfYear year]
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> isSivan: aMonth [
 
 	^aMonth is: self sivan
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> isTammuz: aMonth [
 
 	^aMonth is: self tammuz
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> isTevet: aMonth [
 
 	^aMonth is: self tevet
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> isTishri: aMonth [
 
 	^aMonth is: self tishri
 ]
 
-{ #category : #'year testing' }
+{ #category : 'year testing' }
 HebrewCalendarDefinition >> isValidYearNumber: aNumber [
 
 	^aNumber isInteger
 ]
 
-{ #category : #'year testing' }
+{ #category : 'year testing' }
 HebrewCalendarDefinition >> isYearNumberLeap: aNumber [
 	"In the hebrew calendar, leap years occurs in years 3, 6, 8, 11, 14, 17, and 19 of the 19-year metonic cycle. This sequence
 	can be computed concisely by noting that hebrew year y is leap if and only if (7y + 1) mod 19 is less than 7.
@@ -741,101 +735,101 @@ HebrewCalendarDefinition >> isYearNumberLeap: aNumber [
 	^((7 * aNumber + 1) \\ 19) < 7
 ]
 
-{ #category : #'day testing' }
+{ #category : 'day testing' }
 HebrewCalendarDefinition >> isYomHamishi: anHebrewDay [
 
 	^anHebrewDay is: self yomHamishi
 ]
 
-{ #category : #'day testing' }
+{ #category : 'day testing' }
 HebrewCalendarDefinition >> isYomRevii: anHebrewDay [
 
 	^anHebrewDay is: self yomRevii
 ]
 
-{ #category : #'day testing' }
+{ #category : 'day testing' }
 HebrewCalendarDefinition >> isYomRishon: anHebrewDay [
 
 	^anHebrewDay is: self yomRishon
 ]
 
-{ #category : #'day testing' }
+{ #category : 'day testing' }
 HebrewCalendarDefinition >> isYomShabbat: anHebrewDay [
 
 	^anHebrewDay is: self yomShabbat
 ]
 
-{ #category : #'day testing' }
+{ #category : 'day testing' }
 HebrewCalendarDefinition >> isYomShelishi: anHebrewDay [
 
 	^anHebrewDay is: self yomShelishi
 ]
 
-{ #category : #'day testing' }
+{ #category : 'day testing' }
 HebrewCalendarDefinition >> isYomSheni: anHebrewDay [
 
 	^anHebrewDay is: self yomSheni
 ]
 
-{ #category : #'day testing' }
+{ #category : 'day testing' }
 HebrewCalendarDefinition >> isYomShishi: anHebrewDay [
 
 	^anHebrewDay is: self yomShishi
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> iyyar [
 
 	^nonleapYearsMonths at: self iyyarNumber
 ]
 
-{ #category : #'month definitions - private' }
+{ #category : 'month definitions - private' }
 HebrewCalendarDefinition >> iyyarDefinition [
 	^ GenericMonthDefinition numberOfDays: 29 daysMeasure
 ]
 
-{ #category : #'month names' }
+{ #category : 'month names' }
 HebrewCalendarDefinition >> iyyarName [
 
 	^'Iyyar'
 ]
 
-{ #category : #'month numbers' }
+{ #category : 'month numbers' }
 HebrewCalendarDefinition >> iyyarNumber [
 
 	^2
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> kislev [
 
 	^nonleapYearsMonths at: self kislevNumber
 ]
 
-{ #category : #'month definitions - private' }
+{ #category : 'month definitions - private' }
 HebrewCalendarDefinition >> kislevDefinition [
 	^ KislevMonthDefinition numberOfDays: 30 daysMeasure
 ]
 
-{ #category : #'month names' }
+{ #category : 'month names' }
 HebrewCalendarDefinition >> kislevName [
 
 	^'Kislev'
 ]
 
-{ #category : #'month numbers' }
+{ #category : 'month numbers' }
 HebrewCalendarDefinition >> kislevNumber [
 
 	^9
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> lastMonth [
 
 	^self elul
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> longMarheshvanIn: aYear [
 
 	| daysInYear |
@@ -844,35 +838,35 @@ HebrewCalendarDefinition >> longMarheshvanIn: aYear [
 	^daysInYear = 355 or: [daysInYear = 385]
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> marheshvan [
 
 	^nonleapYearsMonths at: self marheshvanNumber
 ]
 
-{ #category : #'month definitions - private' }
+{ #category : 'month definitions - private' }
 HebrewCalendarDefinition >> marheshvanDefinition [
 	^ MarheshvanMonthDefinition numberOfDays: 30 daysMeasure
 ]
 
-{ #category : #'month names' }
+{ #category : 'month names' }
 HebrewCalendarDefinition >> marheshvanName [
 
 	^'Marheshvan'
 ]
 
-{ #category : #'month numbers' }
+{ #category : 'month numbers' }
 HebrewCalendarDefinition >> marheshvanNumber [
 
 	^8
 ]
 
-{ #category : #'days accessing' }
+{ #category : 'days accessing' }
 HebrewCalendarDefinition >> maximumNumberOfDaysInOneYear [
 	^ 385 daysMeasure
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> monthNamed: aString [
 
 	^[super monthNamed: aString ]
@@ -884,7 +878,7 @@ HebrewCalendarDefinition >> monthNamed: aString [
 				ifNone: [anException signal]]
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> monthNumbered: aNumber [
 
 	^[super monthNumbered: aNumber]
@@ -895,31 +889,31 @@ HebrewCalendarDefinition >> monthNumbered: aNumber [
 				ifNone: [anException signal]]
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> months [
 
 	^nonleapYearsMonths
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> monthsForLeapYears [
 
 	^leapYearsMonths
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> monthsForNonleapYears [
 
 	^nonleapYearsMonths
 ]
 
-{ #category : #'dates accessing' }
+{ #category : 'dates accessing' }
 HebrewCalendarDefinition >> newDateFromYear: anHebrewYear month: anHebrewMonth dayNumber: aDayNumber [
 
 	^FixedDate year: anHebrewYear month: anHebrewMonth dayNumber: aDayNumber
 ]
 
-{ #category : #'year accessing' }
+{ #category : 'year accessing' }
 HebrewCalendarDefinition >> newYearFrom: aYear [
 	"Adding the number of elapsed days to the value of the delay determine the day the year begins.
 	- Extracted from 'Calendrical Calculations, The Millennium Edition'; page 103."
@@ -930,48 +924,48 @@ HebrewCalendarDefinition >> newYearFrom: aYear [
 	^self epoch + elapsedDays amount + (HebrewNewYearDelay for: aYear) value
 ]
 
-{ #category : #'year accessing' }
+{ #category : 'year accessing' }
 HebrewCalendarDefinition >> newYearNumberFrom: aYear adding: aNumberOfYears [
 
 	^aYear number + aNumberOfYears
 ]
 
-{ #category : #'dates accessing - private' }
+{ #category : 'dates accessing - private' }
 HebrewCalendarDefinition >> nextMonthInLeapYearsFrom: aMonth [
 
 	^aMonth nextInLeapYears
 ]
 
-{ #category : #'dates accessing - private' }
+{ #category : 'dates accessing - private' }
 HebrewCalendarDefinition >> nextMonthInNonleapYearsFrom: aMonth [
 
 	^aMonth nextInNonleapYears
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> nisan [
 
 	^nonleapYearsMonths at: self nisanNumber
 ]
 
-{ #category : #'month definitions - private' }
+{ #category : 'month definitions - private' }
 HebrewCalendarDefinition >> nisanDefinition [
 	^ GenericMonthDefinition numberOfDays: 30 daysMeasure
 ]
 
-{ #category : #'month names' }
+{ #category : 'month names' }
 HebrewCalendarDefinition >> nisanName [
 
 	^'Nisan'
 ]
 
-{ #category : #'month numbers' }
+{ #category : 'month numbers' }
 HebrewCalendarDefinition >> nisanNumber [
 
 	^1
 ]
 
-{ #category : #'dates accessing - private' }
+{ #category : 'dates accessing - private' }
 HebrewCalendarDefinition >> numberOfDaysFromDate: anHebrewDate [
 	"To the fixed date of the start of the given year we add the number of elpased days in the given month
 	and the length of each elapsed month. We distinguish between months before and after Tishri, wich is
@@ -994,47 +988,47 @@ HebrewCalendarDefinition >> numberOfDaysFromDate: anHebrewDate [
 	^(self newYearFrom: year) + dayNumber - 1 + numberOfDays
 ]
 
-{ #category : #'days accessing' }
+{ #category : 'days accessing' }
 HebrewCalendarDefinition >> numberOfDaysIn: anHebrewYear [
 	
 	^(self amountOfDaysIn: anHebrewYear) daysMeasure
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> numberOfMonthsPerYear [
 	^ 13 monthsMeasure
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 HebrewCalendarDefinition >> printOn: aStream [
 
 	aStream nextPutAll: 'Hebrew Calendar'
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> shevat [
 
 	^nonleapYearsMonths at: self shevatNumber
 ]
 
-{ #category : #'month definitions - private' }
+{ #category : 'month definitions - private' }
 HebrewCalendarDefinition >> shevatDefinition [
 	^ GenericMonthDefinition numberOfDays: 30 daysMeasure
 ]
 
-{ #category : #'month names' }
+{ #category : 'month names' }
 HebrewCalendarDefinition >> shevatName [
 
 	^'Shevat'
 ]
 
-{ #category : #'month numbers' }
+{ #category : 'month numbers' }
 HebrewCalendarDefinition >> shevatNumber [
 
 	^11
 ]
 
-{ #category : #'month testing' }
+{ #category : 'month testing' }
 HebrewCalendarDefinition >> shortKislevIn: aYear [
 
 	| daysInYear |
@@ -1043,225 +1037,225 @@ HebrewCalendarDefinition >> shortKislevIn: aYear [
 	^daysInYear = 353 or: [daysInYear = 383]
 ]
 
-{ #category : #'days accessing' }
+{ #category : 'days accessing' }
 HebrewCalendarDefinition >> sinceYomRishon: aNumberOfDays [
 
 	^self sinceFirstDayOfWeek: aNumberOfDays
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> sivan [
 
 	^nonleapYearsMonths at: self sivanNumber
 ]
 
-{ #category : #'month definitions - private' }
+{ #category : 'month definitions - private' }
 HebrewCalendarDefinition >> sivanDefinition [
 	^ GenericMonthDefinition numberOfDays: 30 daysMeasure
 ]
 
-{ #category : #'month names' }
+{ #category : 'month names' }
 HebrewCalendarDefinition >> sivanName [
 
 	^'Sivan'
 ]
 
-{ #category : #'month numbers' }
+{ #category : 'month numbers' }
 HebrewCalendarDefinition >> sivanNumber [
 
 	^3
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> tammuz [
 
 	^nonleapYearsMonths at: self tammuzNumber
 ]
 
-{ #category : #'month definitions - private' }
+{ #category : 'month definitions - private' }
 HebrewCalendarDefinition >> tammuzDefinition [
 	^ GenericMonthDefinition numberOfDays: 29 daysMeasure
 ]
 
-{ #category : #'month names' }
+{ #category : 'month names' }
 HebrewCalendarDefinition >> tammuzName [
 
 	^'Tammuz'
 ]
 
-{ #category : #'month numbers' }
+{ #category : 'month numbers' }
 HebrewCalendarDefinition >> tammuzNumber [
 
 	^4
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> tevet [
 
 	^nonleapYearsMonths at: self tevetNumber
 ]
 
-{ #category : #'month definitions - private' }
+{ #category : 'month definitions - private' }
 HebrewCalendarDefinition >> tevetDefinition [
 	^ GenericMonthDefinition numberOfDays: 29 daysMeasure
 ]
 
-{ #category : #'month names' }
+{ #category : 'month names' }
 HebrewCalendarDefinition >> tevetName [
 
 	^'Tevet'
 ]
 
-{ #category : #'month numbers' }
+{ #category : 'month numbers' }
 HebrewCalendarDefinition >> tevetNumber [
 
 	^10
 ]
 
-{ #category : #'months accessing' }
+{ #category : 'months accessing' }
 HebrewCalendarDefinition >> tishri [
 
 	^nonleapYearsMonths at: self tishriNumber
 ]
 
-{ #category : #'month definitions - private' }
+{ #category : 'month definitions - private' }
 HebrewCalendarDefinition >> tishriDefinition [
 	^ GenericMonthDefinition numberOfDays: 30 daysMeasure
 ]
 
-{ #category : #'month names' }
+{ #category : 'month names' }
 HebrewCalendarDefinition >> tishriName [
 
 	^'Tishri'
 ]
 
-{ #category : #'month numbers' }
+{ #category : 'month numbers' }
 HebrewCalendarDefinition >> tishriNumber [
 
 	^7
 ]
 
-{ #category : #'days accessing' }
+{ #category : 'days accessing' }
 HebrewCalendarDefinition >> yomHamishi [
 
 	^self dayPositionedInWeek: self yomHamishiPositionInWeek
 ]
 
-{ #category : #'day names' }
+{ #category : 'day names' }
 HebrewCalendarDefinition >> yomHamishiName [
 	
 	^'yom hamishi'
 ]
 
-{ #category : #'day position in week' }
+{ #category : 'day position in week' }
 HebrewCalendarDefinition >> yomHamishiPositionInWeek [
 	
 	^5
 ]
 
-{ #category : #'days accessing' }
+{ #category : 'days accessing' }
 HebrewCalendarDefinition >> yomRevii [
 
 	^self dayPositionedInWeek: self yomReviiPositionInWeek
 ]
 
-{ #category : #'day names' }
+{ #category : 'day names' }
 HebrewCalendarDefinition >> yomReviiName [
 	
 	^'yom revi`i'
 ]
 
-{ #category : #'day position in week' }
+{ #category : 'day position in week' }
 HebrewCalendarDefinition >> yomReviiPositionInWeek [
 	
 	^4
 ]
 
-{ #category : #'days accessing' }
+{ #category : 'days accessing' }
 HebrewCalendarDefinition >> yomRishon [
 
 	^self dayPositionedInWeek: self yomRishonPositionInWeek
 ]
 
-{ #category : #'day names' }
+{ #category : 'day names' }
 HebrewCalendarDefinition >> yomRishonName [
 	
 	^'yom rishon'
 ]
 
-{ #category : #'day position in week' }
+{ #category : 'day position in week' }
 HebrewCalendarDefinition >> yomRishonPositionInWeek [
 	
 	^1
 ]
 
-{ #category : #'days accessing' }
+{ #category : 'days accessing' }
 HebrewCalendarDefinition >> yomShabbat [
 
 	^self dayPositionedInWeek: self yomShabbatPositionInWeek
 ]
 
-{ #category : #'day names' }
+{ #category : 'day names' }
 HebrewCalendarDefinition >> yomShabbatName [
 	
 	^'yom shabbat'
 ]
 
-{ #category : #'day position in week' }
+{ #category : 'day position in week' }
 HebrewCalendarDefinition >> yomShabbatPositionInWeek [
 	
 	^7
 ]
 
-{ #category : #'days accessing' }
+{ #category : 'days accessing' }
 HebrewCalendarDefinition >> yomShelishi [
 
 	^self dayPositionedInWeek: self yomShelishiPositionInWeek
 ]
 
-{ #category : #'day names' }
+{ #category : 'day names' }
 HebrewCalendarDefinition >> yomShelishiName [
 	
 	^'yom shelishi'
 ]
 
-{ #category : #'day position in week' }
+{ #category : 'day position in week' }
 HebrewCalendarDefinition >> yomShelishiPositionInWeek [
 	
 	^3
 ]
 
-{ #category : #'days accessing' }
+{ #category : 'days accessing' }
 HebrewCalendarDefinition >> yomSheni [
 
 	^self dayPositionedInWeek: self yomSheniPositionInWeek
 ]
 
-{ #category : #'day names' }
+{ #category : 'day names' }
 HebrewCalendarDefinition >> yomSheniName [
 	
 	^'yom sheni'
 ]
 
-{ #category : #'day position in week' }
+{ #category : 'day position in week' }
 HebrewCalendarDefinition >> yomSheniPositionInWeek [
 	
 	^2
 ]
 
-{ #category : #'days accessing' }
+{ #category : 'days accessing' }
 HebrewCalendarDefinition >> yomShishi [
 
 	^self dayPositionedInWeek: self yomShishiPositionInWeek
 ]
 
-{ #category : #'day names' }
+{ #category : 'day names' }
 HebrewCalendarDefinition >> yomShishiName [
 	
 	^'yom shishi'
 ]
 
-{ #category : #'day position in week' }
+{ #category : 'day position in week' }
 HebrewCalendarDefinition >> yomShishiPositionInWeek [
 	
 	^6

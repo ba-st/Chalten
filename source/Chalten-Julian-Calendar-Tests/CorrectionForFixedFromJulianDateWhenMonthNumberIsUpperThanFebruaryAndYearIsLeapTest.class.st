@@ -1,14 +1,15 @@
 Class {
-	#name : #CorrectionForFixedFromJulianDateWhenMonthNumberIsUpperThanFebruaryAndYearIsLeapTest,
-	#superclass : #TestCase,
-	#category : #'Chalten-Julian-Calendar-Tests'
+	#name : 'CorrectionForFixedFromJulianDateWhenMonthNumberIsUpperThanFebruaryAndYearIsLeapTest',
+	#superclass : 'TestCase',
+	#category : 'Chalten-Julian-Calendar-Tests',
+	#package : 'Chalten-Julian-Calendar-Tests'
 }
 
-{ #category : #test }
+{ #category : 'test' }
 CorrectionForFixedFromJulianDateWhenMonthNumberIsUpperThanFebruaryAndYearIsLeapTest >> testValue [
 
 	| correction |
-
-	correction := CorrectionForFixedFromDateBehavior for: JulianMarch fifteenth, 2008.
-	self assert: correction value = 1
+	correction := CorrectionForFixedFromDateBehavior for:
+		              JulianMarch fifteenth , 2008.
+	self assert: correction value equals: 1
 ]
