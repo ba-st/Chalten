@@ -48,6 +48,7 @@ BaselineOfChalten >> baseline: spec [
 
 			spec
 				group: 'Deployment' with: #('Chalten-Core' 'Chalten-Core-Aconcagua-Extensions' 'Chalten-Core-Base-Extensions' 'Chalten-Core-Pharo-Extensions' 'Chalten-Calendars');
+				group: 'Deployment-Gregorian' with: #('Chalten-Core' 'Chalten-Core-Aconcagua-Extensions' 'Chalten-Core-Base-Extensions' 'Chalten-Core-Pharo-Extensions' 'Chalten-Gregorian-Calendar');
 				group: 'Tests' with: #('Deployment' 'Chalten-Core-Tests' 'Chalten-Calendars-Tests');
 				group: 'CI' with: 'Tests';
 				group: 'Development' with: #('Deployment' 'Tests').
