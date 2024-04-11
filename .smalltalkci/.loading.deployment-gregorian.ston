@@ -4,7 +4,8 @@ SmalltalkCISpec {
       #baseline : 'Chalten',
       #directory : '../source',
       #load : [ 'Deployment-Gregorian' ],
-      #platforms : [ #pharo ]
+      #platforms : [ #pharo ],
+      #failOn : [ #Warning ]
     }
   ],
   #testing : {
