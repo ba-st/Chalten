@@ -2,7 +2,7 @@ RwLoadSpecificationV2 {
   #specName: 'Aconcagua',
   #projectName : 'Aconcagua',
   #gitUrl : 'https://github.com/ba-st/Aconcagua.git',
-  #revision : 'v9',
+  #revision : 'v10',
   #projectSpecFile : 'rowan/project.ston',
   #componentNames : [
     'Deployment'
