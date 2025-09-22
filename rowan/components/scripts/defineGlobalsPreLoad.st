@@ -9,32 +9,32 @@ symbolDictionary := Rowan image
 "Preliminar definition of global variables for source code to compile.
  These will be properly replaced later in the post load script."
 
-symbolDictionary at: #ChaltenEnvironment put: nil.
-symbolDictionary at: #TimeUnits put: nil.
-symbolDictionary at: #TimeZones put: nil.
-symbolDictionary at: #TheBeginningOfTime put: nil.
-symbolDictionary at: #TheEndOfTime put: nil.
+symbolDictionary at: #ChaltenEnvironment ifAbsentPut: [ nil ].
+symbolDictionary at: #TimeUnits ifAbsentPut: [ nil ].
+symbolDictionary at: #TimeZones ifAbsentPut: [ nil ].
+symbolDictionary at: #TheBeginningOfTime ifAbsentPut: [ nil ].
+symbolDictionary at: #TheEndOfTime ifAbsentPut: [ nil ].
 
 "Gregorian calendar specific globals"
 
-symbolDictionary at: #Monday put: nil.
-symbolDictionary at: #Tuesday put: nil.
-symbolDictionary at: #Wednesday put: nil.
-symbolDictionary at: #Thursday put: nil.
-symbolDictionary at: #Friday put: nil.
-symbolDictionary at: #Saturday put: nil.
-symbolDictionary at: #Sunday put: nil.
+symbolDictionary at: #Monday ifAbsentPut: [ nil ].
+symbolDictionary at: #Tuesday ifAbsentPut: [ nil ].
+symbolDictionary at: #Wednesday ifAbsentPut: [ nil ].
+symbolDictionary at: #Thursday ifAbsentPut: [ nil ].
+symbolDictionary at: #Friday ifAbsentPut: [ nil ].
+symbolDictionary at: #Saturday ifAbsentPut: [ nil ].
+symbolDictionary at: #Sunday ifAbsentPut: [ nil ].
 
 "Gregorian calendar specifics - months"
-symbolDictionary at: #January put: nil.
-symbolDictionary at: #February put: nil.
-symbolDictionary at: #March put: nil.
-symbolDictionary at: #April put: nil.
-symbolDictionary at: #May put: nil.
-symbolDictionary at: #June put: nil.
-symbolDictionary at: #July put: nil.
-symbolDictionary at: #August put: nil.
-symbolDictionary at: #September put: nil.
-symbolDictionary at: #October put: nil.
-symbolDictionary at: #November put: nil.
-symbolDictionary at: #December put: nil.
+symbolDictionary at: #January ifAbsentPut: [ nil ].
+symbolDictionary at: #February ifAbsentPut: [ nil ].
+symbolDictionary at: #March ifAbsentPut: [ nil ].
+symbolDictionary at: #April ifAbsentPut: [ nil ].
+symbolDictionary at: #May ifAbsentPut: [ nil ].
+symbolDictionary at: #June ifAbsentPut: [ nil ].
+symbolDictionary at: #July ifAbsentPut: [ nil ].
+symbolDictionary at: #August ifAbsentPut: [ nil ].
+symbolDictionary at: #September ifAbsentPut: [ nil ].
+symbolDictionary at: #October ifAbsentPut: [ nil ].
+symbolDictionary at: #November ifAbsentPut: [ nil ].
+symbolDictionary at: #December ifAbsentPut: [ nil ].

@@ -56,19 +56,19 @@ TimeOfDay class >> hours: anHours minutes: aMinutes seconds: aSeconds millisecon
 { #category : 'initialization' }
 TimeOfDay class >> initializeFirstTimeOfDay [
 
-	firstTimeOfDay := self timeFromMidnight: 0 hoursMeasure
+	firstTimeOfDay ifNil: [ firstTimeOfDay := self timeFromMidnight: 0 hoursMeasure ]
 ]
 
 { #category : 'initialization' }
 TimeOfDay class >> initializeLastTimeOfDay [
 
-	lastTimeOfDay := self timeFromMidnight: (24 hoursMeasure - 1 millisecondMeasure)
+	lastTimeOfDay ifNil: [ lastTimeOfDay := self timeFromMidnight: (24 hoursMeasure - 1 millisecondMeasure) ]
 ]
 
 { #category : 'initialization' }
 TimeOfDay class >> initializeNoon [
 
-	noon := self hours: 12
+	noon ifNil: [ noon := self hours: 12 ]
 ]
 
 { #category : 'initialization' }
