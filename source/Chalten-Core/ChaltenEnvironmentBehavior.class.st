@@ -58,7 +58,8 @@ ChaltenEnvironmentBehavior >> calendarsDo: aBlock [
 { #category : 'accessing time' }
 ChaltenEnvironmentBehavior >> defineCalendarNamed: aCalendarName with: aCalendar [
 
-	self calendars at: aCalendarName ifAbsentPut: [ aCalendar ]
+  <ignoreForCoverage>
+  self calendars at: aCalendarName ifAbsentPut: [ aCalendar ]
 ]
 
 { #category : 'accessing time' }
