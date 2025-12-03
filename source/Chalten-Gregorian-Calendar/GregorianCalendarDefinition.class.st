@@ -116,7 +116,7 @@ GregorianCalendarDefinition >> initializeMonths [
 		(10) October 	31 days
 		(11) Novmeber 	30 days
 		(12) December 31 days
-	The leap-year strcture is given in curly brackets. A year is leap if it is divisble by 4 and is not a century year (multiple of 100) or if it is divisible by 400.
+	The leap-year structure is given in curly brackets. A year is leap if it is divisble by 4 and is not a century year (multiple of 100) or if it is divisible by 400.
 	- Extracted from 'Calendrical Calculations, The Millennium Edition'; page 47."
 
 	months := Array new: self amountOfMonthsPerYear.
@@ -152,7 +152,7 @@ GregorianCalendarDefinition >> newYearNumberFrom: aYear adding: aNumberOfYears [
 
 { #category : 'dates accessing - private' }
 GregorianCalendarDefinition >> numberOfDaysFromDate: aDate [
-	"We add together the number of days before the epoch of the calendar (0, but we do it explicit so that the dependence on our arbitrary starting date is clear),
+	"We add together the number of days before the epoch of the calendar (0, but we do it explicitly so that the dependence on our arbitrary starting date is clear),
 	the number of nonleap days since the epoch, the number of leap days since the epoch, the number of days in prior months of the given date,
 	and the number of days up to and including the given date. The number of days in prior months of the given year is corrected by 0, 1 or 2
 	for the assumption that February always has 30 days. - Extracted from 'Calendrical Calculations, The Millennium Edition'; page 51."
