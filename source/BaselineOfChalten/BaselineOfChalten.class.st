@@ -22,9 +22,7 @@ BaselineOfChalten >> baseline: spec [
         group: 'Development' with: #( 'Tests' 'Tools' );
         group: 'CI' with: 'Tests';
         group: 'default' with: 'Development'
-    ].
-  spec for: #'pharo12.x' do: [ spec postLoadDoIt: #loadTranslationUnits ].
-  spec for: #'pharo13.x' do: [ spec postLoadDoIt: #loadTranslationUnits ]
+    ]
 ]
 
 { #category : 'postload' }
@@ -35,15 +33,22 @@ BaselineOfChalten >> configureCore [
   CalendarDayOfWeek makeInstancesInvariant.
   CalendarMonth makeInstancesInvariant.
   TimeOfDay makeInstancesInvariant.
-  TimeOffsetRuleset makeInstancesInvariant
+  TimeOffsetRuleset makeInstancesInvariant.
+  self loadTranslationUnits
 ]
 
 { #category : 'postload' }
 BaselineOfChalten >> loadTranslationUnits [
 
-  NaturalLanguageTranslator current loadJSONTranslationFilesIn:
-    ( ( self project repositoryDescription first withoutPrefix: 'gitlocal://' ) withoutPrefix:
-        'tonel://' ) asFileReference parent / 'locales'
+  self class environment at: #IceRepository ifPresent: [ :icebergRepository |
+      icebergRepository registry
+        detect: [ :repository | repository includesPackageNamed: #BaselineOfChalten ]
+        ifFound: [ :repository |
+            | localesFileReference |
+            localesFileReference := repository project sourceDirectoryReference parent / 'locales'.
+            NaturalLanguageTranslator current loadJSONTranslationFilesIn: localesFileReference
+          ]
+    ]
 ]
 
 { #category : 'accessing' }
