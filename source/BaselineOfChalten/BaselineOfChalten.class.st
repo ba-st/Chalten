@@ -11,81 +11,122 @@ Class {
 { #category : 'baselines' }
 BaselineOfChalten >> baseline: spec [
 
-	<baseline>
-	spec
-		for: #pharo
-		do: [ self setUpDependencies: spec.
-			spec
-				package: 'Chalten-Core' with: [ spec requires: 'Aconcagua-Deployment' ];
-				package: 'Chalten-Core-Aconcagua-Extensions' with: [ spec requires: 'Chalten-Core' ];
-				package: 'Chalten-Core-Base-Extensions' with: [ spec requires: 'Chalten-Core' ];
-				package: 'Chalten-Core-Pharo-Extensions' with: [
-					spec requires:
-						#( 'Chalten-Core' 'Buoy-Deployment' 'Chalten-Gregorian-Calendar'
-						   'Chalten-Roman-Calendar' ) ];
-				package: 'Chalten-Gregorian-Calendar' with: [ spec requires: 'Chalten-Roman-Calendar' ];
-				package: 'Chalten-Hebrew-Calendar' with: [ spec requires: 'Chalten-Core' ];
-				package: 'Chalten-Islamic-Calendar' with: [ spec requires: 'Chalten-Core' ];
-				package: 'Chalten-Julian-Calendar' with: [ spec requires: 'Chalten-Roman-Calendar' ];
-				package: 'Chalten-Roman-Calendar' with: [ spec requires: 'Chalten-Core' ].
-
-			spec
-				package: 'Chalten-Core-Tests' with: [ spec requires: #('Chalten-Core' 'Buoy-SUnit') ];
-				package: 'Chalten-Hebrew-Calendar-Tests' with: [ spec requires: 'Chalten-Hebrew-Calendar' ];
-				package: 'Chalten-Islamic-Calendar-Tests' with: [ spec requires: 'Chalten-Islamic-Calendar' ];
-				package: 'Chalten-Roman-Calendar-Tests' with: [ spec requires: 'Chalten-Roman-Calendar' ];
-				package: 'Chalten-Gregorian-Calendar-Tests'
-					with: [ spec requires: 'Chalten-Gregorian-Calendar' ];
-				package: 'Chalten-Julian-Calendar-Tests' with: [ spec requires: 'Chalten-Julian-Calendar' ].
-
-			spec
-				group: 'Chalten-Calendars'
-					with:
-					#('Chalten-Gregorian-Calendar' 'Chalten-Hebrew-Calendar' 'Chalten-Islamic-Calendar' 'Chalten-Julian-Calendar' 'Chalten-Roman-Calendar');
-				group: 'Chalten-Calendars-Tests'
-					with:
-					#('Chalten-Gregorian-Calendar-Tests' 'Chalten-Hebrew-Calendar-Tests' 'Chalten-Islamic-Calendar-Tests' 'Chalten-Julian-Calendar-Tests' 'Chalten-Roman-Calendar-Tests').
-
-			spec
-				group: 'Deployment' with: #('Chalten-Core' 'Chalten-Core-Aconcagua-Extensions' 'Chalten-Core-Base-Extensions' 'Chalten-Core-Pharo-Extensions' 'Chalten-Calendars');
-				group: 'Deployment-Gregorian' with: #('Chalten-Core' 'Chalten-Core-Aconcagua-Extensions' 'Chalten-Core-Base-Extensions' 'Chalten-Core-Pharo-Extensions' 'Chalten-Gregorian-Calendar');
-				group: 'Tests' with: #('Deployment' 'Chalten-Core-Tests' 'Chalten-Calendars-Tests');
-				group: 'CI' with: 'Tests';
-				group: 'Development' with: #('Deployment' 'Tests').
-			spec postLoadDoIt: #postLoadInitialization
-			]
+  <baseline>
+  spec for: #pharo do: [
+      self
+        setUpDependencies: spec;
+        setUpDeploymentPackages: spec;
+        setUpTestPackages: spec;
+        setUpToolsPackages: spec.
+      spec
+        group: 'Development' with: #( 'Tests' 'Tools' );
+        group: 'CI' with: 'Tests';
+        group: 'default' with: 'Development'
+    ]
 ]
 
-{ #category : 'post load' }
-BaselineOfChalten >> postLoadInitialization [
+{ #category : 'postload' }
+BaselineOfChalten >> configureCore [
 
-	ChaltenEnvironmentBehavior initializeAfterLoad.
-	TimeUnitsGlobals initializeAfterLoad.
-	TimeOfDay initializeTimesOfDay.
-	CalendarDefinition allSubclassesDo: [ :each |
-		each subclasses ifEmpty: [ each initializeCalendar ] ].
-	ChaltenEnvironment calendarsDo: [:calendar | calendar initializeGlobalVariables].
-	TheBeginningOfTimeClass initializeAfterLoad.
-	TheEndOfTimeClass initializeAfterLoad.
-	TimeZonesGlobals initializeAfterLoad
+  CalendarMagnitude makeInstancesInvariant.
+  CalendarDayOfMonth makeInstancesInvariant.
+  CalendarDayOfWeek makeInstancesInvariant.
+  CalendarMonth makeInstancesInvariant.
+  TimeOfDay makeInstancesInvariant.
+  TimeOffsetRuleset makeInstancesInvariant.
+  NaturalLanguageTranslator current loadJSONTranslationFilesIn:
+    ( ( self project repositoryDescription first withoutPrefix: 'gitlocal://' ) withoutPrefix:
+        'tonel://' ) asFileReference parent / 'locales'
 ]
 
-{ #category : 'baselines' }
+{ #category : 'accessing' }
 BaselineOfChalten >> projectClass [
 
 	^ MetacelloCypressBaselineProject
 ]
 
 { #category : 'baselines' }
+BaselineOfChalten >> setUpCorePackages: spec [
+
+  spec
+    package: 'Chalten-Core' with: [
+        spec postLoadDoIt: #configureCore.
+        spec requires: 'Aconcagua-Deployment'
+      ];
+    group: 'Core' with: 'Chalten-Core';
+    package: 'Chalten-Core-Aconcagua-Extensions' with: [ spec requires: 'Chalten-Core' ];
+    group: 'Core' with: 'Chalten-Core-Aconcagua-Extensions';
+    package: 'Chalten-Core-Extensions' with: [ spec requires: 'Chalten-Core' ];
+    group: 'Core' with: 'Chalten-Core-Extensions';
+    package: 'Chalten-Timezones' with: [ spec requires: 'Chalten-Core' ];
+    group: 'Core' with: 'Chalten-Timezones'
+]
+
+{ #category : 'baselines' }
 BaselineOfChalten >> setUpDependencies: spec [
 
-	spec
-		baseline: 'Buoy' with: [ spec repository: 'github://ba-st/Buoy:v8' ];
-		project: 'Buoy-Deployment' copyFrom: 'Buoy' with: [ spec loads: 'Deployment' ];
-		project: 'Buoy-SUnit' copyFrom: 'Buoy' with: [ spec loads: 'Dependent-SUnit-Extensions' ];
-		project: 'Buoy-Tools' copyFrom: 'Buoy' with: [ spec loads: 'Tools' ].
+  spec
+    baseline: 'Buoy' with: [ spec repository: 'github://ba-st/Buoy:v8' ];
+    project: 'Buoy-SUnit' copyFrom: 'Buoy' with: [ spec loads: 'Dependent-SUnit-Extensions' ].
 
-	spec
-		baseline: 'Aconcagua' with: [ spec repository: 'github://ba-st/Aconcagua:v10' ];
-		project: 'Aconcagua-Deployment' copyFrom: 'Aconcagua' with: [ spec loads: #('Deployment') ]
+  spec
+    baseline: 'Aconcagua' with: [ spec repository: 'github://ba-st/Aconcagua:v11' ];
+    project: 'Aconcagua-Deployment' copyFrom: 'Aconcagua' with: [ spec loads: 'Deployment' ];
+    project: 'Aconcagua-Tools' copyFrom: 'Aconcagua' with: [ spec loads: 'Tools' ]
+]
+
+{ #category : 'baselines' }
+BaselineOfChalten >> setUpDeploymentPackages: spec [
+
+  self
+    setUpCorePackages: spec;
+    setUpHebrewPackages: spec;
+    setUpIslamicPackages: spec.
+  spec group: 'Deployment' with: 'Core'.
+  spec group: 'Deployment' with: 'Hebrew'.
+  spec group: 'Deployment' with: 'Islamic'
+]
+
+{ #category : 'baselines' }
+BaselineOfChalten >> setUpHebrewPackages: spec [
+
+  spec
+    package: 'Chalten-Hebrew-Calendar' with: [ spec requires: 'Core' ];
+    group: 'Hebrew' with: 'Chalten-Hebrew-Calendar';
+    package: 'Chalten-Hebrew-Calendar-Extensions'
+    with: [ spec requires: 'Chalten-Hebrew-Calendar' ];
+    group: 'Hebrew' with: 'Chalten-Hebrew-Calendar-Extensions'
+]
+
+{ #category : 'baselines' }
+BaselineOfChalten >> setUpIslamicPackages: spec [
+
+  spec
+    package: 'Chalten-Islamic-Calendar' with: [ spec requires: 'Core' ];
+    group: 'Islamic' with: 'Chalten-Islamic-Calendar';
+    package: 'Chalten-Islamic-Calendar-Extensions'
+    with: [ spec requires: 'Chalten-Islamic-Calendar' ];
+    group: 'Islamic' with: 'Chalten-Islamic-Calendar-Extensions'
+]
+
+{ #category : 'baselines' }
+BaselineOfChalten >> setUpTestPackages: spec [
+
+  spec
+    package: 'Chalten-Core-Tests' with: [ spec requires: #( 'Core' 'Buoy-SUnit' ) ];
+    group: 'Tests' with: 'Chalten-Core-Tests';
+    package: 'Chalten-Timezones-Tests' with: [ spec requires: #( 'Core' 'Buoy-SUnit' ) ];
+    group: 'Tests' with: 'Chalten-Timezones-Tests';
+    package: 'Chalten-Hebrew-Calendar-Tests' with: [ spec requires: #( 'Hebrew' 'Buoy-SUnit' ) ];
+    group: 'Tests' with: 'Chalten-Hebrew-Calendar-Tests';
+    package: 'Chalten-Islamic-Calendar-Tests' with: [ spec requires: #( 'Islamic' 'Buoy-SUnit' ) ];
+    group: 'Tests' with: 'Chalten-Islamic-Calendar-Tests'
+]
+
+{ #category : 'baselines' }
+BaselineOfChalten >> setUpToolsPackages: spec [
+
+  spec
+    package: 'Chalten-Development-Tools' with: [ spec requires: #( 'Aconcagua-Tools' ) ];
+    group: 'Tools' with: 'Chalten-Development-Tools'
 ]

@@ -14,7 +14,7 @@ jobs:
           - Deployment
     name: GS64 3.7.0 + ${{ matrix.load-spec }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Load component in image
         uses: ba-st-actions/gs64-ci@v2
         with:
@@ -29,7 +29,7 @@ jobs:
           - Deployment
     name: GS64 3.7.1 + ${{ matrix.load-spec }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Load component in image
         uses: ba-st-actions/gs64-ci@v3
         with:

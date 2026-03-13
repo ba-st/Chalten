@@ -1,100 +1,51 @@
+"
+A TimeUnitsTest is a test class for testing the behavior of TimeUnits
+"
 Class {
 	#name : 'TimeUnitsTest',
 	#superclass : 'TestCase',
-	#instVars : [
-		'timeUnits'
-	],
-	#category : 'Chalten-Core-Tests-Time',
-	#package : 'Chalten-Core-Tests',
-	#tag : 'Time'
+	#category : 'Chalten-Core-Tests',
+	#package : 'Chalten-Core-Tests'
 }
 
-{ #category : 'test' }
-TimeUnitsTest >> testAllUnits [
+{ #category : 'private' }
+TimeUnitsTest >> isUnit: unitSymbol commensurableWith: anotherUnitSymbol [
 
-	self assert: (TimeUnits allUnits includes: TimeUnits day).
-	self assert: (TimeUnits allUnits includes: TimeUnits hour).
-	self assert: (TimeUnits allUnits includes: TimeUnits minute).
-	self assert: (TimeUnits allUnits includes: TimeUnits second).
-	self assert: (TimeUnits allUnits includes: TimeUnits millisecond).
-	self assert: (TimeUnits allUnits includes: TimeUnits week).
-	self assert: (TimeUnits allUnits includes: TimeUnits month).
-	self assert: (TimeUnits allUnits includes: TimeUnits year)
+  ^ ( self unit: unitSymbol ) isCommensurableWith: ( self unit: anotherUnitSymbol )
 ]
 
-{ #category : 'test units' }
-TimeUnitsTest >> testCentury [
+{ #category : 'tests' }
+TimeUnitsTest >> testAbsoluteUnits [
 
-	self assert: TimeUnits century equals: TimeUnits century.
-	self assert: TimeUnits century name equals: 'century'
+  self
+    assert: 1 * ( self unit: #minute ) equals: 60 * ( self unit: #second );
+    assert: 3 / 2 * ( self unit: #hour ) equals: 90 * ( self unit: #minute );
+    assert: 3 * ( self unit: #day ) equals: 72 * ( self unit: #hour );
+    assert: 2 * ( self unit: #week ) equals: 14 * ( self unit: #day )
 ]
 
-{ #category : 'test units' }
-TimeUnitsTest >> testDay [
+{ #category : 'tests' }
+TimeUnitsTest >> testCommensurability [
 
-	self assert: TimeUnits day equals: TimeUnits day.
-	self assert: TimeUnits day name equals: 'day'
+  self
+    assert: ( self isUnit: #year commensurableWith: #decade );
+    assert: ( self isUnit: #month commensurableWith: #year );
+    deny: ( self isUnit: #day commensurableWith: #month );
+    assert: ( self isUnit: #day commensurableWith: #week )
 ]
 
-{ #category : 'test units' }
-TimeUnitsTest >> testDecade [
+{ #category : 'tests' }
+TimeUnitsTest >> testRelativeUnits [
 
-	self assert: TimeUnits decade equals: TimeUnits decade.
-	self assert: TimeUnits decade name equals: 'decade'
+  self
+    assert: 1 * ( self unit: #year ) equals: 12 * ( self unit: #month );
+    assert: 2 * ( self unit: #lustrum ) equals: 1 * ( self unit: #decade );
+    assert: 1 * ( self unit: #jubilee ) equals: 1 / 2 * ( self unit: #century );
+    assert: 1 * ( self unit: #millenium ) equals: 10 * ( self unit: #century )
 ]
 
-{ #category : 'test units' }
-TimeUnitsTest >> testHour [
+{ #category : 'private' }
+TimeUnitsTest >> unit: unitSymbol [
 
-	self assert: TimeUnits hour equals: TimeUnits hour.
-	self assert: TimeUnits hour name equals: 'hour'
-]
-
-{ #category : 'test units' }
-TimeUnitsTest >> testMillennium [
-
-	self assert: TimeUnits millennium equals: TimeUnits millennium.
-	self assert: TimeUnits millennium name equals: 'millennium'
-]
-
-{ #category : 'test units' }
-TimeUnitsTest >> testMillisecond [
-
-	self assert: TimeUnits millisecond equals: TimeUnits millisecond.
-	self assert: TimeUnits millisecond name equals: 'millisecond'
-]
-
-{ #category : 'test units' }
-TimeUnitsTest >> testMinute [
-
-	self assert: TimeUnits minute equals: TimeUnits minute.
-	self assert: TimeUnits minute name equals: 'minute'
-]
-
-{ #category : 'test units' }
-TimeUnitsTest >> testMonth [
-
-	self assert: TimeUnits month equals: TimeUnits month.
-	self assert: TimeUnits month name equals: 'month'
-]
-
-{ #category : 'test units' }
-TimeUnitsTest >> testSecond [
-
-	self assert: TimeUnits second equals: TimeUnits second.
-	self assert: TimeUnits second name equals: 'second'
-]
-
-{ #category : 'test units' }
-TimeUnitsTest >> testWeek [
-
-	self assert: TimeUnits week equals: TimeUnits week.
-	self assert: TimeUnits week name equals: 'week'
-]
-
-{ #category : 'test units' }
-TimeUnitsTest >> testYear [
-
-	self assert: TimeUnits year equals: TimeUnits year.
-	self assert: TimeUnits year name equals: 'year'
+  ^ TimeUnits units at: unitSymbol ifAbsent: [ InternationalSystemOfUnits units >> unitSymbol ]
 ]

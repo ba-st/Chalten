@@ -1,16 +1,17 @@
 RwSimpleProjectLoadComponentV2 {
   #name : 'Deployment',
-  #preloadDoitName : 'scripts/defineGlobalsPreLoad',
-  #postloadDoitName : 'scripts/defineGlobalsPostLoad',
-  #projectNames : [ 'Aconcagua' ],
+  #postloadDoitName : 'scripts/deploymentPostLoad',
+  #projectNames : [
+    'Aconcagua',
+    'Zinc'
+  ],
   #componentNames : [	],
   #packageNames : [
     'Chalten-Core',
     'Chalten-Core-Aconcagua-Extensions',
-    'Chalten-Core-Base-Extensions',
+    'Chalten-Core-Extensions',
     'Chalten-Core-GS64-Extensions',
-    'Chalten-Roman-Calendar',
-    'Chalten-Gregorian-Calendar'
+    'Chalten-Timezones'
   ],
   #conditionalPackageMapSpecs : {
     'gemstone' : {
@@ -18,10 +19,9 @@ RwSimpleProjectLoadComponentV2 {
         #packageNameToPlatformPropertiesMap : {
           'Chalten-Core' : { 'symbolDictName' : 'Chalten' },
           'Chalten-Core-Aconcagua-Extensions' : { 'symbolDictName' : 'Aconcagua' },
-          'Chalten-Core-Base-Extensions' : { 'symbolDictName' : 'Globals' },
-          'Chalten-Core-GS64-Extensions' : { 'symbolDictName' : 'Chalten' },
-          'Chalten-Roman-Calendar' : { 'symbolDictName' : 'Chalten' },
-          'Chalten-Gregorian-Calendar' : { 'symbolDictName' : 'Chalten' }
+          'Chalten-Core-Extensions' : { 'symbolDictName' : 'Globals' },
+          'Chalten-Core-GS64-Extensions' : { 'symbolDictName' : 'Globals' },
+          'Chalten-Timezones' : { 'symbolDictName' : 'Chalten' }
         }
       }
     }

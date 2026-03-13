@@ -1,1309 +1,366 @@
 Class {
 	#name : 'IslamicDateTest',
-	#superclass : 'TestCase',
-	#instVars : [
-		'calendar'
-	],
+	#superclass : 'IslamicCalendarTest',
 	#category : 'Chalten-Islamic-Calendar-Tests',
 	#package : 'Chalten-Islamic-Calendar-Tests'
 }
 
-{ #category : 'accessing' }
-IslamicDateTest class >> classUnderTest [
+{ #category : 'private - asserting' }
+IslamicDateTest >> assert: date after: dayCount daysIs: anotherDate [
 
-	^FixedDate
+  self assert: ( date next: dayCount * day ) equals: anotherDate
 ]
 
-{ #category : 'test support' }
-IslamicDateTest >> muharram [
+{ #category : 'private - asserting' }
+IslamicDateTest >> assert: dayCount daysBefore: date is: anotherDate [
 
-	^calendar muharram
+  self assert: ( date previous: dayCount * day ) equals: anotherDate
 ]
 
-{ #category : 'test support' }
-IslamicDateTest >> oneDay [
-	^ 1 dayMeasure
+{ #category : 'tests' }
+IslamicDateTest >> testAccessing [
+
+  | date |
+  date := jumadaII first , 2025.
+  self
+    assert: date dayNumber equals: 1;
+    assert: date year equals: 2025 asIslamicYear;
+    assert: date yearNumber equals: 2025;
+    assert: date monthOfYear equals: jumadaII , 2025;
+    assert: date month equals: jumadaII;
+    assert: date monthNumber equals: 6
 ]
 
-{ #category : 'initialization' }
-IslamicDateTest >> setUp [
+{ #category : 'tests' }
+IslamicDateTest >> testBetweenAnd [
 
-	calendar := ChaltenEnvironment calendarNamed: #IslamicCalendar
+  self
+    assert: ( muharram first , 2025 between: muharram first , 2025 and: muharram second , 2025 );
+    assert: ( muharram second , 2025 between: muharram first , 2025 and: muharram second , 2025 );
+    assert: ( muharram second , 2025 between: muharram first , 2025 and: muharram third , 2025 );
+    assert: ( safar first , 2025 between: muharram first , 2025 and: safar first , 2025 );
+    assert: ( safar first , 2025 between: muharram first , 2025 and: safar third , 2025 );
+    assert: ( safar first , 2025 between: muharram first , 2025 and: jumadaII fifth , 2025 );
+    deny:
+      ( muharram eleventh , 2025 between: muharram twelfth , 2025 and: muharram thirtieth , 2025 );
+    deny: ( muharram twentieth , 2025 between: muharram first , 2025 and: muharram eleventh , 2025 )
 ]
 
-{ #category : 'test support' }
-IslamicDateTest >> tenDays [
-	^ 10 daysMeasure
+{ #category : 'tests' }
+IslamicDateTest >> testCannotComputeDaysBetweenTwoDates [
+
+  self
+    should: [ muharram second , 2025 - ( muharram third , 2025 ) ]
+    raise: ArithmeticError
+    withMessageText: 'Cannot subtract two dates when the second one is greater than the first one.'
 ]
 
-{ #category : 'test interval protocol' }
-IslamicDateTest >> test30OfDhuAlHijjaToEveryDayOfMonth [
+{ #category : 'tests' }
+IslamicDateTest >> testComparing [
 
-	| dates |
-	dates := DhuAlHijja thirtieth , 1428
-		         to: Muharram first , 1435
-		         everyDayOfMonth: DhuAlHijja thirtieth.
-	self assert: dates size equals: 3.
-	self assert: (dates includes: DhuAlHijja thirtieth , 1428).
-	self assert: (dates includes: DhuAlHijja thirtieth , 1431).
-	self assert: (dates includes: DhuAlHijja thirtieth , 1434)
+  self
+    assert: muharram first , 2025 equals: muharram first , 2025;
+    deny: muharram first , 2025 equals: muharram second , 2025;
+    deny: muharram first , 2025 equals: safar first , 2025;
+    deny: muharram first , 2025 equals: muharram first , 2024;
+    deny: muharram first , 2025 equals: january first , 2025
 ]
 
-{ #category : 'test converting' }
-IslamicDateTest >> testAsGregorianDate [
+{ #category : 'tests' }
+IslamicDateTest >> testDayOfWeek [
 
-	self
-		assert: (Muharram first , 1429) asGregorian
-		equals: January tenth , 2008.
-	self
-		assert: (RabiI first , 1429) asGregorian
-		equals: March ninth , 2008.
-	self
-		assert: (Ramadan fifth , 1420) asGregorian
-		equals: December thirteenth , 1999.
-	self
-		assert: (Shawwal twelfth , 1435) asGregorian
-		equals: August ninth , 2014.
-	self
-		assert: (DhuAlHijja second , 1440) asGregorian
-		equals: August fourth , 2019
+  self
+    assert: ( rajab first , 1428 ) dayOfWeek equals: IslamicDayOfWeek yawnAlIthnayn;
+    assert: ( rajab second , 1428 ) dayOfWeek equals: IslamicDayOfWeek yawnAthThulatha;
+    assert: ( rajab third , 1428 ) dayOfWeek equals: IslamicDayOfWeek yawnAlArbaa;
+    assert: ( rajab fourth , 1428 ) dayOfWeek equals: IslamicDayOfWeek yawnAlKhamees;
+    assert: ( rajab fifth , 1428 ) dayOfWeek equals: IslamicDayOfWeek yawnAlJumuha;
+    assert: ( rajab sixth , 1428 ) dayOfWeek equals: IslamicDayOfWeek yawnAsSabt;
+    assert: ( rajab seventh , 1428 ) dayOfWeek equals: IslamicDayOfWeek yawnAlAhad;
+    assert: ( rajab eighth , 1428 ) dayOfWeek equals: IslamicDayOfWeek yawnAlIthnayn
 ]
 
-{ #category : 'test converting' }
-IslamicDateTest >> testAsIslamicDate [
+{ #category : 'tests' }
+IslamicDateTest >> testDaysBetweenTwoDates [
 
-	self
-		assert: Muharram first , 1429
-		equals: (January tenth , 2008) asIslamic.
-	self
-		assert: RabiI first , 1429
-		equals: (March ninth , 2008) asIslamic.
-	self
-		assert: Ramadan fifth , 1420
-		equals: (December thirteenth , 1999) asIslamic.
-	self
-		assert: Shawwal twelfth , 1435
-		equals: (August ninth , 2014) asIslamic.
-	self
-		assert: DhuAlHijja second , 1440
-		equals: (August fourth , 2019) asIslamic
+  self
+    assert: ( muharram first , 2025 - ( muharram first , 2025 ) ) isZero;
+    assert: muharram second , 2025 - ( muharram first , 2025 ) equals: 1 * day;
+    assert: safar first , 2025 - ( muharram first , 2025 ) equals: 30 * day;
+    assert: rabiI first , 2025 - ( muharram first , 2025 ) equals: 30 + 29 * day;
+    assert: muharram first , 2026 - ( muharram first , 2025 ) equals: 354 * day;
+    assert: duAlHijjah thirtieth , 1442 - ( muharram first , 1442 ) equals: 354 * day;
+    assert: muharram first , 1443 - ( muharram first , 1442 ) equals: 355 * day
 ]
 
-{ #category : 'test converting' }
-IslamicDateTest >> testAsSmalltalkDate [
-
-	| islamicDate gregorianDate date |
-	islamicDate := JumadaI fourth , 1429.
-	gregorianDate := islamicDate asGregorian.
-	date := islamicDate asSmalltalkDate.
-	self assert: gregorianDate year number equals: date year.
-	self assert: gregorianDate month number equals: date monthIndex.
-	self assert: gregorianDate dayNumber equals: date dayOfMonth
-]
-
-{ #category : 'test accessing' }
-IslamicDateTest >> testAtMidnight [
-
-	self
-		assert: (Shawwal first , 1428) atMidnight
-		equals:
-		(ChaltenDateTime
-			 date: Shawwal first , 1428
-			 timeOfDay: (TimeOfDay hours: 00))
-]
-
-{ #category : 'test accessing' }
-IslamicDateTest >> testAtNoon [
-
-	self
-		assert: (Shawwal first , 1428) atNoon
-		equals:
-		(ChaltenDateTime
-			 date: Shawwal first , 1428
-			 timeOfDay: (TimeOfDay hours: 12))
-]
-
-{ #category : 'test accessing' }
-IslamicDateTest >> testAtTimeOfDay [
-
-	self
-		assert: (Shawwal first , 1428 atTimeOfDay: (TimeOfDay hours: 10))
-		equals:
-		(ChaltenDateTime
-			 date: Shawwal first , 1428
-			 timeOfDay: (TimeOfDay hours: 10))
-]
-
-{ #category : 'test instance creation' }
-IslamicDateTest >> testCreation [
-
-	| year1428 muharramOf1428 |
-	year1428 := 1428 asIslamicYear.
-	muharramOf1428 := MonthOfYear muharramOf: year1428.
-	self
-		assert: (FixedDate
-				 yearNumber: 1428
-				 monthNumber: 1
-				 dayNumber: 1
-				 calendar: calendar) monthOfYear
-		equals: muharramOf1428.
-	self
-		assert: (FixedDate
-				 yearNumber: 1428
-				 monthNumber: 1
-				 dayNumber: 1
-				 calendar: calendar) dayNumber
-		equals: 1.
-	self
-		assert: (FixedDate
-				 monthOfYear: (MonthOfYear muharramOf: year1428)
-				 dayNumber: 1) monthOfYear
-		equals: muharramOf1428.
-	self
-		assert: (FixedDate
-				 monthOfYear: (MonthOfYear muharramOf: year1428)
-				 dayNumber: 1) dayNumber
-		equals: 1.
-	self
-		assert:
-			(FixedDate year: year1428 month: self muharram dayNumber: 1)
-				monthOfYear
-		equals: muharramOf1428.
-	self
-		assert:
-		(FixedDate year: year1428 month: self muharram dayNumber: 1)
-			dayNumber
-		equals: 1.
-	self
-		assert:
-			(FixedDate yearNumber: 1428 month: self muharram dayNumber: 1)
-				monthOfYear
-		equals: muharramOf1428.
-	self
-		assert:
-			(FixedDate yearNumber: 1428 month: self muharram dayNumber: 1)
-				dayNumber
-		equals: 1
-]
-
-{ #category : 'test accessing' }
-IslamicDateTest >> testDay [
-
-	self assert: (Rajab first , 1428) day equals: YaumAlIthnayna.
-	self assert: (Rajab second , 1428) day equals: YaumAthThalatha.
-	self assert: (Rajab third , 1428) day equals: YaumAlArbaa.
-	self assert: (Rajab fourth , 1428) day equals: YaumAlHamis.
-	self assert: (Rajab fifth , 1428) day equals: YaumAlJuma.
-	self assert: (Rajab sixth , 1428) day equals: YaumAsSabt.
-	self assert: (Rajab seventh , 1428) day equals: YaumAlAhad.
-	self assert: (Rajab eighth , 1428) day equals: YaumAlIthnayna
-]
-
-{ #category : 'test accessing' }
-IslamicDateTest >> testDayNumber [
-
-	self assert: (Rajab first , 1428) dayNumber equals: 1
-]
-
-{ #category : 'test accessing' }
-IslamicDateTest >> testDayOfMonth [
-
-	self
-		assert: (Shawwal first , 1) dayOfMonth
-		equals: (DayOfMonth monthNumber: 10 dayNumber: 1 calendar: calendar)
-]
-
-{ #category : 'test querying' }
-IslamicDateTest >> testDaysFrom [
-
-	self
-		assert: (Muharram first , 1428 distanceFrom: Muharram first , 1428)
-		equals: self zeroDays.
-	self
-		assert: (Safar first , 1428 distanceFrom: Muharram first , 1428)
-		equals: self thirtyDays.
-	self
-		assert: (RabiI first , 1428 distanceFrom: Muharram first , 1428)
-		equals: (30 + 29) daysMeasure.
-	self
-		assert: (Muharram first , 1429 distanceFrom: Muharram first , 1428)
-		equals: 355 daysMeasure.
-	self
-		assert: (Muharram first , 1428 distanceFrom: Muharram first , 1427)
-		equals: 354 daysMeasure.
-	self
-		assert: (Muharram first , 1427 distanceFrom: Muharram first , 1428)
-		equals: -354 daysMeasure.
-	self
-		assert: (Muharram first , 1428 distanceFrom: Muharram first , 1429)
-		equals: -355 daysMeasure.
-	self
-		assert: (TheBeginningOfTime distanceFrom: Muharram first , 1429)
-		equals: ArithmeticObject minusInfinity daysMeasure.
-	self
-		assert: (TheEndOfTime distanceFrom: Muharram first , 1429)
-		equals: ArithmeticObject infinity daysMeasure
-]
-
-{ #category : 'test querying' }
-IslamicDateTest >> testDaysTo [
-
-	self
-		assert: (Muharram first , 1428 distanceTo: Muharram first , 1428)
-		equals: self zeroDays.
-	self
-		assert: (Muharram first , 1428 distanceTo: Safar first , 1428)
-		equals: self thirtyDays.
-	self
-		assert: (Muharram first , 1428 distanceTo: RabiI first , 1428)
-		equals: (30 + 29) daysMeasure.
-	self
-		assert: (Muharram first , 1428 distanceTo: Muharram first , 1429)
-		equals: 355 daysMeasure.
-	self
-		assert: (Muharram first , 1427 distanceTo: Muharram first , 1428)
-		equals: 354 daysMeasure.
-	self
-		assert: (Muharram first , 1428 distanceTo: Muharram first , 1427)
-		equals: -354 daysMeasure.
-	self
-		assert: (Muharram first , 1429 distanceTo: Muharram first , 1428)
-		equals: -355 daysMeasure.
-	self
-		assert: (Muharram first , 1429 distanceTo: TheBeginningOfTime)
-		equals: ArithmeticObject minusInfinity daysMeasure.
-	self
-		assert: (Muharram first , 1429 distanceTo: TheEndOfTime)
-		equals: ArithmeticObject infinity daysMeasure
-]
-
-{ #category : 'test comparing' }
-IslamicDateTest >> testEqual [
-
-	self assert: Muharram first , 1428 equals: (FixedDate
-			 yearNumber: 1428
-			 monthNumber: 1
-			 dayNumber: 1
-			 calendar: calendar).
-	self deny: Muharram first , 1 = (FixedDate
-			 yearNumber: 1428
-			 monthNumber: 1
-			 dayNumber: 2
-			 calendar: calendar)
-]
-
-{ #category : 'test comparing' }
+{ #category : 'tests' }
 IslamicDateTest >> testGreaterThan [
 
-	self assert: Safar first , 1428 > (Muharram thirtieth , 1428).
-	self assert: Safar first , 1428 > (Muharram first , 1).
-	self assert: Safar first , 1428 > (DhuAlHijja twentyninth , 1427).
-
-	self
-		should: [ Muharram first , 2007 > YaumAlAhad ]
-		raise: InvalidComparisonBetweenPointsInTimeException
-		withExceptionDo: [ :ex |
-			self
-				assert: ex description
-				equals:
-					('The <1p> <2p> can not be compared with the <3p> <4p> because are points of different resolution'
-						 expandMacrosWith: YaumAlAhad class
-						 with: YaumAlAhad
-						 with: (Muharram first , 2007) class
-						 with: Muharram first , 2007) ].
-
-	self
-		should: [ Muharram thirtieth , 2007 >= Safar ]
-		raise: InvalidComparisonBetweenPointsInTimeException
-		withExceptionDo: [ :ex |
-			self
-				assert: ex description
-				equals:
-					('The <1p> <2p> can not be compared with the <3p> <4p> because are points of different resolution'
-						 expandMacrosWith: (Muharram thirtieth , 2007) class
-						 with: Muharram thirtieth , 2007
-						 with: Safar class
-						 with: Safar) ]
+  self
+    assert: muharram first , 2025 greaterThan: muharram first , 2024;
+    assert: muharram first , 2025 greaterThanOrEquals: muharram first , 2024;
+    assert: muharram first , 2025 greaterThanOrEquals: muharram first , 2025;
+    assert: safar first , 2025 greaterThan: muharram first , 2025;
+    assert: safar first , 2025 greaterThanOrEquals: muharram first , 2025;
+    assert: muharram first , 2025 greaterThanOrEquals: duAlHijjah first , 2024;
+    assert: safar second , 2025 greaterThan: safar first , 2025;
+    assert: safar second , 2025 greaterThanOrEquals: safar first , 2025;
+    deny: muharram first , 1 greaterThan: muharram first , 2025;
+    deny: muharram first , 2025 greaterThan: safar first , 2025
 ]
 
-{ #category : 'test comparing' }
-IslamicDateTest >> testHash [
+{ #category : 'tests' }
+IslamicDateTest >> testInstanceCreationFor29DaysMonth [
 
-	self assert: (Muharram first , 1428) hash equals: (FixedDate
-			 yearNumber: 1428
-			 monthNumber: 1
-			 dayNumber: 1
-			 calendar: calendar) hash.
-	self deny: (Muharram first , 1) hash = (FixedDate
-			 yearNumber: 1428
-			 monthNumber: 1
-			 dayNumber: 2
-			 calendar: calendar) hash
+  self
+    assert: ( shawwal first , 2025 ) dayNumber equals: 1;
+    assert: ( shawwal second , 2025 ) dayNumber equals: 2;
+    assert: ( shawwal third , 2025 ) dayNumber equals: 3;
+    assert: ( shawwal fourth , 2025 ) dayNumber equals: 4;
+    assert: ( shawwal fifth , 2025 ) dayNumber equals: 5;
+    assert: ( shawwal sixth , 2025 ) dayNumber equals: 6;
+    assert: ( shawwal seventh , 2025 ) dayNumber equals: 7;
+    assert: ( shawwal eighth , 2025 ) dayNumber equals: 8;
+    assert: ( shawwal ninth , 2025 ) dayNumber equals: 9;
+    assert: ( shawwal tenth , 2025 ) dayNumber equals: 10;
+    assert: ( shawwal eleventh , 2025 ) dayNumber equals: 11;
+    assert: ( shawwal twelfth , 2025 ) dayNumber equals: 12;
+    assert: ( shawwal thirteenth , 2025 ) dayNumber equals: 13;
+    assert: ( shawwal fourteenth , 2025 ) dayNumber equals: 14;
+    assert: ( shawwal fifteenth , 2025 ) dayNumber equals: 15;
+    assert: ( shawwal sixteenth , 2025 ) dayNumber equals: 16;
+    assert: ( shawwal seventeenth , 2025 ) dayNumber equals: 17;
+    assert: ( shawwal eighteenth , 2025 ) dayNumber equals: 18;
+    assert: ( shawwal nineteenth , 2025 ) dayNumber equals: 19;
+    assert: ( shawwal twentieth , 2025 ) dayNumber equals: 20;
+    assert: ( shawwal twentyFirst , 2025 ) dayNumber equals: 21;
+    assert: ( shawwal twentySecond , 2025 ) dayNumber equals: 22;
+    assert: ( shawwal twentyThird , 2025 ) dayNumber equals: 23;
+    assert: ( shawwal twentyFourth , 2025 ) dayNumber equals: 24;
+    assert: ( shawwal twentyFifth , 2025 ) dayNumber equals: 25;
+    assert: ( shawwal twentySixth , 2025 ) dayNumber equals: 26;
+    assert: ( shawwal twentySeventh , 2025 ) dayNumber equals: 27;
+    assert: ( shawwal twentyEighth , 2025 ) dayNumber equals: 28;
+    assert: ( shawwal twentyNinth , 2025 ) dayNumber equals: 29.
+  self should: [ shawwal thirtieth , 2025 ] raise: MessageNotUnderstood
 ]
 
-{ #category : 'test includes' }
-IslamicDateTest >> testIncludesDate [
+{ #category : 'tests' }
+IslamicDateTest >> testInstanceCreationFor30DaysMonth [
 
-	self
-		should: [ Muharram first, 1428 includes: Muharram first, 1428]
-		raise: Exception
+  self
+    assert: ( ramadan first , 2025 ) dayNumber equals: 1;
+    assert: ( ramadan second , 2025 ) dayNumber equals: 2;
+    assert: ( ramadan third , 2025 ) dayNumber equals: 3;
+    assert: ( ramadan fourth , 2025 ) dayNumber equals: 4;
+    assert: ( ramadan fifth , 2025 ) dayNumber equals: 5;
+    assert: ( ramadan sixth , 2025 ) dayNumber equals: 6;
+    assert: ( ramadan seventh , 2025 ) dayNumber equals: 7;
+    assert: ( ramadan eighth , 2025 ) dayNumber equals: 8;
+    assert: ( ramadan ninth , 2025 ) dayNumber equals: 9;
+    assert: ( ramadan tenth , 2025 ) dayNumber equals: 10;
+    assert: ( ramadan eleventh , 2025 ) dayNumber equals: 11;
+    assert: ( ramadan twelfth , 2025 ) dayNumber equals: 12;
+    assert: ( ramadan thirteenth , 2025 ) dayNumber equals: 13;
+    assert: ( ramadan fourteenth , 2025 ) dayNumber equals: 14;
+    assert: ( ramadan fifteenth , 2025 ) dayNumber equals: 15;
+    assert: ( ramadan sixteenth , 2025 ) dayNumber equals: 16;
+    assert: ( ramadan seventeenth , 2025 ) dayNumber equals: 17;
+    assert: ( ramadan eighteenth , 2025 ) dayNumber equals: 18;
+    assert: ( ramadan nineteenth , 2025 ) dayNumber equals: 19;
+    assert: ( ramadan twentieth , 2025 ) dayNumber equals: 20;
+    assert: ( ramadan twentyFirst , 2025 ) dayNumber equals: 21;
+    assert: ( ramadan twentySecond , 2025 ) dayNumber equals: 22;
+    assert: ( ramadan twentyThird , 2025 ) dayNumber equals: 23;
+    assert: ( ramadan twentyFourth , 2025 ) dayNumber equals: 24;
+    assert: ( ramadan twentyFifth , 2025 ) dayNumber equals: 25;
+    assert: ( ramadan twentySixth , 2025 ) dayNumber equals: 26;
+    assert: ( ramadan twentySeventh , 2025 ) dayNumber equals: 27;
+    assert: ( ramadan twentyEighth , 2025 ) dayNumber equals: 28;
+    assert: ( ramadan twentyNinth , 2025 ) dayNumber equals: 29;
+    assert: ( ramadan thirtieth , 2025 ) dayNumber equals: 30
 ]
 
-{ #category : 'test includes' }
-IslamicDateTest >> testIncludesDateTime [
+{ #category : 'tests' }
+IslamicDateTest >> testInstanceCreationForDuAlhijjahOnCommonYear [
 
-	self assert: (Muharram first, 1428 includes: (Muharram first, 1428) atMidnight).
-	self assert: (Muharram first, 1428 includes: (Muharram first, 1428) atLastTimeOfDay).
+  self
+    assert: ( duAlHijjah first , 1443 ) dayNumber equals: 1;
+    assert: ( duAlHijjah second , 1443 ) dayNumber equals: 2;
+    assert: ( duAlHijjah third , 1443 ) dayNumber equals: 3;
+    assert: ( duAlHijjah fourth , 1443 ) dayNumber equals: 4;
+    assert: ( duAlHijjah fifth , 1443 ) dayNumber equals: 5;
+    assert: ( duAlHijjah sixth , 1443 ) dayNumber equals: 6;
+    assert: ( duAlHijjah seventh , 1443 ) dayNumber equals: 7;
+    assert: ( duAlHijjah eighth , 1443 ) dayNumber equals: 8;
+    assert: ( duAlHijjah ninth , 1443 ) dayNumber equals: 9;
+    assert: ( duAlHijjah tenth , 1443 ) dayNumber equals: 10;
+    assert: ( duAlHijjah eleventh , 1443 ) dayNumber equals: 11;
+    assert: ( duAlHijjah twelfth , 1443 ) dayNumber equals: 12;
+    assert: ( duAlHijjah thirteenth , 1443 ) dayNumber equals: 13;
+    assert: ( duAlHijjah fourteenth , 1443 ) dayNumber equals: 14;
+    assert: ( duAlHijjah fifteenth , 1443 ) dayNumber equals: 15;
+    assert: ( duAlHijjah sixteenth , 1443 ) dayNumber equals: 16;
+    assert: ( duAlHijjah seventeenth , 1443 ) dayNumber equals: 17;
+    assert: ( duAlHijjah eighteenth , 1443 ) dayNumber equals: 18;
+    assert: ( duAlHijjah nineteenth , 1443 ) dayNumber equals: 19;
+    assert: ( duAlHijjah twentieth , 1443 ) dayNumber equals: 20;
+    assert: ( duAlHijjah twentyFirst , 1443 ) dayNumber equals: 21;
+    assert: ( duAlHijjah twentySecond , 1443 ) dayNumber equals: 22;
+    assert: ( duAlHijjah twentyThird , 1443 ) dayNumber equals: 23;
+    assert: ( duAlHijjah twentyFourth , 1443 ) dayNumber equals: 24;
+    assert: ( duAlHijjah twentyFifth , 1443 ) dayNumber equals: 25;
+    assert: ( duAlHijjah twentySixth , 1443 ) dayNumber equals: 26;
+    assert: ( duAlHijjah twentySeventh , 1443 ) dayNumber equals: 27;
+    assert: ( duAlHijjah twentyEighth , 1443 ) dayNumber equals: 28;
+    assert: ( duAlHijjah twentyNinth , 1443 ) dayNumber equals: 29.
 
-	self deny: (Muharram first, 1428 includes: (Safar first, 1428) atMidnight).
-	self deny: (Muharram first, 1428 includes: (DhuAlHijja thirtieth, 1428) atLastTimeOfDay)
+  self should: [ ( duAlHijjah , 1443 ) thirtieth ] raise: MessageNotUnderstood
 ]
 
-{ #category : 'test includes' }
-IslamicDateTest >> testIncludesMonthOfYear [
+{ #category : 'tests' }
+IslamicDateTest >> testInstanceCreationForDuAlhijjahOnLeapYear [
 
-	self
-		should: [ Muharram first, 1428 includes: Muharram, 1428 ]
-		raise: Exception
+  self
+    assert: ( duAlHijjah first , 1442 ) dayNumber equals: 1;
+    assert: ( duAlHijjah second , 1442 ) dayNumber equals: 2;
+    assert: ( duAlHijjah third , 1442 ) dayNumber equals: 3;
+    assert: ( duAlHijjah fourth , 1442 ) dayNumber equals: 4;
+    assert: ( duAlHijjah fifth , 1442 ) dayNumber equals: 5;
+    assert: ( duAlHijjah sixth , 1442 ) dayNumber equals: 6;
+    assert: ( duAlHijjah seventh , 1442 ) dayNumber equals: 7;
+    assert: ( duAlHijjah eighth , 1442 ) dayNumber equals: 8;
+    assert: ( duAlHijjah ninth , 1442 ) dayNumber equals: 9;
+    assert: ( duAlHijjah tenth , 1442 ) dayNumber equals: 10;
+    assert: ( duAlHijjah eleventh , 1442 ) dayNumber equals: 11;
+    assert: ( duAlHijjah twelfth , 1442 ) dayNumber equals: 12;
+    assert: ( duAlHijjah thirteenth , 1442 ) dayNumber equals: 13;
+    assert: ( duAlHijjah fourteenth , 1442 ) dayNumber equals: 14;
+    assert: ( duAlHijjah fifteenth , 1442 ) dayNumber equals: 15;
+    assert: ( duAlHijjah sixteenth , 1442 ) dayNumber equals: 16;
+    assert: ( duAlHijjah seventeenth , 1442 ) dayNumber equals: 17;
+    assert: ( duAlHijjah eighteenth , 1442 ) dayNumber equals: 18;
+    assert: ( duAlHijjah nineteenth , 1442 ) dayNumber equals: 19;
+    assert: ( duAlHijjah twentieth , 1442 ) dayNumber equals: 20;
+    assert: ( duAlHijjah twentyFirst , 1442 ) dayNumber equals: 21;
+    assert: ( duAlHijjah twentySecond , 1442 ) dayNumber equals: 22;
+    assert: ( duAlHijjah twentyThird , 1442 ) dayNumber equals: 23;
+    assert: ( duAlHijjah twentyFourth , 1442 ) dayNumber equals: 24;
+    assert: ( duAlHijjah twentyFifth , 1442 ) dayNumber equals: 25;
+    assert: ( duAlHijjah twentySixth , 1442 ) dayNumber equals: 26;
+    assert: ( duAlHijjah twentySeventh , 1442 ) dayNumber equals: 27;
+    assert: ( duAlHijjah twentyEighth , 1442 ) dayNumber equals: 28;
+    assert: ( duAlHijjah twentyNinth , 1442 ) dayNumber equals: 29;
+    assert: ( duAlHijjah thirtieth , 1442 ) dayNumber equals: 30
 ]
 
-{ #category : 'test includes' }
-IslamicDateTest >> testIncludesYear [
-	self should: [ Muharram first , 1428 includes: 1428 asIslamicYear ] raise: Exception
+{ #category : 'tests' }
+IslamicDateTest >> testInterval [
+
+  | interval |
+  interval := muharram first , 2025 to: muharram thirtieth , 2025.
+  self assert: interval size equals: 30.
+  interval doWithIndex: [ :date :index |
+      self
+        assert: date dayNumber equals: index;
+        assert: date monthOfYear equals: muharram , 2025
+    ]
 ]
 
-{ #category : 'test instance creation' }
-IslamicDateTest >> testInvalidCreation [
+{ #category : 'tests' }
+IslamicDateTest >> testIntervalWithStep [
 
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: 1
-				dayNumber: 31
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals:
-				'The day 31 is invalid for the month Muharram of Year 1428' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: 2
-				dayNumber: 30
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 30 is invalid for the month Safar of Year 1428' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: 3
-				dayNumber: 31
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals:
-				'The day 31 is invalid for the month Rabi` I (Rabi` al-Awwal) of Year 1428' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: 4
-				dayNumber: 30
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals:
-				'The day 30 is invalid for the month Rabi` II (Rabi` al-Ahir) of Year 1428' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: 5
-				dayNumber: 31
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals:
-				'The day 31 is invalid for the month Jumada I (Jumada al-Ula) of Year 1428' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: 6
-				dayNumber: 30
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals:
-				'The day 30 is invalid for the month Jumada II (Jumada al-Ahira) of Year 1428' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: 7
-				dayNumber: 31
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 31 is invalid for the month Rajab of Year 1428' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: 8
-				dayNumber: 30
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 30 is invalid for the month Sha`ban of Year 1428' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: 9
-				dayNumber: 31
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 31 is invalid for the month Ramadan of Year 1428' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: 10
-				dayNumber: 30
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 30 is invalid for the month Shawwal of Year 1428' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: 11
-				dayNumber: 31
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals:
-				'The day 31 is invalid for the month Dhu al-Qa`da of Year 1428' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1427
-				monthNumber: 12
-				dayNumber: 30
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals:
-				'The day 30 is invalid for the month Dhu al-Hijja of Year 1427' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: 12
-				dayNumber: 31
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals:
-				'The day 31 is invalid for the month Dhu al-Hijja of Year 1428' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: 13
-				dayNumber: 1
-				calendar: calendar ]
-		raise: InvalidMonthNumberException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: '13 is an invalid number for a month' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: 0
-				dayNumber: 1
-				calendar: calendar ]
-		raise: InvalidMonthNumberException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: '0 is an invalid number for a month' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: -1
-				dayNumber: 1
-				calendar: calendar ]
-		raise: InvalidMonthNumberException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: '-1 is an invalid number for a month' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: 1
-				dayNumber: 0
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 0 is invalid for the month Muharram of Year 1428' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 1428
-				monthNumber: 1
-				dayNumber: -1
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals:
-				'The day -1 is invalid for the month Muharram of Year 1428' ]
+  | interval |
+  interval := muharram first , 1443 to: muharram thirtieth , 1443 by: 2 * day.
+  self assert: interval size equals: 15.
+  interval doWithIndex: [ :date :index |
+      self
+        assert: date dayNumber equals: index * 2 - 1;
+        assert: date monthOfYear equals: muharram , 1443
+    ]
 ]
 
-{ #category : 'test testing days' }
-IslamicDateTest >> testIs [
-
-	self assert: (Ramadan ninth, 1428 is: YaumAlJuma).
-	self assert: (Ramadan tenth, 1428 is: YaumAsSabt).
-	self assert: (Ramadan eleventh, 1428 is: YaumAlAhad).
-	self assert: (Ramadan twelfth, 1428 is: YaumAlIthnayna).
-	self assert: (Ramadan thirteenth, 1428 is: YaumAthThalatha).
-	self assert: (Ramadan fourteenth, 1428 is: YaumAlArbaa).
-	self assert: (Ramadan fifteenth, 1428 is: YaumAlHamis)
-]
-
-{ #category : 'test testing' }
-IslamicDateTest >> testIsFirstDayOfMonth [
-
-	self assert: (Muharram first, 1428) isFirstDayOfMonth.
-	self deny: (Muharram second, 1428) isFirstDayOfMonth
-]
-
-{ #category : 'test testing' }
-IslamicDateTest >> testIsFirstDayOfYear [
-
-	self assert: (Muharram first, 1428) isFirstDayOfYear.
-	self deny: (Muharram second, 1428) isFirstDayOfYear
-]
-
-{ #category : 'test testing' }
-IslamicDateTest >> testIsFirstMonthOfYear [
-
-	self assert: (Muharram first, 1428) isFirstMonthOfYear.
-	self assert: (Muharram second, 1428) isFirstMonthOfYear.
-	
-	self deny: (Safar third, 1428) isFirstMonthOfYear.
-	self deny: (DhuAlHijja fifteenth, 1428) isFirstMonthOfYear
-]
-
-{ #category : 'test testing months' }
-IslamicDateTest >> testIsIn [
-
-	self assert: (Muharram first, 1428 isIn: Muharram).
-	self assert: (Safar first, 1428 isIn: Safar).
-	self assert: (RabiI first, 1428 isIn: RabiI).
-	self assert: (RabiII first, 1428 isIn: RabiII).
-	self assert: (JumadaI first, 1428 isIn: JumadaI).
-	self assert: (JumadaII first, 1428 isIn: JumadaII).
-	self assert: (Rajab first, 1428 isIn: Rajab).
-	self assert: (Shaban first, 1428 isIn: Shaban).
-	self assert: (Ramadan first, 1428 isIn: Ramadan).
-	self assert: (Shawwal first, 1428 isIn: Shawwal).
-	self assert: (DhuAlQada first, 1428 isIn: DhuAlQada).
-	self assert: (DhuAlHijja first, 1428 isIn: DhuAlHijja)
-]
-
-{ #category : 'test testing' }
-IslamicDateTest >> testIsLastDayOfMonth [
-
-	self assert: (Muharram thirtieth, 1428) isLastDayOfMonth.
-	self assert: (Safar twentyninth, 1428) isLastDayOfMonth.
-	self assert: (RabiI thirtieth, 1428) isLastDayOfMonth.
-	self assert: (RabiII twentyninth, 1428) isLastDayOfMonth.
-	self assert: (JumadaI thirtieth, 1428) isLastDayOfMonth.
-	self assert: (JumadaII twentyninth, 1428) isLastDayOfMonth.
-	self assert: (Rajab thirtieth, 1428) isLastDayOfMonth.
-	self assert: (Shaban twentyninth, 1428) isLastDayOfMonth.
-	self assert: (Ramadan thirtieth, 1428) isLastDayOfMonth.
-	self assert: (Shawwal twentyninth, 1428) isLastDayOfMonth.
-	self assert: (DhuAlQada thirtieth, 1428) isLastDayOfMonth.
-	self assert: (DhuAlHijja twentyninth, 1427) isLastDayOfMonth.
-	self assert: (DhuAlHijja thirtieth, 1428) isLastDayOfMonth
-
-
-]
-
-{ #category : 'test testing' }
-IslamicDateTest >> testIsLastDayOfYear [
-
-	self assert: (DhuAlHijja thirtieth, 1428) isLastDayOfYear.
-	self assert: (DhuAlHijja twentyninth, 1427) isLastDayOfYear.
-
-	self deny: (DhuAlHijja twentyninth, 1428) isLastDayOfYear.
-	self deny: (DhuAlQada thirtieth, 1428) isLastDayOfYear.
-	self deny: (Ramadan twentyninth, 1428) isLastDayOfYear
-]
-
-{ #category : 'test comparing' }
+{ #category : 'tests' }
 IslamicDateTest >> testLessThan [
 
-	self assert: Muharram first , 2004 < (Muharram second , 2004).
-	self assert: Muharram first , 2004 < (Safar first , 2004).
-	self assert: Muharram first , 2004 < (Muharram first , 2005).
+  self
+    assert: muharram first , 2024 lessThan: muharram first , 2025;
+    assert: muharram first , 2024 lessThanOrEquals: muharram first , 2025;
+    assert: muharram first , 2025 lessThanOrEquals: muharram first , 2025;
+    assert: muharram first , 2025 lessThan: safar first , 2025;
+    assert: muharram first , 2025 lessThanOrEquals: safar first , 2025;
+    assert: duAlHijjah first , 2024 lessThanOrEquals: muharram first , 2025;
+    assert: safar first , 2025 lessThan: safar second , 2025;
+    assert: safar first , 2025 lessThanOrEquals: safar second , 2025;
+    deny: muharram first , 2025 lessThan: muharram first , 1;
+    deny: safar first , 2025 lessThan: muharram first , 2025.
 
-	self
-		should: [ Muharram first , 2007 <= YaumAlAhad ]
-		raise: InvalidComparisonBetweenPointsInTimeException
-		withExceptionDo: [ :ex |
-			self
-				assert: ex description
-				equals:
-					('The <1p> <2p> can not be compared with the <3p> <4p> because are points of different resolution'
-						 expandMacrosWith: YaumAlAhad class
-						 with: YaumAlAhad
-						 with: (Muharram first , 2007) class
-						 with: Muharram first , 2007) ].
-
-	self
-		should: [ Muharram thirtieth , 2007 < Safar ]
-		raise: InvalidComparisonBetweenPointsInTimeException
-		withExceptionDo: [ :ex |
-			self
-				assert: ex description
-				equals:
-					('The <1p> <2p> can not be compared with the <3p> <4p> because are points of different resolution'
-						 expandMacrosWith: (Muharram thirtieth , 2007) class
-						 with: Muharram thirtieth , 2007
-						 with: Safar class
-						 with: Safar) ]
+  self
+    should: [ muharram first , 2025 < ( january first , 2025 ) ]
+    raise: ArithmeticError
+    withMessageText: 'Years in different time scales are incommensurable'
 ]
 
-{ #category : 'test accessing' }
-IslamicDateTest >> testMonth [
-
-	self assert: (Rajab first , 1428) month equals: Rajab
-]
-
-{ #category : 'test accessing' }
-IslamicDateTest >> testMonthNumber [
-
-	self assert: (Rajab first , 1428) monthNumber equals: 7
-]
-
-{ #category : 'test accessing' }
-IslamicDateTest >> testMonthOfYear [
-
-	self
-		assert: (Shawwal first , 1428) monthOfYear
-		equals: Shawwal , 1428
-]
-
-{ #category : 'test enumerating' }
+{ #category : 'tests' }
 IslamicDateTest >> testNext [
 
-	| date |
-	date := Muharram first , 1428.
-	self assert: date next equals: Muharram second , 1428.
+  self
+    assert: jumadaII first , 2025 nextIs: jumadaII second , 2025;
+    assert: jumadaII twentyNinth , 2025 nextIs: rajab first , 2025;
+    assert: duAlHijjah twentyNinth , 2025 nextIs: muharram first , 2026;
+    assert: safar twentyEighth , 2020 nextIs: safar twentyNinth , 2020;
+    assert: duAlHijjah twentyNinth , 1442 nextIs: duAlHijjah thirtieth , 1442.
 
-	date := Safar twentyeighth , 1428.
-	self assert: date next equals: Safar twentyninth , 1428.
-	self assert: date next next equals: RabiI first , 1428.
+  self
+    assert: muharram first , 1443 after: 10 daysIs: muharram eleventh , 1443;
+    assert: muharram first , 1443 after: 29 daysIs: muharram thirtieth , 1443;
+    assert: muharram first , 1443 after: 30 daysIs: safar first , 1443;
+    assert: muharram first , 1443 after: 354 daysIs: muharram first , 1444;
+    assert: muharram first , 1442 after: 355 daysIs: muharram first , 1443;
+    assert: muharram first , 1443 after: 0 daysIs: muharram first , 1443.
 
-	date := DhuAlHijja thirtieth , 1428.
-	self assert: date next equals: Muharram first , 1429
+  self
+    assert: muharram first , 1441 after: 354 + 355 + 354 + 354 daysIs: muharram first , 1445;
+    assert: muharram first , 1441 after: 354 + 355 + 354 + 354 + 30 + 29 daysIs: rabiI first , 1445
 ]
 
-{ #category : 'test enumerating' }
-IslamicDateTest >> testNextDay [
-
-	| yaumAlAhad |
-	yaumAlAhad := Muharram second , 1428.
-	self
-		assert: (yaumAlAhad nextDay: calendar yaumAlAhad)
-		equals: Muharram ninth , 1428.
-	self
-		assert: (yaumAlAhad nextDay: calendar yaumAlIthnayna)
-		equals: Muharram third , 1428.
-	self
-		assert: (yaumAlAhad nextDay: calendar yaumAthThalatha)
-		equals: Muharram fourth , 1428.
-	self
-		assert: (yaumAlAhad nextDay: calendar yaumAlArbaa)
-		equals: Muharram fifth , 1428.
-	self
-		assert: (yaumAlAhad nextDay: calendar yaumAlHamis)
-		equals: Muharram sixth , 1428.
-	self
-		assert: (yaumAlAhad nextDay: calendar yaumAlJuma)
-		equals: Muharram seventh , 1428.
-	self
-		assert: (yaumAlAhad nextDay: calendar yaumAsSabt)
-		equals: Muharram eighth , 1428
-]
-
-{ #category : 'test enumerating' }
-IslamicDateTest >> testNextDayOfMonth [
-
-	| date |
-	date := Muharram first , 1428.
-	self
-		assert: (date nextDayOfMonth: RabiI third)
-		equals: RabiI third , 1428.
-	self
-		assert:
-		((date nextDayOfMonth: RabiI third) nextDayOfMonth: RabiII fourth)
-		equals: RabiII fourth , 1428.
-
-	date := Safar first , 1428.
-	self
-		assert: (date nextDayOfMonth: Muharram third)
-		equals: Muharram third , 1429.
-	self
-		assert:
-		((date nextDayOfMonth: Muharram third) nextDayOfMonth: RabiI fourth)
-		equals: RabiI fourth , 1429
-]
-
-{ #category : 'test enumerating' }
-IslamicDateTest >> testNextInNumberOfDays [
-
-	self
-		assert: (Muharram first , 1 next: self tenDays)
-		equals: Muharram eleventh , 1.
-	self
-		assert: (Muharram first , 1428 next: self twentyNineDays)
-		equals: Muharram thirtieth , 1428.
-	self
-		assert: (Muharram first , 1428 next: self thirtyDays)
-		equals: Safar first , 1428.
-	self
-		assert: (Muharram first , 1428 next: 355 daysMeasure)
-		equals: Muharram first , 1429.
-	self
-		assert: (Muharram first , 1427 next: 354 daysMeasure)
-		equals: Muharram first , 1428.
-	self
-		assert: (Muharram first , 1428 next: 0 daysMeasure)
-		equals: Muharram first , 1428
-]
-
-{ #category : 'test enumerating' }
-IslamicDateTest >> testNextInWeeks [
-
-	self
-		assert: (Muharram first , 1428 next: 1 weekMeasure)
-		equals: (Muharram first , 1428 next: 7 daysMeasure).
-	self
-		assert: (Muharram first , 1428 next: 2 weeksMeasure)
-		equals: (Muharram first , 1428 next: 14 daysMeasure)
-]
-
-{ #category : 'test enumerating' }
-IslamicDateTest >> testNextMonth [
-
-	| day |
-	day := Muharram first , 1428.
-	self
-		assert: (day nextMonth: 1 monthMeasure)
-		equals: Safar first , 1428.
-	self
-		assert: (day nextMonth: 2 monthsMeasure)
-		equals: RabiI first , 1428.
-	self
-		assert: (day nextMonth: 3 monthsMeasure)
-		equals: RabiII first , 1428.
-	self
-		assert: (day nextMonth: 4 monthsMeasure)
-		equals: JumadaI first , 1428.
-	self
-		assert: (day nextMonth: 5 monthsMeasure)
-		equals: JumadaII first , 1428.
-	self
-		assert: (day nextMonth: 6 monthsMeasure)
-		equals: Rajab first , 1428.
-	self
-		assert: (day nextMonth: 7 monthsMeasure)
-		equals: Shaban first , 1428.
-	self
-		assert: (day nextMonth: 8 monthsMeasure)
-		equals: Ramadan first , 1428.
-	self
-		assert: (day nextMonth: 9 monthsMeasure)
-		equals: Shawwal first , 1428.
-	self
-		assert: (day nextMonth: 10 monthsMeasure)
-		equals: DhuAlQada first , 1428.
-	self
-		assert: (day nextMonth: 11 monthsMeasure)
-		equals: DhuAlHijja first , 1428.
-	self
-		assert: (day nextMonth: 12 monthsMeasure)
-		equals: Muharram first , 1429
-]
-
-{ #category : 'test accessing' }
-IslamicDateTest >> testNumberOfDaysFromBeginnigOfYear [
-
-	self
-		assert: (Muharram first , 1428) numberOfDaysFromBeginningOfYear
-		equals: 0 daysMeasure.
-	self
-		assert: (Muharram thirtieth , 1428) numberOfDaysFromBeginningOfYear
-		equals: 29 daysMeasure.
-	self
-		assert:
-		(DhuAlHijja twentyninth , 1427) numberOfDaysFromBeginningOfYear
-		equals: 353 daysMeasure.
-	self
-		assert:
-		(DhuAlHijja thirtieth , 1428) numberOfDaysFromBeginningOfYear
-		equals: 354 daysMeasure
-]
-
-{ #category : 'test accessing' }
-IslamicDateTest >> testNumberOfDaysFromBeginningOfMonth [
-
-	self
-		assert: (Muharram first , 1) numberOfDaysFromBeginningOfMonth
-		equals: 0 daysMeasure.
-	self
-		assert: (Muharram thirtieth , 1428) numberOfDaysFromBeginningOfMonth
-		equals: 29 daysMeasure.
-	self
-		assert: (Safar twentyninth , 1428) numberOfDaysFromBeginningOfMonth
-		equals: 28 daysMeasure
-]
-
-{ #category : 'test accessing' }
-IslamicDateTest >> testNumberOfDaysFromEpoch [
-
-	self
-		assert: (Muharram first , 1) numberOfDaysFromEpoch
-		equals: 227014 daysMeasure.
-	self
-		assert: (DhuAlHijja thirtieth , 1300) numberOfDaysFromEpoch
-		equals: 687690 daysMeasure.
-	self
-		assert: (Muharram first , 1428) numberOfDaysFromEpoch
-		equals: 732695 daysMeasure
-]
-
-{ #category : 'test accessing' }
-IslamicDateTest >> testNumberOfDaysToEndOfMonth [
-
-	self
-		assert: (Muharram first , 1428) numberOfDaysToEndOfMonth
-		equals: 29 daysMeasure.
-	self
-		assert: (Muharram thirtieth , 1428) numberOfDaysToEndOfMonth
-		equals: 0 daysMeasure.
-	self
-		assert: Safar twentyeighth numberOfDaysToEndOfMonth
-		equals: 1 dayMeasure
-]
-
-{ #category : 'test accessing' }
-IslamicDateTest >> testNumberOfDaysToEndOfYear [
-
-	self
-		assert: (Muharram first , 1428) numberOfDaysToEndOfYear
-		equals: 354 daysMeasure.
-	self
-		assert: (DhuAlHijja thirtieth , 1428) numberOfDaysToEndOfYear
-		equals: 0 daysMeasure
-]
-
-{ #category : 'test enumerating' }
+{ #category : 'tests' }
 IslamicDateTest >> testPrevious [
 
-	| day |
-	day := Muharram first , 1428.
-	self assert: day previous equals: DhuAlHijja twentyninth , 1427.
+  self
+    assert: jumadaII second , 2025 previousIs: jumadaII first , 2025;
+    assert: jumadaII first , 2025 previousIs: jumadaI thirtieth , 2025;
+    assert: muharram first , 2025 previousIs: duAlHijjah twentyNinth , 2024;
+    assert: muharram first , 1443 previousIs: duAlHijjah thirtieth , 1442;
+    assert: duAlHijjah thirtieth , 1442 previousIs: duAlHijjah twentyNinth , 1442.
+  self
+    assert: 10 daysBefore: duAlHijjah twentyNinth , 2008 is: duAlHijjah nineteenth , 2008;
+    assert: 28 daysBefore: duAlHijjah twentyNinth , 2008 is: duAlHijjah first , 2008;
+    assert: 29 daysBefore: duAlHijjah twentyNinth , 2008 is: duAlQiDah thirtieth , 2008;
+    assert: 354 daysBefore: duAlHijjah thirtieth , 1442 is: muharram first , 1442;
+    assert: 355 daysBefore: muharram first , 1443 is: muharram first , 1442;
+    assert: 0 daysBefore: duAlHijjah twentyNinth , 2008 is: duAlHijjah twentyNinth , 2008.
 
-	day := RabiI first , 1428.
-	self assert: day previous equals: Safar twentyninth , 1428
+  self
+    assert: 354 + 355 + 354 + 354 daysBefore: muharram first , 1445 is: muharram first , 1441;
+    assert: 354 + 355 + 354 + 354 + 30 + 29
+    daysBefore: rabiI first , 1445
+    is: muharram first , 1441
 ]
 
-{ #category : 'test enumerating' }
-IslamicDateTest >> testPreviousDay [
-
-	| yaumAlAhad |
-	yaumAlAhad := Muharram second , 1428.
-	self
-		assert: (yaumAlAhad previousDay: calendar yaumAlAhad)
-		equals: DhuAlHijja twentyfourth , 1427.
-	self
-		assert: (yaumAlAhad previousDay: calendar yaumAlIthnayna)
-		equals: DhuAlHijja twentyfifth , 1427.
-	self
-		assert: (yaumAlAhad previousDay: calendar yaumAthThalatha)
-		equals: DhuAlHijja twentysixth , 1427.
-	self
-		assert: (yaumAlAhad previousDay: calendar yaumAlArbaa)
-		equals: DhuAlHijja twentyseventh , 1427.
-	self
-		assert: (yaumAlAhad previousDay: calendar yaumAlHamis)
-		equals: DhuAlHijja twentyeighth , 1427.
-	self
-		assert: (yaumAlAhad previousDay: calendar yaumAlJuma)
-		equals: DhuAlHijja twentyninth , 1427.
-	self
-		assert: (yaumAlAhad previousDay: calendar yaumAsSabt)
-		equals: Muharram first , 1428
-]
-
-{ #category : 'test enumerating' }
-IslamicDateTest >> testPreviousDayOfMonth [
-
-	| day |
-	day := Muharram first , 1428.
-	self
-		assert: (day previousDayOfMonth: RabiI third)
-		equals: RabiI third , 1427.
-	self
-		assert: ((day previousDayOfMonth: RabiI third) previousDayOfMonth:
-				 RabiII fourth)
-		equals: RabiII fourth , 1426
-]
-
-{ #category : 'test enumerating' }
-IslamicDateTest >> testPreviousInNumberOfDays [
-
-	self
-		assert: (Muharram first , 1 previous: self tenDays)
-		equals: DhuAlHijja twentieth , 0.
-	self
-		assert: (Muharram first , 1428 previous: self twentyNineDays)
-		equals: DhuAlHijja first , 1427.
-	self
-		assert: (Muharram first , 1428 previous: self thirtyDays)
-		equals: DhuAlQada thirtieth , 1427.
-	self
-		assert: (Muharram first , 1428 previous: 355 daysMeasure)
-		equals: DhuAlHijja thirtieth , 1426.
-	self
-		assert: (Muharram first , 1427 previous: 355 daysMeasure)
-		equals: Muharram first , 1426.
-	self
-		assert: (Muharram first , 1428 previous: 0 daysMeasure)
-		equals: Muharram first , 1428
-]
-
-{ #category : 'test enumerating' }
-IslamicDateTest >> testPreviousInWeeks [
-
-	self
-		assert: (Muharram first , 1428 previous: 1 weekMeasure)
-		equals: (Muharram first , 1428 previous: 7 daysMeasure).
-	self
-		assert: (Muharram first , 1428 previous: 2 weeksMeasure)
-		equals: (Muharram first , 1428 previous: 14 daysMeasure)
-]
-
-{ #category : 'test printing' }
+{ #category : 'tests' }
 IslamicDateTest >> testPrintString [
 
-	| date |
-	date := Shawwal first , 1428.
-	self assert: date printString equals: 'Shawwal 1, 1428'
+  self
+    assert: ( rabiI , 2025 ) first printString equals: 'Rabi'' al-Awwal 1, 2025 AH';
+    assert: ( muharram , 2025 ) twelfth printString equals: 'Muharram 12, 2025 AH'
 ]
 
-{ #category : 'test interval protocol' }
-IslamicDateTest >> testTo [
+{ #category : 'tests' }
+IslamicDateTest >> testSubtraction [
 
-	| interval |
-	interval := Muharram first , 1428 to: Muharram tenth , 1428.
-	self assert: interval from equals: Muharram first , 1428.
-	self assert: interval to equals: Muharram tenth , 1428.
-	self assert: interval by equals: self oneDay
-]
-
-{ #category : 'test interval protocol' }
-IslamicDateTest >> testToBy [
-
-	| interval |
-	interval := Muharram first , 1428 to: Muharram tenth , 1428 by:
-	            self twoDays.
-	self assert: interval from equals: Muharram first , 1428.
-	self assert: interval to equals: Muharram tenth , 1428.
-	self assert: interval by equals: self twoDays
-]
-
-{ #category : 'test interval protocol' }
-IslamicDateTest >> testToByDo [
-
-	| daysTo muharramFirst1428 |
-	daysTo := 0.
-	muharramFirst1428 := Muharram first , 1428.
-	(muharramFirst1428 to: Muharram first , 1429 by: self twoDays) do: [
-		:date |
-		self
-			assert: (muharramFirst1428 distanceTo: date) amount
-			equals: daysTo.
-		daysTo := daysTo + 2 ].
-	self assert: daysTo equals: 356
-]
-
-{ #category : 'test interval protocol' }
-IslamicDateTest >> testToByReverse [
-
-	| coll number |
-	coll := (Muharram first , 1428 to: Muharram thirtieth , 1428 by:
-	         self twoDays) reverse.
-	number := 29.
-	coll do: [ :date |
-		self assert: date dayNumber equals: number.
-		number := number - 2 ].
-	self assert: number equals: -1
-]
-
-{ #category : 'test interval protocol' }
-IslamicDateTest >> testToEveryBeginningDifferentDay [
-
-	| yaumAlIthnayna expectedDayNumbers interval |
-	yaumAlIthnayna := Muharram third , 1428.
-	interval := yaumAlIthnayna
-		            to:
-		            (yaumAlIthnayna nextDay: calendar yaumAlIthnayna) next
-		            every: (Array
-				             with: calendar yaumAthThalatha
-				             with: calendar yaumAlArbaa
-				             with: calendar yaumAlJuma).
-	self assert: interval first equals: yaumAlIthnayna next.
-	self
-		assert: interval last
-		equals: (yaumAlIthnayna nextDay: calendar yaumAlIthnayna) next.
-	self assert: interval size equals: 4.
-	expectedDayNumbers := #( 4 5 7 11 ).
-	interval inject: 1 into: [ :index :date |
-		self assert: date dayNumber equals: (expectedDayNumbers at: index).
-		index + 1 ]
-]
-
-{ #category : 'test interval protocol' }
-IslamicDateTest >> testToEveryBeginningSameDay [
-
-	| yaumAlIthnayna expectedDayNumbers interval |
-	yaumAlIthnayna := Muharram third , 1428.
-	interval := yaumAlIthnayna
-		            to: (yaumAlIthnayna nextDay: calendar yaumAlIthnayna)
-		            every: (Array
-				             with: calendar yaumAlIthnayna
-				             with: calendar yaumAlArbaa
-				             with: calendar yaumAlJuma).
-	self assert: interval first equals: yaumAlIthnayna.
-	self
-		assert: interval last
-		equals: (yaumAlIthnayna nextDay: calendar yaumAlIthnayna).
-	self assert: interval size equals: 4.
-	expectedDayNumbers := #( 3 5 7 10 ).
-	interval inject: 1 into: [ :index :date |
-		self assert: date dayNumber equals: (expectedDayNumbers at: index).
-		index + 1 ]
-]
-
-{ #category : 'test interval protocol' }
-IslamicDateTest >> testToEveryDayBeginningDifferentDay [
-
-	| yaumAlIthnayna expectedDayNumbers interval |
-	yaumAlIthnayna := Muharram third , 1428.
-	interval := yaumAlIthnayna
-		            to:
-		            (yaumAlIthnayna nextDay: calendar yaumAlIthnayna) next
-		            everyDay: calendar yaumAthThalatha.
-	self assert: interval first equals: yaumAlIthnayna next.
-	self
-		assert: interval last
-		equals: (yaumAlIthnayna nextDay: calendar yaumAlIthnayna) next.
-	self assert: interval size equals: 2.
-	expectedDayNumbers := #( 4 11 ).
-	interval inject: 1 into: [ :index :date |
-		self assert: date dayNumber equals: (expectedDayNumbers at: index).
-		index + 1 ]
-]
-
-{ #category : 'test interval protocol' }
-IslamicDateTest >> testToEveryDayBeginningSameDay [
-
-	| yaumAlIthnayna expectedDayNumbers interval |
-	yaumAlIthnayna := Muharram third , 1428.
-	interval := yaumAlIthnayna
-		            to: (yaumAlIthnayna nextDay: calendar yaumAlIthnayna)
-		            everyDay: calendar yaumAlIthnayna.
-	self assert: interval first equals: yaumAlIthnayna.
-	self
-		assert: interval last
-		equals: (yaumAlIthnayna nextDay: calendar yaumAlIthnayna).
-	self assert: interval size equals: 2.
-	expectedDayNumbers := #( 3 10 ).
-	interval inject: 1 into: [ :index :date |
-		self assert: date dayNumber equals: (expectedDayNumbers at: index).
-		index + 1 ]
-]
-
-{ #category : 'test interval protocol' }
-IslamicDateTest >> testToEveryDayNumber [
-
-	| expectedMonths interval |
-	interval := Muharram first , 1428
-		            to: DhuAlHijja thirtieth , 1428
-		            everyDayNumber: 30.
-	self assert: interval first equals: Muharram thirtieth , 1428.
-	self assert: interval last equals: DhuAlHijja thirtieth , 1428.
-	self assert: interval size equals: 7.
-	expectedMonths := calendar months select: [ :month |
-		                  (month lastDayNumberIn: 2004 asIslamicYear) = 30 ].
-	interval inject: 1 into: [ :index :date |
-		self assert: date month equals: (expectedMonths at: index).
-		self assert: date dayNumber equals: 30.
-		index + 1 ]
-]
-
-{ #category : 'test interval protocol' }
-IslamicDateTest >> testToEveryDayNumbers [
-
-	| expectedDayNumbers interval |
-	interval := Muharram first , 1428
-		            to: DhuAlHijja thirtieth , 1428
-		            everyDayNumbers: (Array
-				             with: 5
-				             with: 20
-				             with: 30
-				             with: 1).
-	self assert: interval first equals: Muharram first , 1428.
-	self assert: interval last equals: DhuAlHijja thirtieth , 1428.
-	self assert: interval size equals: 43.
-	expectedDayNumbers := #( 1 5 20 30 1 5 20 1 5 20 30 1 5 20 1 5 20 30
-	                         1 5 20 1 5 20 30 1 5 20 1 5 20 30 1 5 20 1 5
-	                         20 30 1 5 20 30 ).
-	interval inject: 1 into: [ :index :date |
-		self assert: date dayNumber equals: (expectedDayNumbers at: index).
-		index + 1 ]
-]
-
-{ #category : 'test interval protocol' }
-IslamicDateTest >> testToEveryDayOfMonth [
-
-	| dates |
-	dates := Muharram tenth , 1428
-		         to: Muharram ninth , 1430
-		         everyDayOfMonth: Muharram tenth.
-	self assert: dates size equals: 2.
-	self assert: (dates includes: Muharram tenth , 1428).
-	self assert: (dates includes: Muharram tenth , 1429).
-
-	dates := Muharram tenth , 1428
-		         to: Muharram tenth , 1430
-		         everyDayOfMonth: Muharram tenth.
-	self assert: dates size equals: 3.
-	self assert: (dates includes: Muharram tenth , 1428).
-	self assert: (dates includes: Muharram tenth , 1429).
-	self assert: (dates includes: Muharram tenth , 1430)
-]
-
-{ #category : 'test interval protocol' }
-IslamicDateTest >> testToNegativeBy [
-
-	| interval number |
-	interval := Muharram thirtieth , 1428 to: Muharram first , 1428 by:
-	            self twoDays negated.
-	number := 30.
-	interval do: [ :date |
-		self assert: date dayNumber equals: number.
-		number := number - 2 ].
-	self assert: number equals: 0
-]
-
-{ #category : 'test days accessing' }
-IslamicDateTest >> testToday [
-
-	| tomorrow yesterday |
-	tomorrow := calendar tomorrow.
-	yesterday := calendar yesterday.
-	self assert: calendar today equals: yesterday next.
-	self assert: calendar today equals: tomorrow previous
-]
-
-{ #category : 'test days accessing' }
-IslamicDateTest >> testTomorrow [
-
-	| today |
-	today := calendar today.
-	self assert: calendar tomorrow equals: today next
-]
-
-{ #category : 'test accessing' }
-IslamicDateTest >> testYearNumber [
-
-	self assert: (Rajab first , 1428) yearNumber equals: 1428
-]
-
-{ #category : 'test days accessing' }
-IslamicDateTest >> testYesterday [
-
-	| today |
-	today := calendar today.
-	self assert: calendar yesterday equals: today previous
-]
-
-{ #category : 'test support' }
-IslamicDateTest >> thirtyDays [
-	^ 30 daysMeasure
-]
-
-{ #category : 'test support' }
-IslamicDateTest >> twentyNineDays [
-	^ 29 daysMeasure
-]
-
-{ #category : 'test support' }
-IslamicDateTest >> twoDays [
-	^ 2 daysMeasure
-]
-
-{ #category : 'test support' }
-IslamicDateTest >> zeroDays [
-	^ 0 daysMeasure
+  self
+    assert: muharram first , 2025 - ( muharram first , 2025 ) equals: 0 * day;
+    assert: muharram second , 2025 - ( muharram first , 2025 ) equals: 1 * day;
+    assert: muharram first , 2026 - ( muharram first , 2025 ) equals: 354 * day
 ]

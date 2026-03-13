@@ -1,0 +1,14 @@
+SmalltalkCISpec {
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'Chalten',
+      #directory : '../source',
+      #load : [ 'Tools' ],
+      #platforms : [ #pharo ],
+      #failOn : [ #Warning ]
+    }
+  ],
+  #testing : {
+    #failOnZeroTests : false
+  }
+}
