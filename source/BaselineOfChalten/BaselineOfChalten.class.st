@@ -40,12 +40,14 @@ BaselineOfChalten >> configureCore [
 { #category : 'postload' }
 BaselineOfChalten >> loadTranslationUnits [
 
+  self halt.
   self class environment at: #IceRepository ifPresent: [ :icebergRepository |
       icebergRepository registry
-        detect: [ :repository | repository includesPackageNamed: #BaselineOfChalten ]
+        detect: [ :repository | repository includesPackageNamed: self class name ]
         ifFound: [ :repository |
             | localesFileReference |
             localesFileReference := repository project sourceDirectoryReference parent / 'locales'.
+            localesFileReference inspect.
             NaturalLanguageTranslator current loadJSONTranslationFilesIn: localesFileReference
           ]
     ]
