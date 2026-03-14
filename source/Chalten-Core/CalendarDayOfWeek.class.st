@@ -25,12 +25,14 @@ CalendarDayOfWeek class >> dayAt: positionInWeek [
 { #category : 'testing' }
 CalendarDayOfWeek class >> isAbstract [
 
+  <ignoreForCoverage>
   ^ self = CalendarDayOfWeek
 ]
 
 { #category : 'instance creation' }
 CalendarDayOfWeek class >> named: aName shortNamed: aShortName positionInWeeek: anInteger [
 
+  <ignoreForCoverage>
   AssertionCheckerBuilder new
     raising: InstanceCreationFailed;
     checking: [ :asserter |
@@ -55,6 +57,7 @@ CalendarDayOfWeek >> asISODayOfWeek [
 { #category : 'initialization' }
 CalendarDayOfWeek >> initializeNamed: aName shortNamed: aShortName positionInWeeek: anInteger [
 
+  <ignoreForCoverage>
   name := aName.
   shortName := aShortName.
   positionInWeek := anInteger

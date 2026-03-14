@@ -22,6 +22,7 @@ CalendarDate class >> assert: aDayNumber isValidIn: aCalendarMonthOfYear [
 { #category : 'testing' }
 CalendarDate class >> isAbstract [
 
+  <ignoreForCoverage>
   ^ self = CalendarDate
 ]
 

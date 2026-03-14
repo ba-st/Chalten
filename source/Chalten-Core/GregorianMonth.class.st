@@ -164,6 +164,7 @@ GregorianMonth class >> monthAt: index [
 { #category : 'private - instance creation' }
 GregorianMonth class >> named: aName shortNamed: aShortName positionInYear: index numberOfDaysInLeapYear: leapNumber andInCommonYear: commonNumber [
 
+  <ignoreForCoverage>
   ^ self new
       initializeNamed: aName
       shortNamed: aShortName
@@ -175,6 +176,7 @@ GregorianMonth class >> named: aName shortNamed: aShortName positionInYear: inde
 { #category : 'private - instance creation' }
 GregorianMonth class >> named: aName shortNamed: aShortName positionInYear: index numberOfDaysInYear: number [
 
+  <ignoreForCoverage>
   ^ self
       named: aName
       shortNamed: aShortName
@@ -216,6 +218,7 @@ GregorianMonth >> dayOfMonthAt: dayNumber [
 { #category : 'initialization' }
 GregorianMonth >> initializeNamed: aName shortNamed: aShortName positionInYear: index numberOfDaysInLeapYear: daysInLeapYear andInCommonYear: daysInCommonYear [
 
+  <ignoreForCoverage>
   name := aName.
   shortName := aShortName.
   positionInYear := index.

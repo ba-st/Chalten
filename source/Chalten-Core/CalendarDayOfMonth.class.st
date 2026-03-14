@@ -34,9 +34,10 @@ CalendarDayOfMonth class >> gregorianMonth: aGregorianMonth dayNumber: aDayNumbe
 ]
 
 { #category : 'class initialization' }
-CalendarDayOfMonth class >> initialize [ 
+CalendarDayOfMonth class >> initialize [
 
-	Instances := IdentityDictionary new
+  <ignoreForCoverage>
+  Instances := IdentityDictionary new
 ]
 
 { #category : 'private' }

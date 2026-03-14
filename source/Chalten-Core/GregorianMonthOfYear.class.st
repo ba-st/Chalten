@@ -3,7 +3,7 @@ A month on a specific year in the Gregorian calendar.
 "
 Class {
 	#name : 'GregorianMonthOfYear',
-	#superclass : 'CalendaMonthOfYear',
+	#superclass : 'CalendarMonthOfYear',
 	#instVars : [
 		'year',
 		'month',

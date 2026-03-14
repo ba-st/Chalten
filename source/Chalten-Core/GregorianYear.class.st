@@ -30,6 +30,7 @@ GregorianYear class >> calendarName [
 { #category : 'class initialization' }
 GregorianYear class >> initialize [
 
+  <ignoreForCoverage>
   years := IdentityDictionary new
 ]
 

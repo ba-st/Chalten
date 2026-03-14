@@ -24,6 +24,7 @@ Class {
 { #category : 'testing' }
 IslamicCalendarTest class >> isAbstract [
 
+  <ignoreForCoverage>
   ^ self = IslamicCalendarTest
 ]
 

@@ -27,6 +27,7 @@ Class {
 { #category : 'testing' }
 ChaltenTest class >> isAbstract [
 
+  <ignoreForCoverage>
   ^ self = ChaltenTest
 ]
 

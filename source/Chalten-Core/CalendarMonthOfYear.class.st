@@ -4,176 +4,177 @@ Since the year is known it knows exactly its number of days, and can move forwar
 backward in time by a month-quantity.
 "
 Class {
-	#name : 'CalendaMonthOfYear',
+	#name : 'CalendarMonthOfYear',
 	#superclass : 'CalendarMagnitude',
 	#category : 'Chalten-Core',
 	#package : 'Chalten-Core'
 }
 
 { #category : 'testing' }
-CalendaMonthOfYear class >> isAbstract [
+CalendarMonthOfYear class >> isAbstract [
 
-  ^ self = CalendaMonthOfYear
+  <ignoreForCoverage>
+  ^ self = CalendarMonthOfYear
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> dateAt: number [
+CalendarMonthOfYear >> dateAt: number [
 
   self subclassResponsibility
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> eighteenth [
+CalendarMonthOfYear >> eighteenth [
 
   ^ self dateAt: 18
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> eighth [
+CalendarMonthOfYear >> eighth [
 
   ^ self dateAt: 8
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> eleventh [
+CalendarMonthOfYear >> eleventh [
 
   ^ self dateAt: 11
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> fifteenth [
+CalendarMonthOfYear >> fifteenth [
 
   ^ self dateAt: 15
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> fifth [
+CalendarMonthOfYear >> fifth [
 
   ^ self dateAt: 5
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> first [
+CalendarMonthOfYear >> first [
 
   ^ self dateAt: 1
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> fourteenth [
+CalendarMonthOfYear >> fourteenth [
 
   ^ self dateAt: 14
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> fourth [
+CalendarMonthOfYear >> fourth [
 
   ^ self dateAt: 4
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> last [
+CalendarMonthOfYear >> last [
 
   ^ self dateAt: self numberOfDays numericalValue
 ]
 
 { #category : 'accessing' }
-CalendaMonthOfYear >> month [
+CalendarMonthOfYear >> month [
 
   ^ self subclassResponsibility
 ]
 
 { #category : 'querying' }
-CalendaMonthOfYear >> next [
+CalendarMonthOfYear >> next [
 
   ^ self next: 1 * self class month
 ]
 
 { #category : 'querying' }
-CalendaMonthOfYear >> next: relativeTimeQuantity [
+CalendarMonthOfYear >> next: relativeTimeQuantity [
 
   ^ self subclassResponsibility
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> nineteenth [
+CalendarMonthOfYear >> nineteenth [
 
   ^ self dateAt: 19
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> ninth [
+CalendarMonthOfYear >> ninth [
 
   ^ self dateAt: 9
 ]
 
 { #category : 'accessing' }
-CalendaMonthOfYear >> numberOfDays [
+CalendarMonthOfYear >> numberOfDays [
 
   ^ self subclassResponsibility
 ]
 
 { #category : 'querying' }
-CalendaMonthOfYear >> previous [
+CalendarMonthOfYear >> previous [
 
   ^ self previous: 1 * self class month
 ]
 
 { #category : 'querying' }
-CalendaMonthOfYear >> previous: relativeTimeQuantity [
+CalendarMonthOfYear >> previous: relativeTimeQuantity [
 
   ^ self subclassResponsibility
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> second [
+CalendarMonthOfYear >> second [
 
   ^ self dateAt: 2
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> seventeenth [
+CalendarMonthOfYear >> seventeenth [
 
   ^ self dateAt: 17
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> seventh [
+CalendarMonthOfYear >> seventh [
 
   ^ self dateAt: 7
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> sixteenth [
+CalendarMonthOfYear >> sixteenth [
 
   ^ self dateAt: 16
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> sixth [
+CalendarMonthOfYear >> sixth [
 
   ^ self dateAt: 6
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> tenth [
+CalendarMonthOfYear >> tenth [
 
   ^ self dateAt: 10
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> third [
+CalendarMonthOfYear >> third [
 
   ^ self dateAt: 3
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> thirteenth [
+CalendarMonthOfYear >> thirteenth [
 
   ^ self dateAt: 13
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> thirtieth [
+CalendarMonthOfYear >> thirtieth [
 
   ^ self numberOfDays > ( 29 * self class day )
       then: [ self dateAt: 30 ]
@@ -181,67 +182,67 @@ CalendaMonthOfYear >> thirtieth [
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> twelfth [
+CalendarMonthOfYear >> twelfth [
 
   ^ self dateAt: 12
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> twentieth [
+CalendarMonthOfYear >> twentieth [
 
   ^ self dateAt: 20
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> twentyEighth [
+CalendarMonthOfYear >> twentyEighth [
 
   ^ self dateAt: 28
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> twentyFifth [
+CalendarMonthOfYear >> twentyFifth [
 
   ^ self dateAt: 25
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> twentyFirst [
+CalendarMonthOfYear >> twentyFirst [
 
   ^ self dateAt: 21
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> twentyFourth [
+CalendarMonthOfYear >> twentyFourth [
 
   ^ self dateAt: 24
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> twentySecond [
+CalendarMonthOfYear >> twentySecond [
 
   ^ self dateAt: 22
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> twentySeventh [
+CalendarMonthOfYear >> twentySeventh [
 
   ^ self dateAt: 27
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> twentySixth [
+CalendarMonthOfYear >> twentySixth [
 
   ^ self dateAt: 26
 ]
 
 { #category : 'accessing - dates' }
-CalendaMonthOfYear >> twentyThird [
+CalendarMonthOfYear >> twentyThird [
 
   ^ self dateAt: 23
 ]
 
 { #category : 'accessing' }
-CalendaMonthOfYear >> year [
+CalendarMonthOfYear >> year [
 
   ^ self subclassResponsibility
 ]

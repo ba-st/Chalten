@@ -46,6 +46,7 @@ CalendarDateTime class >> convert: aNonGregorianDateTime toGregorianUsing: fixed
 { #category : 'testing' }
 CalendarDateTime class >> isAbstract [
 
+  <ignoreForCoverage>
   ^ self = CalendarDateTime
 ]
 

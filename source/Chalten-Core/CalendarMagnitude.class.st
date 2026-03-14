@@ -17,6 +17,7 @@ CalendarMagnitude class >> day [
 { #category : 'testing' }
 CalendarMagnitude class >> isAbstract [
 
+  <ignoreForCoverage>
   ^ self = CalendarMagnitude
 ]
 

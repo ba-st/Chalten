@@ -3,7 +3,7 @@ A month on a specific year in the Hebrew calendar.
 "
 Class {
 	#name : 'HebrewMonthOfYear',
-	#superclass : 'CalendaMonthOfYear',
+	#superclass : 'CalendarMonthOfYear',
 	#instVars : [
 		'year',
 		'month',

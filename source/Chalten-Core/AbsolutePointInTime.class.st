@@ -13,6 +13,7 @@ Class {
 { #category : 'testing' }
 AbsolutePointInTime class >> isAbstract [
 
+  <ignoreForCoverage>
   ^ self = AbsolutePointInTime
 ]
 

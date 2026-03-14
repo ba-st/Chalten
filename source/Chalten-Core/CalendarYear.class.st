@@ -31,6 +31,7 @@ CalendarYear class >> calendarName [
 { #category : 'testing' }
 CalendarYear class >> isAbstract [
 
+  <ignoreForCoverage>
   ^ self = CalendarYear
 ]
 
