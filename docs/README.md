@@ -8,7 +8,7 @@ to dates and moments in time without much additional context.
 For example, we might say that we bought something on May third, 2025 at 3:00 pm.
 However, that date implicitly carries some context - specifically, the place where
 the purchase was made. If the purchase was made in Argentina, that moment in time
-is not the same as it were made in France.
+is not the same as it if were made in France.
 That's why, in a computational system, it's important to differentiate and add
 precision to such cases.
 

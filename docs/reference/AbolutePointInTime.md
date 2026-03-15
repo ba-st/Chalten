@@ -29,7 +29,7 @@ Instants can be created by sending one of the following messages:
 Instants are magnitudes and as such can be compared in a total order.
 
 Instants can also shift forward or backward in time by sending `next:` or `previous:`
-messages with a time quantity. This time quantities need to be commensurable with
+messages with a time quantity. This time quantities needs to be commensurable with
 seconds: any second-derived units, days and weeks will work, but not years or
 year-derived units. For example:
 
@@ -77,4 +77,4 @@ taking into account that converting to a relative point in time will lose contex
 and it's not necessarily a reversible operation.
 
 If your application deals with date time data from several parts of the world,
-it's recommended to save it as `TimeOffsetAwareGregorianDateTime` instances.
+it's recommended to save them as `TimeOffsetAwareGregorianDateTime` instances.

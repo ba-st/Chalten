@@ -312,7 +312,7 @@ HebrewMonth kislev first, 5786 "Kislev 1, 5786 AM"
 ## `HebrewDayOfWeek`
 
 A calendar day of week. In the Hebrew calendar, a day amongst the sequence of week
-calendar days, namely, Yom Rishon, Yom Sheni, Yom Shlishi, Yom Revii, Yom Hamishi,
+calendar days, namely: Yom Rishon, Yom Sheni, Yom Shlishi, Yom Revii, Yom Hamishi,
 Yom Shishi and Yom Shabbat. To access a specific day of week send any of the following
 messages:
 
@@ -335,7 +335,7 @@ HebrewDayOfWeek yomShabbat name "יום שבת"
 
 ## Time Units
 
-The Hebrew calendar add two
+The Hebrew calendar adds two
 more relative time units that are calendar-dependent.
 While commonly used in the human context, their conversion to absolute units depends
 on the specific moment the unit refers to.

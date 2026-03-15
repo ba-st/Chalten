@@ -65,13 +65,13 @@ decade := TimeUnits units >> #decade.
 ## `GregorianMonth`
 
 A calendar month. In the ISO calendar, a month amongst the sequence of Gregorian
-calendar months, namely, January, February, March, April, May, June, July, August,
+calendar months, namely: January, February, March, April, May, June, July, August,
 September, October, November and December.
 In the ISO standard, a month is a fixed-order unit within the year.
 
 It encapsulates the logic for day counts in both common and leap years in
 collaboration with the year abstraction and supports cyclic arithmetic: Gregorian
-months can be advanced a number of months or years without further context given
+months can be advanced a number of months or years without further context, given
 the circularity of this calendar.
 
 We can access all the months by sending
@@ -331,7 +331,7 @@ TimeOfDay hours: 13 minutes: 54 seconds: 4 "13:54:04.000000"
 ## `DayOfWeek`
 
 A calendar day of week. In the ISO calendar, a day amongst the sequence of week
-calendar days, namely, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday or
+calendar days, namely: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday or
 Sunday.
 In the ISO Calendar definition, a week begins on Monday and ends on Sunday. To
 access a specific day of week send any of the following messages:

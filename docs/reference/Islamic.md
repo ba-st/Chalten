@@ -20,7 +20,7 @@ final month Dhu al-Hijjah has 30 days.
 
 A year in the Islamic Calendar.
 The Islamic (Hijri) Calendar year is a purely lunar system. Unlike the Gregorian
-or Islamic calendars, it makes no attempt to synchronize with the sun or the
+or Hebrew calendars, it makes no attempt to synchronize with the sun or the
 agricultural seasons. As a result, the Islamic
 year is approximately 11 days shorter than a solar year, causing Islamic months
 to "cycle" through the Gregorian seasons every 32 to 33 years.
@@ -80,7 +80,7 @@ And we can move forward and backwards by sending `next`, `next:`, `previous` or
 ## `IslamicMonth`
 
 A calendar month. In the Islamic calendar, a month amongst the sequence of Islamic
-calendar months, namely, Muharram, Safar, Rabi' al-Awwal, Rabi' al-Thani, Jumada
+calendar months, namely: Muharram, Safar, Rabi' al-Awwal, Rabi' al-Thani, Jumada
 al-Awwal, Jumada al-Thani, Rajab, Sha'ban, Ramadan, Shawwal, Dhu al-Qi'dah and
 Dhu al-Hijjah.
 
@@ -288,7 +288,7 @@ IslamicMonth safar first, 1447 "Safar 1, 1447 AH"
 ## `IslamicDayOfWeek`
 
 A calendar day of week. In the Islamic calendar, a day amongst the sequence of week
-calendar days, namely, Yawn al-Ahad, Yawn al-Ithnayn, Yawn ath-Thulatha,
+calendar days, namely: Yawn al-Ahad, Yawn al-Ithnayn, Yawn ath-Thulatha,
 Yawn al-Arba'a', Yawn al-Khamees, Yawn al-Jumu'ah and Yawn as-Sabt. To access a
 specific day of week send any of the following
 messages:
@@ -312,7 +312,7 @@ IslamicDayOfWeek yawnAsSabt name "ٱلسَّبْت"
 
 ## Time Units
 
-The Islamic calendar add two
+The Islamic calendar adds two
 more relative time units that are calendar-dependent.
 While commonly used in the human context, their conversion to absolute units depends
 on the specific moment the unit refers to.
