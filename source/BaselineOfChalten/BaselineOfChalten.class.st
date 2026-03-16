@@ -29,7 +29,7 @@ BaselineOfChalten >> baseline: spec [
 BaselineOfChalten >> configureCore [
 
   #( #CalendarMagnitude #CalendarDayOfMonth #CalendarDayOfWeek #CalendarMonth #TimeOfDay #TimeOffsetRuleset )
-    do: [ :className | self classNamed: className makeInstancesInvariant ].
+    do: [ :className | (self classNamed: className) makeInstancesInvariant ].
   self loadTranslationUnits
 ]
 
