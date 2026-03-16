@@ -28,7 +28,11 @@ IslamicDayOfWeekTest >> testAsIslamicDayOfWeek [
   self daysOfWeek
     with: { DayOfWeek sunday . DayOfWeek monday . DayOfWeek tuesday . DayOfWeek wednesday .
         DayOfWeek thursday . DayOfWeek friday . DayOfWeek saturday }
-    do: [ :dayOfWeek :isoDayOfWeek | self assert: dayOfWeek equals: isoDayOfWeek asIslamicDayOfWeek ]
+    do: [ :dayOfWeek :isoDayOfWeek |
+        self
+          assert: dayOfWeek equals: isoDayOfWeek asIslamicDayOfWeek;
+          assert: dayOfWeek asIslamicDayOfWeek equals: dayOfWeek
+      ]
 ]
 
 { #category : 'tests' }

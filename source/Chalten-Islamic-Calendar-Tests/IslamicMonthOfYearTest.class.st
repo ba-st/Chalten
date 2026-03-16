@@ -58,6 +58,15 @@ IslamicMonthOfYearTest >> testCreationShortcut [
 ]
 
 { #category : 'tests' }
+IslamicMonthOfYearTest >> testDateCreation [
+
+  | monthOfYear |
+  monthOfYear := muharram , 2025.
+
+  self assert: monthOfYear twentyNinth equals: muharram twentyNinth , 2025
+]
+
+{ #category : 'tests' }
 IslamicMonthOfYearTest >> testGreaterThan [
 
   self

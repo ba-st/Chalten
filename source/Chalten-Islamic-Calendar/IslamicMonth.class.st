@@ -138,6 +138,7 @@ IslamicMonth class >> muharram [
 { #category : 'private - instance creation' }
 IslamicMonth class >> named: aName shortNamed: aShortName positionInYear: index numberOfDaysInLeapYear: leapNumber andInCommonYear: commonNumber [
 
+  <ignoreForCoverage>
   ^ self new
       initializeNamed: aName
       shortNamed: aShortName
@@ -149,6 +150,7 @@ IslamicMonth class >> named: aName shortNamed: aShortName positionInYear: index 
 { #category : 'private - instance creation' }
 IslamicMonth class >> named: aName shortNamed: aShortName positionInYear: index numberOfDaysInYear: number [
 
+  <ignoreForCoverage>
   ^ self
       named: aName
       shortNamed: aShortName
@@ -214,6 +216,7 @@ IslamicMonth >> dayOfMonthAt: dayNumber [
 { #category : 'initialization' }
 IslamicMonth >> initializeNamed: aName shortNamed: aShortName positionInYear: index numberOfDaysInLeapYear: daysInLeapYear andInCommonYear: daysInCommonYear [
 
+  <ignoreForCoverage>
   name := aName.
   shortName := aShortName.
   positionInYear := index.

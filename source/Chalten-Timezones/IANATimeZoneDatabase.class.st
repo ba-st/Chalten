@@ -51,6 +51,7 @@ IANATimeZoneDatabase class >> zoneInfoLocation: directory [
   "Allow to configure the location of the zone info database for OS
 	that don't have an standard one like Windows"
 
+  <ignoreForCoverage>
   ZoneInfoLocation := directory asFileReference
 ]
 

@@ -110,6 +110,12 @@ HebrewMonthTest >> testInstanceCreation [
 ]
 
 { #category : 'tests' }
+HebrewMonthTest >> testIsGregorian [
+
+  self deny: HebrewMonth sivan isGregorian
+]
+
+{ #category : 'tests' }
 HebrewMonthTest >> testIyar [
 
   self

@@ -217,6 +217,7 @@ HebrewMonth class >> monthOnLeapYearAt: index [
 { #category : 'private - instance creation' }
 HebrewMonth class >> named: aName shortNamed: aShortName positionInCommonYear: commonIndexBinding inLeapYear: leapIndexBinding numberOfDaysInDeficientYear: deficientNumber numberOfDaysInRegularYear: regularNumber numberOfDaysInCompleteYear: completeNumber [
 
+  <ignoreForCoverage>
   ^ self new
       initializeNamed: aName
       shortNamed: aShortName
@@ -230,6 +231,7 @@ HebrewMonth class >> named: aName shortNamed: aShortName positionInCommonYear: c
 { #category : 'private - instance creation' }
 HebrewMonth class >> named: aName shortNamed: aShortName positionInNonLeapYear: commonIndex inLeapYear: leapIndex numberOfDaysInYear: number [
 
+  <ignoreForCoverage>
   ^ self
       named: aName
       shortNamed: aShortName
@@ -243,6 +245,7 @@ HebrewMonth class >> named: aName shortNamed: aShortName positionInNonLeapYear: 
 { #category : 'private - instance creation' }
 HebrewMonth class >> named: aName shortNamed: aShortName positionInYear: index numberOfDaysInDeficientYear: deficientNumber numberOfDaysInRegularYear: regularNumber numberOfDaysInCompleteYear: completeNumber [
 
+  <ignoreForCoverage>
   | positionBinding |
   positionBinding := Binding to: index.
   ^ self
@@ -258,6 +261,7 @@ HebrewMonth class >> named: aName shortNamed: aShortName positionInYear: index n
 { #category : 'private - instance creation' }
 HebrewMonth class >> named: aName shortNamed: aShortName positionInYear: index numberOfDaysInYear: number [
 
+  <ignoreForCoverage>
   | indexBinding |
   indexBinding := Binding to: index.
   ^ self
@@ -323,9 +327,10 @@ HebrewMonth >> dayOfMonthAt: dayNumber [
 { #category : 'initialization' }
 HebrewMonth >> initializeNamed: aName shortNamed: aShortName positionInNonLeapYear: commonIndexBinding inLeapYear: leapIndexBinding numberOfDaysInDeficientYear: deficientNumber numberOfDaysInRegularYear: regularNumber numberOfDaysInCompleteYear: completeNumber [
 
+  <ignoreForCoverage>
   name := aName.
   shortName := aShortName.
-  positionInLeapYearBinding  := leapIndexBinding.
+  positionInLeapYearBinding := leapIndexBinding.
   positionInCommonYearBinding := commonIndexBinding.
   numberOfDaysInRegularYear := regularNumber.
   numberOfDaysInCompleteYear := completeNumber.
