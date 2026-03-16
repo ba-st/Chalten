@@ -112,13 +112,13 @@ IslamicMonth class >> initialize [
 ]
 
 { #category : 'accessing' }
-IslamicMonth class >> jumadaI [
+IslamicMonth class >> jumadaAlAwwal [
 
   ^ self monthAt: 5
 ]
 
 { #category : 'accessing' }
-IslamicMonth class >> jumadaII [
+IslamicMonth class >> jumadaAlThani [
 
   ^ self monthAt: 6
 ]
@@ -160,13 +160,13 @@ IslamicMonth class >> named: aName shortNamed: aShortName positionInYear: index 
 ]
 
 { #category : 'accessing' }
-IslamicMonth class >> rabiI [
+IslamicMonth class >> rabiAlAwwal [
 
   ^ self monthAt: 3
 ]
 
 { #category : 'accessing' }
-IslamicMonth class >> rabiII [
+IslamicMonth class >> rabiAlThani [
 
   ^ self monthAt: 4
 ]

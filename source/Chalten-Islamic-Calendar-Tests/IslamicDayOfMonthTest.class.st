@@ -132,71 +132,71 @@ IslamicDayOfMonthTest >> testInstanceCreationShortcutForDuAlQiHijjah [
 IslamicDayOfMonthTest >> testInstanceCreationShortcutForJumadaI [
 
   self
-    assert: ( jumadaI first , 1417 ) printString equals: 'Jumada al-Awwal 1, 1417 AH';
-    assert: ( jumadaI second , 1417 ) printString equals: 'Jumada al-Awwal 2, 1417 AH';
-    assert: ( jumadaI third , 1417 ) printString equals: 'Jumada al-Awwal 3, 1417 AH';
-    assert: ( jumadaI fourth , 1417 ) printString equals: 'Jumada al-Awwal 4, 1417 AH';
-    assert: ( jumadaI fifth , 1417 ) printString equals: 'Jumada al-Awwal 5, 1417 AH';
-    assert: ( jumadaI sixth , 1417 ) printString equals: 'Jumada al-Awwal 6, 1417 AH';
-    assert: ( jumadaI seventh , 1417 ) printString equals: 'Jumada al-Awwal 7, 1417 AH';
-    assert: ( jumadaI eighth , 1417 ) printString equals: 'Jumada al-Awwal 8, 1417 AH';
-    assert: ( jumadaI ninth , 1417 ) printString equals: 'Jumada al-Awwal 9, 1417 AH';
-    assert: ( jumadaI tenth , 1417 ) printString equals: 'Jumada al-Awwal 10, 1417 AH';
-    assert: ( jumadaI eleventh , 1417 ) printString equals: 'Jumada al-Awwal 11, 1417 AH';
-    assert: ( jumadaI twelfth , 1417 ) printString equals: 'Jumada al-Awwal 12, 1417 AH';
-    assert: ( jumadaI thirteenth , 1417 ) printString equals: 'Jumada al-Awwal 13, 1417 AH';
-    assert: ( jumadaI fourteenth , 1417 ) printString equals: 'Jumada al-Awwal 14, 1417 AH';
-    assert: ( jumadaI fifteenth , 1417 ) printString equals: 'Jumada al-Awwal 15, 1417 AH';
-    assert: ( jumadaI sixteenth , 1417 ) printString equals: 'Jumada al-Awwal 16, 1417 AH';
-    assert: ( jumadaI seventeenth , 1417 ) printString equals: 'Jumada al-Awwal 17, 1417 AH';
-    assert: ( jumadaI eighteenth , 1417 ) printString equals: 'Jumada al-Awwal 18, 1417 AH';
-    assert: ( jumadaI nineteenth , 1417 ) printString equals: 'Jumada al-Awwal 19, 1417 AH';
-    assert: ( jumadaI twentieth , 1417 ) printString equals: 'Jumada al-Awwal 20, 1417 AH';
-    assert: ( jumadaI twentyFirst , 1417 ) printString equals: 'Jumada al-Awwal 21, 1417 AH';
-    assert: ( jumadaI twentySecond , 1417 ) printString equals: 'Jumada al-Awwal 22, 1417 AH';
-    assert: ( jumadaI twentyThird , 1417 ) printString equals: 'Jumada al-Awwal 23, 1417 AH';
-    assert: ( jumadaI twentyFourth , 1417 ) printString equals: 'Jumada al-Awwal 24, 1417 AH';
-    assert: ( jumadaI twentyFifth , 1417 ) printString equals: 'Jumada al-Awwal 25, 1417 AH';
-    assert: ( jumadaI twentySixth , 1417 ) printString equals: 'Jumada al-Awwal 26, 1417 AH';
-    assert: ( jumadaI twentySeventh , 1417 ) printString equals: 'Jumada al-Awwal 27, 1417 AH';
-    assert: ( jumadaI twentyEighth , 1417 ) printString equals: 'Jumada al-Awwal 28, 1417 AH';
-    assert: ( jumadaI twentyNinth , 1417 ) printString equals: 'Jumada al-Awwal 29, 1417 AH';
-    assert: ( jumadaI thirtieth , 1417 ) printString equals: 'Jumada al-Awwal 30, 1417 AH'
+    assert: ( jumadaAlAwwal first , 1417 ) printString equals: 'Jumada al-Awwal 1, 1417 AH';
+    assert: ( jumadaAlAwwal second , 1417 ) printString equals: 'Jumada al-Awwal 2, 1417 AH';
+    assert: ( jumadaAlAwwal third , 1417 ) printString equals: 'Jumada al-Awwal 3, 1417 AH';
+    assert: ( jumadaAlAwwal fourth , 1417 ) printString equals: 'Jumada al-Awwal 4, 1417 AH';
+    assert: ( jumadaAlAwwal fifth , 1417 ) printString equals: 'Jumada al-Awwal 5, 1417 AH';
+    assert: ( jumadaAlAwwal sixth , 1417 ) printString equals: 'Jumada al-Awwal 6, 1417 AH';
+    assert: ( jumadaAlAwwal seventh , 1417 ) printString equals: 'Jumada al-Awwal 7, 1417 AH';
+    assert: ( jumadaAlAwwal eighth , 1417 ) printString equals: 'Jumada al-Awwal 8, 1417 AH';
+    assert: ( jumadaAlAwwal ninth , 1417 ) printString equals: 'Jumada al-Awwal 9, 1417 AH';
+    assert: ( jumadaAlAwwal tenth , 1417 ) printString equals: 'Jumada al-Awwal 10, 1417 AH';
+    assert: ( jumadaAlAwwal eleventh , 1417 ) printString equals: 'Jumada al-Awwal 11, 1417 AH';
+    assert: ( jumadaAlAwwal twelfth , 1417 ) printString equals: 'Jumada al-Awwal 12, 1417 AH';
+    assert: ( jumadaAlAwwal thirteenth , 1417 ) printString equals: 'Jumada al-Awwal 13, 1417 AH';
+    assert: ( jumadaAlAwwal fourteenth , 1417 ) printString equals: 'Jumada al-Awwal 14, 1417 AH';
+    assert: ( jumadaAlAwwal fifteenth , 1417 ) printString equals: 'Jumada al-Awwal 15, 1417 AH';
+    assert: ( jumadaAlAwwal sixteenth , 1417 ) printString equals: 'Jumada al-Awwal 16, 1417 AH';
+    assert: ( jumadaAlAwwal seventeenth , 1417 ) printString equals: 'Jumada al-Awwal 17, 1417 AH';
+    assert: ( jumadaAlAwwal eighteenth , 1417 ) printString equals: 'Jumada al-Awwal 18, 1417 AH';
+    assert: ( jumadaAlAwwal nineteenth , 1417 ) printString equals: 'Jumada al-Awwal 19, 1417 AH';
+    assert: ( jumadaAlAwwal twentieth , 1417 ) printString equals: 'Jumada al-Awwal 20, 1417 AH';
+    assert: ( jumadaAlAwwal twentyFirst , 1417 ) printString equals: 'Jumada al-Awwal 21, 1417 AH';
+    assert: ( jumadaAlAwwal twentySecond , 1417 ) printString equals: 'Jumada al-Awwal 22, 1417 AH';
+    assert: ( jumadaAlAwwal twentyThird , 1417 ) printString equals: 'Jumada al-Awwal 23, 1417 AH';
+    assert: ( jumadaAlAwwal twentyFourth , 1417 ) printString equals: 'Jumada al-Awwal 24, 1417 AH';
+    assert: ( jumadaAlAwwal twentyFifth , 1417 ) printString equals: 'Jumada al-Awwal 25, 1417 AH';
+    assert: ( jumadaAlAwwal twentySixth , 1417 ) printString equals: 'Jumada al-Awwal 26, 1417 AH';
+    assert: ( jumadaAlAwwal twentySeventh , 1417 ) printString equals: 'Jumada al-Awwal 27, 1417 AH';
+    assert: ( jumadaAlAwwal twentyEighth , 1417 ) printString equals: 'Jumada al-Awwal 28, 1417 AH';
+    assert: ( jumadaAlAwwal twentyNinth , 1417 ) printString equals: 'Jumada al-Awwal 29, 1417 AH';
+    assert: ( jumadaAlAwwal thirtieth , 1417 ) printString equals: 'Jumada al-Awwal 30, 1417 AH'
 ]
 
 { #category : 'tests' }
 IslamicDayOfMonthTest >> testInstanceCreationShortcutForJumadaII [
 
   self
-    assert: ( jumadaII first , 1417 ) printString equals: 'Jumada al-Thani 1, 1417 AH';
-    assert: ( jumadaII second , 1417 ) printString equals: 'Jumada al-Thani 2, 1417 AH';
-    assert: ( jumadaII third , 1417 ) printString equals: 'Jumada al-Thani 3, 1417 AH';
-    assert: ( jumadaII fourth , 1417 ) printString equals: 'Jumada al-Thani 4, 1417 AH';
-    assert: ( jumadaII fifth , 1417 ) printString equals: 'Jumada al-Thani 5, 1417 AH';
-    assert: ( jumadaII sixth , 1417 ) printString equals: 'Jumada al-Thani 6, 1417 AH';
-    assert: ( jumadaII seventh , 1417 ) printString equals: 'Jumada al-Thani 7, 1417 AH';
-    assert: ( jumadaII eighth , 1417 ) printString equals: 'Jumada al-Thani 8, 1417 AH';
-    assert: ( jumadaII ninth , 1417 ) printString equals: 'Jumada al-Thani 9, 1417 AH';
-    assert: ( jumadaII tenth , 1417 ) printString equals: 'Jumada al-Thani 10, 1417 AH';
-    assert: ( jumadaII eleventh , 1417 ) printString equals: 'Jumada al-Thani 11, 1417 AH';
-    assert: ( jumadaII twelfth , 1417 ) printString equals: 'Jumada al-Thani 12, 1417 AH';
-    assert: ( jumadaII thirteenth , 1417 ) printString equals: 'Jumada al-Thani 13, 1417 AH';
-    assert: ( jumadaII fourteenth , 1417 ) printString equals: 'Jumada al-Thani 14, 1417 AH';
-    assert: ( jumadaII fifteenth , 1417 ) printString equals: 'Jumada al-Thani 15, 1417 AH';
-    assert: ( jumadaII sixteenth , 1417 ) printString equals: 'Jumada al-Thani 16, 1417 AH';
-    assert: ( jumadaII seventeenth , 1417 ) printString equals: 'Jumada al-Thani 17, 1417 AH';
-    assert: ( jumadaII eighteenth , 1417 ) printString equals: 'Jumada al-Thani 18, 1417 AH';
-    assert: ( jumadaII nineteenth , 1417 ) printString equals: 'Jumada al-Thani 19, 1417 AH';
-    assert: ( jumadaII twentieth , 1417 ) printString equals: 'Jumada al-Thani 20, 1417 AH';
-    assert: ( jumadaII twentyFirst , 1417 ) printString equals: 'Jumada al-Thani 21, 1417 AH';
-    assert: ( jumadaII twentySecond , 1417 ) printString equals: 'Jumada al-Thani 22, 1417 AH';
-    assert: ( jumadaII twentyThird , 1417 ) printString equals: 'Jumada al-Thani 23, 1417 AH';
-    assert: ( jumadaII twentyFourth , 1417 ) printString equals: 'Jumada al-Thani 24, 1417 AH';
-    assert: ( jumadaII twentyFifth , 1417 ) printString equals: 'Jumada al-Thani 25, 1417 AH';
-    assert: ( jumadaII twentySixth , 1417 ) printString equals: 'Jumada al-Thani 26, 1417 AH';
-    assert: ( jumadaII twentySeventh , 1417 ) printString equals: 'Jumada al-Thani 27, 1417 AH';
-    assert: ( jumadaII twentyEighth , 1417 ) printString equals: 'Jumada al-Thani 28, 1417 AH';
-    assert: ( jumadaII twentyNinth , 1417 ) printString equals: 'Jumada al-Thani 29, 1417 AH'
+    assert: ( jumadaAlThani first , 1417 ) printString equals: 'Jumada al-Thani 1, 1417 AH';
+    assert: ( jumadaAlThani second , 1417 ) printString equals: 'Jumada al-Thani 2, 1417 AH';
+    assert: ( jumadaAlThani third , 1417 ) printString equals: 'Jumada al-Thani 3, 1417 AH';
+    assert: ( jumadaAlThani fourth , 1417 ) printString equals: 'Jumada al-Thani 4, 1417 AH';
+    assert: ( jumadaAlThani fifth , 1417 ) printString equals: 'Jumada al-Thani 5, 1417 AH';
+    assert: ( jumadaAlThani sixth , 1417 ) printString equals: 'Jumada al-Thani 6, 1417 AH';
+    assert: ( jumadaAlThani seventh , 1417 ) printString equals: 'Jumada al-Thani 7, 1417 AH';
+    assert: ( jumadaAlThani eighth , 1417 ) printString equals: 'Jumada al-Thani 8, 1417 AH';
+    assert: ( jumadaAlThani ninth , 1417 ) printString equals: 'Jumada al-Thani 9, 1417 AH';
+    assert: ( jumadaAlThani tenth , 1417 ) printString equals: 'Jumada al-Thani 10, 1417 AH';
+    assert: ( jumadaAlThani eleventh , 1417 ) printString equals: 'Jumada al-Thani 11, 1417 AH';
+    assert: ( jumadaAlThani twelfth , 1417 ) printString equals: 'Jumada al-Thani 12, 1417 AH';
+    assert: ( jumadaAlThani thirteenth , 1417 ) printString equals: 'Jumada al-Thani 13, 1417 AH';
+    assert: ( jumadaAlThani fourteenth , 1417 ) printString equals: 'Jumada al-Thani 14, 1417 AH';
+    assert: ( jumadaAlThani fifteenth , 1417 ) printString equals: 'Jumada al-Thani 15, 1417 AH';
+    assert: ( jumadaAlThani sixteenth , 1417 ) printString equals: 'Jumada al-Thani 16, 1417 AH';
+    assert: ( jumadaAlThani seventeenth , 1417 ) printString equals: 'Jumada al-Thani 17, 1417 AH';
+    assert: ( jumadaAlThani eighteenth , 1417 ) printString equals: 'Jumada al-Thani 18, 1417 AH';
+    assert: ( jumadaAlThani nineteenth , 1417 ) printString equals: 'Jumada al-Thani 19, 1417 AH';
+    assert: ( jumadaAlThani twentieth , 1417 ) printString equals: 'Jumada al-Thani 20, 1417 AH';
+    assert: ( jumadaAlThani twentyFirst , 1417 ) printString equals: 'Jumada al-Thani 21, 1417 AH';
+    assert: ( jumadaAlThani twentySecond , 1417 ) printString equals: 'Jumada al-Thani 22, 1417 AH';
+    assert: ( jumadaAlThani twentyThird , 1417 ) printString equals: 'Jumada al-Thani 23, 1417 AH';
+    assert: ( jumadaAlThani twentyFourth , 1417 ) printString equals: 'Jumada al-Thani 24, 1417 AH';
+    assert: ( jumadaAlThani twentyFifth , 1417 ) printString equals: 'Jumada al-Thani 25, 1417 AH';
+    assert: ( jumadaAlThani twentySixth , 1417 ) printString equals: 'Jumada al-Thani 26, 1417 AH';
+    assert: ( jumadaAlThani twentySeventh , 1417 ) printString equals: 'Jumada al-Thani 27, 1417 AH';
+    assert: ( jumadaAlThani twentyEighth , 1417 ) printString equals: 'Jumada al-Thani 28, 1417 AH';
+    assert: ( jumadaAlThani twentyNinth , 1417 ) printString equals: 'Jumada al-Thani 29, 1417 AH'
 ]
 
 { #category : 'tests' }
@@ -239,71 +239,71 @@ IslamicDayOfMonthTest >> testInstanceCreationShortcutForMuharram [
 IslamicDayOfMonthTest >> testInstanceCreationShortcutForRabiI [
 
   self
-    assert: ( rabiI first , 1417 ) printString equals: 'Rabi'' al-Awwal 1, 1417 AH';
-    assert: ( rabiI second , 1417 ) printString equals: 'Rabi'' al-Awwal 2, 1417 AH';
-    assert: ( rabiI third , 1417 ) printString equals: 'Rabi'' al-Awwal 3, 1417 AH';
-    assert: ( rabiI fourth , 1417 ) printString equals: 'Rabi'' al-Awwal 4, 1417 AH';
-    assert: ( rabiI fifth , 1417 ) printString equals: 'Rabi'' al-Awwal 5, 1417 AH';
-    assert: ( rabiI sixth , 1417 ) printString equals: 'Rabi'' al-Awwal 6, 1417 AH';
-    assert: ( rabiI seventh , 1417 ) printString equals: 'Rabi'' al-Awwal 7, 1417 AH';
-    assert: ( rabiI eighth , 1417 ) printString equals: 'Rabi'' al-Awwal 8, 1417 AH';
-    assert: ( rabiI ninth , 1417 ) printString equals: 'Rabi'' al-Awwal 9, 1417 AH';
-    assert: ( rabiI tenth , 1417 ) printString equals: 'Rabi'' al-Awwal 10, 1417 AH';
-    assert: ( rabiI eleventh , 1417 ) printString equals: 'Rabi'' al-Awwal 11, 1417 AH';
-    assert: ( rabiI twelfth , 1417 ) printString equals: 'Rabi'' al-Awwal 12, 1417 AH';
-    assert: ( rabiI thirteenth , 1417 ) printString equals: 'Rabi'' al-Awwal 13, 1417 AH';
-    assert: ( rabiI fourteenth , 1417 ) printString equals: 'Rabi'' al-Awwal 14, 1417 AH';
-    assert: ( rabiI fifteenth , 1417 ) printString equals: 'Rabi'' al-Awwal 15, 1417 AH';
-    assert: ( rabiI sixteenth , 1417 ) printString equals: 'Rabi'' al-Awwal 16, 1417 AH';
-    assert: ( rabiI seventeenth , 1417 ) printString equals: 'Rabi'' al-Awwal 17, 1417 AH';
-    assert: ( rabiI eighteenth , 1417 ) printString equals: 'Rabi'' al-Awwal 18, 1417 AH';
-    assert: ( rabiI nineteenth , 1417 ) printString equals: 'Rabi'' al-Awwal 19, 1417 AH';
-    assert: ( rabiI twentieth , 1417 ) printString equals: 'Rabi'' al-Awwal 20, 1417 AH';
-    assert: ( rabiI twentyFirst , 1417 ) printString equals: 'Rabi'' al-Awwal 21, 1417 AH';
-    assert: ( rabiI twentySecond , 1417 ) printString equals: 'Rabi'' al-Awwal 22, 1417 AH';
-    assert: ( rabiI twentyThird , 1417 ) printString equals: 'Rabi'' al-Awwal 23, 1417 AH';
-    assert: ( rabiI twentyFourth , 1417 ) printString equals: 'Rabi'' al-Awwal 24, 1417 AH';
-    assert: ( rabiI twentyFifth , 1417 ) printString equals: 'Rabi'' al-Awwal 25, 1417 AH';
-    assert: ( rabiI twentySixth , 1417 ) printString equals: 'Rabi'' al-Awwal 26, 1417 AH';
-    assert: ( rabiI twentySeventh , 1417 ) printString equals: 'Rabi'' al-Awwal 27, 1417 AH';
-    assert: ( rabiI twentyEighth , 1417 ) printString equals: 'Rabi'' al-Awwal 28, 1417 AH';
-    assert: ( rabiI twentyNinth , 1417 ) printString equals: 'Rabi'' al-Awwal 29, 1417 AH';
-    assert: ( rabiI thirtieth , 1417 ) printString equals: 'Rabi'' al-Awwal 30, 1417 AH'
+    assert: ( rabiAlAwwal first , 1417 ) printString equals: 'Rabi'' al-Awwal 1, 1417 AH';
+    assert: ( rabiAlAwwal second , 1417 ) printString equals: 'Rabi'' al-Awwal 2, 1417 AH';
+    assert: ( rabiAlAwwal third , 1417 ) printString equals: 'Rabi'' al-Awwal 3, 1417 AH';
+    assert: ( rabiAlAwwal fourth , 1417 ) printString equals: 'Rabi'' al-Awwal 4, 1417 AH';
+    assert: ( rabiAlAwwal fifth , 1417 ) printString equals: 'Rabi'' al-Awwal 5, 1417 AH';
+    assert: ( rabiAlAwwal sixth , 1417 ) printString equals: 'Rabi'' al-Awwal 6, 1417 AH';
+    assert: ( rabiAlAwwal seventh , 1417 ) printString equals: 'Rabi'' al-Awwal 7, 1417 AH';
+    assert: ( rabiAlAwwal eighth , 1417 ) printString equals: 'Rabi'' al-Awwal 8, 1417 AH';
+    assert: ( rabiAlAwwal ninth , 1417 ) printString equals: 'Rabi'' al-Awwal 9, 1417 AH';
+    assert: ( rabiAlAwwal tenth , 1417 ) printString equals: 'Rabi'' al-Awwal 10, 1417 AH';
+    assert: ( rabiAlAwwal eleventh , 1417 ) printString equals: 'Rabi'' al-Awwal 11, 1417 AH';
+    assert: ( rabiAlAwwal twelfth , 1417 ) printString equals: 'Rabi'' al-Awwal 12, 1417 AH';
+    assert: ( rabiAlAwwal thirteenth , 1417 ) printString equals: 'Rabi'' al-Awwal 13, 1417 AH';
+    assert: ( rabiAlAwwal fourteenth , 1417 ) printString equals: 'Rabi'' al-Awwal 14, 1417 AH';
+    assert: ( rabiAlAwwal fifteenth , 1417 ) printString equals: 'Rabi'' al-Awwal 15, 1417 AH';
+    assert: ( rabiAlAwwal sixteenth , 1417 ) printString equals: 'Rabi'' al-Awwal 16, 1417 AH';
+    assert: ( rabiAlAwwal seventeenth , 1417 ) printString equals: 'Rabi'' al-Awwal 17, 1417 AH';
+    assert: ( rabiAlAwwal eighteenth , 1417 ) printString equals: 'Rabi'' al-Awwal 18, 1417 AH';
+    assert: ( rabiAlAwwal nineteenth , 1417 ) printString equals: 'Rabi'' al-Awwal 19, 1417 AH';
+    assert: ( rabiAlAwwal twentieth , 1417 ) printString equals: 'Rabi'' al-Awwal 20, 1417 AH';
+    assert: ( rabiAlAwwal twentyFirst , 1417 ) printString equals: 'Rabi'' al-Awwal 21, 1417 AH';
+    assert: ( rabiAlAwwal twentySecond , 1417 ) printString equals: 'Rabi'' al-Awwal 22, 1417 AH';
+    assert: ( rabiAlAwwal twentyThird , 1417 ) printString equals: 'Rabi'' al-Awwal 23, 1417 AH';
+    assert: ( rabiAlAwwal twentyFourth , 1417 ) printString equals: 'Rabi'' al-Awwal 24, 1417 AH';
+    assert: ( rabiAlAwwal twentyFifth , 1417 ) printString equals: 'Rabi'' al-Awwal 25, 1417 AH';
+    assert: ( rabiAlAwwal twentySixth , 1417 ) printString equals: 'Rabi'' al-Awwal 26, 1417 AH';
+    assert: ( rabiAlAwwal twentySeventh , 1417 ) printString equals: 'Rabi'' al-Awwal 27, 1417 AH';
+    assert: ( rabiAlAwwal twentyEighth , 1417 ) printString equals: 'Rabi'' al-Awwal 28, 1417 AH';
+    assert: ( rabiAlAwwal twentyNinth , 1417 ) printString equals: 'Rabi'' al-Awwal 29, 1417 AH';
+    assert: ( rabiAlAwwal thirtieth , 1417 ) printString equals: 'Rabi'' al-Awwal 30, 1417 AH'
 ]
 
 { #category : 'tests' }
 IslamicDayOfMonthTest >> testInstanceCreationShortcutForRabiII [
 
   self
-    assert: ( rabiII first , 1417 ) printString equals: 'Rabi'' al-Thani 1, 1417 AH';
-    assert: ( rabiII second , 1417 ) printString equals: 'Rabi'' al-Thani 2, 1417 AH';
-    assert: ( rabiII third , 1417 ) printString equals: 'Rabi'' al-Thani 3, 1417 AH';
-    assert: ( rabiII fourth , 1417 ) printString equals: 'Rabi'' al-Thani 4, 1417 AH';
-    assert: ( rabiII fifth , 1417 ) printString equals: 'Rabi'' al-Thani 5, 1417 AH';
-    assert: ( rabiII sixth , 1417 ) printString equals: 'Rabi'' al-Thani 6, 1417 AH';
-    assert: ( rabiII seventh , 1417 ) printString equals: 'Rabi'' al-Thani 7, 1417 AH';
-    assert: ( rabiII eighth , 1417 ) printString equals: 'Rabi'' al-Thani 8, 1417 AH';
-    assert: ( rabiII ninth , 1417 ) printString equals: 'Rabi'' al-Thani 9, 1417 AH';
-    assert: ( rabiII tenth , 1417 ) printString equals: 'Rabi'' al-Thani 10, 1417 AH';
-    assert: ( rabiII eleventh , 1417 ) printString equals: 'Rabi'' al-Thani 11, 1417 AH';
-    assert: ( rabiII twelfth , 1417 ) printString equals: 'Rabi'' al-Thani 12, 1417 AH';
-    assert: ( rabiII thirteenth , 1417 ) printString equals: 'Rabi'' al-Thani 13, 1417 AH';
-    assert: ( rabiII fourteenth , 1417 ) printString equals: 'Rabi'' al-Thani 14, 1417 AH';
-    assert: ( rabiII fifteenth , 1417 ) printString equals: 'Rabi'' al-Thani 15, 1417 AH';
-    assert: ( rabiII sixteenth , 1417 ) printString equals: 'Rabi'' al-Thani 16, 1417 AH';
-    assert: ( rabiII seventeenth , 1417 ) printString equals: 'Rabi'' al-Thani 17, 1417 AH';
-    assert: ( rabiII eighteenth , 1417 ) printString equals: 'Rabi'' al-Thani 18, 1417 AH';
-    assert: ( rabiII nineteenth , 1417 ) printString equals: 'Rabi'' al-Thani 19, 1417 AH';
-    assert: ( rabiII twentieth , 1417 ) printString equals: 'Rabi'' al-Thani 20, 1417 AH';
-    assert: ( rabiII twentyFirst , 1417 ) printString equals: 'Rabi'' al-Thani 21, 1417 AH';
-    assert: ( rabiII twentySecond , 1417 ) printString equals: 'Rabi'' al-Thani 22, 1417 AH';
-    assert: ( rabiII twentyThird , 1417 ) printString equals: 'Rabi'' al-Thani 23, 1417 AH';
-    assert: ( rabiII twentyFourth , 1417 ) printString equals: 'Rabi'' al-Thani 24, 1417 AH';
-    assert: ( rabiII twentyFifth , 1417 ) printString equals: 'Rabi'' al-Thani 25, 1417 AH';
-    assert: ( rabiII twentySixth , 1417 ) printString equals: 'Rabi'' al-Thani 26, 1417 AH';
-    assert: ( rabiII twentySeventh , 1417 ) printString equals: 'Rabi'' al-Thani 27, 1417 AH';
-    assert: ( rabiII twentyEighth , 1417 ) printString equals: 'Rabi'' al-Thani 28, 1417 AH';
-    assert: ( rabiII twentyNinth , 1417 ) printString equals: 'Rabi'' al-Thani 29, 1417 AH'
+    assert: ( rabiAlThani first , 1417 ) printString equals: 'Rabi'' al-Thani 1, 1417 AH';
+    assert: ( rabiAlThani second , 1417 ) printString equals: 'Rabi'' al-Thani 2, 1417 AH';
+    assert: ( rabiAlThani third , 1417 ) printString equals: 'Rabi'' al-Thani 3, 1417 AH';
+    assert: ( rabiAlThani fourth , 1417 ) printString equals: 'Rabi'' al-Thani 4, 1417 AH';
+    assert: ( rabiAlThani fifth , 1417 ) printString equals: 'Rabi'' al-Thani 5, 1417 AH';
+    assert: ( rabiAlThani sixth , 1417 ) printString equals: 'Rabi'' al-Thani 6, 1417 AH';
+    assert: ( rabiAlThani seventh , 1417 ) printString equals: 'Rabi'' al-Thani 7, 1417 AH';
+    assert: ( rabiAlThani eighth , 1417 ) printString equals: 'Rabi'' al-Thani 8, 1417 AH';
+    assert: ( rabiAlThani ninth , 1417 ) printString equals: 'Rabi'' al-Thani 9, 1417 AH';
+    assert: ( rabiAlThani tenth , 1417 ) printString equals: 'Rabi'' al-Thani 10, 1417 AH';
+    assert: ( rabiAlThani eleventh , 1417 ) printString equals: 'Rabi'' al-Thani 11, 1417 AH';
+    assert: ( rabiAlThani twelfth , 1417 ) printString equals: 'Rabi'' al-Thani 12, 1417 AH';
+    assert: ( rabiAlThani thirteenth , 1417 ) printString equals: 'Rabi'' al-Thani 13, 1417 AH';
+    assert: ( rabiAlThani fourteenth , 1417 ) printString equals: 'Rabi'' al-Thani 14, 1417 AH';
+    assert: ( rabiAlThani fifteenth , 1417 ) printString equals: 'Rabi'' al-Thani 15, 1417 AH';
+    assert: ( rabiAlThani sixteenth , 1417 ) printString equals: 'Rabi'' al-Thani 16, 1417 AH';
+    assert: ( rabiAlThani seventeenth , 1417 ) printString equals: 'Rabi'' al-Thani 17, 1417 AH';
+    assert: ( rabiAlThani eighteenth , 1417 ) printString equals: 'Rabi'' al-Thani 18, 1417 AH';
+    assert: ( rabiAlThani nineteenth , 1417 ) printString equals: 'Rabi'' al-Thani 19, 1417 AH';
+    assert: ( rabiAlThani twentieth , 1417 ) printString equals: 'Rabi'' al-Thani 20, 1417 AH';
+    assert: ( rabiAlThani twentyFirst , 1417 ) printString equals: 'Rabi'' al-Thani 21, 1417 AH';
+    assert: ( rabiAlThani twentySecond , 1417 ) printString equals: 'Rabi'' al-Thani 22, 1417 AH';
+    assert: ( rabiAlThani twentyThird , 1417 ) printString equals: 'Rabi'' al-Thani 23, 1417 AH';
+    assert: ( rabiAlThani twentyFourth , 1417 ) printString equals: 'Rabi'' al-Thani 24, 1417 AH';
+    assert: ( rabiAlThani twentyFifth , 1417 ) printString equals: 'Rabi'' al-Thani 25, 1417 AH';
+    assert: ( rabiAlThani twentySixth , 1417 ) printString equals: 'Rabi'' al-Thani 26, 1417 AH';
+    assert: ( rabiAlThani twentySeventh , 1417 ) printString equals: 'Rabi'' al-Thani 27, 1417 AH';
+    assert: ( rabiAlThani twentyEighth , 1417 ) printString equals: 'Rabi'' al-Thani 28, 1417 AH';
+    assert: ( rabiAlThani twentyNinth , 1417 ) printString equals: 'Rabi'' al-Thani 29, 1417 AH'
 ]
 
 { #category : 'tests' }

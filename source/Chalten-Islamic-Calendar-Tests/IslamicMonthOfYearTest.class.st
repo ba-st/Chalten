@@ -39,11 +39,11 @@ IslamicMonthOfYearTest >> testComparing [
 IslamicMonthOfYearTest >> testCreation [
 
   | monthOfYear |
-  monthOfYear := 1433 asIslamicYear jumadaI.
+  monthOfYear := 1433 asIslamicYear jumadaAlAwwal.
 
   self
     assert: monthOfYear year equals: 1433 asIslamicYear;
-    assert: monthOfYear month equals: jumadaI
+    assert: monthOfYear month equals: jumadaAlAwwal
 ]
 
 { #category : 'tests' }
@@ -105,12 +105,12 @@ IslamicMonthOfYearTest >> testNext [
 
   self
     assert: ( 1 asIslamicYear muharram next: 2024 * islamicYear ) equals: baseYear muharram;
-    assert: ( baseYear rabiII next: 12 * islamicMonth ) equals: 2026 asIslamicYear rabiII;
+    assert: ( baseYear rabiAlThani next: 12 * islamicMonth ) equals: 2026 asIslamicYear rabiAlThani;
     assert: ( baseYear rajab next: -1 * islamicYear ) equals: 2024 asIslamicYear rajab;
     assert: ( baseYear rajab next: -1 / 2 * islamicYear ) equals: baseYear muharram;
-    assert: ( 2020 asIslamicYear jumadaII next: 10 * islamicYear )
-    equals: 2030 asIslamicYear jumadaII;
-    assert: ( baseYear ramadan next: 1 / 2 * islamicYear ) equals: 2026 asIslamicYear rabiI.
+    assert: ( 2020 asIslamicYear jumadaAlThani next: 10 * islamicYear )
+    equals: 2030 asIslamicYear jumadaAlThani;
+    assert: ( baseYear ramadan next: 1 / 2 * islamicYear ) equals: 2026 asIslamicYear rabiAlAwwal.
 
   self
     should: [ baseYear ramadan next: 30 * day ]
@@ -129,14 +129,14 @@ IslamicMonthOfYearTest >> testNumberOfDays [
     assert: 1442 asIslamicYear muharram numberOfDays equals: 30 * day;
     assert: 1443 asIslamicYear safar numberOfDays equals: 29 * day;
     assert: 1442 asIslamicYear safar numberOfDays equals: 29 * day;
-    assert: 1443 asIslamicYear rabiI numberOfDays equals: 30 * day;
-    assert: 1442 asIslamicYear rabiI numberOfDays equals: 30 * day;
-    assert: 1443 asIslamicYear rabiII numberOfDays equals: 29 * day;
-    assert: 1442 asIslamicYear rabiII numberOfDays equals: 29 * day;
-    assert: 1443 asIslamicYear jumadaI numberOfDays equals: 30 * day;
-    assert: 1442 asIslamicYear jumadaI numberOfDays equals: 30 * day;
-    assert: 1443 asIslamicYear jumadaII numberOfDays equals: 29 * day;
-    assert: 1442 asIslamicYear jumadaII numberOfDays equals: 29 * day;
+    assert: 1443 asIslamicYear rabiAlAwwal numberOfDays equals: 30 * day;
+    assert: 1442 asIslamicYear rabiAlAwwal numberOfDays equals: 30 * day;
+    assert: 1443 asIslamicYear rabiAlThani numberOfDays equals: 29 * day;
+    assert: 1442 asIslamicYear rabiAlThani numberOfDays equals: 29 * day;
+    assert: 1443 asIslamicYear jumadaAlAwwal numberOfDays equals: 30 * day;
+    assert: 1442 asIslamicYear jumadaAlAwwal numberOfDays equals: 30 * day;
+    assert: 1443 asIslamicYear jumadaAlThani numberOfDays equals: 29 * day;
+    assert: 1442 asIslamicYear jumadaAlThani numberOfDays equals: 29 * day;
     assert: 1443 asIslamicYear rajab numberOfDays equals: 30 * day;
     assert: 1442 asIslamicYear rajab numberOfDays equals: 30 * day;
     assert: 1443 asIslamicYear shaban numberOfDays equals: 29 * day;
@@ -163,12 +163,12 @@ IslamicMonthOfYearTest >> testPrevious [
 
   self
     assert: ( baseYear muharram previous: 2024 * islamicYear ) equals: 1 asIslamicYear muharram;
-    assert: ( baseYear rabiII previous: 12 * islamicMonth ) equals: 2024 asIslamicYear rabiII;
+    assert: ( baseYear rabiAlThani previous: 12 * islamicMonth ) equals: 2024 asIslamicYear rabiAlThani;
     assert: ( baseYear rajab previous: -1 * islamicYear ) equals: 2026 asIslamicYear rajab;
     assert: ( baseYear rajab previous: -1 / 2 * islamicYear ) equals: 2026 asIslamicYear muharram;
-    assert: ( 2020 asIslamicYear jumadaII previous: 10 * islamicYear )
-    equals: 2010 asIslamicYear jumadaII;
-    assert: ( baseYear rabiI previous: 1 / 2 * islamicYear ) equals: 2024 asIslamicYear ramadan.
+    assert: ( 2020 asIslamicYear jumadaAlThani previous: 10 * islamicYear )
+    equals: 2010 asIslamicYear jumadaAlThani;
+    assert: ( baseYear rabiAlAwwal previous: 1 / 2 * islamicYear ) equals: 2024 asIslamicYear ramadan.
 
   self
     should: [ baseYear muharram previous: 30 * day ]

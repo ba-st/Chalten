@@ -6,16 +6,16 @@ Class {
 		'islamicMonth',
 		'muharram',
 		'safar',
-		'rabiI',
-		'rabiII',
-		'jumadaI',
-		'jumadaII',
 		'rajab',
 		'shaban',
 		'ramadan',
 		'shawwal',
 		'duAlQiDah',
-		'duAlHijjah'
+		'duAlHijjah',
+		'rabiAlAwwal',
+		'rabiAlThani',
+		'jumadaAlAwwal',
+		'jumadaAlThani'
 	],
 	#category : 'Chalten-Islamic-Calendar-Tests',
 	#package : 'Chalten-Islamic-Calendar-Tests'
@@ -36,10 +36,10 @@ IslamicCalendarTest >> setUp [
   islamicMonth := IslamicCalendar month.
   muharram := IslamicMonth muharram.
   safar := IslamicMonth safar.
-  rabiI := IslamicMonth rabiI.
-  rabiII := IslamicMonth rabiII.
-  jumadaI := IslamicMonth jumadaI.
-  jumadaII := IslamicMonth jumadaII.
+  rabiAlAwwal := IslamicMonth rabiAlAwwal.
+  rabiAlThani := IslamicMonth rabiAlThani.
+  jumadaAlAwwal := IslamicMonth jumadaAlAwwal.
+  jumadaAlThani := IslamicMonth jumadaAlThani.
   rajab := IslamicMonth rajab.
   shaban := IslamicMonth shaban.
   ramadan := IslamicMonth ramadan.

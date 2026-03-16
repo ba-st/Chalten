@@ -46,33 +46,33 @@ IslamicMonthTest >> testInstanceCreation [
   IslamicMonth all doWithIndex: [ :eachMonth :index |
       self assert: eachMonth positionInYear equals: index ].
   IslamicMonth all
-    with: { IslamicMonth muharram . IslamicMonth safar . IslamicMonth rabiI . IslamicMonth rabiII .
-        IslamicMonth jumadaI . IslamicMonth jumadaII . IslamicMonth rajab . IslamicMonth shaban .
+    with: { IslamicMonth muharram . IslamicMonth safar . IslamicMonth rabiAlAwwal . IslamicMonth rabiAlThani .
+        IslamicMonth jumadaAlAwwal . IslamicMonth jumadaAlThani . IslamicMonth rajab . IslamicMonth shaban .
         IslamicMonth ramadan . IslamicMonth shawwal . IslamicMonth duAlQiDah .
         IslamicMonth duAlHijjah }
     do: [ :eachMonth :sameMonth | self assert: eachMonth equals: sameMonth ]
 ]
 
 { #category : 'tests' }
-IslamicMonthTest >> testJumadaI [
+IslamicMonthTest >> testJumadaAlAwwal [
 
   self
-    assert: jumadaI positionInYear equals: 5;
-    assert: jumadaI name equals: 'Jumada al-Awwal';
-    assert: jumadaI shortName equals: 'Jum. I';
-    assert: jumadaI numberOfDaysInLeapYear equals: 30 * day;
-    assert: jumadaI numberOfDaysInCommonYear equals: 30 * day
+    assert: jumadaAlAwwal positionInYear equals: 5;
+    assert: jumadaAlAwwal name equals: 'Jumada al-Awwal';
+    assert: jumadaAlAwwal shortName equals: 'Jum. I';
+    assert: jumadaAlAwwal numberOfDaysInLeapYear equals: 30 * day;
+    assert: jumadaAlAwwal numberOfDaysInCommonYear equals: 30 * day
 ]
 
 { #category : 'tests' }
-IslamicMonthTest >> testJumadaII [
+IslamicMonthTest >> testJumadaAlThani [
 
   self
-    assert: jumadaII positionInYear equals: 6;
-    assert: jumadaII name equals: 'Jumada al-Thani';
-    assert: jumadaII shortName equals: 'Jum. II';
-    assert: jumadaII numberOfDaysInLeapYear equals: 29 * day;
-    assert: jumadaII numberOfDaysInCommonYear equals: 29 * day
+    assert: jumadaAlThani positionInYear equals: 6;
+    assert: jumadaAlThani name equals: 'Jumada al-Thani';
+    assert: jumadaAlThani shortName equals: 'Jum. II';
+    assert: jumadaAlThani numberOfDaysInLeapYear equals: 29 * day;
+    assert: jumadaAlThani numberOfDaysInCommonYear equals: 29 * day
 ]
 
 { #category : 'tests' }
@@ -123,10 +123,10 @@ IslamicMonthTest >> testNext [
   self
     assert: ( muharram next: 1 * islamicYear ) equals: muharram;
     assert: ( muharram next: 1 * islamicMonth ) equals: safar;
-    assert: ( muharram next: 2 * islamicMonth ) equals: rabiI;
-    assert: ( muharram next: 3 * islamicMonth ) equals: rabiII;
-    assert: ( muharram next: 4 * islamicMonth ) equals: jumadaI;
-    assert: ( muharram next: 5 * islamicMonth ) equals: jumadaII;
+    assert: ( muharram next: 2 * islamicMonth ) equals: rabiAlAwwal;
+    assert: ( muharram next: 3 * islamicMonth ) equals: rabiAlThani;
+    assert: ( muharram next: 4 * islamicMonth ) equals: jumadaAlAwwal;
+    assert: ( muharram next: 5 * islamicMonth ) equals: jumadaAlThani;
     assert: ( muharram next: 6 * islamicMonth ) equals: rajab;
     assert: ( muharram next: 7 * islamicMonth ) equals: shaban;
     assert: ( muharram next: 8 * islamicMonth ) equals: ramadan;
@@ -149,10 +149,10 @@ IslamicMonthTest >> testPrevious [
     assert: ( muharram previous: 4 * islamicMonth ) equals: ramadan;
     assert: ( muharram previous: 5 * islamicMonth ) equals: shaban;
     assert: ( muharram previous: 6 * islamicMonth ) equals: rajab;
-    assert: ( muharram previous: 7 * islamicMonth ) equals: jumadaII;
-    assert: ( muharram previous: 8 * islamicMonth ) equals: jumadaI;
-    assert: ( muharram previous: 9 * islamicMonth ) equals: rabiII;
-    assert: ( muharram previous: 10 * islamicMonth ) equals: rabiI;
+    assert: ( muharram previous: 7 * islamicMonth ) equals: jumadaAlThani;
+    assert: ( muharram previous: 8 * islamicMonth ) equals: jumadaAlAwwal;
+    assert: ( muharram previous: 9 * islamicMonth ) equals: rabiAlThani;
+    assert: ( muharram previous: 10 * islamicMonth ) equals: rabiAlAwwal;
     assert: ( muharram previous: 11 * islamicMonth ) equals: safar;
     assert: ( muharram previous: 12 * islamicMonth ) equals: muharram.
 
@@ -171,25 +171,25 @@ IslamicMonthTest >> testPrintString [
 ]
 
 { #category : 'tests' }
-IslamicMonthTest >> testRabiI [
+IslamicMonthTest >> testRabiAlAwwal [
 
   self
-    assert: rabiI positionInYear equals: 3;
-    assert: rabiI name equals: 'Rabi'' al-Awwal';
-    assert: rabiI shortName equals: 'Rab. I';
-    assert: rabiI numberOfDaysInLeapYear equals: 30 * day;
-    assert: rabiI numberOfDaysInCommonYear equals: 30 * day
+    assert: rabiAlAwwal positionInYear equals: 3;
+    assert: rabiAlAwwal name equals: 'Rabi'' al-Awwal';
+    assert: rabiAlAwwal shortName equals: 'Rab. I';
+    assert: rabiAlAwwal numberOfDaysInLeapYear equals: 30 * day;
+    assert: rabiAlAwwal numberOfDaysInCommonYear equals: 30 * day
 ]
 
 { #category : 'tests' }
-IslamicMonthTest >> testRabiII [
+IslamicMonthTest >> testRabiAlThani [
 
   self
-    assert: rabiII positionInYear equals: 4;
-    assert: rabiII name equals: 'Rabi'' al-Thani';
-    assert: rabiII shortName equals: 'Rab. II';
-    assert: rabiII numberOfDaysInLeapYear equals: 29 * day;
-    assert: rabiII numberOfDaysInCommonYear equals: 29 * day
+    assert: rabiAlThani positionInYear equals: 4;
+    assert: rabiAlThani name equals: 'Rabi'' al-Thani';
+    assert: rabiAlThani shortName equals: 'Rab. II';
+    assert: rabiAlThani numberOfDaysInLeapYear equals: 29 * day;
+    assert: rabiAlThani numberOfDaysInCommonYear equals: 29 * day
 ]
 
 { #category : 'tests' }

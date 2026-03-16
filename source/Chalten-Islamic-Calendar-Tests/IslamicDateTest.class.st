@@ -21,13 +21,13 @@ IslamicDateTest >> assert: dayCount daysBefore: date is: anotherDate [
 IslamicDateTest >> testAccessing [
 
   | date |
-  date := jumadaII first , 2025.
+  date := jumadaAlThani first , 2025.
   self
     assert: date dayNumber equals: 1;
     assert: date year equals: 2025 asIslamicYear;
     assert: date yearNumber equals: 2025;
-    assert: date monthOfYear equals: jumadaII , 2025;
-    assert: date month equals: jumadaII;
+    assert: date monthOfYear equals: jumadaAlThani , 2025;
+    assert: date month equals: jumadaAlThani;
     assert: date monthNumber equals: 6
 ]
 
@@ -40,7 +40,7 @@ IslamicDateTest >> testBetweenAnd [
     assert: ( muharram second , 2025 between: muharram first , 2025 and: muharram third , 2025 );
     assert: ( safar first , 2025 between: muharram first , 2025 and: safar first , 2025 );
     assert: ( safar first , 2025 between: muharram first , 2025 and: safar third , 2025 );
-    assert: ( safar first , 2025 between: muharram first , 2025 and: jumadaII fifth , 2025 );
+    assert: ( safar first , 2025 between: muharram first , 2025 and: jumadaAlThani fifth , 2025 );
     deny:
       ( muharram eleventh , 2025 between: muharram twelfth , 2025 and: muharram thirtieth , 2025 );
     deny: ( muharram twentieth , 2025 between: muharram first , 2025 and: muharram eleventh , 2025 )
@@ -87,7 +87,7 @@ IslamicDateTest >> testDaysBetweenTwoDates [
     assert: ( muharram first , 2025 - ( muharram first , 2025 ) ) isZero;
     assert: muharram second , 2025 - ( muharram first , 2025 ) equals: 1 * day;
     assert: safar first , 2025 - ( muharram first , 2025 ) equals: 30 * day;
-    assert: rabiI first , 2025 - ( muharram first , 2025 ) equals: 30 + 29 * day;
+    assert: rabiAlAwwal first , 2025 - ( muharram first , 2025 ) equals: 30 + 29 * day;
     assert: muharram first , 2026 - ( muharram first , 2025 ) equals: 354 * day;
     assert: duAlHijjah thirtieth , 1442 - ( muharram first , 1442 ) equals: 354 * day;
     assert: muharram first , 1443 - ( muharram first , 1442 ) equals: 355 * day
@@ -305,8 +305,8 @@ IslamicDateTest >> testLessThan [
 IslamicDateTest >> testNext [
 
   self
-    assert: jumadaII first , 2025 nextIs: jumadaII second , 2025;
-    assert: jumadaII twentyNinth , 2025 nextIs: rajab first , 2025;
+    assert: jumadaAlThani first , 2025 nextIs: jumadaAlThani second , 2025;
+    assert: jumadaAlThani twentyNinth , 2025 nextIs: rajab first , 2025;
     assert: duAlHijjah twentyNinth , 2025 nextIs: muharram first , 2026;
     assert: safar twentyEighth , 2020 nextIs: safar twentyNinth , 2020;
     assert: duAlHijjah twentyNinth , 1442 nextIs: duAlHijjah thirtieth , 1442.
@@ -321,15 +321,15 @@ IslamicDateTest >> testNext [
 
   self
     assert: muharram first , 1441 after: 354 + 355 + 354 + 354 daysIs: muharram first , 1445;
-    assert: muharram first , 1441 after: 354 + 355 + 354 + 354 + 30 + 29 daysIs: rabiI first , 1445
+    assert: muharram first , 1441 after: 354 + 355 + 354 + 354 + 30 + 29 daysIs: rabiAlAwwal first , 1445
 ]
 
 { #category : 'tests' }
 IslamicDateTest >> testPrevious [
 
   self
-    assert: jumadaII second , 2025 previousIs: jumadaII first , 2025;
-    assert: jumadaII first , 2025 previousIs: jumadaI thirtieth , 2025;
+    assert: jumadaAlThani second , 2025 previousIs: jumadaAlThani first , 2025;
+    assert: jumadaAlThani first , 2025 previousIs: jumadaAlAwwal thirtieth , 2025;
     assert: muharram first , 2025 previousIs: duAlHijjah twentyNinth , 2024;
     assert: muharram first , 1443 previousIs: duAlHijjah thirtieth , 1442;
     assert: duAlHijjah thirtieth , 1442 previousIs: duAlHijjah twentyNinth , 1442.
@@ -344,7 +344,7 @@ IslamicDateTest >> testPrevious [
   self
     assert: 354 + 355 + 354 + 354 daysBefore: muharram first , 1445 is: muharram first , 1441;
     assert: 354 + 355 + 354 + 354 + 30 + 29
-    daysBefore: rabiI first , 1445
+    daysBefore: rabiAlAwwal first , 1445
     is: muharram first , 1441
 ]
 
@@ -352,7 +352,7 @@ IslamicDateTest >> testPrevious [
 IslamicDateTest >> testPrintString [
 
   self
-    assert: ( rabiI , 2025 ) first printString equals: 'Rabi'' al-Awwal 1, 2025 AH';
+    assert: ( rabiAlAwwal , 2025 ) first printString equals: 'Rabi'' al-Awwal 1, 2025 AH';
     assert: ( muharram , 2025 ) twelfth printString equals: 'Muharram 12, 2025 AH'
 ]
 

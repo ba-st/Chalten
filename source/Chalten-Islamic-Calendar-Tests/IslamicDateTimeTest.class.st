@@ -12,14 +12,14 @@ Class {
 IslamicDateTimeTest >> testAccessing [
 
   | datetime |
-  datetime := IslamicDateTime on: rabiI first , 1447 at: TimeOfDay halfOfDay.
+  datetime := IslamicDateTime on: rabiAlAwwal first , 1447 at: TimeOfDay halfOfDay.
   self
-    assert: datetime date equals: rabiI first , 1447;
+    assert: datetime date equals: rabiAlAwwal first , 1447;
     assert: datetime dayNumber equals: 1;
     assert: datetime year equals: 1447 asIslamicYear;
     assert: datetime yearNumber equals: 1447;
-    assert: datetime monthOfYear equals: rabiI , 1447;
-    assert: datetime month equals: rabiI;
+    assert: datetime monthOfYear equals: rabiAlAwwal , 1447;
+    assert: datetime month equals: rabiAlAwwal;
     assert: datetime monthNumber equals: 3;
     assert: datetime timeOfDay equals: TimeOfDay halfOfDay
 ]
@@ -28,7 +28,7 @@ IslamicDateTimeTest >> testAccessing [
 IslamicDateTimeTest >> testAtMidnight [
 
   self
-    assert: ( jumadaI first , 4875 ) atMidnight printString
+    assert: ( jumadaAlAwwal first , 4875 ) atMidnight printString
     equals: 'Jumada al-Awwal 1, 4875 AH at 06:00:00.000000'
 ]
 
@@ -36,7 +36,7 @@ IslamicDateTimeTest >> testAtMidnight [
 IslamicDateTimeTest >> testAtNoon [ 
 
   self
-    assert: ( jumadaI first , 4875 ) atNoon printString
+    assert: ( jumadaAlAwwal first , 4875 ) atNoon printString
     equals: 'Jumada al-Awwal 1, 4875 AH at 18:00:00.000000'
 ]
 
@@ -44,40 +44,40 @@ IslamicDateTimeTest >> testAtNoon [
 IslamicDateTimeTest >> testAtStartOfDay [
 
   self
-    assert: ( jumadaI first , 4875 ) atStartOfDay printString
+    assert: ( jumadaAlAwwal first , 4875 ) atStartOfDay printString
     equals: 'Jumada al-Awwal 1, 4875 AH at 00:00:00.000000'
 ]
 
 { #category : 'tests' }
 IslamicDateTimeTest >> testBetweenAnd [
 
-  self assert: ( ( rabiII first , 1447 ) atNoon
-        between: ( rabiII first , 1447 ) atMidnight
-        and: ( rabiII second , 1447 ) atMidnight )
+  self assert: ( ( rabiAlThani first , 1447 ) atNoon
+        between: ( rabiAlThani first , 1447 ) atMidnight
+        and: ( rabiAlThani second , 1447 ) atMidnight )
 ]
 
 { #category : 'tests' }
 IslamicDateTimeTest >> testComparing [
 
   self
-    assert: ( rabiII first , 1447 ) atNoon equals: ( rabiII first , 1447 ) atNoon;
-    deny: ( rabiII first , 1447 ) atNoon equals: ( rabiII first , 1447 ) atMidnight;
-    deny: ( rabiII first , 1446 ) atNoon equals: ( rabiII first , 1447 ) atNoon
+    assert: ( rabiAlThani first , 1447 ) atNoon equals: ( rabiAlThani first , 1447 ) atNoon;
+    deny: ( rabiAlThani first , 1447 ) atNoon equals: ( rabiAlThani first , 1447 ) atMidnight;
+    deny: ( rabiAlThani first , 1446 ) atNoon equals: ( rabiAlThani first , 1447 ) atNoon
 ]
 
 { #category : 'tests' }
 IslamicDateTimeTest >> testCreationShortcut [
 
   | datetime |
-  datetime := rabiI first , 1447 at: ( TimeOfDay hours: 18 ).
+  datetime := rabiAlAwwal first , 1447 at: ( TimeOfDay hours: 18 ).
   self
-    assert: datetime date equals: rabiI first , 1447;
+    assert: datetime date equals: rabiAlAwwal first , 1447;
     assert: datetime timeOfDay equals: ( TimeOfDay hours: 18 );
-    assert: datetime equals: ( rabiI first , 1447 ) atNoon.
+    assert: datetime equals: ( rabiAlAwwal first , 1447 ) atNoon.
 
-  datetime := ( rabiII sixth , 1447 ) atMidnight.
+  datetime := ( rabiAlThani sixth , 1447 ) atMidnight.
   self
-    assert: datetime date equals: rabiII sixth , 1447;
+    assert: datetime date equals: rabiAlThani sixth , 1447;
     assert: datetime timeOfDay equals: ( TimeOfDay hours: 6 )
 ]
 
@@ -144,6 +144,6 @@ IslamicDateTimeTest >> testLessThan [
 IslamicDateTimeTest >> testPrintString [
 
   self
-    assert: ( jumadaII first , 1447 ) atNoon printString
+    assert: ( jumadaAlThani first , 1447 ) atNoon printString
     equals: 'Jumada al-Thani 1, 1447 AH at 18:00:00.000000'
 ]

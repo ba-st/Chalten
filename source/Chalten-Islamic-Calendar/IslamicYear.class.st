@@ -114,13 +114,13 @@ IslamicYear >> isLeapYear [
 ]
 
 { #category : 'accessing - months' }
-IslamicYear >> jumadaI [
+IslamicYear >> jumadaAlAwwal [
 
   ^ self monthAt: 5
 ]
 
 { #category : 'accessing - months' }
-IslamicYear >> jumadaII [
+IslamicYear >> jumadaAlThani [
 
   ^ self monthAt: 6
 ]
@@ -177,13 +177,13 @@ IslamicYear >> printOn: stream [
 ]
 
 { #category : 'accessing - months' }
-IslamicYear >> rabiI [
+IslamicYear >> rabiAlAwwal [
 
   ^ self monthAt: 3
 ]
 
 { #category : 'accessing - months' }
-IslamicYear >> rabiII [
+IslamicYear >> rabiAlThani [
 
   ^ self monthAt: 4
 ]
