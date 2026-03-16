@@ -28,31 +28,16 @@ BaselineOfChalten >> baseline: spec [
 { #category : 'postload' }
 BaselineOfChalten >> configureCore [
 
-  CalendarMagnitude makeInstancesInvariant.
-  CalendarDayOfMonth makeInstancesInvariant.
-  CalendarDayOfWeek makeInstancesInvariant.
-  CalendarMonth makeInstancesInvariant.
-  TimeOfDay makeInstancesInvariant.
-  TimeOffsetRuleset makeInstancesInvariant.
+  #( #CalendarMagnitude #CalendarDayOfMonth #CalendarDayOfWeek #CalendarMonth #TimeOfDay #TimeOffsetRuleset )
+    do: [ :className | self classNamed: className makeInstancesInvariant ].
   self loadTranslationUnits
 ]
 
 { #category : 'postload' }
 BaselineOfChalten >> loadTranslationUnits [
 
-  self class environment at: #IceRepository ifPresent: [ :icebergRepository |
-      | sources |
-      sources := icebergRepository registry
-                   detect: [ :repository | repository includesPackageNamed: self class name ]
-                   ifFound: [ :repository | repository project sourceDirectoryReference ]
-                   ifNone: [
-                       | repositoriesSpec repositorySpec |
-                       repositoriesSpec := self project projectPackage repositories.
-                       repositorySpec := repositoriesSpec detect: [ :spec | true ].
-                       ( repositorySpec description withoutPrefix: 'tonel://' ) asFileReference
-                     ].
-      NaturalLanguageTranslator current loadJSONTranslationFilesIn: sources parent / 'locales'
-    ]
+  self withSourceDirectoryReferenceDo: [ :source |
+      NaturalLanguageTranslator current loadJSONTranslationFilesIn: source parent / 'locales' ]
 ]
 
 { #category : 'accessing' }
