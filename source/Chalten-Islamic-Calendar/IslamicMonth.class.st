@@ -45,7 +45,7 @@ IslamicMonth class >> duAlQiDah [
 IslamicMonth class >> initialize [
 
   <ignoreForCoverage>
-  | muharram safar rabiI rabiII jumadaI jumadaII rajab shaban ramadan shawwal duAlQiDah duALHijjah |
+  | muharram safar rabiAlAwwal rabiAlThani jumadaAlAwwal jumadaAlThani rajab shaban ramadan shawwal duAlQiDah duALHijjah |
   muharram := self
                 named: 'Muharram'
                 shortNamed: 'Muh.'
@@ -56,22 +56,22 @@ IslamicMonth class >> initialize [
              shortNamed: 'Saf.'
              positionInYear: 2
              numberOfDaysInYear: 29.
-  rabiI := self
+  rabiAlAwwal := self
              named: 'Rabi'' al-Awwal'
              shortNamed: 'Rab. I'
              positionInYear: 3
              numberOfDaysInYear: 30.
-  rabiII := self
+  rabiAlThani := self
               named: 'Rabi'' al-Thani'
               shortNamed: 'Rab. II'
               positionInYear: 4
               numberOfDaysInYear: 29.
-  jumadaI := self
+  jumadaAlAwwal := self
                named: 'Jumada al-Awwal'
                shortNamed: 'Jum. I'
                positionInYear: 5
                numberOfDaysInYear: 30.
-  jumadaII := self
+  jumadaAlThani := self
                 named: 'Jumada al-Thani'
                 shortNamed: 'Jum. II'
                 positionInYear: 6
@@ -107,7 +107,7 @@ IslamicMonth class >> initialize [
                  positionInYear: 12
                  numberOfDaysInLeapYear: 30
                  andInCommonYear: 29.
-  AllMonths := { muharram . safar . rabiI . rabiII . jumadaI . jumadaII . rajab . shaban . ramadan .
+  AllMonths := { muharram . safar . rabiAlAwwal . rabiAlThani . jumadaAlAwwal . jumadaAlThani . rajab . shaban . ramadan .
                  shawwal . duALHijjah . duAlQiDah }
 ]
 

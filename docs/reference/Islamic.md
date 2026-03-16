@@ -55,8 +55,8 @@ and if it's a leap year :
 ```
 
 We can also get a specific month of the year by sending `muharram`, `safar`,
-`rabiI`, `rabiII`, `jumadaI`, `jumadaII`, `rajab`, `shaban`, `ramadan`, `shawwal`,
-`duALHijjah` or `duAlQiDah` to a year:
+`rabiAlAwwal`, `rabiAlThani`, `jumadaAlAwwal`, `jumadaAlThani`, `rajab`, `shaban`,
+`ramadan`, `shawwal`, `duALHijjah` or `duAlQiDah` to a year:
 
 ```smalltalk
 1442 asIslamicYear ramadan "Ramadan, 1442 AH"
@@ -106,10 +106,10 @@ or a specific one by sending the proper month name:
 ```smalltalk
 IslamicMonth muharram. "Muharram"
 IslamicMonth safar. "Safar"
-IslamicMonth rabiI. "Rabi' al-Awwal"
-IslamicMonth rabiII. "Rabi' al-Thani"
-IslamicMonth jumadaI. "Jumada al-Awwal"
-IslamicMonth jumadaII. "Jumada al-Thani"
+IslamicMonth rabiAlAwwal. "Rabi' al-Awwal"
+IslamicMonth rabiAlThani. "Rabi' al-Thani"
+IslamicMonth jumadaAlAwwal. "Jumada al-Awwal"
+IslamicMonth jumadaAlThani. "Jumada al-Thani"
 IslamicMonth rajab. "Rajab"
 IslamicMonth shaban. "Sha'ban"
 IslamicMonth ramadan. "Ramadan"
