@@ -16,6 +16,12 @@ DayOfWeekTest >> daysOfWeek [
 ]
 
 { #category : 'tests' }
+DayOfWeekTest >> testConverting [
+
+  self daysOfWeek do: [ :dayOfWeek | self assert: dayOfWeek asISODayOfWeek equals: dayOfWeek ]
+]
+
+{ #category : 'tests' }
 DayOfWeekTest >> testInstanceCreation [
 
   self daysOfWeek doWithIndex: [ :dayOfWeek :index |

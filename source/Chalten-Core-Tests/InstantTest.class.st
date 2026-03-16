@@ -69,6 +69,14 @@ InstantTest >> testComparing [
 ]
 
 { #category : 'tests' }
+InstantTest >> testConverting [
+
+  | instant |
+  instant := Instant epoch next: 1 * ( self unit: #day ).
+  self assert: instant asInstant equals: instant
+]
+
+{ #category : 'tests' }
 InstantTest >> testFromJulianDayNumber [
 
   self

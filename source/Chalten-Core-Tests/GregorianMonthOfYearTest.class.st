@@ -58,6 +58,19 @@ GregorianMonthOfYearTest >> testCreationShortcut [
 ]
 
 { #category : 'tests' }
+GregorianMonthOfYearTest >> testDateCreation [
+
+  | monthOfYear |
+  monthOfYear := december , 2025.
+
+  #( first second third fourth fifth sixth seventh eighth ninth tenth eleventh twelfth thirteenth
+     fourteenth fifteenth sixteenth seventeenth eighteenth nineteenth twentieth twentyFirst
+     twentySecond twentyThird twentyFourth twentyFifth twentySixth twentySeventh twentyEighth
+     twentyNinth thirtieth thirtyFirst ) do: [ :selector |
+      self assert: ( monthOfYear perform: selector ) equals: ( december perform: selector ) , 2025 ]
+]
+
+{ #category : 'tests' }
 GregorianMonthOfYearTest >> testGreaterThan [
 
   self

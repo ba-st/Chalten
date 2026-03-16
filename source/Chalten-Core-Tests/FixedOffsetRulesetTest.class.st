@@ -18,6 +18,18 @@ FixedOffsetRulesetTest >> testCantCreateOutOfRange [
 ]
 
 { #category : 'tests' }
+FixedOffsetRulesetTest >> testIdentifier [
+
+  { 10 . -12 . -21 / 2 . 0 . 23 / 4 . 14 }
+    with: #( 'UTC+10:00' 'UTC-12:00' 'UTC-10:30' 'UTC+00:00' 'UTC+05:45' 'UTC+14:00' )
+    do: [ :hourCount :expectedString |
+        | ruleset |
+        ruleset := FixedOffsetRuleset for: hourCount * hour.
+        self assert: ruleset identifier equals: expectedString
+      ]
+]
+
+{ #category : 'tests' }
 FixedOffsetRulesetTest >> testOffsetToUniversalCoordinatedTimeAt [
 
   self

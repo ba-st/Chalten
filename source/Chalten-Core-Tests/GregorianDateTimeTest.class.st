@@ -66,6 +66,14 @@ GregorianDateTimeTest >> testComparing [
 ]
 
 { #category : 'tests' }
+GregorianDateTimeTest >> testConverting [
+
+  | datetime |
+  datetime := GregorianDateTime on: june first , 2025 at: TimeOfDay halfOfDay.
+  self assert: datetime asGregorianDateTime equals: datetime
+]
+
+{ #category : 'tests' }
 GregorianDateTimeTest >> testCreationShortcut [
 
   | datetime |
