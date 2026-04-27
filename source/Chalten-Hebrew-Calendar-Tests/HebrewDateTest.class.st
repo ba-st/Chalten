@@ -1,1290 +1,523 @@
 Class {
 	#name : 'HebrewDateTest',
-	#superclass : 'TestCase',
-	#instVars : [
-		'calendar'
-	],
+	#superclass : 'HebrewCalendarTest',
 	#category : 'Chalten-Hebrew-Calendar-Tests',
 	#package : 'Chalten-Hebrew-Calendar-Tests'
 }
 
-{ #category : 'accessing' }
-HebrewDateTest class >> classUnderTest [
+{ #category : 'private - asserting' }
+HebrewDateTest >> assert: dayCount daysAfter: date is: anotherDate [
 
-	^FixedDate
+  self assert: ( date next: dayCount * day ) equals: anotherDate
 ]
 
-{ #category : 'test support' }
-HebrewDateTest >> nisan [
+{ #category : 'private - asserting' }
+HebrewDateTest >> assert: dayCount daysBefore: date is: anotherDate [
 
-	^calendar nisan
+  self assert: ( date previous: dayCount * day ) equals: anotherDate
 ]
 
-{ #category : 'test support' }
-HebrewDateTest >> oneDay [
-	^ 1 dayMeasure
+{ #category : 'tests' }
+HebrewDateTest >> testAccessing [
+
+  | date |
+  date := adarI first , 2025.
+  self
+    assert: date dayNumber equals: 1;
+    assert: date year equals: 2025 asHebrewYear;
+    assert: date yearNumber equals: 2025;
+    assert: date monthOfYear equals: adarI , 2025;
+    assert: date month equals: adarI;
+    assert: date monthNumber equals: 6
 ]
 
-{ #category : 'initialization' }
-HebrewDateTest >> setUp [
+{ #category : 'tests' }
+HebrewDateTest >> testBetweenAnd [
 
-	calendar := ChaltenEnvironment calendarNamed: #HebrewCalendar
+  self
+    assert: ( tishrei first , 5675 between: tishrei first , 5675 and: tishrei second , 5675 );
+    assert: ( tishrei second , 5675 between: tishrei first , 5675 and: tishrei second , 5675 );
+    assert: ( tishrei second , 5675 between: tishrei first , 5675 and: tishrei third , 5675 );
+    assert: ( cheshvan first , 5675 between: tishrei first , 5675 and: cheshvan first , 5675 );
+    assert: ( cheshvan first , 5675 between: tishrei first , 5675 and: cheshvan third , 5675 );
+    assert: ( cheshvan first , 5675 between: tishrei first , 5675 and: adar fifth , 5675 );
+    deny: ( tishrei eleventh , 5675 between: tishrei twelfth , 5675 and: tishrei thirtieth , 5675 );
+    deny: ( tishrei twentieth , 5675 between: tishrei first , 5675 and: tishrei eleventh , 5675 )
 ]
 
-{ #category : 'test support' }
-HebrewDateTest >> tenDays [
-	^ 10 daysMeasure
+{ #category : 'tests' }
+HebrewDateTest >> testCannotComputeDateDistanceWhenTheSecondIsGreater [
+
+  self
+    should: [ tishrei second , 2025 - ( tishrei third , 2025 ) ]
+    raise: ArithmeticError
+    withMessageText: 'Cannot subtract two dates when the second one is greater than the first one.'
 ]
 
-{ #category : 'test interval protocol' }
-HebrewDateTest >> test30OfAdarIToEveryDayOfMonth [
+{ #category : 'tests' }
+HebrewDateTest >> testComparing [
 
-	| dates |
-	dates := AdarI thirtieth , 5768
-		         to: Tishri first , 5775
-		         everyDayOfMonth: AdarI thirtieth.
-	self assert: dates size equals: 3.
-	self assert: (dates includes: AdarI thirtieth , 5768).
-	self assert: (dates includes: AdarI thirtieth , 5771).
-	self assert: (dates includes: AdarI thirtieth , 5774)
+  self
+    assert: tishrei first , 5786 equals: tishrei first , 5786;
+    deny: tishrei first , 5786 equals: tishrei second , 5786;
+    deny: tishrei first , 5786 equals: cheshvan first , 5786;
+    deny: tishrei first , 5786 equals: tishrei first , 2024;
+    deny: tishrei first , 5786 equals: january first , 5786
 ]
 
-{ #category : 'test converting' }
-HebrewDateTest >> testAsGregorianDate [
+{ #category : 'tests' }
+HebrewDateTest >> testDayOfWeek [
 
-	self
-		assert: (Nisan first , 5767) asGregorian
-		equals: March twentieth , 2007.
-	self
-		assert: (Sivan first , 5768) asGregorian
-		equals: June fourth , 2008.
-	self
-		assert: (Kislev fifth , 5768) asGregorian
-		equals: November fifteenth , 2007.
-	self
-		assert: (Shevat twelfth , 5772) asGregorian
-		equals: February fifth , 2012.
-	self
-		assert: (Elul second , 5775) asGregorian
-		equals: August seventeenth , 2015
+  self
+    assert: ( tevet seventeenth , 5786 ) dayOfWeek equals: HebrewDayOfWeek yomShlishi;
+    assert: ( tevet eighteenth , 5786 ) dayOfWeek equals: HebrewDayOfWeek yomRevii;
+    assert: ( tevet nineteenth , 5786 ) dayOfWeek equals: HebrewDayOfWeek yomHamishi;
+    assert: ( tevet twentieth , 5786 ) dayOfWeek equals: HebrewDayOfWeek yomShishi;
+    assert: ( tevet twentyFirst , 5786 ) dayOfWeek equals: HebrewDayOfWeek yomShabbat;
+    assert: ( tevet twentySecond , 5786 ) dayOfWeek equals: HebrewDayOfWeek yomRishon;
+    assert: ( tevet twentyThird , 5786 ) dayOfWeek equals: HebrewDayOfWeek yomSheni;
+    assert: ( tevet twentyFourth , 5786 ) dayOfWeek equals: HebrewDayOfWeek yomShlishi
 ]
 
-{ #category : 'test converting' }
-HebrewDateTest >> testAsHebrewDate [
+{ #category : 'tests' }
+HebrewDateTest >> testDaysBetweenTwoDates [
 
-	self
-		assert: Nisan first , 5767
-		equals: (March twentieth , 2007) asHebrew.
-	self assert: Sivan first , 5768 equals: (June fourth , 2008) asHebrew.
-	self
-		assert: Kislev fifth , 5768
-		equals: (November fifteenth , 2007) asHebrew.
-	self
-		assert: Shevat twelfth , 5772
-		equals: (February fifth , 2012) asHebrew.
-	self
-		assert: Elul second , 5775
-		equals: (August seventeenth , 2015) asHebrew
+  self
+    assert: ( tishrei first , 2025 - ( tishrei first , 2025 ) ) isZero;
+    assert: tishrei second , 2025 - ( tishrei first , 2025 ) equals: 1 * day;
+    assert: cheshvan first , 2025 - ( tishrei first , 2025 ) equals: 30 * day;
+    assert: kislev first , 2025 - ( tishrei first , 2025 ) equals: 30 + 29 * day;
+    assert: tishrei first , 2026 - ( tishrei first , 2025 ) equals: 383 * day;
+    assert: elul twentyNinth , 5675 - ( tishrei first , 5675 ) equals: 352 * day;
+    assert: tishrei first , 5676 - ( tishrei first , 5675 ) equals: 353 * day
 ]
 
-{ #category : 'test converting' }
-HebrewDateTest >> testAsSmalltalkDate [
-
-	| hebrewDate gregorianDate date |
-	hebrewDate := Tammuz fourth , 5768.
-	gregorianDate := hebrewDate asGregorian.
-	date := hebrewDate asSmalltalkDate.
-	self assert: gregorianDate year number equals: date year.
-	self assert: gregorianDate month number equals: date monthIndex.
-	self assert: gregorianDate dayNumber equals: date dayOfMonth
-]
-
-{ #category : 'test accessing' }
-HebrewDateTest >> testAtMidnight [
-
-	self
-		assert: (Tevet first , 5767) atMidnight
-		equals:
-		(ChaltenDateTime date: Tevet first , 5767 timeOfDay: (TimeOfDay hours: 00))
-]
-
-{ #category : 'test accessing' }
-HebrewDateTest >> testAtNoon [
-
-	self
-		assert: (Tevet first , 5767) atNoon
-		equals:
-		(ChaltenDateTime date: Tevet first , 5767 timeOfDay: (TimeOfDay hours: 12))
-]
-
-{ #category : 'test accessing' }
-HebrewDateTest >> testAtTimeOfDay [
-
-	self
-		assert: (Tevet first , 5767 atTimeOfDay: (TimeOfDay hours: 10))
-		equals:
-		(ChaltenDateTime date: Tevet first , 5767 timeOfDay: (TimeOfDay hours: 10))
-]
-
-{ #category : 'test instance creation' }
-HebrewDateTest >> testCreation [
-
-	| year5767 nisanOf5767 |
-	year5767 := 5767 asHebrewYear.
-	nisanOf5767 := MonthOfYear nisanOf: year5767.
-	self
-		assert: (FixedDate
-				 yearNumber: 5767
-				 monthNumber: 1
-				 dayNumber: 1
-				 calendar: calendar) monthOfYear
-		equals: nisanOf5767.
-	self
-		assert: (FixedDate
-				 yearNumber: 5767
-				 monthNumber: 1
-				 dayNumber: 1
-				 calendar: calendar) dayNumber
-		equals: 1.
-	self
-		assert:
-			(FixedDate
-				 monthOfYear: (MonthOfYear nisanOf: year5767)
-				 dayNumber: 1) monthOfYear
-		equals: nisanOf5767.
-	self
-		assert:
-			(FixedDate
-				 monthOfYear: (MonthOfYear nisanOf: year5767)
-				 dayNumber: 1) dayNumber
-		equals: 1.
-	self
-		assert:
-		(FixedDate year: year5767 month: self nisan dayNumber: 1)
-			monthOfYear
-		equals: nisanOf5767.
-	self
-		assert:
-		(FixedDate year: year5767 month: self nisan dayNumber: 1) dayNumber
-		equals: 1.
-	self
-		assert: (FixedDate yearNumber: 5767 month: self nisan dayNumber: 1)
-				monthOfYear
-		equals: nisanOf5767.
-	self
-		assert:
-		(FixedDate yearNumber: 5767 month: self nisan dayNumber: 1)
-			dayNumber
-		equals: 1
-]
-
-{ #category : 'test accessing' }
-HebrewDateTest >> testDay [
-
-	self assert: (Tishri first , 5767) day equals: YomShabbat.
-	self assert: (Tishri second , 5767) day equals: YomRishon.
-	self assert: (Tishri third , 5767) day equals: YomSheni.
-	self assert: (Tishri fourth , 5767) day equals: YomShelishi.
-	self assert: (Tishri fifth , 5767) day equals: YomRevii.
-	self assert: (Tishri sixth , 5767) day equals: YomHamishi.
-	self assert: (Tishri seventh , 5767) day equals: YomShishi.
-	self assert: (Tishri eighth , 5767) day equals: YomShabbat
-]
-
-{ #category : 'test accessing' }
-HebrewDateTest >> testDayNumber [
-
-	self assert: (Tishri first , 5767) dayNumber equals: 1
-]
-
-{ #category : 'test accessing' }
-HebrewDateTest >> testDayOfMonth [
-
-	self
-		assert: (Tevet first , 1) dayOfMonth
-		equals: (DayOfMonth monthNumber: 10 dayNumber: 1 calendar: calendar)
-]
-
-{ #category : 'test querying' }
-HebrewDateTest >> testDaysFrom [
-
-	self
-		assert: (Nisan first , 5767 distanceFrom: Nisan first , 5767)
-		equals: self zeroDays.
-	self
-		assert: (Iyyar first , 5767 distanceFrom: Nisan first , 5767)
-		equals: self thirtyDays.
-	self
-		assert: (Sivan first , 5767 distanceFrom: Nisan first , 5767)
-		equals: (30 + 29) daysMeasure.
-	self
-		assert: (Nisan first , 5768 distanceFrom: Nisan first , 5767)
-		equals: 383 daysMeasure.
-	self
-		assert: (Nisan first , 5767 distanceFrom: Nisan first , 5766)
-		equals: 355 daysMeasure.
-	self
-		assert: (Nisan first , 5766 distanceFrom: Nisan first , 5767)
-		equals: -355 daysMeasure.
-	self
-		assert: (Nisan first , 5767 distanceFrom: Nisan first , 5768)
-		equals: -383 daysMeasure.
-	self
-		assert: (TheBeginningOfTime distanceFrom: Nisan first , 5768)
-		equals: ArithmeticObject minusInfinity daysMeasure.
-	self
-		assert: (TheEndOfTime distanceFrom: Nisan first , 5768)
-		equals: ArithmeticObject infinity daysMeasure
-]
-
-{ #category : 'test querying' }
-HebrewDateTest >> testDaysTo [
-
-	self
-		assert: (Nisan first , 5767 distanceTo: Nisan first , 5767)
-		equals: self zeroDays.
-	self
-		assert: (Nisan first , 5767 distanceTo: Iyyar first , 5767)
-		equals: self thirtyDays.
-	self
-		assert: (Nisan first , 5767 distanceTo: Sivan first , 5767)
-		equals: (30 + 29) daysMeasure.
-	self
-		assert: (Nisan first , 5767 distanceTo: Nisan first , 5768)
-		equals: 383 daysMeasure.
-	self
-		assert: (Nisan first , 5766 distanceTo: Nisan first , 5767)
-		equals: 355 daysMeasure.
-	self
-		assert: (Nisan first , 5767 distanceTo: Nisan first , 5766)
-		equals: -355 daysMeasure.
-	self
-		assert: (Nisan first , 5768 distanceTo: Nisan first , 5767)
-		equals: -383 daysMeasure.
-	self
-		assert: (Nisan first , 5768 distanceTo: TheBeginningOfTime)
-		equals: ArithmeticObject minusInfinity daysMeasure.
-	self
-		assert: (Nisan first , 5768 distanceTo: TheEndOfTime)
-		equals: ArithmeticObject infinity daysMeasure
-]
-
-{ #category : 'test comparing' }
-HebrewDateTest >> testEqual [
-
-	self assert: Nisan first , 5767 equals: (FixedDate
-			 yearNumber: 5767
-			 monthNumber: 1
-			 dayNumber: 1
-			 calendar: calendar).
-	self deny: Nisan first , 5767 = (FixedDate
-			 yearNumber: 5767
-			 monthNumber: 1
-			 dayNumber: 2
-			 calendar: calendar)
-]
-
-{ #category : 'test comparing' }
+{ #category : 'tests' }
 HebrewDateTest >> testGreaterThan [
 
-	self assert: Iyyar first , 5767 > (Nisan thirtieth , 5767).
-	self assert: Iyyar first , 5767 > (Nisan first , 1).
-	self assert: Iyyar first , 5767 > (Elul twentyninth , 5766).
-
-	self
-		should: [ Iyyar first , 2007 > YomHamishi ]
-		raise: InvalidComparisonBetweenPointsInTimeException
-		withExceptionDo: [ :ex |
-			self
-				assert: ex description
-				equals:
-					('The <1p> <2p> can not be compared with the <3p> <4p> because are points of different resolution'
-						 expandMacrosWith: YomHamishi class
-						 with: YomHamishi
-						 with: (Iyyar first , 2007) class
-						 with: Iyyar first , 2007) ].
-
-	self
-		should: [ Nisan thirtieth , 2007 >= Elul ]
-		raise: InvalidComparisonBetweenPointsInTimeException
-		withExceptionDo: [ :ex |
-			self
-				assert: ex description
-				equals:
-					('The <1p> <2p> can not be compared with the <3p> <4p> because are points of different resolution'
-						 expandMacrosWith: (Nisan thirtieth , 2007) class
-						 with: Nisan thirtieth , 2007
-						 with: Elul class
-						 with: Elul) ]
+  self
+    assert: tishrei first , 2025 isGreaterThan: tishrei first , 2024;
+    assert: tishrei first , 2025 isGreaterThanOrEqualTo: tishrei first , 2024;
+    assert: tishrei first , 2025 isGreaterThanOrEqualTo: tishrei first , 2025;
+    assert: cheshvan first , 2025 isGreaterThan: tishrei first , 2025;
+    assert: cheshvan first , 2025 isGreaterThanOrEqualTo: tishrei first , 2025;
+    assert: tishrei first , 2025 isGreaterThanOrEqualTo: elul first , 2024;
+    assert: cheshvan second , 2025 isGreaterThan: cheshvan first , 2025;
+    assert: cheshvan second , 2025 isGreaterThanOrEqualTo: cheshvan first , 2025;
+    deny: tishrei first , 1 isGreaterThan: tishrei first , 2025;
+    deny: tishrei first , 2025 isGreaterThan: cheshvan first , 2025
 ]
 
-{ #category : 'test comparing' }
-HebrewDateTest >> testHash [
+{ #category : 'tests' }
+HebrewDateTest >> testInstanceCreationFor29DaysMonth [
 
-	self assert: (Nisan first , 5767) hash equals: (FixedDate
-			 yearNumber: 5767
-			 monthNumber: 1
-			 dayNumber: 1
-			 calendar: calendar) hash.
-	self deny: (Nisan first , 5767) hash = (FixedDate
-			 yearNumber: 5767
-			 monthNumber: 1
-			 dayNumber: 2
-			 calendar: calendar) hash
+  self
+    assert: ( tevet first , 2025 ) dayNumber equals: 1;
+    assert: ( tevet second , 2025 ) dayNumber equals: 2;
+    assert: ( tevet third , 2025 ) dayNumber equals: 3;
+    assert: ( tevet fourth , 2025 ) dayNumber equals: 4;
+    assert: ( tevet fifth , 2025 ) dayNumber equals: 5;
+    assert: ( tevet sixth , 2025 ) dayNumber equals: 6;
+    assert: ( tevet seventh , 2025 ) dayNumber equals: 7;
+    assert: ( tevet eighth , 2025 ) dayNumber equals: 8;
+    assert: ( tevet ninth , 2025 ) dayNumber equals: 9;
+    assert: ( tevet tenth , 2025 ) dayNumber equals: 10;
+    assert: ( tevet eleventh , 2025 ) dayNumber equals: 11;
+    assert: ( tevet twelfth , 2025 ) dayNumber equals: 12;
+    assert: ( tevet thirteenth , 2025 ) dayNumber equals: 13;
+    assert: ( tevet fourteenth , 2025 ) dayNumber equals: 14;
+    assert: ( tevet fifteenth , 2025 ) dayNumber equals: 15;
+    assert: ( tevet sixteenth , 2025 ) dayNumber equals: 16;
+    assert: ( tevet seventeenth , 2025 ) dayNumber equals: 17;
+    assert: ( tevet eighteenth , 2025 ) dayNumber equals: 18;
+    assert: ( tevet nineteenth , 2025 ) dayNumber equals: 19;
+    assert: ( tevet twentieth , 2025 ) dayNumber equals: 20;
+    assert: ( tevet twentyFirst , 2025 ) dayNumber equals: 21;
+    assert: ( tevet twentySecond , 2025 ) dayNumber equals: 22;
+    assert: ( tevet twentyThird , 2025 ) dayNumber equals: 23;
+    assert: ( tevet twentyFourth , 2025 ) dayNumber equals: 24;
+    assert: ( tevet twentyFifth , 2025 ) dayNumber equals: 25;
+    assert: ( tevet twentySixth , 2025 ) dayNumber equals: 26;
+    assert: ( tevet twentySeventh , 2025 ) dayNumber equals: 27;
+    assert: ( tevet twentyEighth , 2025 ) dayNumber equals: 28;
+    assert: ( tevet twentyNinth , 2025 ) dayNumber equals: 29.
+  self should: [ tevet thirtieth , 2025 ] raise: MessageNotUnderstood
 ]
 
-{ #category : 'test includes' }
-HebrewDateTest >> testIncludesDate [
+{ #category : 'tests' }
+HebrewDateTest >> testInstanceCreationFor30DaysMonth [
 
-	self
-		should: [ Nisan first, 5767 includes: Nisan first, 5767]
-		raise: Exception
+  self
+    assert: ( nisan first , 2025 ) dayNumber equals: 1;
+    assert: ( nisan second , 2025 ) dayNumber equals: 2;
+    assert: ( nisan third , 2025 ) dayNumber equals: 3;
+    assert: ( nisan fourth , 2025 ) dayNumber equals: 4;
+    assert: ( nisan fifth , 2025 ) dayNumber equals: 5;
+    assert: ( nisan sixth , 2025 ) dayNumber equals: 6;
+    assert: ( nisan seventh , 2025 ) dayNumber equals: 7;
+    assert: ( nisan eighth , 2025 ) dayNumber equals: 8;
+    assert: ( nisan ninth , 2025 ) dayNumber equals: 9;
+    assert: ( nisan tenth , 2025 ) dayNumber equals: 10;
+    assert: ( nisan eleventh , 2025 ) dayNumber equals: 11;
+    assert: ( nisan twelfth , 2025 ) dayNumber equals: 12;
+    assert: ( nisan thirteenth , 2025 ) dayNumber equals: 13;
+    assert: ( nisan fourteenth , 2025 ) dayNumber equals: 14;
+    assert: ( nisan fifteenth , 2025 ) dayNumber equals: 15;
+    assert: ( nisan sixteenth , 2025 ) dayNumber equals: 16;
+    assert: ( nisan seventeenth , 2025 ) dayNumber equals: 17;
+    assert: ( nisan eighteenth , 2025 ) dayNumber equals: 18;
+    assert: ( nisan nineteenth , 2025 ) dayNumber equals: 19;
+    assert: ( nisan twentieth , 2025 ) dayNumber equals: 20;
+    assert: ( nisan twentyFirst , 2025 ) dayNumber equals: 21;
+    assert: ( nisan twentySecond , 2025 ) dayNumber equals: 22;
+    assert: ( nisan twentyThird , 2025 ) dayNumber equals: 23;
+    assert: ( nisan twentyFourth , 2025 ) dayNumber equals: 24;
+    assert: ( nisan twentyFifth , 2025 ) dayNumber equals: 25;
+    assert: ( nisan twentySixth , 2025 ) dayNumber equals: 26;
+    assert: ( nisan twentySeventh , 2025 ) dayNumber equals: 27;
+    assert: ( nisan twentyEighth , 2025 ) dayNumber equals: 28;
+    assert: ( nisan twentyNinth , 2025 ) dayNumber equals: 29;
+    assert: ( nisan thirtieth , 2025 ) dayNumber equals: 30
 ]
 
-{ #category : 'test includes' }
-HebrewDateTest >> testIncludesDateTime [
+{ #category : 'tests' }
+HebrewDateTest >> testInstanceCreationForCheshvanOnCompleteYear [
 
-	self assert: (Nisan first, 5767 includes: (Nisan first, 5767) atMidnight).
-	self assert: (Nisan first, 5767 includes: (Nisan first, 5767) atLastTimeOfDay).
+  self assert: 5678 asHebrewYear isCompleteYear.
 
-	self deny: (Nisan first, 5767 includes: (Iyyar first, 5767) atMidnight).
-	self deny: (Nisan first, 5767 includes: (Adar twentieth, 5767) atLastTimeOfDay)
+  self
+    assert: ( cheshvan first , 5678 ) dayNumber equals: 1;
+    assert: ( cheshvan second , 5678 ) dayNumber equals: 2;
+    assert: ( cheshvan third , 5678 ) dayNumber equals: 3;
+    assert: ( cheshvan fourth , 5678 ) dayNumber equals: 4;
+    assert: ( cheshvan fifth , 5678 ) dayNumber equals: 5;
+    assert: ( cheshvan sixth , 5678 ) dayNumber equals: 6;
+    assert: ( cheshvan seventh , 5678 ) dayNumber equals: 7;
+    assert: ( cheshvan eighth , 5678 ) dayNumber equals: 8;
+    assert: ( cheshvan ninth , 5678 ) dayNumber equals: 9;
+    assert: ( cheshvan tenth , 5678 ) dayNumber equals: 10;
+    assert: ( cheshvan eleventh , 5678 ) dayNumber equals: 11;
+    assert: ( cheshvan twelfth , 5678 ) dayNumber equals: 12;
+    assert: ( cheshvan thirteenth , 5678 ) dayNumber equals: 13;
+    assert: ( cheshvan fourteenth , 5678 ) dayNumber equals: 14;
+    assert: ( cheshvan fifteenth , 5678 ) dayNumber equals: 15;
+    assert: ( cheshvan sixteenth , 5678 ) dayNumber equals: 16;
+    assert: ( cheshvan seventeenth , 5678 ) dayNumber equals: 17;
+    assert: ( cheshvan eighteenth , 5678 ) dayNumber equals: 18;
+    assert: ( cheshvan nineteenth , 5678 ) dayNumber equals: 19;
+    assert: ( cheshvan twentieth , 5678 ) dayNumber equals: 20;
+    assert: ( cheshvan twentyFirst , 5678 ) dayNumber equals: 21;
+    assert: ( cheshvan twentySecond , 5678 ) dayNumber equals: 22;
+    assert: ( cheshvan twentyThird , 5678 ) dayNumber equals: 23;
+    assert: ( cheshvan twentyFourth , 5678 ) dayNumber equals: 24;
+    assert: ( cheshvan twentyFifth , 5678 ) dayNumber equals: 25;
+    assert: ( cheshvan twentySixth , 5678 ) dayNumber equals: 26;
+    assert: ( cheshvan twentySeventh , 5678 ) dayNumber equals: 27;
+    assert: ( cheshvan twentyEighth , 5678 ) dayNumber equals: 28;
+    assert: ( cheshvan twentyNinth , 5678 ) dayNumber equals: 29;
+    assert: ( cheshvan thirtieth , 5678 ) dayNumber equals: 30
 ]
 
-{ #category : 'test includes' }
-HebrewDateTest >> testIncludesMonthOfYear [
+{ #category : 'tests' }
+HebrewDateTest >> testInstanceCreationForCheshvanOnDeficientYear [
 
-	self
-		should: [ Nisan first, 5767 includes: Nisan, 5767 ]
-		raise: Exception
+  self assert: 5675 asHebrewYear isDeficientYear.
+
+  self
+    assert: ( cheshvan first , 5675 ) dayNumber equals: 1;
+    assert: ( cheshvan second , 5675 ) dayNumber equals: 2;
+    assert: ( cheshvan third , 5675 ) dayNumber equals: 3;
+    assert: ( cheshvan fourth , 5675 ) dayNumber equals: 4;
+    assert: ( cheshvan fifth , 5675 ) dayNumber equals: 5;
+    assert: ( cheshvan sixth , 5675 ) dayNumber equals: 6;
+    assert: ( cheshvan seventh , 5675 ) dayNumber equals: 7;
+    assert: ( cheshvan eighth , 5675 ) dayNumber equals: 8;
+    assert: ( cheshvan ninth , 5675 ) dayNumber equals: 9;
+    assert: ( cheshvan tenth , 5675 ) dayNumber equals: 10;
+    assert: ( cheshvan eleventh , 5675 ) dayNumber equals: 11;
+    assert: ( cheshvan twelfth , 5675 ) dayNumber equals: 12;
+    assert: ( cheshvan thirteenth , 5675 ) dayNumber equals: 13;
+    assert: ( cheshvan fourteenth , 5675 ) dayNumber equals: 14;
+    assert: ( cheshvan fifteenth , 5675 ) dayNumber equals: 15;
+    assert: ( cheshvan sixteenth , 5675 ) dayNumber equals: 16;
+    assert: ( cheshvan seventeenth , 5675 ) dayNumber equals: 17;
+    assert: ( cheshvan eighteenth , 5675 ) dayNumber equals: 18;
+    assert: ( cheshvan nineteenth , 5675 ) dayNumber equals: 19;
+    assert: ( cheshvan twentieth , 5675 ) dayNumber equals: 20;
+    assert: ( cheshvan twentyFirst , 5675 ) dayNumber equals: 21;
+    assert: ( cheshvan twentySecond , 5675 ) dayNumber equals: 22;
+    assert: ( cheshvan twentyThird , 5675 ) dayNumber equals: 23;
+    assert: ( cheshvan twentyFourth , 5675 ) dayNumber equals: 24;
+    assert: ( cheshvan twentyFifth , 5675 ) dayNumber equals: 25;
+    assert: ( cheshvan twentySixth , 5675 ) dayNumber equals: 26;
+    assert: ( cheshvan twentySeventh , 5675 ) dayNumber equals: 27;
+    assert: ( cheshvan twentyEighth , 5675 ) dayNumber equals: 28;
+    assert: ( cheshvan twentyNinth , 5675 ) dayNumber equals: 29.
+
+  self should: [ ( cheshvan , 5675 ) thirtieth ] raise: MessageNotUnderstood
 ]
 
-{ #category : 'test includes' }
-HebrewDateTest >> testIncludesYear [
-	self should: [ Nisan first , 5767 includes: 5767 asHebrewYear ] raise: Exception
+{ #category : 'tests' }
+HebrewDateTest >> testInstanceCreationForCheshvanOnRegularYear [
+
+  self assert: 5674 asHebrewYear isRegularYear.
+
+  self
+    assert: ( cheshvan first , 5674 ) dayNumber equals: 1;
+    assert: ( cheshvan second , 5674 ) dayNumber equals: 2;
+    assert: ( cheshvan third , 5674 ) dayNumber equals: 3;
+    assert: ( cheshvan fourth , 5674 ) dayNumber equals: 4;
+    assert: ( cheshvan fifth , 5674 ) dayNumber equals: 5;
+    assert: ( cheshvan sixth , 5674 ) dayNumber equals: 6;
+    assert: ( cheshvan seventh , 5674 ) dayNumber equals: 7;
+    assert: ( cheshvan eighth , 5674 ) dayNumber equals: 8;
+    assert: ( cheshvan ninth , 5674 ) dayNumber equals: 9;
+    assert: ( cheshvan tenth , 5674 ) dayNumber equals: 10;
+    assert: ( cheshvan eleventh , 5674 ) dayNumber equals: 11;
+    assert: ( cheshvan twelfth , 5674 ) dayNumber equals: 12;
+    assert: ( cheshvan thirteenth , 5674 ) dayNumber equals: 13;
+    assert: ( cheshvan fourteenth , 5674 ) dayNumber equals: 14;
+    assert: ( cheshvan fifteenth , 5674 ) dayNumber equals: 15;
+    assert: ( cheshvan sixteenth , 5674 ) dayNumber equals: 16;
+    assert: ( cheshvan seventeenth , 5674 ) dayNumber equals: 17;
+    assert: ( cheshvan eighteenth , 5674 ) dayNumber equals: 18;
+    assert: ( cheshvan nineteenth , 5674 ) dayNumber equals: 19;
+    assert: ( cheshvan twentieth , 5674 ) dayNumber equals: 20;
+    assert: ( cheshvan twentyFirst , 5674 ) dayNumber equals: 21;
+    assert: ( cheshvan twentySecond , 5674 ) dayNumber equals: 22;
+    assert: ( cheshvan twentyThird , 5674 ) dayNumber equals: 23;
+    assert: ( cheshvan twentyFourth , 5674 ) dayNumber equals: 24;
+    assert: ( cheshvan twentyFifth , 5674 ) dayNumber equals: 25;
+    assert: ( cheshvan twentySixth , 5674 ) dayNumber equals: 26;
+    assert: ( cheshvan twentySeventh , 5674 ) dayNumber equals: 27;
+    assert: ( cheshvan twentyEighth , 5674 ) dayNumber equals: 28;
+    assert: ( cheshvan twentyNinth , 5674 ) dayNumber equals: 29.
+
+  self should: [ ( cheshvan , 5674 ) thirtieth ] raise: MessageNotUnderstood
 ]
 
-{ #category : 'test instance creation' }
-HebrewDateTest >> testInvalidCreation [
+{ #category : 'tests' }
+HebrewDateTest >> testInstanceCreationForKislevOnCompleteYear [
 
-	self
-		should: [
-			FixedDate
-				yearNumber: 5767
-				monthNumber: 1
-				dayNumber: 31
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 31 is invalid for the month Nisan of Year 5767' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5767
-				monthNumber: 2
-				dayNumber: 30
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 30 is invalid for the month Iyyar of Year 5767' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5767
-				monthNumber: 3
-				dayNumber: 31
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 31 is invalid for the month Sivan of Year 5767' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5767
-				monthNumber: 4
-				dayNumber: 30
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 30 is invalid for the month Tammuz of Year 5767' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5767
-				monthNumber: 5
-				dayNumber: 31
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 31 is invalid for the month Av of Year 5767' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5767
-				monthNumber: 6
-				dayNumber: 30
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 30 is invalid for the month Elul of Year 5767' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5767
-				monthNumber: 7
-				dayNumber: 31
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 31 is invalid for the month Tishri of Year 5767' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5767
-				monthNumber: 8
-				dayNumber: 31
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals:
-				'The day 31 is invalid for the month Marheshvan of Year 5767' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5767
-				monthNumber: 9
-				dayNumber: 31
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 31 is invalid for the month Kislev of Year 5767' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5767
-				monthNumber: 10
-				dayNumber: 30
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 30 is invalid for the month Tevet of Year 5767' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5767
-				monthNumber: 11
-				dayNumber: 31
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 31 is invalid for the month Shevat of Year 5767' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5768
-				monthNumber: 12
-				dayNumber: 31
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 31 is invalid for the month Adar I of Year 5768' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5767
-				monthNumber: 14
-				dayNumber: 1
-				calendar: calendar ]
-		raise: InvalidMonthNumberException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: '14 is an invalid number for a month' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5767
-				monthNumber: 0
-				dayNumber: 1
-				calendar: calendar ]
-		raise: InvalidMonthNumberException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: '0 is an invalid number for a month' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5767
-				monthNumber: -1
-				dayNumber: 1
-				calendar: calendar ]
-		raise: InvalidMonthNumberException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: '-1 is an invalid number for a month' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5767
-				monthNumber: 1
-				dayNumber: 0
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 0 is invalid for the month Nisan of Year 5767' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5767
-				monthNumber: 1
-				dayNumber: -1
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day -1 is invalid for the month Nisan of Year 5767' ].
-	self
-		should: [
-			FixedDate
-				yearNumber: 5768
-				monthNumber: 13
-				dayNumber: 30
-				calendar: calendar ]
-		raise: InvalidDateException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals: 'The day 30 is invalid for the month Adar II of Year 5768' ]
+  self assert: 5678 asHebrewYear isCompleteYear.
+
+  self
+    assert: ( kislev first , 5678 ) dayNumber equals: 1;
+    assert: ( kislev second , 5678 ) dayNumber equals: 2;
+    assert: ( kislev third , 5678 ) dayNumber equals: 3;
+    assert: ( kislev fourth , 5678 ) dayNumber equals: 4;
+    assert: ( kislev fifth , 5678 ) dayNumber equals: 5;
+    assert: ( kislev sixth , 5678 ) dayNumber equals: 6;
+    assert: ( kislev seventh , 5678 ) dayNumber equals: 7;
+    assert: ( kislev eighth , 5678 ) dayNumber equals: 8;
+    assert: ( kislev ninth , 5678 ) dayNumber equals: 9;
+    assert: ( kislev tenth , 5678 ) dayNumber equals: 10;
+    assert: ( kislev eleventh , 5678 ) dayNumber equals: 11;
+    assert: ( kislev twelfth , 5678 ) dayNumber equals: 12;
+    assert: ( kislev thirteenth , 5678 ) dayNumber equals: 13;
+    assert: ( kislev fourteenth , 5678 ) dayNumber equals: 14;
+    assert: ( kislev fifteenth , 5678 ) dayNumber equals: 15;
+    assert: ( kislev sixteenth , 5678 ) dayNumber equals: 16;
+    assert: ( kislev seventeenth , 5678 ) dayNumber equals: 17;
+    assert: ( kislev eighteenth , 5678 ) dayNumber equals: 18;
+    assert: ( kislev nineteenth , 5678 ) dayNumber equals: 19;
+    assert: ( kislev twentieth , 5678 ) dayNumber equals: 20;
+    assert: ( kislev twentyFirst , 5678 ) dayNumber equals: 21;
+    assert: ( kislev twentySecond , 5678 ) dayNumber equals: 22;
+    assert: ( kislev twentyThird , 5678 ) dayNumber equals: 23;
+    assert: ( kislev twentyFourth , 5678 ) dayNumber equals: 24;
+    assert: ( kislev twentyFifth , 5678 ) dayNumber equals: 25;
+    assert: ( kislev twentySixth , 5678 ) dayNumber equals: 26;
+    assert: ( kislev twentySeventh , 5678 ) dayNumber equals: 27;
+    assert: ( kislev twentyEighth , 5678 ) dayNumber equals: 28;
+    assert: ( kislev twentyNinth , 5678 ) dayNumber equals: 29;
+    assert: ( kislev thirtieth , 5678 ) dayNumber equals: 30
 ]
 
-{ #category : 'test testing days' }
-HebrewDateTest >> testIs [
+{ #category : 'tests' }
+HebrewDateTest >> testInstanceCreationForKislevOnDeficientYear [
 
-	self assert: (Tammuz first, 5767 is: YomRishon).
-	self assert: (Tammuz second, 5767 is: YomSheni).
-	self assert: (Tammuz third, 5767 is: YomShelishi).
-	self assert: (Tammuz fourth, 5767 is: YomRevii).
-	self assert: (Tammuz fifth, 5767 is: YomHamishi).
-	self assert: (Tammuz sixth, 5767 is: YomShishi).
-	self assert: (Tammuz seventh, 5767 is: YomShabbat)
+  self assert: 5675 asHebrewYear isDeficientYear.
+
+  self
+    assert: ( kislev first , 5675 ) dayNumber equals: 1;
+    assert: ( kislev second , 5675 ) dayNumber equals: 2;
+    assert: ( kislev third , 5675 ) dayNumber equals: 3;
+    assert: ( kislev fourth , 5675 ) dayNumber equals: 4;
+    assert: ( kislev fifth , 5675 ) dayNumber equals: 5;
+    assert: ( kislev sixth , 5675 ) dayNumber equals: 6;
+    assert: ( kislev seventh , 5675 ) dayNumber equals: 7;
+    assert: ( kislev eighth , 5675 ) dayNumber equals: 8;
+    assert: ( kislev ninth , 5675 ) dayNumber equals: 9;
+    assert: ( kislev tenth , 5675 ) dayNumber equals: 10;
+    assert: ( kislev eleventh , 5675 ) dayNumber equals: 11;
+    assert: ( kislev twelfth , 5675 ) dayNumber equals: 12;
+    assert: ( kislev thirteenth , 5675 ) dayNumber equals: 13;
+    assert: ( kislev fourteenth , 5675 ) dayNumber equals: 14;
+    assert: ( kislev fifteenth , 5675 ) dayNumber equals: 15;
+    assert: ( kislev sixteenth , 5675 ) dayNumber equals: 16;
+    assert: ( kislev seventeenth , 5675 ) dayNumber equals: 17;
+    assert: ( kislev eighteenth , 5675 ) dayNumber equals: 18;
+    assert: ( kislev nineteenth , 5675 ) dayNumber equals: 19;
+    assert: ( kislev twentieth , 5675 ) dayNumber equals: 20;
+    assert: ( kislev twentyFirst , 5675 ) dayNumber equals: 21;
+    assert: ( kislev twentySecond , 5675 ) dayNumber equals: 22;
+    assert: ( kislev twentyThird , 5675 ) dayNumber equals: 23;
+    assert: ( kislev twentyFourth , 5675 ) dayNumber equals: 24;
+    assert: ( kislev twentyFifth , 5675 ) dayNumber equals: 25;
+    assert: ( kislev twentySixth , 5675 ) dayNumber equals: 26;
+    assert: ( kislev twentySeventh , 5675 ) dayNumber equals: 27;
+    assert: ( kislev twentyEighth , 5675 ) dayNumber equals: 28;
+    assert: ( kislev twentyNinth , 5675 ) dayNumber equals: 29.
+
+  self should: [ ( kislev , 5675 ) thirtieth ] raise: MessageNotUnderstood
 ]
 
-{ #category : 'test testing' }
-HebrewDateTest >> testIsFirstDayOfMonth [
+{ #category : 'tests' }
+HebrewDateTest >> testInstanceCreationForKislevOnRegularYear [
 
-	self assert: (Nisan first, 5767) isFirstDayOfMonth.
-	self deny: (Nisan second, 5767) isFirstDayOfMonth
+  self assert: 5674 asHebrewYear isRegularYear.
+
+  self
+    assert: ( kislev first , 5674 ) dayNumber equals: 1;
+    assert: ( kislev second , 5674 ) dayNumber equals: 2;
+    assert: ( kislev third , 5674 ) dayNumber equals: 3;
+    assert: ( kislev fourth , 5674 ) dayNumber equals: 4;
+    assert: ( kislev fifth , 5674 ) dayNumber equals: 5;
+    assert: ( kislev sixth , 5674 ) dayNumber equals: 6;
+    assert: ( kislev seventh , 5674 ) dayNumber equals: 7;
+    assert: ( kislev eighth , 5674 ) dayNumber equals: 8;
+    assert: ( kislev ninth , 5674 ) dayNumber equals: 9;
+    assert: ( kislev tenth , 5674 ) dayNumber equals: 10;
+    assert: ( kislev eleventh , 5674 ) dayNumber equals: 11;
+    assert: ( kislev twelfth , 5674 ) dayNumber equals: 12;
+    assert: ( kislev thirteenth , 5674 ) dayNumber equals: 13;
+    assert: ( kislev fourteenth , 5674 ) dayNumber equals: 14;
+    assert: ( kislev fifteenth , 5674 ) dayNumber equals: 15;
+    assert: ( kislev sixteenth , 5674 ) dayNumber equals: 16;
+    assert: ( kislev seventeenth , 5674 ) dayNumber equals: 17;
+    assert: ( kislev eighteenth , 5674 ) dayNumber equals: 18;
+    assert: ( kislev nineteenth , 5674 ) dayNumber equals: 19;
+    assert: ( kislev twentieth , 5674 ) dayNumber equals: 20;
+    assert: ( kislev twentyFirst , 5674 ) dayNumber equals: 21;
+    assert: ( kislev twentySecond , 5674 ) dayNumber equals: 22;
+    assert: ( kislev twentyThird , 5674 ) dayNumber equals: 23;
+    assert: ( kislev twentyFourth , 5674 ) dayNumber equals: 24;
+    assert: ( kislev twentyFifth , 5674 ) dayNumber equals: 25;
+    assert: ( kislev twentySixth , 5674 ) dayNumber equals: 26;
+    assert: ( kislev twentySeventh , 5674 ) dayNumber equals: 27;
+    assert: ( kislev twentyEighth , 5674 ) dayNumber equals: 28;
+    assert: ( kislev twentyNinth , 5674 ) dayNumber equals: 29;
+    assert: ( kislev thirtieth , 5674 ) dayNumber equals: 30
 ]
 
-{ #category : 'test testing' }
-HebrewDateTest >> testIsFirstDayOfYear [
+{ #category : 'tests' }
+HebrewDateTest >> testInterval [
 
-	self assert: (Tishri first, 5767) isFirstDayOfYear.
-	self deny: (Nisan first, 5767) isFirstDayOfYear
+  | interval |
+  interval := tishrei first , 5786 to: tishrei thirtieth , 5786.
+  self assert: interval size equals: 30.
+  interval doWithIndex: [ :date :index |
+      self
+        assert: date dayNumber equals: index;
+        assert: date monthOfYear equals: tishrei , 5786
+    ]
 ]
 
-{ #category : 'test testing' }
-HebrewDateTest >> testIsFirstMonthOfYear [
+{ #category : 'tests' }
+HebrewDateTest >> testIntervalWithStep [
 
-	self assert: (Tishri first, 5767) isFirstMonthOfYear.
-	self assert: (Tishri second, 5767) isFirstMonthOfYear.
-	
-	self deny: (Nisan third, 5767) isFirstMonthOfYear.
-	self deny: (Iyyar fifteenth, 5767) isFirstMonthOfYear
+  | interval |
+  interval := tishrei first , 5786 to: tishrei thirtieth , 5786 by: 2 * day.
+  self assert: interval size equals: 15.
+  interval doWithIndex: [ :date :index |
+      self
+        assert: date dayNumber equals: index * 2 - 1;
+        assert: date monthOfYear equals: tishrei , 5786
+    ]
 ]
 
-{ #category : 'test testing months' }
-HebrewDateTest >> testIsIn [
-
-	self assert: (Nisan seventh, 5767 isIn: Nisan).
-	self assert: (Iyyar seventh, 5767 isIn: Iyyar).
-	self assert: (Sivan seventh, 5767 isIn: Sivan).
-	self assert: (Tammuz seventh, 5767 isIn: Tammuz).
-	self assert: (Av seventh, 5767 isIn: Av).
-	self assert: (Elul seventh, 5767 isIn: Elul).
-	self assert: (Tishri seventh, 5767 isIn: Tishri).
-	self assert: (Marheshvan seventh, 5767 isIn: Marheshvan).
-	self assert: (Kislev seventh, 5767 isIn: Kislev).
-	self assert: (Tevet seventh, 5767 isIn: Tevet).
-	self assert: (Shevat seventh, 5767 isIn: Shevat).
-	self assert: (Adar seventh, 5767 isIn: Adar).
-	self assert: (AdarI seventh, 5768 isIn: AdarI).
-	self assert: (AdarII seventh, 5768 isIn: AdarII)
-]
-
-{ #category : 'test testing' }
-HebrewDateTest >> testIsLastDayOfMonth [
-
-	self assert: (Nisan thirtieth, 5767) isLastDayOfMonth.
-	self assert: (Iyyar twentyninth, 5767) isLastDayOfMonth.
-	self assert: (Sivan thirtieth, 5767) isLastDayOfMonth.
-	self assert: (Tammuz twentyninth, 5767) isLastDayOfMonth.
-	self assert: (Av thirtieth, 5767) isLastDayOfMonth.
-	self assert: (Elul twentyninth, 5767) isLastDayOfMonth.
-	self assert: (Tishri thirtieth, 5767) isLastDayOfMonth.
-	self assert: (Marheshvan thirtieth, 5767) isLastDayOfMonth.
-	self assert: (Kislev thirtieth, 5767) isLastDayOfMonth.
-	self assert: (Tevet twentyninth, 5767) isLastDayOfMonth.
-	self assert: (Shevat thirtieth, 5767) isLastDayOfMonth.
-	self assert: (Adar twentyninth, 5767) isLastDayOfMonth.
-	self assert: (AdarI thirtieth, 5768) isLastDayOfMonth.
-	self assert: (AdarII twentyninth, 5768) isLastDayOfMonth
-
-
-]
-
-{ #category : 'test testing' }
-HebrewDateTest >> testIsLastDayOfYear [
-
-	self assert: (Elul twentyninth, 5767) isLastDayOfYear.
-	self assert: (Elul twentyninth, 5766) isLastDayOfYear.
-
-	self deny: (Elul twentyeighth, 5767) isLastDayOfYear.
-	self deny: (Adar twentyninth, 5767) isLastDayOfYear.
-	self deny: (Kislev twentyninth, 5767) isLastDayOfYear
-]
-
-{ #category : 'test comparing' }
+{ #category : 'tests' }
 HebrewDateTest >> testLessThan [
 
-	self assert: Nisan first , 5767 < (Nisan second , 5767).
-	self assert: Nisan first , 5767 < (Iyyar first , 5767).
-	self assert: Nisan first , 5767 < (Nisan first , 5768).
+  self
+    assert: tishrei first , 2024 isLessThan: tishrei first , 2025;
+    assert: tishrei first , 2024 isLessThanOrEqualTo: tishrei first , 2025;
+    assert: tishrei first , 2025 isLessThanOrEqualTo: tishrei first , 2025;
+    assert: tishrei first , 2025 isLessThan: cheshvan first , 2025;
+    assert: tishrei first , 2025 isLessThanOrEqualTo: cheshvan first , 2025;
+    assert: elul first , 2024 isLessThanOrEqualTo: tishrei first , 2025;
+    assert: cheshvan first , 2025 isLessThan: cheshvan second , 2025;
+    assert: cheshvan first , 2025 isLessThanOrEqualTo: cheshvan second , 2025;
+    deny: tishrei first , 2025 isLessThan: tishrei first , 1;
+    deny: cheshvan first , 2025 isLessThan: tishrei first , 2025.
 
-	self
-		should: [ Iyyar first , 2007 <= YomHamishi ]
-		raise: InvalidComparisonBetweenPointsInTimeException
-		withExceptionDo: [ :ex |
-			self
-				assert: ex description
-				equals:
-					('The <1p> <2p> can not be compared with the <3p> <4p> because are points of different resolution'
-						 expandMacrosWith: YomHamishi class
-						 with: YomHamishi
-						 with: (Iyyar first , 2007) class
-						 with: Iyyar first , 2007) ].
-
-	self
-		should: [ Nisan thirtieth , 2007 < Elul ]
-		raise: InvalidComparisonBetweenPointsInTimeException
-		withExceptionDo: [ :ex |
-			self
-				assert: ex description
-				equals:
-					('The <1p> <2p> can not be compared with the <3p> <4p> because are points of different resolution'
-						 expandMacrosWith: (Nisan thirtieth , 2007) class
-						 with: Nisan thirtieth , 2007
-						 with: Elul class
-						 with: Elul) ]
+  self
+    should: [ tishrei first , 2025 < ( january first , 2025 ) ]
+    raise: ArithmeticError
+    withMessageText: 'Years in different time scales are incommensurable'
 ]
 
-{ #category : 'test accessing' }
-HebrewDateTest >> testMonth [
-
-	self assert: (Tishri first , 5767) month equals: Tishri
-]
-
-{ #category : 'test accessing' }
-HebrewDateTest >> testMonthNumber [
-
-	self assert: (Tishri first , 5767) monthNumber equals: 7
-]
-
-{ #category : 'test accessing' }
-HebrewDateTest >> testMonthOfYear [
-
-	self assert: (Tevet first , 5767) monthOfYear equals: Tevet , 5767
-]
-
-{ #category : 'test enumerating' }
+{ #category : 'tests' }
 HebrewDateTest >> testNext [
 
-	| date |
-	date := Nisan first , 5767.
-	self assert: date next equals: Nisan second , 5767.
+  self
+    assertNextOf: adarI first , 2025 is: adarI second , 2025;
+    assertNextOf: adarI thirtieth , 2025 is: adarII first , 2025;
+    assertNextOf: elul twentyNinth , 2025 is: tishrei first , 2026;
+    assertNextOf: cheshvan twentyEighth , 2020 is: cheshvan twentyNinth , 2020;
+    assertNextOf: elul twentyNinth , 1442 is: tishrei first , 1443.
 
-	date := Iyyar twentyeighth , 5767.
-	self assert: date next equals: Iyyar twentyninth , 5767.
-	self assert: date next next equals: Sivan first , 5767.
+  self
+    assert: 10 daysAfter: tishrei first , 1443 is: tishrei eleventh , 1443;
+    assert: 29 daysAfter: tishrei first , 1443 is: tishrei thirtieth , 1443;
+    assert: 30 daysAfter: tishrei first , 1443 is: cheshvan first , 1443;
+    assert: 355 daysAfter: tishrei first , 1443 is: tishrei first , 1444;
+    assert: 383 daysAfter: tishrei first , 1442 is: tishrei first , 1443;
+    assert: 0 daysAfter: tishrei first , 1443 is: tishrei first , 1443.
 
-	date := Elul twentyninth , 5767.
-	self assert: date next equals: Tishri first , 5768
+  self
+    assert: 354 + 383 + 355 + 385 daysAfter: tishrei first , 1441 is: tishrei first , 1445;
+    assert: 354 + 383 + 355 + 385 + 30 + 29 daysAfter: tishrei first , 1441 is: kislev first , 1445
 ]
 
-{ #category : 'test enumerating' }
-HebrewDateTest >> testNextDay [
-
-	| yomRishon |
-	yomRishon := Nisan sixth , 5767.
-	self
-		assert: (yomRishon nextDay: calendar yomRishon)
-		equals: Nisan thirteenth , 5767.
-	self
-		assert: (yomRishon nextDay: calendar yomSheni)
-		equals: Nisan seventh , 5767.
-	self
-		assert: (yomRishon nextDay: calendar yomShelishi)
-		equals: Nisan eighth , 5767.
-	self
-		assert: (yomRishon nextDay: calendar yomRevii)
-		equals: Nisan ninth , 5767.
-	self
-		assert: (yomRishon nextDay: calendar yomHamishi)
-		equals: Nisan tenth , 5767.
-	self
-		assert: (yomRishon nextDay: calendar yomShishi)
-		equals: Nisan eleventh , 5767.
-	self
-		assert: (yomRishon nextDay: calendar yomShabbat)
-		equals: Nisan twelfth , 5767
-]
-
-{ #category : 'test enumerating' }
-HebrewDateTest >> testNextDayOfMonth [
-
-	| date |
-	date := Nisan first , 5767.
-	self
-		assert: (date nextDayOfMonth: Sivan third)
-		equals: Sivan third , 5767.
-	self
-		assert:
-		((date nextDayOfMonth: Sivan third) nextDayOfMonth: Tammuz fourth)
-		equals: Tammuz fourth , 5767.
-
-	date := Sivan third , 5767.
-	self
-		assert: (date nextDayOfMonth: Iyyar third)
-		equals: Iyyar third , 5768.
-	self
-		assert:
-		((date nextDayOfMonth: Iyyar third) nextDayOfMonth: Nisan fourth)
-		equals: Nisan fourth , 5769
-]
-
-{ #category : 'test enumerating' }
-HebrewDateTest >> testNextInNumberOfDays [
-
-	self
-		assert: (Nisan first , 1 next: self tenDays)
-		equals: Nisan eleventh , 1.
-	self
-		assert: (Nisan first , 5767 next: self twentyNineDays)
-		equals: Nisan thirtieth , 5767.
-	self
-		assert: (Nisan first , 5767 next: self thirtyDays)
-		equals: Iyyar first , 5767.
-	self
-		assert: (Nisan first , 5767 next: 353 daysMeasure)
-		equals: AdarI thirtieth , 5768.
-	self
-		assert: (Nisan first , 5766 next: 355 daysMeasure)
-		equals: Nisan first , 5767.
-	self
-		assert: (Nisan first , 5767 next: 0 daysMeasure)
-		equals: Nisan first , 5767
-]
-
-{ #category : 'test enumerating' }
-HebrewDateTest >> testNextInWeeks [
-
-	self
-		assert: (Nisan first , 5767 next: 1 weekMeasure)
-		equals: (Nisan first , 5767 next: 7 daysMeasure).
-	self
-		assert: (Nisan first , 5767 next: 2 weeksMeasure)
-		equals: (Nisan first , 5767 next: 14 daysMeasure)
-]
-
-{ #category : 'test enumerating' }
-HebrewDateTest >> testNextMonth [
-
-	| day |
-	day := Nisan first , 5767.
-	self
-		assert: (day nextMonth: 1 monthMeasure)
-		equals: Iyyar first , 5767.
-	self
-		assert: (day nextMonth: 2 monthsMeasure)
-		equals: Sivan first , 5767.
-	self
-		assert: (day nextMonth: 3 monthsMeasure)
-		equals: Tammuz first , 5767.
-	self assert: (day nextMonth: 4 monthsMeasure) equals: Av first , 5767.
-	self
-		assert: (day nextMonth: 5 monthsMeasure)
-		equals: Elul first , 5767.
-	self
-		assert: (day nextMonth: 6 monthsMeasure)
-		equals: Tishri first , 5768.
-	self
-		assert: (day nextMonth: 7 monthsMeasure)
-		equals: Marheshvan first , 5768.
-	self
-		assert: (day nextMonth: 8 monthsMeasure)
-		equals: Kislev first , 5768.
-	self
-		assert: (day nextMonth: 9 monthsMeasure)
-		equals: Tevet first , 5768.
-	self
-		assert: (day nextMonth: 10 monthsMeasure)
-		equals: Shevat first , 5768.
-	self
-		assert: (day nextMonth: 11 monthsMeasure)
-		equals: AdarI first , 5768.
-	self
-		assert: (day nextMonth: 12 monthsMeasure)
-		equals: AdarII first , 5768.
-	self
-		assert: (day nextMonth: 13 monthsMeasure)
-		equals: Nisan first , 5768
-]
-
-{ #category : 'test accessing' }
-HebrewDateTest >> testNumberOfDaysFromBeginnigOfYear [
-
-	self
-		assert: (Tishri first , 5767) numberOfDaysFromBeginningOfYear
-		equals: 0 daysMeasure.
-	self
-		assert: (Tishri thirtieth , 5767) numberOfDaysFromBeginningOfYear
-		equals: 29 daysMeasure.
-	self
-		assert: (Elul twentyninth , 5767) numberOfDaysFromBeginningOfYear
-		equals: 354 daysMeasure.
-	self
-		assert: (Elul twentyninth , 5768) numberOfDaysFromBeginningOfYear
-		equals: 382 daysMeasure
-]
-
-{ #category : 'test accessing' }
-HebrewDateTest >> testNumberOfDaysFromBeginningOfMonth [
-
-	self
-		assert: (Nisan first , 1) numberOfDaysFromBeginningOfMonth
-		equals: 0 daysMeasure.
-	self
-		assert: (Nisan thirtieth , 5767) numberOfDaysFromBeginningOfMonth
-		equals: 29 daysMeasure.
-	self
-		assert: (Iyyar twentyninth , 5767) numberOfDaysFromBeginningOfMonth
-		equals: 28 daysMeasure
-]
-
-{ #category : 'test accessing' }
-HebrewDateTest >> testNumberOfDaysFromEpoch [
-
-	self
-		assert: (Tishri first , 1) numberOfDaysFromEpoch
-		equals: -1373428 daysMeasure.
-	self
-		assert: (Elul twentyninth , 1300) numberOfDaysFromEpoch
-		equals: -898607 daysMeasure.
-	self
-		assert: (Nisan first , 5767) numberOfDaysFromEpoch
-		equals: 732754 daysMeasure
-]
-
-{ #category : 'test accessing' }
-HebrewDateTest >> testNumberOfDaysToEndOfMonth [
-
-	self
-		assert: (Tishri first , 5767) numberOfDaysToEndOfMonth
-		equals: 29 daysMeasure.
-	self
-		assert: (Tishri thirtieth , 5767) numberOfDaysToEndOfMonth
-		equals: 0 daysMeasure.
-	self
-		assert: (Iyyar twentyeighth , 5767) numberOfDaysToEndOfMonth
-		equals: 1 dayMeasure
-]
-
-{ #category : 'test accessing' }
-HebrewDateTest >> testNumberOfDaysToEndOfYear [
-
-	self
-		assert: (Tishri first , 5767) numberOfDaysToEndOfYear
-		equals: 354 daysMeasure.
-	self
-		assert: (Elul twentyninth , 5767) numberOfDaysToEndOfYear
-		equals: 0 daysMeasure
-]
-
-{ #category : 'test enumerating' }
+{ #category : 'tests' }
 HebrewDateTest >> testPrevious [
 
-	| day |
-	day := Nisan first , 5767.
-	self assert: day previous equals: Adar twentyninth , 5767.
+  self
+    assertPreviousOf: adarI second , 2025 is: adarI first , 2025;
+    assertPreviousOf: adarI first , 2025 is: shevat thirtieth , 2025;
+    assertPreviousOf: tishrei first , 2025 is: elul twentyNinth , 2024;
+    assertPreviousOf: tishrei first , 1443 is: elul twentyNinth , 1442;
+    assertPreviousOf: elul twentyNinth , 1442 is: elul twentyEighth , 1442.
+  self
+    assert: 10 daysBefore: elul twentyNinth , 2008 is: elul nineteenth , 2008;
+    assert: 28 daysBefore: elul twentyNinth , 2008 is: elul first , 2008;
+    assert: 29 daysBefore: elul twentyNinth , 2008 is: av thirtieth , 2008;
+    assert: 382 daysBefore: elul twentyNinth , 1442 is: tishrei first , 1442;
+    assert: 383 daysBefore: tishrei first , 1443 is: tishrei first , 1442;
+    assert: 0 daysBefore: elul twentyNinth , 2008 is: elul twentyNinth , 2008.
 
-	day := Sivan first , 5767.
-	self assert: day previous equals: Iyyar twentyninth , 5767
+  self
+    assert: 354 + 383 + 355 + 385 daysBefore: tishrei first , 1445 is: tishrei first , 1441;
+    assert: 354 + 383 + 355 + 385 + 30 + 29
+    daysBefore: kislev first , 1445
+    is: tishrei first , 1441
 ]
 
-{ #category : 'test enumerating' }
-HebrewDateTest >> testPreviousDay [
-
-	| yomRishon |
-	yomRishon := Nisan sixth , 5767.
-	self
-		assert: (yomRishon previousDay: calendar yomSheni)
-		equals: Adar twentyninth , 5767.
-	self
-		assert: (yomRishon previousDay: calendar yomShelishi)
-		equals: Nisan first , 5767.
-	self
-		assert: (yomRishon previousDay: calendar yomRevii)
-		equals: Nisan second , 5767.
-	self
-		assert: (yomRishon previousDay: calendar yomHamishi)
-		equals: Nisan third , 5767.
-	self
-		assert: (yomRishon previousDay: calendar yomShishi)
-		equals: Nisan fourth , 5767.
-	self
-		assert: (yomRishon previousDay: calendar yomShabbat)
-		equals: Nisan fifth , 5767.
-	self
-		assert: (yomRishon previousDay: calendar yomRishon)
-		equals: Adar twentyeighth , 5767
-]
-
-{ #category : 'test enumerating' }
-HebrewDateTest >> testPreviousDayOfMonth [
-
-	| day |
-	day := Nisan first , 5767.
-	self
-		assert: (day previousDayOfMonth: Sivan third)
-		equals: Sivan third , 5766.
-	self
-		assert: ((day previousDayOfMonth: Sivan third) previousDayOfMonth:
-				 Tammuz fourth)
-		equals: Tammuz fourth , 5765
-]
-
-{ #category : 'test enumerating' }
-HebrewDateTest >> testPreviousInNumberOfDays [
-
-	self
-		assert: (Nisan first , 1 previous: self tenDays)
-		equals: Adar twentieth , 1.
-	self
-		assert: (Nisan first , 5767 previous: self twentyNineDays)
-		equals: Adar first , 5767.
-	self
-		assert: (Nisan first , 5767 previous: self thirtyDays)
-		equals: Shevat thirtieth , 5767.
-	self
-		assert: (Nisan first , 5767 previous: 356 daysMeasure)
-		equals: Adar twentyninth , 5766.
-	self
-		assert: (Nisan first , 5766 previous: 356 daysMeasure)
-		equals: AdarII twentyeighth , 5765.
-	self
-		assert: (Nisan first , 5767 previous: 0 daysMeasure)
-		equals: Nisan first , 5767
-]
-
-{ #category : 'test enumerating' }
-HebrewDateTest >> testPreviousInWeeks [
-
-	self
-		assert: (Nisan first , 5767 previous: 1 weekMeasure)
-		equals: (Nisan first , 5767 previous: 7 daysMeasure).
-	self
-		assert: (Nisan first , 5767 previous: 2 weeksMeasure)
-		equals: (Nisan first , 5767 previous: 14 daysMeasure)
-]
-
-{ #category : 'test printing' }
+{ #category : 'tests' }
 HebrewDateTest >> testPrintString [
 
-	| date |
-	date := Tevet first , 5767.
-	self assert: date printString equals: 'Tevet 1, 5767'
+  self
+    assert: ( adarII , 2025 ) first printString equals: 'Adar II 1, 2025 AM';
+    assert: ( tishrei , 2025 ) twelfth printString equals: 'Tishrei 12, 2025 AM'
 ]
 
-{ #category : 'test interval protocol' }
-HebrewDateTest >> testTo [
+{ #category : 'tests' }
+HebrewDateTest >> testSubtraction [
 
-	| interval |
-	interval := Nisan first , 5767 to: Nisan tenth , 5767.
-	self assert: interval from equals: Nisan first , 5767.
-	self assert: interval to equals: Nisan tenth , 5767.
-	self assert: interval by equals: self oneDay
-]
-
-{ #category : 'test interval protocol' }
-HebrewDateTest >> testToBy [
-
-	| interval |
-	interval := Nisan first , 5767 to: Nisan tenth , 5767 by:
-	            self twoDays.
-	self assert: interval from equals: Nisan first , 5767.
-	self assert: interval to equals: Nisan tenth , 5767.
-	self assert: interval by equals: self twoDays
-]
-
-{ #category : 'test interval protocol' }
-HebrewDateTest >> testToByDo [
-
-	| daysTo nisanFirst5767 |
-	daysTo := 0.
-	nisanFirst5767 := Nisan first , 5767.
-	(nisanFirst5767 to: Nisan first , 5768 by: self twoDays) do: [ :date |
-		self assert: (nisanFirst5767 distanceTo: date) amount equals: daysTo.
-		daysTo := daysTo + 2 ].
-	self assert: daysTo equals: 384
-]
-
-{ #category : 'test interval protocol' }
-HebrewDateTest >> testToByReverse [
-
-	| coll number |
-	coll := (Nisan first , 5767 to: Nisan thirtieth , 5767 by:
-	         self twoDays) reverse.
-	number := 29.
-	coll do: [ :date |
-		self assert: date dayNumber equals: number.
-		number := number - 2 ].
-	self assert: number equals: -1
-]
-
-{ #category : 'test interval protocol' }
-HebrewDateTest >> testToEveryBeginningDifferentDay [
-
-	| yomSheni expectedDayNumbers interval |
-	yomSheni := Nisan seventh , 5767.
-	interval := yomSheni
-		            to: (yomSheni nextDay: calendar yomSheni) next
-		            every: (Array
-				             with: calendar yomShelishi
-				             with: calendar yomRevii
-				             with: calendar yomShishi).
-	self assert: interval first equals: yomSheni next.
-	self
-		assert: interval last
-		equals: (yomSheni nextDay: calendar yomSheni) next.
-	self assert: interval size equals: 4.
-	expectedDayNumbers := #( 8 9 11 15 ).
-	interval inject: 1 into: [ :index :date |
-		self assert: date dayNumber equals: (expectedDayNumbers at: index).
-		index + 1 ]
-]
-
-{ #category : 'test interval protocol' }
-HebrewDateTest >> testToEveryBeginningSameDay [
-
-	| yomSheni expectedDayNumbers interval |
-	yomSheni := Nisan seventh , 5767.
-	interval := yomSheni
-		            to: (yomSheni nextDay: calendar yomSheni)
-		            every: (Array
-				             with: calendar yomSheni
-				             with: calendar yomRevii
-				             with: calendar yomShishi).
-	self assert: interval first equals: yomSheni.
-	self
-		assert: interval last
-		equals: (yomSheni nextDay: calendar yomSheni).
-	self assert: interval size equals: 4.
-	expectedDayNumbers := #( 7 9 11 14 ).
-	interval inject: 1 into: [ :index :date |
-		self assert: date dayNumber equals: (expectedDayNumbers at: index).
-		index + 1 ]
-]
-
-{ #category : 'test interval protocol' }
-HebrewDateTest >> testToEveryDayBeginningDifferentDay [
-
-	| yomSheni expectedDayNumbers interval |
-	yomSheni := Nisan seventh , 5767.
-	interval := yomSheni
-		            to: (yomSheni nextDay: calendar yomSheni) next
-		            everyDay: calendar yomShelishi.
-	self assert: interval first equals: yomSheni next.
-	self
-		assert: interval last
-		equals: (yomSheni nextDay: calendar yomSheni) next.
-	self assert: interval size equals: 2.
-	expectedDayNumbers := #( 8 15 ).
-	interval inject: 1 into: [ :index :date |
-		self assert: date dayNumber equals: (expectedDayNumbers at: index).
-		index + 1 ]
-]
-
-{ #category : 'test interval protocol' }
-HebrewDateTest >> testToEveryDayBeginningSameDay [
-
-	| yomSheni expectedDayNumbers interval |
-	yomSheni := Nisan seventh , 5767.
-	interval := yomSheni
-		            to: (yomSheni nextDay: calendar yomSheni)
-		            everyDay: calendar yomSheni.
-	self assert: interval first equals: yomSheni.
-	self
-		assert: interval last
-		equals: (yomSheni nextDay: calendar yomSheni).
-	self assert: interval size equals: 2.
-	expectedDayNumbers := #( 7 14 ).
-	interval inject: 1 into: [ :index :date |
-		self assert: date dayNumber equals: (expectedDayNumbers at: index).
-		index + 1 ]
-]
-
-{ #category : 'test interval protocol' }
-HebrewDateTest >> testToEveryDayNumber [
-
-	| expectedMonths interval |
-	interval := Tishri first , 5767
-		            to: Elul twentyninth , 5767
-		            everyDayNumber: 30.
-	self assert: interval first equals: Tishri thirtieth , 5767.
-	self assert: interval last equals: Av thirtieth , 5767.
-	self assert: interval size equals: 7.
-	expectedMonths := calendar months select: [ :month |
-		                  (month lastDayNumberIn: 5767 asHebrewYear) = 30 ].
-	interval inject: 4 into: [ :index :date |
-		self assert: date month equals: (expectedMonths at: index).
-		self assert: date dayNumber equals: 30.
-		index = expectedMonths size
-			ifTrue: [ index - expectedMonths size + 1 ]
-			ifFalse: [ index + 1 ] ]
-]
-
-{ #category : 'test interval protocol' }
-HebrewDateTest >> testToEveryDayNumbers [
-
-	| expectedDayNumbers interval |
-	interval := Tishri first , 5767
-		            to: Elul twentyninth , 5767
-		            everyDayNumbers: (Array
-				             with: 5
-				             with: 20
-				             with: 30
-				             with: 1).
-	self assert: interval first equals: Tishri first , 5767.
-	self assert: interval last equals: Elul twentieth , 5767.
-	self assert: interval size equals: 43.
-	expectedDayNumbers := #( 1 5 20 30 1 5 20 30 1 5 20 30 1 5 20 1 5 20
-	                         30 1 5 20 1 5 20 30 1 5 20 1 5 20 30 1 5 20
-	                         1 5 20 30 1 5 20 ).
-	interval inject: 1 into: [ :index :date |
-		self assert: date dayNumber equals: (expectedDayNumbers at: index).
-		index + 1 ]
-]
-
-{ #category : 'test interval protocol' }
-HebrewDateTest >> testToEveryDayOfMonth [
-
-	| dates |
-	dates := Nisan tenth , 5767
-		         to: Nisan ninth , 5769
-		         everyDayOfMonth: Nisan tenth.
-	self assert: dates size equals: 2.
-	self assert: (dates includes: Nisan tenth , 5767).
-	self assert: (dates includes: Nisan tenth , 5768).
-
-	dates := Nisan tenth , 5767
-		         to: Nisan tenth , 5769
-		         everyDayOfMonth: Nisan tenth.
-	self assert: dates size equals: 3.
-	self assert: (dates includes: Nisan tenth , 5767).
-	self assert: (dates includes: Nisan tenth , 5768).
-	self assert: (dates includes: Nisan tenth , 5769)
-]
-
-{ #category : 'test interval protocol' }
-HebrewDateTest >> testToNegativeBy [
-
-	| interval number |
-	interval := Nisan thirtieth , 5767 to: Nisan first , 5767 by:
-	            self twoDays negated.
-	number := 30.
-	interval do: [ :date |
-		self assert: date dayNumber equals: number.
-		number := number - 2 ].
-	self assert: number equals: 0
-]
-
-{ #category : 'test days accessing' }
-HebrewDateTest >> testToday [
-
-	| tomorrow yesterday |
-	tomorrow := calendar tomorrow.
-	yesterday := calendar yesterday.
-	self assert: calendar today equals: yesterday next.
-	self assert: calendar today equals: tomorrow previous
-]
-
-{ #category : 'test days accessing' }
-HebrewDateTest >> testTomorrow [
-
-	| today |
-	today := calendar today.
-	self assert: calendar tomorrow equals: today next
-]
-
-{ #category : 'test accessing' }
-HebrewDateTest >> testYearNumber [
-
-	self assert: (Tishri first , 5767) yearNumber equals: 5767
-]
-
-{ #category : 'test days accessing' }
-HebrewDateTest >> testYesterday [
-
-	| today |
-	today := calendar today.
-	self assert: calendar yesterday equals: today previous
-]
-
-{ #category : 'test support' }
-HebrewDateTest >> thirtyDays [
-	^ 30 daysMeasure
-]
-
-{ #category : 'test support' }
-HebrewDateTest >> twentyNineDays [
-	^ 29 daysMeasure
-]
-
-{ #category : 'test support' }
-HebrewDateTest >> twoDays [
-	^ 2 daysMeasure
-]
-
-{ #category : 'test support' }
-HebrewDateTest >> zeroDays [
-	^ 0 daysMeasure
+  self
+    assert: tishrei first , 5786 - ( tishrei first , 5786 ) equals: 0 * day;
+    assert: tishrei second , 5786 - ( tishrei first , 5786 ) equals: 1 * day;
+    assert: tishrei first , 5787 - ( tishrei first , 5786 ) equals: 354 * day
 ]

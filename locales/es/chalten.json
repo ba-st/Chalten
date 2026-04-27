@@ -1,0 +1,26 @@
+{
+	"Chalten" : {
+		"c9e1eef3bc8a22881461efd4bcc34b44a32084f2dd89112400d7d646398e6f30" : "El nombre de un día de la semana no puede ser vacio",
+		"7bfacf94dea8149df9ba71f77d7343ce17a47c5caf7a0236d50006647983f6e6" : "La posición de un día de la semana debe estar entre 1 y 7",
+		"530f14ea09451ef5776479823b8ce119ba45de5132428353990d1e0d90c6aefa" : "El nombre corto de un día de la semana no puede ser vacio",
+		"a1fb4ce8905ae74edba4fa14947dcbedddb1f4f1c77debb9345e0783df4ec930" : "El tiempo de un dia debe ser entre 0 y 24 horas",
+		"db53e829f27783fabf447b1b865958eecd7fd6d7530e7f338c0e37f1628d570d" : "No se puede convetir una fecha y hora local en un instante de tiempo absoluto porque es ambiguo en esta zona horaria",
+		"35f73c7f91f09499b7911793300541dd24ec18923314a3d1096c803bad15e637" : "No se pueden restar dos fechas cuando la segunda es mayor que la primera.",
+		"a49ad0e11cc88dedf2e5fa6c9ce2ce8f2482b7b9cf61fef33abc4560838b3ccd" : "No se pueden usar meses no gregorianos para días de meses gregorianos",
+		"2fb82f0bcd34fdeae280cfa2f56ca687826bcc0f24726c2fea8f127703a0f8e5" : "No se pueden usar meses no islámicos para días de meses islámicos",
+		"d9d4f456cecabcf1cc818417709dce91dc72885f1010368fbbcbf4c69e5330eb" : "Gregoriano",
+		"33e00df2aac325324fabf87b73ad74dba6e566d33a88445f0f7b221cdd49b94c" : "Hebreo",
+		"6862692483b0a08902df37791e94e0e8c7e98725b972eb819f73ac3f8bdfe957" : "Versión del archivo de información de zonas horarias inválida. Se esperaba \"2\" o \"3\"",
+		"ba5e0cf45cec306f6c554ca7b9d10ecc46fecb754234567e8983c4335529df0a" : "Archivo de información de zonas horarias inválido. Se esperaba la constante TZif",
+		"a5c147deea5f3926fffbf1c3e72f103c103a6460f374505bf9b46c84dfe7005e" : "Islámico",
+		"23ae1d3dac2528e95ba3f4d9eb8ce3e8f59ecc770e0363a3eb2c2fb748876c42" : "Debe haber exáctamente un conjunto de reglas de desplazamiento más que las transiciones entre ellos",
+		"b30d4043f2bccdfbf8ff6ce1057c8fd20e5a08badb78705e8288a93811793015" : "El calendario Hebreo no soporta años negativos",
+		"0ba6270a0ed3ea332860f90d44db747c18d0bf690a9aba8eb3ee0ae005539f81" : "El calendario Islámico no soporta años negativos",
+		"c10e77d5a809e2c479a5bf851a305c198bd7aad3d03aa6e0506f260c4feae523" : "El tiempo local no existe en la zona horario debido a los cambios de horario de verano.",
+		"563cbd92791182087804ea981ff4185478fd2f23218411a069a2f94c9efbbc8b" : "Los años en diferentes escalas temporales son incomparables",
+		"8e21aa718f104480d46d182bb96f5fdf6d6ac3e25720c1e2cb48c457f80856f7" : "{1} es un número inválido de día en {2}",
+		"4da9728921e5a1015ab372431a5b3319d649ecb8eeeb0950e2c5a71a2681bd34" : "{1} es un número inválido para un año en el calendario {2}",
+		"66038dfccb41c4111ebba8cb88a5a406d46f1fca974f9c7605aa785a6b243b48" : "{1} es un identificador de zona horaria inválido",
+		"c32fd102b9eceabaf3fd7a9a56b3074f86fa3cbba03c9f6d787db106aee57e95" : "{1} está fuera de rango. Los desplazamientos en UTC varían de -16:00 a +16:00"
+	}
+}

@@ -1,560 +1,251 @@
 Class {
 	#name : 'HebrewYearTest',
-	#superclass : 'TestCase',
-	#instVars : [
-		'calendar',
-		'zeroYears',
-		'oneYear',
-		'twoYears',
-		'tenYears',
-		'sixMonths',
-		'twentyNineDays',
-		'thirtyDays',
-		'fourteenMonths'
-	],
+	#superclass : 'HebrewCalendarTest',
 	#category : 'Chalten-Hebrew-Calendar-Tests',
 	#package : 'Chalten-Hebrew-Calendar-Tests'
 }
 
-{ #category : 'accessing' }
-HebrewYearTest class >> classUnderTest [
+{ #category : 'tests' }
+HebrewYearTest >> testBetweenAnd [
 
-	^ChaltenYear
+  self
+    assert: ( 2 asHebrewYear between: 2 asHebrewYear and: 3 asHebrewYear );
+    assert: ( 3 asHebrewYear between: 2 asHebrewYear and: 3 asHebrewYear );
+    assert: ( 3 asHebrewYear between: 2 asHebrewYear and: 4 asHebrewYear );
+    deny: ( 4 asHebrewYear between: 2 asHebrewYear and: 3 asHebrewYear );
+    deny: ( 1 asHebrewYear between: 2 asHebrewYear and: 3 asHebrewYear )
 ]
 
-{ #category : 'initialization' }
-HebrewYearTest >> setUp [
-	calendar := ChaltenEnvironment calendarNamed: #HebrewCalendar.
-	zeroYears := 0 yearsMeasure.
-	oneYear := 1 yearMeasure.
-	twoYears := 2 yearsMeasure.
-	tenYears := 10 yearsMeasure.
-	sixMonths := 6 monthsMeasure.
-	fourteenMonths := 14 monthsMeasure.
-	twentyNineDays := 29 daysMeasure.
-	thirtyDays := 30 daysMeasure
+{ #category : 'tests' }
+HebrewYearTest >> testComparing [
+
+  self
+    assert: 1 asHebrewYear equals: 1 asHebrewYear;
+    assert: 2025 asHebrewYear equals: 2025 asHebrewYear;
+    deny: 1 asHebrewYear equals: 2025 asHebrewYear;
+    deny: 1 asHebrewYear equals: 1 asGregorianYear;
+    deny: 1 asGregorianYear equals: 1 asHebrewYear
 ]
 
-{ #category : 'test accessing' }
-HebrewYearTest >> testDates [
-
-	self
-		assert: 5767 asHebrewYear dates first
-		equals: Tishri first , 5767.
-	self
-		assert: 5767 asHebrewYear dates last
-		equals: Elul twentyninth , 5767.
-	self
-		assert: 5765 asHebrewYear dates first
-		equals: Tishri first , 5765.
-	self
-		assert: 5765 asHebrewYear dates last
-		equals: Elul twentyninth , 5765
-]
-
-{ #category : 'test interval protocol' }
-HebrewYearTest >> testDistanceTo [
-
-	self
-		assert: (5767 asHebrewYear absoluteDistanceTo: 5770 asHebrewYear)
-		equals: 3 yearsMeasure
-]
-
-{ #category : 'test comparing' }
-HebrewYearTest >> testEqual [
-
-	self assert: 5767 asHebrewYear equals: 5767 asHebrewYear.
-	self deny: 5767 asHebrewYear = 5768 asHebrewYear
-]
-
-{ #category : 'test accessing' }
-HebrewYearTest >> testFirstDate [
-
-	self assert: 5767 asHebrewYear firstDate equals: Tishri first , 5767.
-	self assert: 5765 asHebrewYear firstDate equals: Tishri first , 5765
-]
-
-{ #category : 'test accessing' }
-HebrewYearTest >> testFirstDay [
-
-	self
-		assert: 5767 asHebrewYear firstDay
-		equals: (Tishri first , 5767) day.
-	self
-		assert: 5765 asHebrewYear firstDay
-		equals: (Tishri first , 5765) day
-]
-
-{ #category : 'test accessing' }
-HebrewYearTest >> testFirstMonth [
-
-	self assert: 5767 asHebrewYear firstMonth equals: Tishri , 5767.
-	self assert: 5765 asHebrewYear firstMonth equals: Tishri , 5765
-]
-
-{ #category : 'test comparing' }
+{ #category : 'tests' }
 HebrewYearTest >> testGreaterThan [
 
-	self assert: 5767 asHebrewYear > 5766 asHebrewYear.
-	self deny: 5767 asHebrewYear > 5767 asHebrewYear.
+  self
+    assert: 2 asHebrewYear isGreaterThan: 1 asHebrewYear;
+    assert: 2 asHebrewYear isGreaterThanOrEqualTo: 1 asHebrewYear;
+    assert: 1 asHebrewYear isGreaterThanOrEqualTo: 1 asHebrewYear;
+    deny: 1 asHebrewYear isGreaterThan: 2025 asHebrewYear.
 
-	self
-		should: [ 5767 asHebrewYear > YomShelishi ]
-		raise: InvalidComparisonBetweenPointsInTimeException
-		withExceptionDo: [ :ex |
-			self
-				assert: ex description
-				equals:
-					('The <1p> <2p> can not be compared with the <3p> <4p> because are points of different resolution'
-						 expandMacrosWith: YomShelishi class
-						 with: YomShelishi
-						 with: 5767 asHebrewYear class
-						 with: 5767 asHebrewYear) ].
-
-	self
-		should: [ 5767 asHebrewYear >= Tishri third ]
-		raise: InvalidComparisonBetweenPointsInTimeException
-		withExceptionDo: [ :ex |
-			self
-				assert: ex description
-				equals:
-					('The <1p> <2p> can not be compared with the <3p> <4p> because are points of different resolution'
-						 expandMacrosWith: 5767 asHebrewYear class
-						 with: 5767 asHebrewYear
-						 with: Tishri third class
-						 with: Tishri third) ]
+  self
+    should: [ 2 asHebrewYear > 1 asGregorianYear ]
+    raise: ArithmeticError
+    withMessageText: 'Years in different time scales are incommensurable';
+    should: [ 1 asGregorianYear > 2 asHebrewYear ]
+    raise: ArithmeticError
+    withMessageText: 'Years in different time scales are incommensurable'
 ]
 
-{ #category : 'test comparing' }
-HebrewYearTest >> testHash [
+{ #category : 'tests' }
+HebrewYearTest >> testInstanceCreation [
 
-	self assert: 5767 asHebrewYear hash equals: 5767 asHebrewYear hash.
-	self deny: 5767 asHebrewYear hash = 5766 asHebrewYear hash
+  self
+    assert: ( HebrewYear number: 2025 ) number equals: 2025;
+    should: [ HebrewYear number: 0 ]
+    raise: InstanceCreationFailed
+    withMessageText: 'Negative years are unsupported for the Hebrew calendar';
+    should: [ HebrewYear number: -13 ]
+    raise: InstanceCreationFailed
+    withMessageText: 'Negative years are unsupported for the Hebrew calendar';
+    should: [ HebrewYear number: 1.5 ]
+    raise: InstanceCreationFailed
+    withMessageText: '1.5 is an invalid number for a year in the Hebrew calendar'
 ]
 
-{ #category : 'test includes' }
-HebrewYearTest >> testIncludesDate [
-	self assert: (5767 asHebrewYear includes: Nisan first , 5767).
-	self assert: (5767 asHebrewYear includes: Adar twentyninth , 5767).
-	self assert: (5766 asHebrewYear includes: Nisan first , 5766).
-	self assert: (5768 asHebrewYear includes: AdarII twentyninth , 5768).
-	self deny: (5767 asHebrewYear includes: Nisan first , 5766).
-	self deny: (5767 asHebrewYear includes: Adar twentyninth , 5769)
+{ #category : 'tests' }
+HebrewYearTest >> testInstanceCreationShortcut [
+
+  self
+    assert: 2025 asHebrewYear number equals: 2025;
+    should: [ 0 asHebrewYear ]
+    raise: InstanceCreationFailed
+    withMessageText: 'Negative years are unsupported for the Hebrew calendar';
+    should: [ -13 asHebrewYear ]
+    raise: InstanceCreationFailed
+    withMessageText: 'Negative years are unsupported for the Hebrew calendar'
 ]
 
-{ #category : 'test includes' }
-HebrewYearTest >> testIncludesDateTime [
-	self assert: (5767 asHebrewYear includes: (Nisan first , 5767) atMidnight).
-	self assert: (5767 asHebrewYear includes: (Adar twentyninth , 5767) atLastTimeOfDay).
-	self assert: (5766 asHebrewYear includes: (Nisan first , 5766) atMidnight).
-	self assert: (5768 asHebrewYear includes: (AdarII twentyninth , 5768) atLastTimeOfDay).
-	self deny: (5767 asHebrewYear includes: (Nisan first , 5766) atMidnight).
-	self deny: (5767 asHebrewYear includes: (Adar twentyninth , 5769) atLastTimeOfDay)
+{ #category : 'tests' }
+HebrewYearTest >> testIsCompleteYear [
+
+  #( 5661 5663 5666 5669 5672 5678 5682 5685 5686 5693 5696 5702 5705 5709 5712 5713 5716 5720 5723
+     5729 5732 5734 5739 5740 5743 5747 5750 5754 5756 5759 ) do: [ :number |
+      self
+        assert: number asHebrewYear isCompleteYear;
+        deny: number asHebrewYear isLeapYear;
+        assert: number asHebrewYear numberOfDays equals: 355 * day
+    ].
+
+  #( 5665 5673 5676 5681 5689 5692 5698 5700 5708 5717 5725 5727 5736 5744 5752 5760 ) do: [ :number |
+      self
+        assert: number asHebrewYear isCompleteYear;
+        assert: number asHebrewYear isLeapYear;
+        assert: number asHebrewYear numberOfDays equals: 385 * day
+    ]
 ]
 
-{ #category : 'test includes' }
-HebrewYearTest >> testIncludesMonthOfYear [
-	self assert: (5767 asHebrewYear includes: Nisan , 5767).
-	self assert: (5767 asHebrewYear includes: Adar , 5767).
-	self assert: (5766 asHebrewYear includes: Nisan , 5766).
-	self assert: (5766 asHebrewYear includes: Adar , 5766).
-	self deny: (5766 asHebrewYear includes: Nisan , 5767).
-	self deny: (5766 asHebrewYear includes: AdarI , 5765)
+{ #category : 'tests' }
+HebrewYearTest >> testIsDeficientYear [
+
+  #( 5675 5683 5690 5699 5710 5726 5737 5753 ) do: [ :number |
+      self
+        assert: number asHebrewYear isDeficientYear;
+        deny: number asHebrewYear isLeapYear;
+        assert: number asHebrewYear numberOfDays equals: 353 * day
+    ].
+  #( 5662 5668 5670 5679 5687 5695 5703 5706 5714 5719 5722 5730 5733 5741 5746 5749 5757 ) do: [
+    :number |
+      self
+        assert: number asHebrewYear isDeficientYear;
+        assert: number asHebrewYear isLeapYear;
+        assert: number asHebrewYear numberOfDays equals: 383 * day
+    ]
 ]
 
-{ #category : 'test includes' }
-HebrewYearTest >> testIncludesYear [
-	self should: [ 5767 asHebrewYear includes: 5767 asHebrewYear ] raise: Exception
+{ #category : 'tests' }
+HebrewYearTest >> testIsLeapYear [
+
+  #( 3 6 8 11 14 17 19 5787 5790 5793 ) do: [ :number | self assert: number asHebrewYear isLeapYear ].
+
+  #( 1 2 4 5 7 9 10 12 5786 5788 ) do: [ :number | self deny: number asHebrewYear isLeapYear ]
 ]
 
-{ #category : 'test querying' }
-HebrewYearTest >> testInvalidNextANumberOfYears [
-	| anyUnit |
-	anyUnit := BaseUnit named: 'Any Unit'.
-	self should: [ 5767 asHebrewYear next: 1 ] raise: CanNotConvertMeasureException.
-	self should: [ 5767 asHebrewYear next: (anyUnit with: 1) ] raise: CanNotConvertMeasureException
+{ #category : 'tests' }
+HebrewYearTest >> testIsRegularYear [
+
+  #( 5664 5667 5671 5674 5677 5680 5688 5691 5694 5697 5701 5704 5707 5715 5718 5721 5724 5728 5731
+     5735 5742 5745 5748 5751 5758 ) do: [ :number |
+      self
+        assert: number asHebrewYear isRegularYear;
+        deny: number asHebrewYear isLeapYear;
+        assert: number asHebrewYear numberOfDays equals: 354 * day
+    ].
+
+  #( 5684 5711 5738 5755 ) do: [ :number |
+      self
+        assert: number asHebrewYear isRegularYear;
+        assert: number asHebrewYear isLeapYear;
+        assert: number asHebrewYear numberOfDays equals: 384 * day
+    ]
 ]
 
-{ #category : 'test querying' }
-HebrewYearTest >> testInvalidPreviousANumberOfYears [
-	| anyUnit |
-	anyUnit := BaseUnit named: 'Any Unit'.
-	self should: [ 5767 asHebrewYear previous: 1 ] raise: CanNotConvertMeasureException.
-	self should: [ 5767 asHebrewYear previous: (anyUnit with: 1) ] raise: CanNotConvertMeasureException
-]
-
-{ #category : 'test instance creation' }
-HebrewYearTest >> testInvalidYear [
-
-	self
-		should: [ 1.5 asHebrewYear ]
-		raise: InvalidYearNumberException
-		withExceptionDo: [ :exception |
-			self
-				assert: exception description
-				equals:
-				'1.5 is an invalid number for a year in the Hebrew Calendar' ]
-]
-
-{ #category : 'test querying' }
-HebrewYearTest >> testIsLeap [
-	self assert: 3 asHebrewYear isLeap.
-	self assert: 6 asHebrewYear isLeap.
-	self assert: 8 asHebrewYear isLeap.
-	self assert: 11 asHebrewYear isLeap.
-	self assert: 14 asHebrewYear isLeap.
-	self assert: 17 asHebrewYear isLeap.
-	self assert: 19 asHebrewYear isLeap.
-	self assert: 22 asHebrewYear isLeap.
-	self assert: 25 asHebrewYear isLeap.
-	self assert: 27 asHebrewYear isLeap.
-	self assert: 30 asHebrewYear isLeap.
-	self assert: 5765 asHebrewYear isLeap.
-	self assert: 5768 asHebrewYear isLeap.
-	self deny: 1 asHebrewYear isLeap.
-	self deny: 2 asHebrewYear isLeap.
-	self deny: 4 asHebrewYear isLeap.
-	self deny: 23 asHebrewYear isLeap.
-	self deny: 5766 asHebrewYear isLeap.
-	self deny: 5769 asHebrewYear isLeap
-]
-
-{ #category : 'test accessing' }
-HebrewYearTest >> testLastDate [
-
-	self
-		assert: 5767 asHebrewYear lastDate
-		equals: Elul twentyninth , 5767.
-	self
-		assert: 5765 asHebrewYear lastDate
-		equals: Elul twentyninth , 5765
-]
-
-{ #category : 'test accessing' }
-HebrewYearTest >> testLastDay [
-
-	self
-		assert: 5767 asHebrewYear lastDay
-		equals: (Elul twentyninth , 5767) day.
-	self
-		assert: 5765 asHebrewYear lastDay
-		equals: (Elul twentyninth , 5765) day
-]
-
-{ #category : 'test accessing' }
-HebrewYearTest >> testLastMonth [
-
-	self assert: 5767 asHebrewYear lastMonth equals: Elul , 5767.
-	self assert: 5765 asHebrewYear lastMonth equals: Elul , 5765
-]
-
-{ #category : 'test comparing' }
+{ #category : 'tests' }
 HebrewYearTest >> testLessThan [
 
-	self assert: 5767 asHebrewYear < 5768 asHebrewYear.
-	self deny: 5767 asHebrewYear < 5767 asHebrewYear.
+  self
+    assert: 1 asHebrewYear isLessThan: 2 asHebrewYear;
+    assert: 1 asHebrewYear isLessThanOrEqualTo: 2 asHebrewYear;
+    assert: 1 asHebrewYear isLessThanOrEqualTo: 1 asHebrewYear;
+    deny: 2025 asHebrewYear isLessThan: 1 asHebrewYear.
 
-	self
-		should: [ 5767 asHebrewYear <= YomShelishi ]
-		raise: InvalidComparisonBetweenPointsInTimeException
-		withExceptionDo: [ :ex |
-			self
-				assert: ex description
-				equals:
-					('The <1p> <2p> can not be compared with the <3p> <4p> because are points of different resolution'
-						 expandMacrosWith: YomShelishi class
-						 with: YomShelishi
-						 with: 5767 asHebrewYear class
-						 with: 5767 asHebrewYear) ].
-
-	self
-		should: [ 5767 asHebrewYear < Tishri third ]
-		raise: InvalidComparisonBetweenPointsInTimeException
-		withExceptionDo: [ :ex |
-			self
-				assert: ex description
-				equals:
-					('The <1p> <2p> can not be compared with the <3p> <4p> because are points of different resolution'
-						 expandMacrosWith: 5767 asHebrewYear class
-						 with: 5767 asHebrewYear
-						 with: Tishri third class
-						 with: Tishri third) ]
+  self
+    should: [ 2 asHebrewYear < 1 asGregorianYear ]
+    raise: ArithmeticError
+    withMessageText: 'Years in different time scales are incommensurable';
+    should: [ 1 asGregorianYear < 2 asHebrewYear ]
+    raise: ArithmeticError
+    withMessageText: 'Years in different time scales are incommensurable'
 ]
 
-{ #category : 'test month of year creation' }
-HebrewYearTest >> testMonth [
-
-	| year |
-	year := 5775 asHebrewYear.
-	self assert: Av , 5775 equals: (year month: Av)
-]
-
-{ #category : 'test accessing' }
-HebrewYearTest >> testMonths [
-
-	self assert: 5767 asHebrewYear months size equals: 12.
-	self assert: 5767 asHebrewYear months first equals: Tishri , 5767.
-	self assert: 5767 asHebrewYear months last equals: Elul , 5767.
-	self assert: 5765 asHebrewYear months size equals: 13.
-	self assert: 5765 asHebrewYear months first equals: Tishri , 5765.
-	self assert: 5765 asHebrewYear months last equals: Elul , 5765
-]
-
-{ #category : 'test month of year' }
-HebrewYearTest >> testMonthsOfYearsAccessing [
-
-	| nonleapYear leapYear |
-	nonleapYear := 5767 asHebrewYear.
-	leapYear := 5768 asHebrewYear.
-	self assert: nonleapYear nisan equals: (Nisan ofYear: nonleapYear).
-	self assert: nonleapYear iyyar equals: (Iyyar ofYear: nonleapYear).
-	self assert: nonleapYear sivan equals: (Sivan ofYear: nonleapYear).
-	self assert: nonleapYear tammuz equals: (Tammuz ofYear: nonleapYear).
-	self assert: nonleapYear av equals: (Av ofYear: nonleapYear).
-	self assert: nonleapYear elul equals: (Elul ofYear: nonleapYear).
-	self assert: nonleapYear tishri equals: (Tishri ofYear: nonleapYear).
-	self
-		assert: nonleapYear marheshvan
-		equals: (Marheshvan ofYear: nonleapYear).
-	self assert: nonleapYear kislev equals: (Kislev ofYear: nonleapYear).
-	self assert: nonleapYear tevet equals: (Tevet ofYear: nonleapYear).
-	self assert: nonleapYear shevat equals: (Shevat ofYear: nonleapYear).
-	self assert: nonleapYear adar equals: (Adar ofYear: nonleapYear).
-	self assert: leapYear adarI equals: (AdarI ofYear: leapYear).
-	self assert: leapYear adarII equals: (AdarII ofYear: leapYear)
-]
-
-{ #category : 'test querying' }
+{ #category : 'tests' }
 HebrewYearTest >> testNext [
 
-	self assert: 5766 asHebrewYear next equals: 5767 asHebrewYear.
-	self assert: -1 asHebrewYear next equals: 0 asHebrewYear
+  self
+    assertNextOf: 1 asHebrewYear is: 2 asHebrewYear;
+    assertNextOf: 2 asHebrewYear is: 3 asHebrewYear;
+    assertNextOf: 2025 asHebrewYear is: 2026 asHebrewYear.
+
+  self
+    assert: ( 1 asHebrewYear next: 2025 * hebrewYear ) equals: 2026 asHebrewYear;
+    assert: ( 2025 asHebrewYear next: -1 * hebrewYear ) equals: 2024 asHebrewYear;
+    assert: ( 2020 asHebrewYear next: 10 * hebrewYear ) equals: 2030 asHebrewYear.
+
+  self
+    should: [ 2025 asHebrewYear next: 12 * hebrewMonth ] raise: ArithmeticError;
+    should: [ 1 asHebrewYear next: 1 / 2 * hebrewYear ] raise: InstanceCreationFailed
 ]
 
-{ #category : 'test querying' }
-HebrewYearTest >> testNextANumberOfYears [
-
-	self
-		assert: (5767 asHebrewYear next: zeroYears)
-		equals: 5767 asHebrewYear.
-	self
-		assert: (5767 asHebrewYear next: oneYear)
-		equals: 5768 asHebrewYear.
-	self
-		assert: (5767 asHebrewYear next: tenYears)
-		equals: 5777 asHebrewYear.
-	self assert: (-1 asHebrewYear next: oneYear) equals: 0 asHebrewYear.
-	self
-		should: [ 5767 asHebrewYear next: fourteenMonths ]
-		raise: CanNotConvertMeasureException.
-	self
-		should: [ 5767 asHebrewYear next: sixMonths ]
-		raise: CanNotConvertMeasureException
-]
-
-{ #category : 'test querying' }
-HebrewYearTest >> testNextLeapYear [
-
-	self assert: 5766 asHebrewYear nextLeapYear equals: 5768 asHebrewYear.
-	self assert: 5768 asHebrewYear nextLeapYear equals: 5771 asHebrewYear.
-	self assert: 5600 asHebrewYear nextLeapYear equals: 5603 asHebrewYear
-]
-
-{ #category : 'test accessing' }
-HebrewYearTest >> testNumber [
-
-	self assert: 5767 asHebrewYear number equals: 5767.
-	self assert: 5765 asHebrewYear number equals: 5765
-]
-
-{ #category : 'test accessing' }
+{ #category : 'tests' }
 HebrewYearTest >> testNumberOfDays [
 
-	self assert: 5761 asHebrewYear numberOfDays equals: 353 daysMeasure.
-	self assert: 5762 asHebrewYear numberOfDays equals: 354 daysMeasure.
-	self assert: 5763 asHebrewYear numberOfDays equals: 385 daysMeasure.
-	self assert: 5764 asHebrewYear numberOfDays equals: 355 daysMeasure.
-	self assert: 5765 asHebrewYear numberOfDays equals: 383 daysMeasure.
-	self assert: 5766 asHebrewYear numberOfDays equals: 354 daysMeasure.
-	self assert: 5767 asHebrewYear numberOfDays equals: 355 daysMeasure.
-	self assert: 5768 asHebrewYear numberOfDays equals: 383 daysMeasure.
-	self assert: 5769 asHebrewYear numberOfDays equals: 354 daysMeasure.
-	self assert: 5770 asHebrewYear numberOfDays equals: 355 daysMeasure.
-	self assert: 5771 asHebrewYear numberOfDays equals: 385 daysMeasure.
-	self assert: 5772 asHebrewYear numberOfDays equals: 354 daysMeasure.
-	self assert: 5773 asHebrewYear numberOfDays equals: 353 daysMeasure.
-	self assert: 5774 asHebrewYear numberOfDays equals: 385 daysMeasure.
-	self assert: 5775 asHebrewYear numberOfDays equals: 354 daysMeasure.
-	self assert: 5776 asHebrewYear numberOfDays equals: 385 daysMeasure.
-	self assert: 5777 asHebrewYear numberOfDays equals: 353 daysMeasure.
-	self assert: 5778 asHebrewYear numberOfDays equals: 354 daysMeasure.
-	self assert: 5779 asHebrewYear numberOfDays equals: 385 daysMeasure.
-	self assert: 5780 asHebrewYear numberOfDays equals: 355 daysMeasure.
-	self assert: 5781 asHebrewYear numberOfDays equals: 353 daysMeasure.
-	self assert: 5782 asHebrewYear numberOfDays equals: 384 daysMeasure
+  self assert: 5761 asHebrewYear numberOfDays equals: 353 * day.
+  self assert: 5762 asHebrewYear numberOfDays equals: 354 * day.
+  self assert: 5763 asHebrewYear numberOfDays equals: 385 * day.
+  self assert: 5764 asHebrewYear numberOfDays equals: 355 * day.
+  self assert: 5765 asHebrewYear numberOfDays equals: 383 * day.
+  self assert: 5766 asHebrewYear numberOfDays equals: 354 * day.
+  self assert: 5767 asHebrewYear numberOfDays equals: 355 * day.
+  self assert: 5768 asHebrewYear numberOfDays equals: 383 * day.
+  self assert: 5769 asHebrewYear numberOfDays equals: 354 * day.
+  self assert: 5770 asHebrewYear numberOfDays equals: 355 * day.
+  self assert: 5771 asHebrewYear numberOfDays equals: 385 * day.
+  self assert: 5772 asHebrewYear numberOfDays equals: 354 * day.
+  self assert: 5773 asHebrewYear numberOfDays equals: 353 * day.
+  self assert: 5774 asHebrewYear numberOfDays equals: 385 * day.
+  self assert: 5775 asHebrewYear numberOfDays equals: 354 * day.
+  self assert: 5776 asHebrewYear numberOfDays equals: 385 * day.
+  self assert: 5777 asHebrewYear numberOfDays equals: 353 * day.
+  self assert: 5778 asHebrewYear numberOfDays equals: 354 * day.
+  self assert: 5779 asHebrewYear numberOfDays equals: 385 * day.
+  self assert: 5780 asHebrewYear numberOfDays equals: 355 * day.
+  self assert: 5781 asHebrewYear numberOfDays equals: 353 * day.
+  self assert: 5782 asHebrewYear numberOfDays equals: 384 * day
 ]
 
-{ #category : 'test accessing months' }
+{ #category : 'tests' }
 HebrewYearTest >> testNumberOfMonths [
 
-	| leapYear nonleapYear |
-	leapYear := 5776 asHebrewYear.
-	nonleapYear := 5775 asHebrewYear.
-	self assert: leapYear numberOfMonths equals: 13 monthsMeasure.
-	self assert: nonleapYear numberOfMonths equals: 12 monthsMeasure
+  self assert: 5786 asHebrewYear numberOfMonths equals: 12 * hebrewMonth.
+  self assert: 5787 asHebrewYear numberOfMonths equals: 13 * hebrewMonth.
+  self assert: 5788 asHebrewYear numberOfMonths equals: 12 * hebrewMonth.
+  self assert: 5789 asHebrewYear numberOfMonths equals: 12 * hebrewMonth.
+  self assert: 5790 asHebrewYear numberOfMonths equals: 13 * hebrewMonth.
+  self assert: 5791 asHebrewYear numberOfMonths equals: 12 * hebrewMonth.
+  self assert: 5792 asHebrewYear numberOfMonths equals: 12 * hebrewMonth.
+  self assert: 5793 asHebrewYear numberOfMonths equals: 13 * hebrewMonth.
+  self assert: 5794 asHebrewYear numberOfMonths equals: 12 * hebrewMonth.
+  self assert: 5795 asHebrewYear numberOfMonths equals: 13 * hebrewMonth.
+  self assert: 5796 asHebrewYear numberOfMonths equals: 12 * hebrewMonth.
+  self assert: 5797 asHebrewYear numberOfMonths equals: 12 * hebrewMonth.
+  self assert: 5798 asHebrewYear numberOfMonths equals: 13 * hebrewMonth.
+  self assert: 5799 asHebrewYear numberOfMonths equals: 12 * hebrewMonth.
+  self assert: 5800 asHebrewYear numberOfMonths equals: 12 * hebrewMonth.
+  self assert: 5801 asHebrewYear numberOfMonths equals: 13 * hebrewMonth.
+  self assert: 5802 asHebrewYear numberOfMonths equals: 12 * hebrewMonth.
+  self assert: 5803 asHebrewYear numberOfMonths equals: 13 * hebrewMonth.
+  self assert: 5804 asHebrewYear numberOfMonths equals: 12 * hebrewMonth
 ]
 
-{ #category : 'test querying' }
+{ #category : 'tests' }
 HebrewYearTest >> testPrevious [
 
-	self assert: 5767 asHebrewYear previous equals: 5766 asHebrewYear.
-	self assert: 1 asHebrewYear previous equals: 0 asHebrewYear
+  self
+    assertPreviousOf: 2 asHebrewYear is: 1 asHebrewYear;
+    assertPreviousOf: 3 asHebrewYear is: 2 asHebrewYear;
+    assertPreviousOf: 2025 asHebrewYear is: 2024 asHebrewYear.
+
+  self
+    assert: ( 4050 asHebrewYear previous: 2025 * hebrewYear ) equals: 2025 asHebrewYear;
+    assert: ( 2025 asHebrewYear previous: -1 * hebrewYear ) equals: 2026 asHebrewYear.
+
+  self
+    should: [ 2025 asHebrewYear previous: 12 * hebrewMonth ] raise: ArithmeticError;
+    should: [ 1 asHebrewYear previous: 1 / 2 * hebrewYear ] raise: InstanceCreationFailed
 ]
 
-{ #category : 'test querying' }
-HebrewYearTest >> testPreviousANumberOfYears [
-
-	self
-		assert: (5767 asHebrewYear previous: zeroYears)
-		equals: 5767 asHebrewYear.
-	self
-		assert: (5767 asHebrewYear previous: oneYear)
-		equals: 5766 asHebrewYear.
-	self
-		assert: (5767 asHebrewYear previous: tenYears)
-		equals: 5757 asHebrewYear.
-	self
-		assert: (1 asHebrewYear previous: oneYear)
-		equals: 0 asHebrewYear.
-	self
-		should: [ 5767 asHebrewYear previous: fourteenMonths ]
-		raise: CanNotConvertMeasureException.
-	self
-		should: [ 5767 asHebrewYear previous: sixMonths ]
-		raise: CanNotConvertMeasureException
-]
-
-{ #category : 'test querying' }
-HebrewYearTest >> testPreviousLeapYear [
-
-	self
-		assert: 5767 asHebrewYear previousLeapYear
-		equals: 5765 asHebrewYear.
-	self
-		assert: 5766 asHebrewYear previousLeapYear
-		equals: 5765 asHebrewYear.
-	self
-		assert: 5601 asHebrewYear previousLeapYear
-		equals: 5600 asHebrewYear
-]
-
-{ #category : 'test printing' }
+{ #category : 'tests' }
 HebrewYearTest >> testPrintString [
 
-	self assert: 5767 asHebrewYear printString equals: 'Year 5767'
-]
-
-{ #category : 'test interval protocol' }
-HebrewYearTest >> testTo [
-
-	| interval |
-	interval := 5767 asHebrewYear to: 5770 asHebrewYear.
-	self assert: interval from equals: 5767 asHebrewYear.
-	self assert: interval to equals: 5770 asHebrewYear.
-	self assert: interval by equals: oneYear
-]
-
-{ #category : 'test interval protocol' }
-HebrewYearTest >> testToBy [
-
-	| interval |
-	interval := 5767 asHebrewYear to: 5770 asHebrewYear by: twoYears.
-	self assert: interval from equals: 5767 asHebrewYear.
-	self assert: interval to equals: 5770 asHebrewYear.
-	self assert: interval by equals: twoYears
-]
-
-{ #category : 'test interval protocol' }
-HebrewYearTest >> testToByDo [
-
-	| number |
-	number := 5767.
-	(5767 asHebrewYear to: 5770 asHebrewYear by: twoYears) do: [ :year |
-		self assert: year number equals: number.
-		number := number + 2 ].
-	self assert: number equals: 5771
-]
-
-{ #category : 'test interval protocol' }
-HebrewYearTest >> testToByReverse [
-
-	| coll number |
-	coll := (5767 asHebrewYear to: 5771 asHebrewYear by: twoYears)
-		        reverse.
-	number := 5771.
-	coll do: [ :year |
-		self assert: year number equals: number.
-		number := number - 2 ].
-	self assert: number equals: 5765
-]
-
-{ #category : 'test interval protocol' }
-HebrewYearTest >> testToNegativeBy [
-
-	| interval number |
-	interval := 5771 asHebrewYear to: 5767 asHebrewYear by:
-	            twoYears negated.
-	number := 5771.
-	interval do: [ :year |
-		self assert: year number equals: number.
-		number := number - 2 ].
-	self assert: number equals: 5765
-]
-
-{ #category : 'test instance creation' }
-HebrewYearTest >> testValidYear [
-	self shouldnt: [ 5767 asHebrewYear ] raise: InvalidYearNumberException
-]
-
-{ #category : 'test querying' }
-HebrewYearTest >> testYearsFrom [
-
-	self
-		assert: (5767 asHebrewYear distanceFrom: 5766 asHebrewYear)
-		equals: oneYear.
-	self
-		assert: (5767 asHebrewYear distanceFrom: 5768 asHebrewYear)
-		equals: oneYear negated.
-	self
-		assert: (5767 asHebrewYear distanceFrom: 5767 asHebrewYear)
-		equals: zeroYears.
-	self
-		assert: (-1 asHebrewYear distanceFrom: 0 asHebrewYear)
-		equals: oneYear negated.
-	self
-		assert: (1 asHebrewYear distanceFrom: 0 asHebrewYear)
-		equals: oneYear
-]
-
-{ #category : 'test querying' }
-HebrewYearTest >> testYearsTo [
-
-	self
-		assert: (5767 asHebrewYear distanceTo: 5768 asHebrewYear)
-		equals: oneYear.
-	self
-		assert: (5767 asHebrewYear distanceTo: 5766 asHebrewYear)
-		equals: oneYear negated.
-	self
-		assert: (5767 asHebrewYear distanceTo: 5767 asHebrewYear)
-		equals: zeroYears.
-	self
-		assert: (-1 asHebrewYear distanceTo: 0 asHebrewYear)
-		equals: oneYear.
-	self
-		assert: (1 asHebrewYear distanceTo: 0 asHebrewYear)
-		equals: oneYear negated.
-	self
-		assert: (1 asHebrewYear distanceTo: -9 asHebrewYear)
-		equals: tenYears negated
+  self
+    assert: 1445 asHebrewYear printString equals: '1445 AM';
+    assert: 1 asHebrewYear printString equals: '1 AM'
 ]

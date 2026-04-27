@@ -1,356 +1,189 @@
+"
+A TimeOfDayTest is a test class for testing the behavior of TimeOfDay
+"
 Class {
 	#name : 'TimeOfDayTest',
 	#superclass : 'TestCase',
-	#category : 'Chalten-Core-Tests-Time',
-	#package : 'Chalten-Core-Tests',
-	#tag : 'Time'
+	#instVars : [
+		'hour',
+		'microsecond',
+		'minute',
+		'second'
+	],
+	#category : 'Chalten-Core-Tests',
+	#package : 'Chalten-Core-Tests'
 }
 
-{ #category : 'test querying' }
-TimeOfDayTest >> testAbsoluteDistanceTo [
+{ #category : 'running' }
+TimeOfDayTest >> setUp [
 
-	self
-		assert: ((TimeOfDay midnight absoluteDistanceTo:
-				  (TimeOfDay hours: 0 minutes: 30 seconds: 0)) convertTo:
-				 TimeUnits minute)
-		equals: 30 minutesMeasure
+  super setUp.
+  hour := TimeOfDay hour.
+  minute := TimeOfDay minute.
+  second := TimeOfDay second.
+  microsecond := TimeOfDay microsecond
 ]
 
-{ #category : 'test enumerating' }
-TimeOfDayTest >> testAdd [
+{ #category : 'tests' }
+TimeOfDayTest >> testAccessing [
 
-	| time |
-	time := TimeOfDay firstTimeOfDay.
-	self
-		assert: (time next: 1 hourMeasure) timeFromMidnight
-		equals: 1 hourMeasure.
-	self
-		assert: (time next: 1 minuteMeasure) timeFromMidnight
-		equals: 1 minuteMeasure.
-	self
-		assert: (time next: 1 secondMeasure) timeFromMidnight
-		equals: 1 secondMeasure.
-	self
-		assert: (time next: 1 millisecondMeasure) timeFromMidnight
-		equals: 1 millisecondMeasure
+  | timeOfDay |
+  timeOfDay := TimeOfDay
+                 hours: 16
+                 minutes: 15
+                 seconds: 12
+                 microseconds: 1640.
+
+  self
+    assert: timeOfDay hours equals: 16 * hour;
+    assert: timeOfDay minutes equals: 15 * minute;
+    assert: timeOfDay seconds equals: 12 * second;
+    assert: timeOfDay microseconds equals: 1640 * microsecond
 ]
 
-{ #category : 'test comparing' }
+{ #category : 'tests' }
+TimeOfDayTest >> testAddition [
+
+  | baseTimeOfDay timeOfDay |
+  baseTimeOfDay := TimeOfDay
+                     hours: 16
+                     minutes: 15
+                     seconds: 12
+                     microseconds: 1640.
+  timeOfDay := baseTimeOfDay + ( 4 * hour ).
+  self
+    assert: timeOfDay hours equals: 20 * hour;
+    assert: timeOfDay minutes equals: 15 * minute;
+    assert: timeOfDay seconds equals: 12 * second;
+    assert: timeOfDay microseconds equals: 1640 * microsecond
+]
+
+{ #category : 'tests' }
+TimeOfDayTest >> testAdditionCannotExceed24Hours [
+
+  | timeOfDay |
+  timeOfDay := TimeOfDay hours: 16.
+  self
+    should: [ timeOfDay + ( 8 * hour ) ]
+    raise: InstanceCreationFailed
+    withMessageText: 'A time of day must be between 0 and 24 hours'
+]
+
+{ #category : 'tests' }
+TimeOfDayTest >> testAdditionOfLessThanOneHour [
+
+  | baseTimeOfDay timeOfDay |
+  baseTimeOfDay := TimeOfDay
+                     hours: 16
+                     minutes: 15
+                     seconds: 12
+                     microseconds: 1640.
+  timeOfDay := baseTimeOfDay + ( 20 * minute + ( 10 * second ) + ( 15 * microsecond ) ).
+  self
+    assert: timeOfDay hours equals: 16 * hour;
+    assert: timeOfDay minutes equals: 35 * minute;
+    assert: timeOfDay seconds equals: 22 * second;
+    assert: timeOfDay microseconds equals: 1655 * microsecond
+]
+
+{ #category : 'tests' }
 TimeOfDayTest >> testComparing [
 
-	self assert: (TimeOfDay hours: 0) equals: (TimeOfDay hours: 0)
+  self
+    assert: TimeOfDay halfOfDay equals: TimeOfDay halfOfDay;
+    assert: TimeOfDay halfOfDay hash equals: TimeOfDay halfOfDay hash;
+    deny: TimeOfDay halfOfDay equals: TimeOfDay startOfDay;
+
+    assert: TimeOfDay startOfDay < TimeOfDay halfOfDay;
+    assert: TimeOfDay startOfDay <= TimeOfDay halfOfDay;
+    deny: TimeOfDay startOfDay < TimeOfDay startOfDay;
+    assert: TimeOfDay startOfDay <= TimeOfDay startOfDay;
+
+    assert: TimeOfDay halfOfDay > TimeOfDay startOfDay;
+    assert: TimeOfDay halfOfDay >= TimeOfDay startOfDay;
+    deny: TimeOfDay halfOfDay > TimeOfDay halfOfDay;
+    assert: TimeOfDay halfOfDay >= TimeOfDay halfOfDay
 ]
 
-{ #category : 'test instance creation' }
-TimeOfDayTest >> testCreation [
-
-	| time |
-	time := TimeOfDay timeFromMidnight: 0 hoursMeasure.
-	self assert: time hours equals: 0 hoursMeasure.
-	self assert: time minutes equals: 0 minutesMeasure.
-	self assert: time seconds equals: 0 secondsMeasure.
-	self assert: time milliseconds equals: 0 millisecondMeasure
-]
-
-{ #category : 'test instance creation' }
-TimeOfDayTest >> testCreationHour [
-
-	| time |
-	time := TimeOfDay hours: 1.
-	self assert: time hours equals: 1 hourMeasure.
-	self assert: time minutes equals: 0 minutesMeasure.
-	self assert: time seconds equals: 0 secondsMeasure.
-	self assert: time milliseconds equals: 0 millisecondsMeasure
-]
-
-{ #category : 'test instance creation' }
-TimeOfDayTest >> testCreationMilliseconds [
-
-	| time |
-	time := TimeOfDay
-		        hours: 1
-		        minutes: 1
-		        seconds: 1
-		        milliseconds: 1.
-	self assert: time hours equals: 1 hourMeasure.
-	self assert: time minutes equals: 1 minuteMeasure.
-	self assert: time seconds equals: 1 secondMeasure.
-	self assert: time milliseconds equals: 1 millisecondMeasure
-]
-
-{ #category : 'test instance creation' }
-TimeOfDayTest >> testCreationMinute [
-
-	| time |
-	time := TimeOfDay hours: 1 minutes: 1.
-	self assert: time hours equals: 1 hourMeasure.
-	self assert: time minutes equals: 1 minuteMeasure.
-	self assert: time seconds equals: 0 secondsMeasure.
-	self assert: time milliseconds equals: 0 millisecondsMeasure
-]
-
-{ #category : 'test instance creation' }
-TimeOfDayTest >> testCreationSecond [
-
-	| time |
-	time := TimeOfDay hours: 1 minutes: 1 seconds: 1.
-	self assert: time hours equals: 1 hourMeasure.
-	self assert: time minutes equals: 1 minuteMeasure.
-	self assert: time seconds equals: 1 secondMeasure.
-	self assert: time milliseconds equals: 0 millisecondsMeasure
-]
-
-{ #category : 'test accessing' }
-TimeOfDayTest >> testFirstTimeOfDay [
-
-	self assert: TimeOfDay firstTimeOfDay equals: (TimeOfDay hours: 0)
-]
-
-{ #category : 'test comparing' }
-TimeOfDayTest >> testGreaterThan [
-
-	| firstTime lastTime |
-	firstTime := TimeOfDay firstTimeOfDay.
-	lastTime := TimeOfDay lastTimeOfDay.
-
-	self assert: lastTime > firstTime.
-	self deny: lastTime > lastTime.
-
-	self
-		should: [ lastTime <= Monday ]
-		raise: InvalidComparisonBetweenPointsInTimeException
-		withExceptionDo: [ :ex |
-			self
-				assert: ex description
-				equals:
-					('The <1p> <2p> can not be compared with the <3p> <4p> because are points of different resolution'
-						 expandMacrosWith: Monday class
-						 with: Monday
-						 with: lastTime class
-						 with: lastTime) ].
-
-	self
-		should: [ firstTime < March ]
-		raise: InvalidComparisonBetweenPointsInTimeException
-		withExceptionDo: [ :ex |
-			self
-				assert: ex description
-				equals:
-					('The <1p> <2p> can not be compared with the <3p> <4p> because are points of different resolution'
-						 expandMacrosWith: firstTime class
-						 with: firstTime
-						 with: March class
-						 with: March) ]
-]
-
-{ #category : 'test comparing' }
-TimeOfDayTest >> testHash [
-
-	self assert: (TimeOfDay hours: 0) hash equals: 0 hoursMeasure hash
-]
-
-{ #category : 'test instance creation' }
+{ #category : 'tests' }
 TimeOfDayTest >> testInvalidCreation [
 
-	self
-		should: [ TimeOfDay timeFromMidnight: 24 hoursMeasure ]
-		raise: InvalidTimeOfDayException
-		withExceptionDo: [ :anException |
-			self
-				assert: anException description
-				equals: 'The time 24 hours is invalid for one day' ].
-
-	self
-		should: [ TimeOfDay timeFromMidnight: -1 millisecondMeasure ]
-		raise: InvalidTimeOfDayException
-		withExceptionDo: [ :anException |
-			self
-				assert: anException description
-				equals: 'The time -1 millisecond is invalid for one day' ]
+  self
+    should: [ TimeOfDay hours: 24 ]
+    raise: InstanceCreationFailed
+    withMessageText: 'Hours must be in the range 0-23'.
+  self
+    should: [ TimeOfDay hours: 23 minutes: -1 ]
+    raise: InstanceCreationFailed
+    withMessageText: 'Minutes must be in the range 0-59'.
+  self
+    should: [ TimeOfDay hours: 23 minutes: 0 seconds: 60 ]
+    raise: InstanceCreationFailed
+    withMessageText: 'Seconds must be in the range 0-59'.
+  self
+    should: [
+        TimeOfDay
+          hours: 23
+          minutes: 0
+          seconds: 0
+          microseconds: 1000000
+      ]
+    raise: InstanceCreationFailed
+    withMessageText: 'Microseconds must be in the range 0-999999'
 ]
 
-{ #category : 'test accessing' }
-TimeOfDayTest >> testLastTimeOfDay [
-
-	self
-		assert: TimeOfDay lastTimeOfDay
-		equals: (TimeOfDay timeFromMidnight:
-				 23 hoursMeasure + 59 minutesMeasure + 59 secondsMeasure
-				 + 999 millisecondsMeasure)
-]
-
-{ #category : 'test comparing' }
-TimeOfDayTest >> testLessThan [
-	self assert: (TimeOfDay hours: 0) < (TimeOfDay timeFromMidnight: 1 millisecondMeasure).
-	self deny: (TimeOfDay timeFromMidnight: 1 millisecondMeasure) < (TimeOfDay hours: 0)
-]
-
-{ #category : 'test accessing' }
-TimeOfDayTest >> testMidnight [
-
-	self
-		assert: TimeOfDay midnight
-		equals: (TimeOfDay hours: 0 minutes: 0 seconds: 0)
-]
-
-{ #category : 'test enumerating' }
-TimeOfDayTest >> testNext [
-
-	self
-		assert: TimeOfDay midnight next
-		equals: (TimeOfDay hours: 0 minutes: 0 seconds: 1)
-]
-
-{ #category : 'test accessing' }
-TimeOfDayTest >> testNoon [
-
-	self
-		assert: TimeOfDay noon
-		equals: (TimeOfDay hours: 12 minutes: 0 seconds: 0)
-]
-
-{ #category : 'test enumerating' }
-TimeOfDayTest >> testPrevious [
-
-	self
-		assert: (TimeOfDay hours: 0 minutes: 0 seconds: 1) previous
-		equals: TimeOfDay midnight
-]
-
-{ #category : 'test printing' }
+{ #category : 'tests' }
 TimeOfDayTest >> testPrintString [
 
-	| time |
-	time := TimeOfDay hours: 10 minutes: 11 seconds: 12.
-	self assert: time printString equals: '10:11:12'.
-
-	time := TimeOfDay hours: 07 minutes: 09 seconds: 05.
-	self assert: time printString equals: '07:09:05'
+  self
+    assert: TimeOfDay halfOfDay printString equals: '12:00:00.000000';
+    assert: TimeOfDay startOfDay printString equals: '00:00:00.000000';
+    assert: ( TimeOfDay hours: 16 ) printString equals: '16:00:00.000000';
+    assert: ( TimeOfDay
+          hours: 16
+          minutes: 15
+          seconds: 12
+          microseconds: 1640 ) printString
+    equals: '16:15:12.001640'
 ]
 
-{ #category : 'test interval protocol' }
-TimeOfDayTest >> testReverse [
+{ #category : 'tests' }
+TimeOfDayTest >> testSubtraction [
 
-	| collection hour |
-	collection := (TimeOfDay firstTimeOfDay to: TimeOfDay lastTimeOfDay
-	               by: 2 hoursMeasure) reverse.
-	hour := 22.
-	collection do: [ :aTimeOfDay |
-		self assert: aTimeOfDay equals: (TimeOfDay hours: hour).
-		hour := hour - 2 ].
-	self assert: hour equals: -2
+  | baseTimeOfDay timeOfDay |
+  baseTimeOfDay := TimeOfDay
+                     hours: 16
+                     minutes: 15
+                     seconds: 12
+                     microseconds: 1640.
+  timeOfDay := baseTimeOfDay - ( 30 * minute ).
+  self
+    assert: timeOfDay hours equals: 15 * hour;
+    assert: timeOfDay minutes equals: 45 * minute;
+    assert: timeOfDay seconds equals: 12 * second;
+    assert: timeOfDay microseconds equals: 1640 * microsecond
 ]
 
-{ #category : 'test enumerating' }
-TimeOfDayTest >> testSubtract [
+{ #category : 'tests' }
+TimeOfDayTest >> testSubtractionCannotExceed0Hours [
 
-	| time |
-	time := TimeOfDay hours: 1.
-	self
-		assert: (time previous: 1 hourMeasure) timeFromMidnight
-		equals: 0 hoursMeasure.
-	self
-		assert: (time previous: 1 minuteMeasure) timeFromMidnight
-		equals: 59 minutesMeasure.
-	self
-		assert: (time previous: 1 secondMeasure) timeFromMidnight
-		equals: (59 * 60 + 59) secondsMeasure.
-	self
-		assert: (time previous: 1 millisecondMeasure) timeFromMidnight
-		equals: (59 * 60000 + 59999) millisecondsMeasure
+  | timeOfDay |
+  timeOfDay := TimeOfDay hours: 16.
+  self
+    should: [ timeOfDay - ( 16.1 * hour ) ]
+    raise: InstanceCreationFailed
+    withMessageText: 'A time of day must be between 0 and 24 hours'
 ]
 
-{ #category : 'test querying' }
-TimeOfDayTest >> testTimeFrom [
+{ #category : 'tests' }
+TimeOfDayTest >> testSubtractionToZero [
 
-	self
-		assert:
-		(TimeOfDay firstTimeOfDay distanceFrom: TimeOfDay lastTimeOfDay)
-		equals: 1 millisecondMeasure.
-	self
-		assert:
-		(TimeOfDay lastTimeOfDay distanceFrom: TimeOfDay firstTimeOfDay)
-		equals: 24 hoursMeasure - 1 millisecondMeasure
-]
-
-{ #category : 'test querying' }
-TimeOfDayTest >> testTimeFromMidnight [
-
-	self
-		assert: TimeOfDay firstTimeOfDay timeFromMidnight
-		equals: 0 hoursMeasure.
-	self
-		assert: TimeOfDay lastTimeOfDay timeFromMidnight
-		equals: 24 hoursMeasure - 1 millisecondMeasure
-]
-
-{ #category : 'test querying' }
-TimeOfDayTest >> testTimeTo [
-
-	self
-		assert:
-		(TimeOfDay firstTimeOfDay distanceTo: TimeOfDay lastTimeOfDay)
-		equals: 24 hoursMeasure - 1 millisecondMeasure.
-	self
-		assert:
-		(TimeOfDay lastTimeOfDay distanceTo: TimeOfDay firstTimeOfDay)
-		equals: 1 millisecondMeasure
-]
-
-{ #category : 'test querying' }
-TimeOfDayTest >> testTimeToEndOfDay [
-
-	self
-		assert: TimeOfDay firstTimeOfDay timeToEndOfDay
-		equals: 24 hoursMeasure.
-	self
-		assert: TimeOfDay lastTimeOfDay timeToEndOfDay
-		equals: 1 millisecondMeasure
-]
-
-{ #category : 'test interval protocol' }
-TimeOfDayTest >> testTo [
-
-	| interval |
-	interval := TimeOfDay firstTimeOfDay to: TimeOfDay lastTimeOfDay.
-	self assert: interval from equals: TimeOfDay firstTimeOfDay.
-	self assert: interval to equals: TimeOfDay lastTimeOfDay.
-	self assert: interval by equals: 1 secondMeasure
-]
-
-{ #category : 'test interval protocol' }
-TimeOfDayTest >> testToBy [
-
-	| interval |
-	interval := TimeOfDay firstTimeOfDay to: TimeOfDay lastTimeOfDay by:
-	            1 hourMeasure.
-	self assert: interval from equals: TimeOfDay firstTimeOfDay.
-	self assert: interval to equals: TimeOfDay lastTimeOfDay.
-	self assert: interval by equals: 1 hourMeasure
-]
-
-{ #category : 'test interval protocol' }
-TimeOfDayTest >> testToByDo [
-
-	| interval hour |
-	interval := TimeOfDay firstTimeOfDay to: TimeOfDay lastTimeOfDay by:
-	            1 hourMeasure.
-	hour := 0.
-	interval do: [ :aTimeOfDay |
-		self assert: aTimeOfDay equals: (TimeOfDay hours: hour).
-		hour := hour + 1 ].
-	self assert: hour equals: 24
-]
-
-{ #category : 'test interval protocol' }
-TimeOfDayTest >> testToNegativeByDo [
-
-	| interval time |
-	interval := (TimeOfDay hours: 23 minutes: 30) to:
-	            TimeOfDay firstTimeOfDay by: -30 minutesMeasure.
-	time := 23 hoursMeasure + 30 minutesMeasure.
-	interval do: [ :aTimeOfDay |
-		self assert: aTimeOfDay equals: (TimeOfDay timeFromMidnight: time).
-		time := time - 30 minutesMeasure ].
-	self assert: time equals: -30 minutesMeasure
+  | baseTimeOfDay timeOfDay |
+  baseTimeOfDay := TimeOfDay hours: 16.
+  timeOfDay := baseTimeOfDay - ( 16 * hour ).
+  self
+    assert: timeOfDay hours isZero;
+    assert: timeOfDay minutes isZero;
+    assert: timeOfDay seconds isZero;
+    assert: timeOfDay microseconds isZero
 ]

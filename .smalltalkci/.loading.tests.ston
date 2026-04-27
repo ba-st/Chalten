@@ -9,6 +9,9 @@ SmalltalkCISpec {
     }
   ],
   #testing : {
-    #failOnZeroTests : false
+    #coverage : {
+      #packages : [ 'Chalten*' ],
+      #format: #lcov
+    }
   }
 }

@@ -1,218 +1,203 @@
 "
-A TimeOfDay is the representation of certain time of a day.
-
-Instance Variables
-	timeFromMidnight:		<Measure>
-
-timeFromMidnight
-	- The measure of milliseconds from midnight, the hour 00:00:00.
+A `TimeOfDay` represents a specific point in a 24-hour cycle, tipically measured from
+midnight to midnight. In some calendar systems, the start of day is at sunset instead of midnight.
+Representations of local time of day as defined above make no provisions to prevent ambiguities in
+expressions that result from discontinuities in the local time scale (e.g. daylight-saving time). 
 
 "
 Class {
 	#name : 'TimeOfDay',
-	#superclass : 'PointInTime',
+	#superclass : 'Magnitude',
 	#instVars : [
-		'timeFromMidnight'
+		'timeFromStartOfDay'
 	],
 	#classInstVars : [
-		'firstTimeOfDay',
-		'lastTimeOfDay',
-		'noon'
+		'StartOfDay',
+		'HalfOfDay'
 	],
-	#category : 'Chalten-Core-Time',
+	#category : 'Chalten-Core',
 	#package : 'Chalten-Core',
-	#tag : 'Time'
+	#'gs_options' : [
+		'instancesInvariant'
+	]
 }
 
-{ #category : 'accessing' }
-TimeOfDay class >> firstTimeOfDay [
-
-	^firstTimeOfDay
-	
-]
-
 { #category : 'instance creation' }
-TimeOfDay class >> hours: anHour [
-	^ self timeFromMidnight: anHour hoursMeasure
-]
+TimeOfDay class >> halfOfDay [
 
-{ #category : 'instance creation' }
-TimeOfDay class >> hours: anHour minutes: aMinute [
-	^ self timeFromMidnight: anHour hoursMeasure + aMinute minutesMeasure
-]
-
-{ #category : 'instance creation' }
-TimeOfDay class >> hours: anHour minutes: aMinute seconds: aSecond [
-	^ self timeFromMidnight: anHour hoursMeasure + aMinute minutesMeasure + aSecond secondsMeasure
-]
-
-{ #category : 'instance creation' }
-TimeOfDay class >> hours: anHours minutes: aMinutes seconds: aSeconds milliseconds: aMilliseconds [
-	^ self
-		timeFromMidnight:
-			anHours hoursMeasure + aMinutes minutesMeasure + aSeconds secondsMeasure + aMilliseconds millisecondsMeasure
-]
-
-{ #category : 'initialization' }
-TimeOfDay class >> initializeFirstTimeOfDay [
-
-	firstTimeOfDay ifNil: [ firstTimeOfDay := self timeFromMidnight: 0 hoursMeasure ]
-]
-
-{ #category : 'initialization' }
-TimeOfDay class >> initializeLastTimeOfDay [
-
-	lastTimeOfDay ifNil: [ lastTimeOfDay := self timeFromMidnight: (24 hoursMeasure - 1 millisecondMeasure) ]
-]
-
-{ #category : 'initialization' }
-TimeOfDay class >> initializeNoon [
-
-	noon ifNil: [ noon := self hours: 12 ]
-]
-
-{ #category : 'initialization' }
-TimeOfDay class >> initializeTimesOfDay [
-
-	self initializeFirstTimeOfDay.
-	self initializeLastTimeOfDay.
-	self initializeNoon
+  HalfOfDay ifNil: [ HalfOfDay := self hours: 12 ].
+  ^ HalfOfDay
 ]
 
 { #category : 'accessing' }
-TimeOfDay class >> lastTimeOfDay [
+TimeOfDay class >> hour [
 
-	^lastTimeOfDay
-	
-]
-
-{ #category : 'accessing' }
-TimeOfDay class >> midnight [
-	
-	^self firstTimeOfDay
-]
-
-{ #category : 'accessing' }
-TimeOfDay class >> noon [
-	
-	^noon
+  ^ self unit: #hour
 ]
 
 { #category : 'instance creation' }
-TimeOfDay class >> timeFromMidnight: aTimeMeasure [ 
+TimeOfDay class >> hours: anInteger [
 
-	(aTimeMeasure < 0 hoursMeasure or: [ aTimeMeasure >= 24 hoursMeasure ]) 
-		ifTrue: [ InvalidTimeOfDayException signalTime: aTimeMeasure ].
-	
-	^self new initializeTimeFromMidnight: aTimeMeasure
+  ^ self hours: anInteger minutes: 0
 ]
 
-{ #category : 'magnitude protocol' }
-TimeOfDay >> < aTime [
+{ #category : 'instance creation' }
+TimeOfDay class >> hours: numberOfHours minutes: numberOfMinutes [
 
-	self assertIsSameKindAs: aTime.
-	^timeFromMidnight < aTime timeFromMidnight
+  ^ self hours: numberOfHours minutes: numberOfMinutes seconds: 0
+]
+
+{ #category : 'instance creation' }
+TimeOfDay class >> hours: numberOfHours minutes: numberOfMinutes seconds: numberOfSeconds [
+
+  ^ self
+      hours: numberOfHours
+      minutes: numberOfMinutes
+      seconds: numberOfSeconds
+      microseconds: 0
+]
+
+{ #category : 'instance creation' }
+TimeOfDay class >> hours: numberOfHours minutes: numberOfMinutes seconds: numberOfSeconds microseconds: numberOfMicroseconds [
+
+  AssertionCheckerBuilder new
+    raising: InstanceCreationFailed;
+    checking: [ :asserter |
+        asserter
+          enforce: [ numberOfHours between: 0 and: 23 ] because: 'Hours must be in the range 0-23';
+          enforce: [ numberOfMinutes between: 0 and: 59 ]
+          because: 'Minutes must be in the range 0-59';
+          enforce: [ numberOfSeconds between: 0 and: 59 ]
+          because: 'Seconds must be in the range 0-59';
+          enforce: [ numberOfMicroseconds between: 0 and: 999999 ]
+          because: 'Microseconds must be in the range 0-999999'
+      ];
+    buildAndCheck.
+
+  ^ self offsetFromStartOfDay:
+      self hour * numberOfHours + ( self minute * numberOfMinutes )
+      + ( self second * numberOfSeconds ) + ( self microsecond * numberOfMicroseconds )
+]
+
+{ #category : 'accessing' }
+TimeOfDay class >> microsecond [
+
+  ^ self unit: #microsecond
+]
+
+{ #category : 'accessing' }
+TimeOfDay class >> minute [
+
+  ^ self unit: #minute
+]
+
+{ #category : 'private' }
+TimeOfDay class >> offsetFromStartOfDay: timeQuantity [
+
+  AssertionChecker
+    enforce: [ timeQuantity positive and: [ timeQuantity < ( 24 * self hour ) ] ]
+    because: [ 'A time of day must be between 0 and 24 hours' localized ]
+    raising: InstanceCreationFailed.
+
+  ^ self new initializeOffsetFromStartOfDay: timeQuantity
+]
+
+{ #category : 'accessing' }
+TimeOfDay class >> second [
+
+  ^ self unit: #second
+]
+
+{ #category : 'instance creation' }
+TimeOfDay class >> startOfDay [
+
+  StartOfDay ifNil: [ StartOfDay := self offsetFromStartOfDay: self microsecond * 0 ].
+  ^ StartOfDay
+]
+
+{ #category : 'private' }
+TimeOfDay class >> unit: symbol [
+
+  ^ InternationalSystemOfUnits units at: symbol
+]
+
+{ #category : 'arithmetic' }
+TimeOfDay >> + timeQuantity [
+
+  ^ self class offsetFromStartOfDay: timeFromStartOfDay + timeQuantity
+]
+
+{ #category : 'arithmetic' }
+TimeOfDay >> - timeQuantity [
+
+  ^ self class offsetFromStartOfDay: timeFromStartOfDay - timeQuantity
+]
+
+{ #category : 'testing' }
+TimeOfDay >> < aTimeOfDay [
+
+  ^ timeFromStartOfDay < aTimeOfDay timeFromStartOfDay
 ]
 
 { #category : 'comparing' }
-TimeOfDay >> = aTime [
+TimeOfDay >> = anObject [
 
-	^self class = aTime class and: [ timeFromMidnight = aTime timeFromMidnight ]
+  ^ self equalityChecker
+      compare: #timeFromStartOfDay;
+      checkAgainst: anObject
 ]
 
-{ #category : 'interval protocol - private' }
-TimeOfDay >> defaultIntervalIncrement [
-	^ 1 secondMeasure
-]
-
-{ #category : 'querying' }
-TimeOfDay >> distanceTo: aTimeOfDay [ 
-
-	^self <= aTimeOfDay
-		ifTrue: [ aTimeOfDay timeFromMidnight - timeFromMidnight ]
-		ifFalse: [ self timeToEndOfDay + aTimeOfDay timeFromMidnight ]
-]
-
-{ #category : 'accessing' }
+{ #category : 'comparing' }
 TimeOfDay >> hash [
 
-	^timeFromMidnight hash
+  ^ timeFromStartOfDay hash
 ]
 
 { #category : 'accessing' }
 TimeOfDay >> hours [
-	
-	^(timeFromMidnight convertTo: TimeUnits hour) truncated
+
+  ^ ( timeFromStartOfDay convertTo: self class hour ) truncated
 ]
 
 { #category : 'initialization' }
-TimeOfDay >> initializeTimeFromMidnight: aTimeMeasure [ 
+TimeOfDay >> initializeOffsetFromStartOfDay: timeQuantity [
 
-	timeFromMidnight := aTimeMeasure
-]
-
-{ #category : 'interval protocol - private' }
-TimeOfDay >> intervalStrategy [
-
-	^RoundedTimelineIntervalStrategy new
+  timeFromStartOfDay := timeQuantity
 ]
 
 { #category : 'accessing' }
-TimeOfDay >> milliseconds [
-	
-	| seconds |
-	
-	seconds := timeFromMidnight convertTo: TimeUnits second.
-	^(seconds - seconds truncated) convertTo: TimeUnits millisecond
+TimeOfDay >> microseconds [
+
+  ^ timeFromStartOfDay - self hours - self minutes - self seconds convertTo: self class microsecond
 ]
 
 { #category : 'accessing' }
 TimeOfDay >> minutes [
-	
-	^((timeFromMidnight - self hours) convertTo: TimeUnits minute) truncated
-]
 
-{ #category : 'enumerating' }
-TimeOfDay >> next: aTimeMeasure [ 
-
-	^self class timeFromMidnight: timeFromMidnight + aTimeMeasure
+  ^ ( timeFromStartOfDay - self hours convertTo: self class minute ) truncated
 ]
 
 { #category : 'printing' }
-TimeOfDay >> printOn: aStream [
+TimeOfDay >> printOn: stream [
 
-	aStream
-		nextPutAll: (self toString: self hours);
-		nextPut: $:;
-		nextPutAll: (self toString: self minutes);
-		nextPut: $:;
-		nextPutAll: (self toString: self seconds)
+  stream
+    nextPutAll: ( self hours numericalValue printStringLength: 2 padded: true );
+    nextPut: $:;
+    nextPutAll: ( self minutes numericalValue printStringLength: 2 padded: true );
+    nextPut: $:;
+    nextPutAll: ( self seconds numericalValue printStringLength: 2 padded: true );
+    nextPut: $.;
+    nextPutAll: ( self microseconds numericalValue printStringLength: 6 padded: true )
 ]
 
 { #category : 'accessing' }
 TimeOfDay >> seconds [
-	
-	^((timeFromMidnight - self hours - self minutes) convertTo: TimeUnits second) truncated
+
+  ^ ( timeFromStartOfDay - self hours - self minutes convertTo: self class second ) truncated
 ]
 
-{ #category : 'querying' }
-TimeOfDay >> timeFromMidnight [
-	
-	^timeFromMidnight
-]
+{ #category : 'accessing' }
+TimeOfDay >> timeFromStartOfDay [
 
-{ #category : 'querying' }
-TimeOfDay >> timeToEndOfDay [
-
-	^24 hoursMeasure - timeFromMidnight
-]
-
-{ #category : 'printing - private' }
-TimeOfDay >> toString: aMeasure [
-
-	| string |
-	string := aMeasure amount asString.
-	^string size = 1
-		ifTrue: ['0', string]
-		ifFalse: [string]
+	^ timeFromStartOfDay
 ]

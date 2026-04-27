@@ -1,0 +1,26 @@
+{
+	"Chalten" : {
+		"c9e1eef3bc8a22881461efd4bcc34b44a32084f2dd89112400d7d646398e6f30" : "A day of week name cannot be empty",
+		"7bfacf94dea8149df9ba71f77d7343ce17a47c5caf7a0236d50006647983f6e6" : "A day of week position must be between 1 and 7",
+		"530f14ea09451ef5776479823b8ce119ba45de5132428353990d1e0d90c6aefa" : "A day of week short name cannot be empty",
+		"a1fb4ce8905ae74edba4fa14947dcbedddb1f4f1c77debb9345e0783df4ec930" : "A time of day must be between 0 and 24 hours",
+		"db53e829f27783fabf447b1b865958eecd7fd6d7530e7f338c0e37f1628d570d" : "Cannot convert the local date time into an absolute point in time because it's ambiguous in this timezone",
+		"35f73c7f91f09499b7911793300541dd24ec18923314a3d1096c803bad15e637" : "Cannot subtract two dates when the second one is greater than the first one.",
+		"a49ad0e11cc88dedf2e5fa6c9ce2ce8f2482b7b9cf61fef33abc4560838b3ccd" : "Cannot use non-gregorian months for days of gregorian months",
+		"2fb82f0bcd34fdeae280cfa2f56ca687826bcc0f24726c2fea8f127703a0f8e5" : "Cannot use non-islamic months for days of islamic months",
+		"d9d4f456cecabcf1cc818417709dce91dc72885f1010368fbbcbf4c69e5330eb" : "Gregorian",
+		"33e00df2aac325324fabf87b73ad74dba6e566d33a88445f0f7b221cdd49b94c" : "Hebrew",
+		"6862692483b0a08902df37791e94e0e8c7e98725b972eb819f73ac3f8bdfe957" : "Invalid timezone information file version. Expected \"2\" or \"3\"",
+		"ba5e0cf45cec306f6c554ca7b9d10ecc46fecb754234567e8983c4335529df0a" : "Invalid timezone information file. Expected TZif constant",
+		"a5c147deea5f3926fffbf1c3e72f103c103a6460f374505bf9b46c84dfe7005e" : "Islamic",
+		"23ae1d3dac2528e95ba3f4d9eb8ce3e8f59ecc770e0363a3eb2c2fb748876c42" : "Must be exactly one more offset ruleset than transitions between them",
+		"b30d4043f2bccdfbf8ff6ce1057c8fd20e5a08badb78705e8288a93811793015" : "Negative years are unsupported for the Hebrew calendar",
+		"0ba6270a0ed3ea332860f90d44db747c18d0bf690a9aba8eb3ee0ae005539f81" : "Negative years are unsupported for the Islamic calendar",
+		"c10e77d5a809e2c479a5bf851a305c198bd7aad3d03aa6e0506f260c4feae523" : "The local time doesn't exist in the timezone due to daylight saving time changes.",
+		"563cbd92791182087804ea981ff4185478fd2f23218411a069a2f94c9efbbc8b" : "Years in different time scales are incommensurable",
+		"8e21aa718f104480d46d182bb96f5fdf6d6ac3e25720c1e2cb48c457f80856f7" : "{1} is an invalid day number in {2}",
+		"4da9728921e5a1015ab372431a5b3319d649ecb8eeeb0950e2c5a71a2681bd34" : "{1} is an invalid number for a year in the {2} calendar",
+		"66038dfccb41c4111ebba8cb88a5a406d46f1fca974f9c7605aa785a6b243b48" : "{1} is not a valid time zone identifier",
+		"c32fd102b9eceabaf3fd7a9a56b3074f86fa3cbba03c9f6d787db106aee57e95" : "{1} is out of range. UTC offsets range from -16:00 to +16:00"
+	}
+}
