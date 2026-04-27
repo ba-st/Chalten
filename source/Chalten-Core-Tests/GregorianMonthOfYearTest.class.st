@@ -75,10 +75,10 @@ GregorianMonthOfYearTest >> testGreaterThan [
 
   self
     assert: january , 1 isGreaterThan: january , 0;
-    assert: january , 1 isGreaterThanOrEquals: january , 0;
-    assert: january , 0 isGreaterThanOrEquals: january , 0;
+    assert: january , 1 isGreaterThanOrEqualsTo: january , 0;
+    assert: january , 0 isGreaterThanOrEqualsTo: january , 0;
     assert: february , 0 isGreaterThan: january , 0;
-    assert: february , 0 isGreaterThanOrEquals: january , 0;
+    assert: february , 0 isGreaterThanOrEqualsTo: january , 0;
     assert: february , 1 isGreaterThan: january , 0;
     deny: january , 0 isGreaterThan: january , 2025;
     deny: january , 0 isGreaterThan: february , 0
@@ -89,10 +89,10 @@ GregorianMonthOfYearTest >> testLessThan [
 
   self
     assert: january , 0 isLessThan: january , 1;
-    assert: january , 0 isLessThanOrEquals: january , 1;
-    assert: january , 0 isLessThanOrEquals: january , 0;
-    assert: january , 0 isLessThanOrEquals: february , 0;
-    assert: february , 0 isLessThanOrEquals: january , 1;
+    assert: january , 0 isLessThanOrEqualsTo: january , 1;
+    assert: january , 0 isLessThanOrEqualsTo: january , 0;
+    assert: january , 0 isLessThanOrEqualsTo: february , 0;
+    assert: february , 0 isLessThanOrEqualsTo: january , 1;
     deny: january , 2025 isLessThan: january , 0;
     deny: february , 0 isLessThan: january , 0
 ]

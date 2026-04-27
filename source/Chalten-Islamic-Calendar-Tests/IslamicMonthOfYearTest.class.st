@@ -71,10 +71,10 @@ IslamicMonthOfYearTest >> testGreaterThan [
 
   self
     assert: muharram , 2 isGreaterThan: muharram , 1;
-    assert: muharram , 2 isGreaterThanOrEquals: muharram , 1;
-    assert: muharram , 1 isGreaterThanOrEquals: muharram , 1;
+    assert: muharram , 2 isGreaterThanOrEqualsTo: muharram , 1;
+    assert: muharram , 1 isGreaterThanOrEqualsTo: muharram , 1;
     assert: safar , 1 isGreaterThan: muharram , 1;
-    assert: safar , 1 isGreaterThanOrEquals: muharram , 1;
+    assert: safar , 1 isGreaterThanOrEqualsTo: muharram , 1;
     assert: safar , 2 isGreaterThan: muharram , 1;
     deny: muharram , 1 isGreaterThan: muharram , 2025;
     deny: muharram , 1 isGreaterThan: safar , 1
@@ -85,10 +85,10 @@ IslamicMonthOfYearTest >> testLessThan [
 
   self
     assert: muharram , 1 isLessThan: muharram , 2;
-    assert: muharram , 1 isLessThanOrEquals: muharram , 2;
-    assert: muharram , 1 isLessThanOrEquals: muharram , 1;
-    assert: muharram , 1 isLessThanOrEquals: safar , 1;
-    assert: safar , 1 isLessThanOrEquals: muharram , 2;
+    assert: muharram , 1 isLessThanOrEqualsTo: muharram , 2;
+    assert: muharram , 1 isLessThanOrEqualsTo: muharram , 1;
+    assert: muharram , 1 isLessThanOrEqualsTo: safar , 1;
+    assert: safar , 1 isLessThanOrEqualsTo: muharram , 2;
     deny: muharram , 2025 isLessThan: muharram , 1;
     deny: safar , 1 isLessThan: muharram , 1
 ]

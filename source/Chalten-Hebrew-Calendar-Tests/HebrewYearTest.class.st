@@ -32,8 +32,8 @@ HebrewYearTest >> testGreaterThan [
 
   self
     assert: 2 asHebrewYear isGreaterThan: 1 asHebrewYear;
-    assert: 2 asHebrewYear isGreaterThanOrEquals: 1 asHebrewYear;
-    assert: 1 asHebrewYear isGreaterThanOrEquals: 1 asHebrewYear;
+    assert: 2 asHebrewYear isGreaterThanOrEqualsTo: 1 asHebrewYear;
+    assert: 1 asHebrewYear isGreaterThanOrEqualsTo: 1 asHebrewYear;
     deny: 1 asHebrewYear isGreaterThan: 2025 asHebrewYear.
 
   self
@@ -143,8 +143,8 @@ HebrewYearTest >> testLessThan [
 
   self
     assert: 1 asHebrewYear isLessThan: 2 asHebrewYear;
-    assert: 1 asHebrewYear isLessThanOrEquals: 2 asHebrewYear;
-    assert: 1 asHebrewYear isLessThanOrEquals: 1 asHebrewYear;
+    assert: 1 asHebrewYear isLessThanOrEqualsTo: 2 asHebrewYear;
+    assert: 1 asHebrewYear isLessThanOrEqualsTo: 1 asHebrewYear;
     deny: 2025 asHebrewYear isLessThan: 1 asHebrewYear.
 
   self

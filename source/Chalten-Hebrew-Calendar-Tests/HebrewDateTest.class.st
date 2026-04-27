@@ -97,13 +97,13 @@ HebrewDateTest >> testGreaterThan [
 
   self
     assert: tishrei first , 2025 isGreaterThan: tishrei first , 2024;
-    assert: tishrei first , 2025 isGreaterThanOrEquals: tishrei first , 2024;
-    assert: tishrei first , 2025 isGreaterThanOrEquals: tishrei first , 2025;
+    assert: tishrei first , 2025 isGreaterThanOrEqualsTo: tishrei first , 2024;
+    assert: tishrei first , 2025 isGreaterThanOrEqualsTo: tishrei first , 2025;
     assert: cheshvan first , 2025 isGreaterThan: tishrei first , 2025;
-    assert: cheshvan first , 2025 isGreaterThanOrEquals: tishrei first , 2025;
-    assert: tishrei first , 2025 isGreaterThanOrEquals: elul first , 2024;
+    assert: cheshvan first , 2025 isGreaterThanOrEqualsTo: tishrei first , 2025;
+    assert: tishrei first , 2025 isGreaterThanOrEqualsTo: elul first , 2024;
     assert: cheshvan second , 2025 isGreaterThan: cheshvan first , 2025;
-    assert: cheshvan second , 2025 isGreaterThanOrEquals: cheshvan first , 2025;
+    assert: cheshvan second , 2025 isGreaterThanOrEqualsTo: cheshvan first , 2025;
     deny: tishrei first , 1 isGreaterThan: tishrei first , 2025;
     deny: tishrei first , 2025 isGreaterThan: cheshvan first , 2025
 ]
@@ -442,13 +442,13 @@ HebrewDateTest >> testLessThan [
 
   self
     assert: tishrei first , 2024 isLessThan: tishrei first , 2025;
-    assert: tishrei first , 2024 isLessThanOrEquals: tishrei first , 2025;
-    assert: tishrei first , 2025 isLessThanOrEquals: tishrei first , 2025;
+    assert: tishrei first , 2024 isLessThanOrEqualsTo: tishrei first , 2025;
+    assert: tishrei first , 2025 isLessThanOrEqualsTo: tishrei first , 2025;
     assert: tishrei first , 2025 isLessThan: cheshvan first , 2025;
-    assert: tishrei first , 2025 isLessThanOrEquals: cheshvan first , 2025;
-    assert: elul first , 2024 isLessThanOrEquals: tishrei first , 2025;
+    assert: tishrei first , 2025 isLessThanOrEqualsTo: cheshvan first , 2025;
+    assert: elul first , 2024 isLessThanOrEqualsTo: tishrei first , 2025;
     assert: cheshvan first , 2025 isLessThan: cheshvan second , 2025;
-    assert: cheshvan first , 2025 isLessThanOrEquals: cheshvan second , 2025;
+    assert: cheshvan first , 2025 isLessThanOrEqualsTo: cheshvan second , 2025;
     deny: tishrei first , 2025 isLessThan: tishrei first , 1;
     deny: cheshvan first , 2025 isLessThan: tishrei first , 2025.
 

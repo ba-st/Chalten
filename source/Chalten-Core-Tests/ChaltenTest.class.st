@@ -48,7 +48,7 @@ ChaltenTest >> assert: calendricalMagnitude isGreaterThan: anotherCalendricalMag
 ]
 
 { #category : 'asserting' }
-ChaltenTest >> assert: calendricalMagnitude isGreaterThanOrEquals: anotherCalendricalMagnitude [
+ChaltenTest >> assert: calendricalMagnitude isGreaterThanOrEqualsTo: anotherCalendricalMagnitude [
 
   self assert: calendricalMagnitude >= anotherCalendricalMagnitude
 ]
@@ -60,7 +60,7 @@ ChaltenTest >> assert: calendricalMagnitude isLessThan: anotherCalendricalMagnit
 ]
 
 { #category : 'asserting' }
-ChaltenTest >> assert: calendricalMagnitude isLessThanOrEquals: anotherCalendricalMagnitude [
+ChaltenTest >> assert: calendricalMagnitude isLessThanOrEqualsTo: anotherCalendricalMagnitude [
 
   self assert: calendricalMagnitude <= anotherCalendricalMagnitude
 ]

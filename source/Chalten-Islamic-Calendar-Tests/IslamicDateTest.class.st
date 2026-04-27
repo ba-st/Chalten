@@ -98,13 +98,13 @@ IslamicDateTest >> testGreaterThan [
 
   self
     assert: muharram first , 2025 isGreaterThan: muharram first , 2024;
-    assert: muharram first , 2025 isGreaterThanOrEquals: muharram first , 2024;
-    assert: muharram first , 2025 isGreaterThanOrEquals: muharram first , 2025;
+    assert: muharram first , 2025 isGreaterThanOrEqualsTo: muharram first , 2024;
+    assert: muharram first , 2025 isGreaterThanOrEqualsTo: muharram first , 2025;
     assert: safar first , 2025 isGreaterThan: muharram first , 2025;
-    assert: safar first , 2025 isGreaterThanOrEquals: muharram first , 2025;
-    assert: muharram first , 2025 isGreaterThanOrEquals: duAlHijjah first , 2024;
+    assert: safar first , 2025 isGreaterThanOrEqualsTo: muharram first , 2025;
+    assert: muharram first , 2025 isGreaterThanOrEqualsTo: duAlHijjah first , 2024;
     assert: safar second , 2025 isGreaterThan: safar first , 2025;
-    assert: safar second , 2025 isGreaterThanOrEquals: safar first , 2025;
+    assert: safar second , 2025 isGreaterThanOrEqualsTo: safar first , 2025;
     deny: muharram first , 1 isGreaterThan: muharram first , 2025;
     deny: muharram first , 2025 isGreaterThan: safar first , 2025
 ]
@@ -285,13 +285,13 @@ IslamicDateTest >> testLessThan [
 
   self
     assert: muharram first , 2024 isLessThan: muharram first , 2025;
-    assert: muharram first , 2024 isLessThanOrEquals: muharram first , 2025;
-    assert: muharram first , 2025 isLessThanOrEquals: muharram first , 2025;
+    assert: muharram first , 2024 isLessThanOrEqualsTo: muharram first , 2025;
+    assert: muharram first , 2025 isLessThanOrEqualsTo: muharram first , 2025;
     assert: muharram first , 2025 isLessThan: safar first , 2025;
-    assert: muharram first , 2025 isLessThanOrEquals: safar first , 2025;
-    assert: duAlHijjah first , 2024 isLessThanOrEquals: muharram first , 2025;
+    assert: muharram first , 2025 isLessThanOrEqualsTo: safar first , 2025;
+    assert: duAlHijjah first , 2024 isLessThanOrEqualsTo: muharram first , 2025;
     assert: safar first , 2025 isLessThan: safar second , 2025;
-    assert: safar first , 2025 isLessThanOrEquals: safar second , 2025;
+    assert: safar first , 2025 isLessThanOrEqualsTo: safar second , 2025;
     deny: muharram first , 2025 isLessThan: muharram first , 1;
     deny: safar first , 2025 isLessThan: muharram first , 2025.
 

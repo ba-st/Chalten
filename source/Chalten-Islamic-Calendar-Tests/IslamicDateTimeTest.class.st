@@ -87,14 +87,14 @@ IslamicDateTimeTest >> testGreaterThan [
   self
     assert: ( muharram first , 1447 ) atNoon isGreaterThan: ( muharram first , 1447 ) atMidnight;
     assert: ( muharram first , 1447 ) atNoon
-    isGreaterThanOrEquals: ( muharram first , 1447 ) atMidnight;
+    isGreaterThanOrEqualsTo: ( muharram first , 1447 ) atMidnight;
     assert: ( muharram first , 1447 ) atMidnight
-    isGreaterThanOrEquals: ( muharram first , 1447 ) atMidnight;
+    isGreaterThanOrEqualsTo: ( muharram first , 1447 ) atMidnight;
     assert: ( safar first , 1447 ) atMidnight isGreaterThan: ( muharram first , 1447 ) atMidnight;
     assert: ( safar first , 1447 ) atMidnight
-    isGreaterThanOrEquals: ( muharram first , 1447 ) atMidnight;
+    isGreaterThanOrEqualsTo: ( muharram first , 1447 ) atMidnight;
     assert: ( safar first , 1447 ) atMidnight
-    isGreaterThanOrEquals: ( safar first , 1447 ) atMidnight
+    isGreaterThanOrEqualsTo: ( safar first , 1447 ) atMidnight
 ]
 
 { #category : 'tests' }
@@ -130,12 +130,12 @@ IslamicDateTimeTest >> testLessThan [
 
   self
     assert: ( muharram first , 1446 ) atMidnight isLessThan: ( muharram first , 1446 ) atNoon;
-    assert: ( muharram first , 1446 ) atMidnight isLessThanOrEquals: ( muharram first , 1446 ) atNoon;
+    assert: ( muharram first , 1446 ) atMidnight isLessThanOrEqualsTo: ( muharram first , 1446 ) atNoon;
     assert: ( muharram first , 1446 ) atMidnight
-    isLessThanOrEquals: ( muharram first , 1446 ) atMidnight;
+    isLessThanOrEqualsTo: ( muharram first , 1446 ) atMidnight;
     assert: ( muharram first , 1447 ) atMidnight isLessThan: ( safar first , 1447 ) atMidnight;
     assert: ( muharram first , 1447 ) atMidnight
-    isLessThanOrEquals: ( safar first , 1447 ) atMidnight;
+    isLessThanOrEqualsTo: ( safar first , 1447 ) atMidnight;
     deny: ( muharram first , 1447 ) atMidnight isLessThan: ( muharram first , 1 ) atMidnight;
     deny: ( safar first , 1447 ) atNoon isLessThan: ( muharram first , 1447 ) atNoon
 ]

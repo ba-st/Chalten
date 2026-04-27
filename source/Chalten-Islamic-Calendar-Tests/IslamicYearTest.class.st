@@ -35,8 +35,8 @@ IslamicYearTest >> testGreaterThan [
 
   self
     assert: 2 asIslamicYear isGreaterThan: 1 asIslamicYear;
-    assert: 2 asIslamicYear isGreaterThanOrEquals: 1 asIslamicYear;
-    assert: 1 asIslamicYear isGreaterThanOrEquals: 1 asIslamicYear;
+    assert: 2 asIslamicYear isGreaterThanOrEqualsTo: 1 asIslamicYear;
+    assert: 1 asIslamicYear isGreaterThanOrEqualsTo: 1 asIslamicYear;
     deny: 1 asIslamicYear isGreaterThan: 2025 asIslamicYear.
 
   self
@@ -92,8 +92,8 @@ IslamicYearTest >> testLessThan [
 
   self
     assert: 1 asIslamicYear isLessThan: 2 asIslamicYear;
-    assert: 1 asIslamicYear isLessThanOrEquals: 2 asIslamicYear;
-    assert: 1 asIslamicYear isLessThanOrEquals: 1 asIslamicYear;
+    assert: 1 asIslamicYear isLessThanOrEqualsTo: 2 asIslamicYear;
+    assert: 1 asIslamicYear isLessThanOrEqualsTo: 1 asIslamicYear;
     deny: 2025 asIslamicYear isLessThan: 1 asIslamicYear.
 
   self
