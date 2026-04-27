@@ -31,10 +31,10 @@ HebrewYearTest >> testComparing [
 HebrewYearTest >> testGreaterThan [
 
   self
-    assert: 2 asHebrewYear greaterThan: 1 asHebrewYear;
-    assert: 2 asHebrewYear greaterThanOrEquals: 1 asHebrewYear;
-    assert: 1 asHebrewYear greaterThanOrEquals: 1 asHebrewYear;
-    deny: 1 asHebrewYear greaterThan: 2025 asHebrewYear.
+    assert: 2 asHebrewYear isGreaterThan: 1 asHebrewYear;
+    assert: 2 asHebrewYear isGreaterThanOrEquals: 1 asHebrewYear;
+    assert: 1 asHebrewYear isGreaterThanOrEquals: 1 asHebrewYear;
+    deny: 1 asHebrewYear isGreaterThan: 2025 asHebrewYear.
 
   self
     should: [ 2 asHebrewYear > 1 asGregorianYear ]
@@ -66,8 +66,12 @@ HebrewYearTest >> testInstanceCreationShortcut [
 
   self
     assert: 2025 asHebrewYear number equals: 2025;
-    should: [ 0 asHebrewYear ] raise: InstanceCreationFailed;
-    should: [ -13 asHebrewYear ] raise: InstanceCreationFailed
+    should: [ 0 asHebrewYear ]
+    raise: InstanceCreationFailed
+    withMessageText: 'Negative years are unsupported for the Hebrew calendar';
+    should: [ -13 asHebrewYear ]
+    raise: InstanceCreationFailed
+    withMessageText: 'Negative years are unsupported for the Hebrew calendar'
 ]
 
 { #category : 'tests' }
@@ -138,10 +142,10 @@ HebrewYearTest >> testIsRegularYear [
 HebrewYearTest >> testLessThan [
 
   self
-    assert: 1 asHebrewYear lessThan: 2 asHebrewYear;
-    assert: 1 asHebrewYear lessThanOrEquals: 2 asHebrewYear;
-    assert: 1 asHebrewYear lessThanOrEquals: 1 asHebrewYear;
-    deny: 2025 asHebrewYear lessThan: 1 asHebrewYear.
+    assert: 1 asHebrewYear isLessThan: 2 asHebrewYear;
+    assert: 1 asHebrewYear isLessThanOrEquals: 2 asHebrewYear;
+    assert: 1 asHebrewYear isLessThanOrEquals: 1 asHebrewYear;
+    deny: 2025 asHebrewYear isLessThan: 1 asHebrewYear.
 
   self
     should: [ 2 asHebrewYear < 1 asGregorianYear ]
@@ -156,9 +160,9 @@ HebrewYearTest >> testLessThan [
 HebrewYearTest >> testNext [
 
   self
-    assert: 1 asHebrewYear nextIs: 2 asHebrewYear;
-    assert: 2 asHebrewYear nextIs: 3 asHebrewYear;
-    assert: 2025 asHebrewYear nextIs: 2026 asHebrewYear.
+    assertNextOf: 1 asHebrewYear is: 2 asHebrewYear;
+    assertNextOf: 2 asHebrewYear is: 3 asHebrewYear;
+    assertNextOf: 2025 asHebrewYear is: 2026 asHebrewYear.
 
   self
     assert: ( 1 asHebrewYear next: 2025 * hebrewYear ) equals: 2026 asHebrewYear;
@@ -225,9 +229,9 @@ HebrewYearTest >> testNumberOfMonths [
 HebrewYearTest >> testPrevious [
 
   self
-    assert: 2 asHebrewYear previousIs: 1 asHebrewYear;
-    assert: 3 asHebrewYear previousIs: 2 asHebrewYear;
-    assert: 2025 asHebrewYear previousIs: 2024 asHebrewYear.
+    assertPreviousOf: 2 asHebrewYear is: 1 asHebrewYear;
+    assertPreviousOf: 3 asHebrewYear is: 2 asHebrewYear;
+    assertPreviousOf: 2025 asHebrewYear is: 2024 asHebrewYear.
 
   self
     assert: ( 4050 asHebrewYear previous: 2025 * hebrewYear ) equals: 2025 asHebrewYear;

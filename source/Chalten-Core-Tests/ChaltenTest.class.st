@@ -42,37 +42,37 @@ ChaltenTest >> assert: actual equals: expected [
 ]
 
 { #category : 'asserting' }
-ChaltenTest >> assert: calendricalMagnitude greaterThan: anotherCalendricalMagnitude [
+ChaltenTest >> assert: calendricalMagnitude isGreaterThan: anotherCalendricalMagnitude [
 
   self assert: calendricalMagnitude > anotherCalendricalMagnitude
 ]
 
 { #category : 'asserting' }
-ChaltenTest >> assert: calendricalMagnitude greaterThanOrEquals: anotherCalendricalMagnitude [
+ChaltenTest >> assert: calendricalMagnitude isGreaterThanOrEquals: anotherCalendricalMagnitude [
 
   self assert: calendricalMagnitude >= anotherCalendricalMagnitude
 ]
 
 { #category : 'asserting' }
-ChaltenTest >> assert: calendricalMagnitude lessThan: anotherCalendricalMagnitude [
+ChaltenTest >> assert: calendricalMagnitude isLessThan: anotherCalendricalMagnitude [
 
   self assert: calendricalMagnitude < anotherCalendricalMagnitude
 ]
 
 { #category : 'asserting' }
-ChaltenTest >> assert: calendricalMagnitude lessThanOrEquals: anotherCalendricalMagnitude [
+ChaltenTest >> assert: calendricalMagnitude isLessThanOrEquals: anotherCalendricalMagnitude [
 
   self assert: calendricalMagnitude <= anotherCalendricalMagnitude
 ]
 
 { #category : 'asserting' }
-ChaltenTest >> assert: calendricalMagnitude nextIs: anotherCalendricalMagnitude [
+ChaltenTest >> assertNextOf: calendricalMagnitude is: anotherCalendricalMagnitude [
 
   self assert: calendricalMagnitude next equals: anotherCalendricalMagnitude
 ]
 
 { #category : 'asserting' }
-ChaltenTest >> assert: calendricalMagnitude previousIs: anotherCalendricalMagnitude [
+ChaltenTest >> assertPreviousOf: calendricalMagnitude is: anotherCalendricalMagnitude [
 
   self assert: calendricalMagnitude previous equals: anotherCalendricalMagnitude
 ]
@@ -85,13 +85,13 @@ ChaltenTest >> deny: actual equals: expected [
 ]
 
 { #category : 'asserting' }
-ChaltenTest >> deny: calendricalMagnitude greaterThan: anotherCalendricalMagnitude [
+ChaltenTest >> deny: calendricalMagnitude isGreaterThan: anotherCalendricalMagnitude [
 
   self deny: calendricalMagnitude > anotherCalendricalMagnitude
 ]
 
 { #category : 'asserting' }
-ChaltenTest >> deny: calendricalMagnitude lessThan: anotherCalendricalMagnitude [
+ChaltenTest >> deny: calendricalMagnitude isLessThan: anotherCalendricalMagnitude [
 
   self deny: calendricalMagnitude < anotherCalendricalMagnitude
 ]

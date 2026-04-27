@@ -178,7 +178,7 @@ CalendarMonthOfYear >> thirtieth [
 
   ^ self numberOfDays > ( 29 * self class day )
       then: [ self dateAt: 30 ]
-      otherwise: [ super thirtieth ]
+      otherwise: [  self doesNotUnderstand: #thirtieth ]
 ]
 
 { #category : 'accessing - dates' }

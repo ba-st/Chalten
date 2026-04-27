@@ -74,27 +74,27 @@ GregorianMonthOfYearTest >> testDateCreation [
 GregorianMonthOfYearTest >> testGreaterThan [
 
   self
-    assert: january , 1 greaterThan: january , 0;
-    assert: january , 1 greaterThanOrEquals: january , 0;
-    assert: january , 0 greaterThanOrEquals: january , 0;
-    assert: february , 0 greaterThan: january , 0;
-    assert: february , 0 greaterThanOrEquals: january , 0;
-    assert: february , 1 greaterThan: january , 0;
-    deny: january , 0 greaterThan: january , 2025;
-    deny: january , 0 greaterThan: february , 0
+    assert: january , 1 isGreaterThan: january , 0;
+    assert: january , 1 isGreaterThanOrEquals: january , 0;
+    assert: january , 0 isGreaterThanOrEquals: january , 0;
+    assert: february , 0 isGreaterThan: january , 0;
+    assert: february , 0 isGreaterThanOrEquals: january , 0;
+    assert: february , 1 isGreaterThan: january , 0;
+    deny: january , 0 isGreaterThan: january , 2025;
+    deny: january , 0 isGreaterThan: february , 0
 ]
 
 { #category : 'tests' }
 GregorianMonthOfYearTest >> testLessThan [
 
   self
-    assert: january , 0 lessThan: january , 1;
-    assert: january , 0 lessThanOrEquals: january , 1;
-    assert: january , 0 lessThanOrEquals: january , 0;
-    assert: january , 0 lessThanOrEquals: february , 0;
-    assert: february , 0 lessThanOrEquals: january , 1;
-    deny: january , 2025 lessThan: january , 0;
-    deny: february , 0 lessThan: january , 0
+    assert: january , 0 isLessThan: january , 1;
+    assert: january , 0 isLessThanOrEquals: january , 1;
+    assert: january , 0 isLessThanOrEquals: january , 0;
+    assert: january , 0 isLessThanOrEquals: february , 0;
+    assert: february , 0 isLessThanOrEquals: january , 1;
+    deny: january , 2025 isLessThan: january , 0;
+    deny: february , 0 isLessThan: january , 0
 ]
 
 { #category : 'tests' }
@@ -104,8 +104,8 @@ GregorianMonthOfYearTest >> testNext [
   baseYear := 2025 asGregorianYear.
 
   self
-    assert: baseYear january nextIs: baseYear february;
-    assert: baseYear december nextIs: 2026 asGregorianYear january.
+    assertNextOf: baseYear january is: baseYear february;
+    assertNextOf: baseYear december is: 2026 asGregorianYear january.
 
   self
     assert: ( 0 asGregorianYear january next: 2025 * year ) equals: baseYear january;
@@ -158,8 +158,8 @@ GregorianMonthOfYearTest >> testPrevious [
   baseYear := 2025 asGregorianYear.
 
   self
-    assert: baseYear january previousIs: 2024 asGregorianYear december;
-    assert: baseYear december previousIs: baseYear november.
+    assertPreviousOf: baseYear january is: 2024 asGregorianYear december;
+    assertPreviousOf: baseYear december is: baseYear november.
 
   self
     assert: ( baseYear january previous: 2025 * year ) equals: 0 asGregorianYear january;

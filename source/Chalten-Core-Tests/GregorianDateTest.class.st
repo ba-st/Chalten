@@ -9,7 +9,7 @@ Class {
 }
 
 { #category : 'private - asserting' }
-GregorianDateTest >> assert: date after: dayCount daysIs: anotherDate [
+GregorianDateTest >> assert: dayCount daysAfter: date is: anotherDate [
 
   self assert: ( date next: dayCount * day ) equals: anotherDate
 ]
@@ -49,7 +49,7 @@ GregorianDateTest >> testBetweenAnd [
 ]
 
 { #category : 'tests' }
-GregorianDateTest >> testCannotComputeDaysBetweenTwoDates [
+GregorianDateTest >> testCannotComputeDateDistanceWhenTheSecondIsGreater [
 
   self
     should: [ ( january second , 2025 ) - ( january third , 2025 ) ]
@@ -98,16 +98,16 @@ GregorianDateTest >> testDaysBetweenTwoDates [
 GregorianDateTest >> testGreaterThan [
 
   self
-    assert: january first , 2025 greaterThan: january first , 2024;
-    assert: january first , 2025 greaterThanOrEquals: january first , 2024;
-    assert: january first , 2025 greaterThanOrEquals: january first , 2025;
-    assert: february first , 2025 greaterThan: january first , 2025;
-    assert: february first , 2025 greaterThanOrEquals: january first , 2025;
-    assert: january first , 2025 greaterThanOrEquals: december first , 2024;
-    assert: february second , 2025 greaterThan: february first , 2025;
-    assert: february second , 2025 greaterThanOrEquals: february first , 2025;
-    deny: january first , 0 greaterThan: january first , 2025;
-    deny: january first , 2025 greaterThan: february first , 2025
+    assert: january first , 2025 isGreaterThan: january first , 2024;
+    assert: january first , 2025 isGreaterThanOrEquals: january first , 2024;
+    assert: january first , 2025 isGreaterThanOrEquals: january first , 2025;
+    assert: february first , 2025 isGreaterThan: january first , 2025;
+    assert: february first , 2025 isGreaterThanOrEquals: january first , 2025;
+    assert: january first , 2025 isGreaterThanOrEquals: december first , 2024;
+    assert: february second , 2025 isGreaterThan: february first , 2025;
+    assert: february second , 2025 isGreaterThanOrEquals: february first , 2025;
+    deny: january first , 0 isGreaterThan: january first , 2025;
+    deny: january first , 2025 isGreaterThan: february first , 2025
 ]
 
 { #category : 'tests' }
@@ -292,50 +292,50 @@ GregorianDateTest >> testIntervalWithStep [
 GregorianDateTest >> testLessThan [
 
   self
-    assert: january first , 2024 lessThan: january first , 2025;
-    assert: january first , 2024 lessThanOrEquals: january first , 2025;
-    assert: january first , 2025 lessThanOrEquals: january first , 2025;
-    assert: january first , 2025 lessThan: february first , 2025;
-    assert: january first , 2025 lessThanOrEquals: february first , 2025;
-    assert: december first , 2024 lessThanOrEquals: january first , 2025;
-    assert: february first , 2025 lessThan: february second , 2025;
-    assert: february first , 2025 lessThanOrEquals: february second , 2025;
-    deny: january first , 2025 lessThan: january first , 0;
-    deny: february first , 2025 lessThan: january first , 2025
+    assert: january first , 2024 isLessThan: january first , 2025;
+    assert: january first , 2024 isLessThanOrEquals: january first , 2025;
+    assert: january first , 2025 isLessThanOrEquals: january first , 2025;
+    assert: january first , 2025 isLessThan: february first , 2025;
+    assert: january first , 2025 isLessThanOrEquals: february first , 2025;
+    assert: december first , 2024 isLessThanOrEquals: january first , 2025;
+    assert: february first , 2025 isLessThan: february second , 2025;
+    assert: february first , 2025 isLessThanOrEquals: february second , 2025;
+    deny: january first , 2025 isLessThan: january first , 0;
+    deny: february first , 2025 isLessThan: january first , 2025
 ]
 
 { #category : 'tests' }
 GregorianDateTest >> testNext [
 
   self
-    assert: june first , 2025 nextIs: june second , 2025;
-    assert: june thirtieth , 2025 nextIs: july first , 2025;
-    assert: december thirtyFirst , 2025 nextIs: january first , 2026;
-    assert: february twentyEighth , 2020 nextIs: february twentyNinth , 2020;
-    assert: february twentyEighth , 2025 nextIs: march first , 2025.
+    assertNextOf: june first , 2025 is: june second , 2025;
+    assertNextOf: june thirtieth , 2025 is: july first , 2025;
+    assertNextOf: december thirtyFirst , 2025 is: january first , 2026;
+    assertNextOf: february twentyEighth , 2020 is: february twentyNinth , 2020;
+    assertNextOf: february twentyEighth , 2025 is: march first , 2025.
 
   self
-    assert: january first , 2027 after: 10 daysIs: january eleventh , 2027;
-    assert: january first , 2027 after: 30 daysIs: january thirtyFirst , 2027;
-    assert: january first , 2027 after: 31 daysIs: february first , 2027;
-    assert: january first , 2027 after: 365 daysIs: january first , 2028;
-    assert: january first , 2024 after: 366 daysIs: january first , 2025;
-    assert: january first , 2027 after: 0 daysIs: january first , 2027.
+    assert: 10 daysAfter: january first , 2027 is: january eleventh , 2027;
+    assert: 30 daysAfter: january first , 2027 is: january thirtyFirst , 2027;
+    assert: 31 daysAfter: january first , 2027 is: february first , 2027;
+    assert: 365 daysAfter: january first , 2027 is: january first , 2028;
+    assert: 366 daysAfter: january first , 2024 is: january first , 2025;
+    assert: 0 daysAfter: january first , 2027 is: january first , 2027.
 
   self
-    assert: january first , 2007 after: 365 + 366 + 365 + 365 daysIs: january first , 2011;
-    assert: january first , 2007 after: 365 + 366 + 365 + 365 + 31 + 28 daysIs: march first , 2011
+    assert: 365 + 366 + 365 + 365 daysAfter: january first , 2007 is: january first , 2011;
+    assert: 365 + 366 + 365 + 365 + 31 + 28 daysAfter: january first , 2007 is: march first , 2011
 ]
 
 { #category : 'tests' }
 GregorianDateTest >> testPrevious [
 
   self
-    assert: june second , 2025 previousIs: june first , 2025;
-    assert: june first , 2025 previousIs: may thirtyFirst , 2025;
-    assert: january first , 2025 previousIs: december thirtyFirst , 2024;
-    assert: february twentyNinth , 2020 previousIs: february twentyEighth , 2020;
-    assert: march first , 2025 previousIs: february twentyEighth , 2025.
+    assertPreviousOf: june second , 2025 is: june first , 2025;
+    assertPreviousOf: june first , 2025 is: may thirtyFirst , 2025;
+    assertPreviousOf: january first , 2025 is: december thirtyFirst , 2024;
+    assertPreviousOf: february twentyNinth , 2020 is: february twentyEighth , 2020;
+    assertPreviousOf: march first , 2025 is: february twentyEighth , 2025.
   self
     assert: 10 daysBefore: december thirtyFirst , 2008 is: december twentyFirst , 2008;
     assert: 30 daysBefore: december thirtyFirst , 2008 is: december first , 2008;

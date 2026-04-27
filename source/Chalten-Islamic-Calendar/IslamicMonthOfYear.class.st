@@ -92,16 +92,21 @@ IslamicMonthOfYear >> next: relativeTimeQuantity [
       isWholeYearsDo: [ :quantityInYears |
         ( year next: quantityInYears ) monthAt: month positionInYear ]
       otherwise: [ :quantityInYears :quantityInMonths |
-          | newMonth newYear |
-          newMonth := month next: quantityInMonths.
-          "The number of months is always less than a full year.
-		   If the new month index is less than the current one, it means we've wrapped
-		   around to the next year, so we add one to the years to skip."
-          newYear := newMonth positionInYear < month positionInYear
-                       then: [ year next: quantityInYears + ( 1 * self class year ) ]
-                       otherwise: [ year next: quantityInYears ].
-          newYear monthAt: newMonth positionInYear
-        ]
+        self next: quantityInYears and: quantityInMonths ]
+]
+
+{ #category : 'private' }
+IslamicMonthOfYear >> next: quantityInYears and: quantityInMonths [
+  "The number of months is always less than a full year.
+   If the new month index is less than the current one, it means we've wrapped
+   around to the next year, so we add one to the years to skip."
+
+  | newMonth newYear |
+  newMonth := month next: quantityInMonths.
+  newYear := newMonth positionInYear < month positionInYear
+               then: [ year next: quantityInYears + ( 1 * self class year ) ]
+               otherwise: [ year next: quantityInYears ].
+  ^ newYear monthAt: newMonth positionInYear
 ]
 
 { #category : 'accessing' }
@@ -122,16 +127,21 @@ IslamicMonthOfYear >> previous: relativeTimeQuantity [
       isWholeYearsDo: [ :quantityInYears |
         ( year previous: quantityInYears ) monthAt: month positionInYear ]
       otherwise: [ :quantityInYears :quantityInMonths |
-          | newMonth newYear |
-          newMonth := month previous: quantityInMonths.
-          "The number of months is always less than a full year.
-		   If the new month index is greater than the current one, it means we've wrapped
-		   around to the previous year, so we add one to the years to skip."
-          newYear := newMonth positionInYear > month positionInYear
-                       then: [ year previous: quantityInYears + ( 1 * self class year ) ]
-                       otherwise: [ year previous: quantityInYears ].
-          newYear monthAt: newMonth positionInYear
-        ]
+        self previous: quantityInYears and: quantityInMonths ]
+]
+
+{ #category : 'private' }
+IslamicMonthOfYear >> previous: quantityInYears and: quantityInMonths [
+  "The number of months is always less than a full year.
+   If the new month index is greater than the current one, it means we've wrapped
+   around to the previous year, so we add one to the years to skip."
+
+  | newMonth newYear |
+  newMonth := month previous: quantityInMonths.
+  newYear := newMonth positionInYear > month positionInYear
+               then: [ year previous: quantityInYears + ( 1 * self class year ) ]
+               otherwise: [ year previous: quantityInYears ].
+  ^ newYear monthAt: newMonth positionInYear
 ]
 
 { #category : 'printing' }

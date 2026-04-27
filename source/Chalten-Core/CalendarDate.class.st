@@ -115,24 +115,44 @@ CalendarDate >> next: timeQuantity [
   timeQuantity isZero then: [ ^ self ].
   timeQuantity negative then: [ ^ self previous: timeQuantity abs ].
   daysUntilEndOfYear := self year lastDate - self.
-  ^ timeQuantity <= daysUntilEndOfYear
-      then: [ "We're moving in the same calendar year"
-          | daysUntilEndOfMonth |
-          daysUntilEndOfMonth := self monthOfYear last - self.
-          timeQuantity <= daysUntilEndOfMonth
-            then: [ "We're moving in the same month"
-                self monthOfYear dateAt:
-                  self dayNumber + ( timeQuantity convertTo: self class day ) numericalValue ]
-            otherwise: [
-                | remainingDays |
-                remainingDays := timeQuantity - daysUntilEndOfMonth.
-                self monthOfYear next first next: remainingDays - self oneDay
-              ]
-        ]
+  ^ timeQuantity <= daysUntilEndOfYear then: [ self onSameYearNext: timeQuantity ] otherwise: [
+        | remainingDays |
+        remainingDays := timeQuantity - daysUntilEndOfYear.
+        self year next firstDate next: remainingDays - self oneDay
+      ]
+]
+
+{ #category : 'private - querying' }
+CalendarDate >> onSameYearNext: timeQuantity [
+  "We're moving in the same calendar year"
+
+  | daysUntilEndOfMonth |
+  daysUntilEndOfMonth := self monthOfYear last - self.
+  ^ timeQuantity <= daysUntilEndOfMonth
+      then: [ "We're moving in the same month"
+          self monthOfYear dateAt:
+            self dayNumber + ( timeQuantity convertTo: self class day ) numericalValue ]
       otherwise: [
           | remainingDays |
-          remainingDays := timeQuantity - daysUntilEndOfYear.
-          self year next firstDate next: remainingDays - self oneDay
+          remainingDays := timeQuantity - daysUntilEndOfMonth.
+          self monthOfYear next first next: remainingDays - self oneDay
+        ]
+]
+
+{ #category : 'private - querying' }
+CalendarDate >> onSameYearPrevious: timeQuantity [
+  "We're moving in the same calendar year"
+
+  | daysFromStartOfMonth |
+  daysFromStartOfMonth := self dayNumber * self class day.
+  ^ timeQuantity < daysFromStartOfMonth
+      then: [ "We're moving in the same month"
+          self monthOfYear dateAt:
+            self dayNumber - ( timeQuantity convertTo: self class day ) numericalValue ]
+      otherwise: [
+          | remainingDays |
+          remainingDays := timeQuantity - daysFromStartOfMonth.
+          self monthOfYear previous last previous: remainingDays
         ]
 ]
 
@@ -159,26 +179,11 @@ CalendarDate >> previous: timeQuantity [
   timeQuantity isZero then: [ ^ self ].
   timeQuantity negative then: [ ^ self next: timeQuantity abs ].
   daysFromStartOfYear := self - self year firstDate.
-  ^ timeQuantity < daysFromStartOfYear
-      then: [
-          | daysFromStartOfMonth |
-          "We're moving in the same calendar year"
-          daysFromStartOfMonth := self dayNumber * self class day.
-          timeQuantity < daysFromStartOfMonth
-            then: [ "We're moving in the same month"
-                self monthOfYear dateAt:
-                  self dayNumber - ( timeQuantity convertTo: self class day ) numericalValue ]
-            otherwise: [
-                | remainingDays |
-                remainingDays := timeQuantity - daysFromStartOfMonth.
-                self monthOfYear previous last previous: remainingDays
-              ]
-        ]
-      otherwise: [
-          | remainingDays |
-          remainingDays := timeQuantity - daysFromStartOfYear - ( 1 * self class day ).
-          self year previous lastDate previous: remainingDays
-        ]
+  ^ timeQuantity < daysFromStartOfYear then: [ self onSameYearPrevious: timeQuantity ] otherwise: [
+        | remainingDays |
+        remainingDays := timeQuantity - daysFromStartOfYear - ( 1 * self class day ).
+        self year previous lastDate previous: remainingDays
+      ]
 ]
 
 { #category : 'private - querying' }

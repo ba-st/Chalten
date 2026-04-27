@@ -4,9 +4,25 @@ A TimeOfDayTest is a test class for testing the behavior of TimeOfDay
 Class {
 	#name : 'TimeOfDayTest',
 	#superclass : 'TestCase',
+	#instVars : [
+		'hour',
+		'microsecond',
+		'minute',
+		'second'
+	],
 	#category : 'Chalten-Core-Tests',
 	#package : 'Chalten-Core-Tests'
 }
+
+{ #category : 'running' }
+TimeOfDayTest >> setUp [
+
+  super setUp.
+  hour := TimeOfDay hour.
+  minute := TimeOfDay minute.
+  second := TimeOfDay second.
+  microsecond := TimeOfDay microsecond
+]
 
 { #category : 'tests' }
 TimeOfDayTest >> testAccessing [
@@ -19,10 +35,10 @@ TimeOfDayTest >> testAccessing [
                  microseconds: 1640.
 
   self
-    assert: timeOfDay hours equals: 16 * TimeOfDay hour;
-    assert: timeOfDay minutes equals: 15 * TimeOfDay minute;
-    assert: timeOfDay seconds equals: 12 * TimeOfDay second;
-    assert: timeOfDay microseconds equals: 1640 * TimeOfDay microsecond
+    assert: timeOfDay hours equals: 16 * hour;
+    assert: timeOfDay minutes equals: 15 * minute;
+    assert: timeOfDay seconds equals: 12 * second;
+    assert: timeOfDay microseconds equals: 1640 * microsecond
 ]
 
 { #category : 'tests' }
@@ -34,12 +50,12 @@ TimeOfDayTest >> testAddition [
                      minutes: 15
                      seconds: 12
                      microseconds: 1640.
-  timeOfDay := baseTimeOfDay + ( 4 * TimeOfDay hour ).
+  timeOfDay := baseTimeOfDay + ( 4 * hour ).
   self
-    assert: timeOfDay hours equals: 20 * TimeOfDay hour;
-    assert: timeOfDay minutes equals: 15 * TimeOfDay minute;
-    assert: timeOfDay seconds equals: 12 * TimeOfDay second;
-    assert: timeOfDay microseconds equals: 1640 * TimeOfDay microsecond
+    assert: timeOfDay hours equals: 20 * hour;
+    assert: timeOfDay minutes equals: 15 * minute;
+    assert: timeOfDay seconds equals: 12 * second;
+    assert: timeOfDay microseconds equals: 1640 * microsecond
 ]
 
 { #category : 'tests' }
@@ -48,9 +64,26 @@ TimeOfDayTest >> testAdditionCannotExceed24Hours [
   | timeOfDay |
   timeOfDay := TimeOfDay hours: 16.
   self
-    should: [ timeOfDay + ( 8 * TimeOfDay hour ) ]
+    should: [ timeOfDay + ( 8 * hour ) ]
     raise: InstanceCreationFailed
     withMessageText: 'A time of day must be between 0 and 24 hours'
+]
+
+{ #category : 'tests' }
+TimeOfDayTest >> testAdditionOfLessThanOneHour [
+
+  | baseTimeOfDay timeOfDay |
+  baseTimeOfDay := TimeOfDay
+                     hours: 16
+                     minutes: 15
+                     seconds: 12
+                     microseconds: 1640.
+  timeOfDay := baseTimeOfDay + ( 20 * minute + ( 10 * second ) + ( 15 * microsecond ) ).
+  self
+    assert: timeOfDay hours equals: 16 * hour;
+    assert: timeOfDay minutes equals: 35 * minute;
+    assert: timeOfDay seconds equals: 22 * second;
+    assert: timeOfDay microseconds equals: 1655 * microsecond
 ]
 
 { #category : 'tests' }
@@ -123,12 +156,12 @@ TimeOfDayTest >> testSubtraction [
                      minutes: 15
                      seconds: 12
                      microseconds: 1640.
-  timeOfDay := baseTimeOfDay - ( 30 * TimeOfDay minute ).
+  timeOfDay := baseTimeOfDay - ( 30 * minute ).
   self
-    assert: timeOfDay hours equals: 15 * TimeOfDay hour;
-    assert: timeOfDay minutes equals: 45 * TimeOfDay minute;
-    assert: timeOfDay seconds equals: 12 * TimeOfDay second;
-    assert: timeOfDay microseconds equals: 1640 * TimeOfDay microsecond
+    assert: timeOfDay hours equals: 15 * hour;
+    assert: timeOfDay minutes equals: 45 * minute;
+    assert: timeOfDay seconds equals: 12 * second;
+    assert: timeOfDay microseconds equals: 1640 * microsecond
 ]
 
 { #category : 'tests' }
@@ -137,7 +170,7 @@ TimeOfDayTest >> testSubtractionCannotExceed0Hours [
   | timeOfDay |
   timeOfDay := TimeOfDay hours: 16.
   self
-    should: [ timeOfDay - ( 16.1 * TimeOfDay hour ) ]
+    should: [ timeOfDay - ( 16.1 * hour ) ]
     raise: InstanceCreationFailed
     withMessageText: 'A time of day must be between 0 and 24 hours'
 ]
@@ -147,7 +180,7 @@ TimeOfDayTest >> testSubtractionToZero [
 
   | baseTimeOfDay timeOfDay |
   baseTimeOfDay := TimeOfDay hours: 16.
-  timeOfDay := baseTimeOfDay - ( 16 * TimeOfDay hour ).
+  timeOfDay := baseTimeOfDay - ( 16 * hour ).
   self
     assert: timeOfDay hours isZero;
     assert: timeOfDay minutes isZero;

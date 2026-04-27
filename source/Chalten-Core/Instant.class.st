@@ -86,10 +86,12 @@ Instant class >> millisecond [
 { #category : 'instance creation' }
 Instant class >> now [
 
-  | microsecondsSinceJanuaryFirst1901 |
+  | microsecondsSinceJanuaryFirst1901 microsecondsBetweenJanuaryFirst1901andJanuaryFirst1970 |
   microsecondsSinceJanuaryFirst1901 := Time microsecondClockValue.
+  microsecondsBetweenJanuaryFirst1901andJanuaryFirst1970 := 2177452800000000.
   ^ self microsecondsSinceEpoch:
-      microsecondsSinceJanuaryFirst1901 - 2177452800000000 * self microsecond
+      microsecondsSinceJanuaryFirst1901 - microsecondsBetweenJanuaryFirst1901andJanuaryFirst1970
+      * self microsecond
 ]
 
 { #category : 'accessing' }

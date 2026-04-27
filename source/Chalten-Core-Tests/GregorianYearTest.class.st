@@ -34,10 +34,10 @@ GregorianYearTest >> testComparing [
 GregorianYearTest >> testGreaterThan [
 
   self
-    assert: 1 asGregorianYear greaterThan: 0 asGregorianYear;
-    assert: 1 asGregorianYear greaterThanOrEquals: 0 asGregorianYear;
-    assert: 0 asGregorianYear greaterThanOrEquals: 0 asGregorianYear;
-    deny: 0 asGregorianYear greaterThan: 2025 asGregorianYear
+    assert: 1 asGregorianYear isGreaterThan: 0 asGregorianYear;
+    assert: 1 asGregorianYear isGreaterThanOrEquals: 0 asGregorianYear;
+    assert: 0 asGregorianYear isGreaterThanOrEquals: 0 asGregorianYear;
+    deny: 0 asGregorianYear isGreaterThan: 2025 asGregorianYear
 ]
 
 { #category : 'tests' }
@@ -77,19 +77,19 @@ GregorianYearTest >> testIsLeapYear [
 GregorianYearTest >> testLessThan [
 
   self
-    assert: 0 asGregorianYear lessThan: 1 asGregorianYear;
-    assert: 0 asGregorianYear lessThanOrEquals: 1 asGregorianYear;
-    assert: 0 asGregorianYear lessThanOrEquals: 0 asGregorianYear;
-    deny: 2025 asGregorianYear lessThan: 0 asGregorianYear
+    assert: 0 asGregorianYear isLessThan: 1 asGregorianYear;
+    assert: 0 asGregorianYear isLessThanOrEquals: 1 asGregorianYear;
+    assert: 0 asGregorianYear isLessThanOrEquals: 0 asGregorianYear;
+    deny: 2025 asGregorianYear isLessThan: 0 asGregorianYear
 ]
 
 { #category : 'tests' }
 GregorianYearTest >> testNext [
 
   self
-    assert: 0 asGregorianYear nextIs: 1 asGregorianYear;
-    assert: -1 asGregorianYear nextIs: 0 asGregorianYear;
-    assert: 2025 asGregorianYear nextIs: 2026 asGregorianYear.
+    assertNextOf: 0 asGregorianYear is: 1 asGregorianYear;
+    assertNextOf: -1 asGregorianYear is: 0 asGregorianYear;
+    assertNextOf: 2025 asGregorianYear is: 2026 asGregorianYear.
 
   self
     assert: ( 0 asGregorianYear next: 2025 * year ) equals: 2025 asGregorianYear;
@@ -118,9 +118,9 @@ GregorianYearTest >> testNumberOfMonths [
 GregorianYearTest >> testPrevious [
 
   self
-    assert: 0 asGregorianYear previousIs: -1 asGregorianYear;
-    assert: 1 asGregorianYear previousIs: 0 asGregorianYear;
-    assert: 2025 asGregorianYear previousIs: 2024 asGregorianYear.
+    assertPreviousOf: 0 asGregorianYear is: -1 asGregorianYear;
+    assertPreviousOf: 1 asGregorianYear is: 0 asGregorianYear;
+    assertPreviousOf: 2025 asGregorianYear is: 2024 asGregorianYear.
 
   self
     assert: ( 0 asGregorianYear previous: 2025 * year ) equals: -2025 asGregorianYear;

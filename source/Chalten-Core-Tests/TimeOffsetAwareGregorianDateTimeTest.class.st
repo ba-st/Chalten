@@ -29,7 +29,6 @@ TimeOffsetAwareGregorianDateTimeTest >> testAsRelativePointInTime [
   relativeDateTime := unixEpoch asRelativePointInTime.
   self assert: relativeDateTime equals: ( GregorianMonth january first , 1970 ) atMidnight.
 
-
   unixEpoch := Instant epoch asGregorianDateTimeIn: utcPlus3.
 
   relativeDateTime := unixEpoch asRelativePointInTime.

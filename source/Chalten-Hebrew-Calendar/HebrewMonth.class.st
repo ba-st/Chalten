@@ -337,7 +337,7 @@ HebrewMonth >> initializeNamed: aName shortNamed: aShortName positionInNonLeapYe
   numberOfDaysInDeficientYear := deficientNumber
 ]
 
-{ #category : 'testing' }
+{ #category : 'private' }
 HebrewMonth >> isGregorian [
 
   ^ false
@@ -391,5 +391,5 @@ HebrewMonth >> thirtieth [
 
   ^ numberOfDaysInCompleteYear > ( 29 * self class day )
       then: [ self dayOfMonthAt: 30 ]
-      otherwise: [ super thirtieth ]
+      otherwise: [  self doesNotUnderstand: #thirtieth ]
 ]

@@ -34,10 +34,10 @@ IslamicYearTest >> testComparing [
 IslamicYearTest >> testGreaterThan [
 
   self
-    assert: 2 asIslamicYear greaterThan: 1 asIslamicYear;
-    assert: 2 asIslamicYear greaterThanOrEquals: 1 asIslamicYear;
-    assert: 1 asIslamicYear greaterThanOrEquals: 1 asIslamicYear;
-    deny: 1 asIslamicYear greaterThan: 2025 asIslamicYear.
+    assert: 2 asIslamicYear isGreaterThan: 1 asIslamicYear;
+    assert: 2 asIslamicYear isGreaterThanOrEquals: 1 asIslamicYear;
+    assert: 1 asIslamicYear isGreaterThanOrEquals: 1 asIslamicYear;
+    deny: 1 asIslamicYear isGreaterThan: 2025 asIslamicYear.
 
   self
     should: [ 2 asIslamicYear > 1 asGregorianYear ]
@@ -69,8 +69,12 @@ IslamicYearTest >> testInstanceCreationShortcut [
 
   self
     assert: 2025 asIslamicYear number equals: 2025;
-    should: [ 0 asIslamicYear ] raise: InstanceCreationFailed;
-    should: [ -13 asIslamicYear ] raise: InstanceCreationFailed
+    should: [ 0 asIslamicYear ]
+    raise: InstanceCreationFailed
+    withMessageText: 'Negative years are unsupported for the Islamic calendar';
+    should: [ -13 asIslamicYear ]
+    raise: InstanceCreationFailed
+    withMessageText: 'Negative years are unsupported for the Islamic calendar'
 ]
 
 { #category : 'tests' }
@@ -87,10 +91,10 @@ IslamicYearTest >> testIsLeapYear [
 IslamicYearTest >> testLessThan [
 
   self
-    assert: 1 asIslamicYear lessThan: 2 asIslamicYear;
-    assert: 1 asIslamicYear lessThanOrEquals: 2 asIslamicYear;
-    assert: 1 asIslamicYear lessThanOrEquals: 1 asIslamicYear;
-    deny: 2025 asIslamicYear lessThan: 1 asIslamicYear.
+    assert: 1 asIslamicYear isLessThan: 2 asIslamicYear;
+    assert: 1 asIslamicYear isLessThanOrEquals: 2 asIslamicYear;
+    assert: 1 asIslamicYear isLessThanOrEquals: 1 asIslamicYear;
+    deny: 2025 asIslamicYear isLessThan: 1 asIslamicYear.
 
   self
     should: [ 2 asIslamicYear < 1 asGregorianYear ]
@@ -105,9 +109,9 @@ IslamicYearTest >> testLessThan [
 IslamicYearTest >> testNext [
 
   self
-    assert: 1 asIslamicYear nextIs: 2 asIslamicYear;
-    assert: 2 asIslamicYear nextIs: 3 asIslamicYear;
-    assert: 2025 asIslamicYear nextIs: 2026 asIslamicYear.
+    assertNextOf: 1 asIslamicYear is: 2 asIslamicYear;
+    assertNextOf: 2 asIslamicYear is: 3 asIslamicYear;
+    assertNextOf: 2025 asIslamicYear is: 2026 asIslamicYear.
 
   self
     assert: ( 1 asIslamicYear next: 2025 * islamicYear ) equals: 2026 asIslamicYear;
@@ -136,9 +140,9 @@ IslamicYearTest >> testNumberOfMonths [
 IslamicYearTest >> testPrevious [
 
   self
-    assert: 2 asIslamicYear previousIs: 1 asIslamicYear;
-    assert: 3 asIslamicYear previousIs: 2 asIslamicYear;
-    assert: 2025 asIslamicYear previousIs: 2024 asIslamicYear.
+    assertPreviousOf: 2 asIslamicYear is: 1 asIslamicYear;
+    assertPreviousOf: 3 asIslamicYear is: 2 asIslamicYear;
+    assertPreviousOf: 2025 asIslamicYear is: 2024 asIslamicYear.
 
   self
     assert: ( 4050 asIslamicYear previous: 2025 * islamicYear ) equals: 2025 asIslamicYear;

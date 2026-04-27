@@ -226,7 +226,7 @@ GregorianMonth >> initializeNamed: aName shortNamed: aShortName positionInYear: 
   numberOfDaysInCommonYear := daysInCommonYear
 ]
 
-{ #category : 'testing' }
+{ #category : 'private' }
 GregorianMonth >> isGregorian [
 
   ^ true
@@ -278,7 +278,7 @@ GregorianMonth >> thirtieth [
   ^ self
       whenNumberOfDaysInLeapYearGreaterThan: 29
       do: [ self dayOfMonthAt: 30 ]
-      otherwise: [ super thirtieth ]
+      otherwise: [ self doesNotUnderstand: #thirtieth ]
 ]
 
 { #category : 'accessing - days' }

@@ -82,7 +82,7 @@ CalendarMonth >> fourth [
   ^ self dayOfMonthAt: 4
 ]
 
-{ #category : 'testing' }
+{ #category : 'private' }
 CalendarMonth >> isGregorian [
 
   ^ self subclassResponsibility

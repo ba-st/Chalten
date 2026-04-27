@@ -6,7 +6,7 @@ Class {
 }
 
 { #category : 'private - asserting' }
-IslamicDateTest >> assert: date after: dayCount daysIs: anotherDate [
+IslamicDateTest >> assert: dayCount daysAfter: date is: anotherDate [
 
   self assert: ( date next: dayCount * day ) equals: anotherDate
 ]
@@ -47,7 +47,7 @@ IslamicDateTest >> testBetweenAnd [
 ]
 
 { #category : 'tests' }
-IslamicDateTest >> testCannotComputeDaysBetweenTwoDates [
+IslamicDateTest >> testCannotComputeDateDistanceWhenTheSecondIsGreater [
 
   self
     should: [ muharram second , 2025 - ( muharram third , 2025 ) ]
@@ -97,16 +97,16 @@ IslamicDateTest >> testDaysBetweenTwoDates [
 IslamicDateTest >> testGreaterThan [
 
   self
-    assert: muharram first , 2025 greaterThan: muharram first , 2024;
-    assert: muharram first , 2025 greaterThanOrEquals: muharram first , 2024;
-    assert: muharram first , 2025 greaterThanOrEquals: muharram first , 2025;
-    assert: safar first , 2025 greaterThan: muharram first , 2025;
-    assert: safar first , 2025 greaterThanOrEquals: muharram first , 2025;
-    assert: muharram first , 2025 greaterThanOrEquals: duAlHijjah first , 2024;
-    assert: safar second , 2025 greaterThan: safar first , 2025;
-    assert: safar second , 2025 greaterThanOrEquals: safar first , 2025;
-    deny: muharram first , 1 greaterThan: muharram first , 2025;
-    deny: muharram first , 2025 greaterThan: safar first , 2025
+    assert: muharram first , 2025 isGreaterThan: muharram first , 2024;
+    assert: muharram first , 2025 isGreaterThanOrEquals: muharram first , 2024;
+    assert: muharram first , 2025 isGreaterThanOrEquals: muharram first , 2025;
+    assert: safar first , 2025 isGreaterThan: muharram first , 2025;
+    assert: safar first , 2025 isGreaterThanOrEquals: muharram first , 2025;
+    assert: muharram first , 2025 isGreaterThanOrEquals: duAlHijjah first , 2024;
+    assert: safar second , 2025 isGreaterThan: safar first , 2025;
+    assert: safar second , 2025 isGreaterThanOrEquals: safar first , 2025;
+    deny: muharram first , 1 isGreaterThan: muharram first , 2025;
+    deny: muharram first , 2025 isGreaterThan: safar first , 2025
 ]
 
 { #category : 'tests' }
@@ -284,16 +284,16 @@ IslamicDateTest >> testIntervalWithStep [
 IslamicDateTest >> testLessThan [
 
   self
-    assert: muharram first , 2024 lessThan: muharram first , 2025;
-    assert: muharram first , 2024 lessThanOrEquals: muharram first , 2025;
-    assert: muharram first , 2025 lessThanOrEquals: muharram first , 2025;
-    assert: muharram first , 2025 lessThan: safar first , 2025;
-    assert: muharram first , 2025 lessThanOrEquals: safar first , 2025;
-    assert: duAlHijjah first , 2024 lessThanOrEquals: muharram first , 2025;
-    assert: safar first , 2025 lessThan: safar second , 2025;
-    assert: safar first , 2025 lessThanOrEquals: safar second , 2025;
-    deny: muharram first , 2025 lessThan: muharram first , 1;
-    deny: safar first , 2025 lessThan: muharram first , 2025.
+    assert: muharram first , 2024 isLessThan: muharram first , 2025;
+    assert: muharram first , 2024 isLessThanOrEquals: muharram first , 2025;
+    assert: muharram first , 2025 isLessThanOrEquals: muharram first , 2025;
+    assert: muharram first , 2025 isLessThan: safar first , 2025;
+    assert: muharram first , 2025 isLessThanOrEquals: safar first , 2025;
+    assert: duAlHijjah first , 2024 isLessThanOrEquals: muharram first , 2025;
+    assert: safar first , 2025 isLessThan: safar second , 2025;
+    assert: safar first , 2025 isLessThanOrEquals: safar second , 2025;
+    deny: muharram first , 2025 isLessThan: muharram first , 1;
+    deny: safar first , 2025 isLessThan: muharram first , 2025.
 
   self
     should: [ muharram first , 2025 < ( january first , 2025 ) ]
@@ -305,34 +305,36 @@ IslamicDateTest >> testLessThan [
 IslamicDateTest >> testNext [
 
   self
-    assert: jumadaAlThani first , 2025 nextIs: jumadaAlThani second , 2025;
-    assert: jumadaAlThani twentyNinth , 2025 nextIs: rajab first , 2025;
-    assert: duAlHijjah twentyNinth , 2025 nextIs: muharram first , 2026;
-    assert: safar twentyEighth , 2020 nextIs: safar twentyNinth , 2020;
-    assert: duAlHijjah twentyNinth , 1442 nextIs: duAlHijjah thirtieth , 1442.
+    assertNextOf: jumadaAlThani first , 2025 is: jumadaAlThani second , 2025;
+    assertNextOf: jumadaAlThani twentyNinth , 2025 is: rajab first , 2025;
+    assertNextOf: duAlHijjah twentyNinth , 2025 is: muharram first , 2026;
+    assertNextOf: safar twentyEighth , 2020 is: safar twentyNinth , 2020;
+    assertNextOf: duAlHijjah twentyNinth , 1442 is: duAlHijjah thirtieth , 1442.
 
   self
-    assert: muharram first , 1443 after: 10 daysIs: muharram eleventh , 1443;
-    assert: muharram first , 1443 after: 29 daysIs: muharram thirtieth , 1443;
-    assert: muharram first , 1443 after: 30 daysIs: safar first , 1443;
-    assert: muharram first , 1443 after: 354 daysIs: muharram first , 1444;
-    assert: muharram first , 1442 after: 355 daysIs: muharram first , 1443;
-    assert: muharram first , 1443 after: 0 daysIs: muharram first , 1443.
+    assert: 10 daysAfter: muharram first , 1443 is: muharram eleventh , 1443;
+    assert: 29 daysAfter: muharram first , 1443 is: muharram thirtieth , 1443;
+    assert: 30 daysAfter: muharram first , 1443 is: safar first , 1443;
+    assert: 354 daysAfter: muharram first , 1443 is: muharram first , 1444;
+    assert: 355 daysAfter: muharram first , 1442 is: muharram first , 1443;
+    assert: 0 daysAfter: muharram first , 1443 is: muharram first , 1443.
 
   self
-    assert: muharram first , 1441 after: 354 + 355 + 354 + 354 daysIs: muharram first , 1445;
-    assert: muharram first , 1441 after: 354 + 355 + 354 + 354 + 30 + 29 daysIs: rabiAlAwwal first , 1445
+    assert: 354 + 355 + 354 + 354 daysAfter: muharram first , 1441 is: muharram first , 1445;
+    assert: 354 + 355 + 354 + 354 + 30 + 29
+    daysAfter: muharram first , 1441
+    is: rabiAlAwwal first , 1445
 ]
 
 { #category : 'tests' }
 IslamicDateTest >> testPrevious [
 
   self
-    assert: jumadaAlThani second , 2025 previousIs: jumadaAlThani first , 2025;
-    assert: jumadaAlThani first , 2025 previousIs: jumadaAlAwwal thirtieth , 2025;
-    assert: muharram first , 2025 previousIs: duAlHijjah twentyNinth , 2024;
-    assert: muharram first , 1443 previousIs: duAlHijjah thirtieth , 1442;
-    assert: duAlHijjah thirtieth , 1442 previousIs: duAlHijjah twentyNinth , 1442.
+    assertPreviousOf: jumadaAlThani second , 2025 is: jumadaAlThani first , 2025;
+    assertPreviousOf: jumadaAlThani first , 2025 is: jumadaAlAwwal thirtieth , 2025;
+    assertPreviousOf: muharram first , 2025 is: duAlHijjah twentyNinth , 2024;
+    assertPreviousOf: muharram first , 1443 is: duAlHijjah thirtieth , 1442;
+    assertPreviousOf: duAlHijjah thirtieth , 1442 is: duAlHijjah twentyNinth , 1442.
   self
     assert: 10 daysBefore: duAlHijjah twentyNinth , 2008 is: duAlHijjah nineteenth , 2008;
     assert: 28 daysBefore: duAlHijjah twentyNinth , 2008 is: duAlHijjah first , 2008;

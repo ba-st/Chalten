@@ -6,7 +6,7 @@ Class {
 }
 
 { #category : 'private - asserting' }
-HebrewDateTest >> assert: date after: dayCount daysIs: anotherDate [
+HebrewDateTest >> assert: dayCount daysAfter: date is: anotherDate [
 
   self assert: ( date next: dayCount * day ) equals: anotherDate
 ]
@@ -46,7 +46,7 @@ HebrewDateTest >> testBetweenAnd [
 ]
 
 { #category : 'tests' }
-HebrewDateTest >> testCannotComputeDaysBetweenTwoDates [
+HebrewDateTest >> testCannotComputeDateDistanceWhenTheSecondIsGreater [
 
   self
     should: [ tishrei second , 2025 - ( tishrei third , 2025 ) ]
@@ -96,16 +96,16 @@ HebrewDateTest >> testDaysBetweenTwoDates [
 HebrewDateTest >> testGreaterThan [
 
   self
-    assert: tishrei first , 2025 greaterThan: tishrei first , 2024;
-    assert: tishrei first , 2025 greaterThanOrEquals: tishrei first , 2024;
-    assert: tishrei first , 2025 greaterThanOrEquals: tishrei first , 2025;
-    assert: cheshvan first , 2025 greaterThan: tishrei first , 2025;
-    assert: cheshvan first , 2025 greaterThanOrEquals: tishrei first , 2025;
-    assert: tishrei first , 2025 greaterThanOrEquals: elul first , 2024;
-    assert: cheshvan second , 2025 greaterThan: cheshvan first , 2025;
-    assert: cheshvan second , 2025 greaterThanOrEquals: cheshvan first , 2025;
-    deny: tishrei first , 1 greaterThan: tishrei first , 2025;
-    deny: tishrei first , 2025 greaterThan: cheshvan first , 2025
+    assert: tishrei first , 2025 isGreaterThan: tishrei first , 2024;
+    assert: tishrei first , 2025 isGreaterThanOrEquals: tishrei first , 2024;
+    assert: tishrei first , 2025 isGreaterThanOrEquals: tishrei first , 2025;
+    assert: cheshvan first , 2025 isGreaterThan: tishrei first , 2025;
+    assert: cheshvan first , 2025 isGreaterThanOrEquals: tishrei first , 2025;
+    assert: tishrei first , 2025 isGreaterThanOrEquals: elul first , 2024;
+    assert: cheshvan second , 2025 isGreaterThan: cheshvan first , 2025;
+    assert: cheshvan second , 2025 isGreaterThanOrEquals: cheshvan first , 2025;
+    deny: tishrei first , 1 isGreaterThan: tishrei first , 2025;
+    deny: tishrei first , 2025 isGreaterThan: cheshvan first , 2025
 ]
 
 { #category : 'tests' }
@@ -441,16 +441,16 @@ HebrewDateTest >> testIntervalWithStep [
 HebrewDateTest >> testLessThan [
 
   self
-    assert: tishrei first , 2024 lessThan: tishrei first , 2025;
-    assert: tishrei first , 2024 lessThanOrEquals: tishrei first , 2025;
-    assert: tishrei first , 2025 lessThanOrEquals: tishrei first , 2025;
-    assert: tishrei first , 2025 lessThan: cheshvan first , 2025;
-    assert: tishrei first , 2025 lessThanOrEquals: cheshvan first , 2025;
-    assert: elul first , 2024 lessThanOrEquals: tishrei first , 2025;
-    assert: cheshvan first , 2025 lessThan: cheshvan second , 2025;
-    assert: cheshvan first , 2025 lessThanOrEquals: cheshvan second , 2025;
-    deny: tishrei first , 2025 lessThan: tishrei first , 1;
-    deny: cheshvan first , 2025 lessThan: tishrei first , 2025.
+    assert: tishrei first , 2024 isLessThan: tishrei first , 2025;
+    assert: tishrei first , 2024 isLessThanOrEquals: tishrei first , 2025;
+    assert: tishrei first , 2025 isLessThanOrEquals: tishrei first , 2025;
+    assert: tishrei first , 2025 isLessThan: cheshvan first , 2025;
+    assert: tishrei first , 2025 isLessThanOrEquals: cheshvan first , 2025;
+    assert: elul first , 2024 isLessThanOrEquals: tishrei first , 2025;
+    assert: cheshvan first , 2025 isLessThan: cheshvan second , 2025;
+    assert: cheshvan first , 2025 isLessThanOrEquals: cheshvan second , 2025;
+    deny: tishrei first , 2025 isLessThan: tishrei first , 1;
+    deny: cheshvan first , 2025 isLessThan: tishrei first , 2025.
 
   self
     should: [ tishrei first , 2025 < ( january first , 2025 ) ]
@@ -462,34 +462,34 @@ HebrewDateTest >> testLessThan [
 HebrewDateTest >> testNext [
 
   self
-    assert: adarI first , 2025 nextIs: adarI second , 2025;
-    assert: adarI thirtieth , 2025 nextIs: adarII first , 2025;
-    assert: elul twentyNinth , 2025 nextIs: tishrei first , 2026;
-    assert: cheshvan twentyEighth , 2020 nextIs: cheshvan twentyNinth , 2020;
-    assert: elul twentyNinth , 1442 nextIs: tishrei first, 1443.
+    assertNextOf: adarI first , 2025 is: adarI second , 2025;
+    assertNextOf: adarI thirtieth , 2025 is: adarII first , 2025;
+    assertNextOf: elul twentyNinth , 2025 is: tishrei first , 2026;
+    assertNextOf: cheshvan twentyEighth , 2020 is: cheshvan twentyNinth , 2020;
+    assertNextOf: elul twentyNinth , 1442 is: tishrei first , 1443.
 
   self
-    assert: tishrei first , 1443 after: 10 daysIs: tishrei eleventh , 1443;
-    assert: tishrei first , 1443 after: 29 daysIs: tishrei thirtieth , 1443;
-    assert: tishrei first , 1443 after: 30 daysIs: cheshvan first , 1443;
-    assert: tishrei first , 1443 after: 355 daysIs: tishrei first , 1444;
-    assert: tishrei first , 1442 after: 383 daysIs: tishrei first , 1443;
-    assert: tishrei first , 1443 after: 0 daysIs: tishrei first , 1443.
+    assert: 10 daysAfter: tishrei first , 1443 is: tishrei eleventh , 1443;
+    assert: 29 daysAfter: tishrei first , 1443 is: tishrei thirtieth , 1443;
+    assert: 30 daysAfter: tishrei first , 1443 is: cheshvan first , 1443;
+    assert: 355 daysAfter: tishrei first , 1443 is: tishrei first , 1444;
+    assert: 383 daysAfter: tishrei first , 1442 is: tishrei first , 1443;
+    assert: 0 daysAfter: tishrei first , 1443 is: tishrei first , 1443.
 
   self
-    assert: tishrei first , 1441 after: 354 + 383 + 355 + 385 daysIs: tishrei first , 1445;
-    assert: tishrei first , 1441 after: 354 + 383 + 355 + 385 + 30 + 29 daysIs: kislev first , 1445
+    assert: 354 + 383 + 355 + 385 daysAfter: tishrei first , 1441 is: tishrei first , 1445;
+    assert: 354 + 383 + 355 + 385 + 30 + 29 daysAfter: tishrei first , 1441 is: kislev first , 1445
 ]
 
 { #category : 'tests' }
 HebrewDateTest >> testPrevious [
 
   self
-    assert: adarI second , 2025 previousIs: adarI first , 2025;
-    assert: adarI first , 2025 previousIs: shevat thirtieth , 2025;
-    assert: tishrei first , 2025 previousIs: elul twentyNinth , 2024;
-    assert: tishrei first , 1443 previousIs: elul twentyNinth , 1442;
-    assert: elul twentyNinth , 1442 previousIs: elul twentyEighth , 1442.
+    assertPreviousOf: adarI second , 2025 is: adarI first , 2025;
+    assertPreviousOf: adarI first , 2025 is: shevat thirtieth , 2025;
+    assertPreviousOf: tishrei first , 2025 is: elul twentyNinth , 2024;
+    assertPreviousOf: tishrei first , 1443 is: elul twentyNinth , 1442;
+    assertPreviousOf: elul twentyNinth , 1442 is: elul twentyEighth , 1442.
   self
     assert: 10 daysBefore: elul twentyNinth , 2008 is: elul nineteenth , 2008;
     assert: 28 daysBefore: elul twentyNinth , 2008 is: elul first , 2008;

@@ -224,7 +224,7 @@ IslamicMonth >> initializeNamed: aName shortNamed: aShortName positionInYear: in
   numberOfDaysInCommonYear := daysInCommonYear
 ]
 
-{ #category : 'testing' }
+{ #category : 'private' }
 IslamicMonth >> isGregorian [
 
   ^ false
@@ -276,7 +276,7 @@ IslamicMonth >> thirtieth [
   ^ self
       whenNumberOfDaysInLeapYearGreaterThan: 29
       do: [ self dayOfMonthAt: 30 ]
-      otherwise: [ super thirtieth ]
+      otherwise: [  self doesNotUnderstand: #thirtieth ]
 ]
 
 { #category : 'private' }

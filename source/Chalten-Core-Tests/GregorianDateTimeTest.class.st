@@ -51,9 +51,18 @@ GregorianDateTimeTest >> testAtStartOfDay [
 { #category : 'tests' }
 GregorianDateTimeTest >> testBetweenAnd [
 
-  self assert: ( ( january first , 2024 ) atNoon
-        between: ( january first , 2024 ) atMidnight
-        and: ( january second , 2024 ) atMidnight )
+  | januaryFirst januarySecond |
+  januaryFirst := january first , 2024.
+  januarySecond := january second , 2024.
+
+  self
+    assert: ( januaryFirst atNoon between: januaryFirst atMidnight and: januarySecond atMidnight );
+    assert:
+      ( januaryFirst atMidnight between: januaryFirst atMidnight and: januarySecond atMidnight );
+    assert:
+      ( januarySecond atMidnight between: januaryFirst atMidnight and: januarySecond atMidnight );
+    deny: ( januaryFirst atMidnight between: januaryFirst atNoon and: januaryFirst atNoon );
+    deny: ( januarySecond atNoon between: januaryFirst atNoon and: januaryFirst atNoon )
 ]
 
 { #category : 'tests' }
@@ -62,7 +71,8 @@ GregorianDateTimeTest >> testComparing [
   self
     assert: ( june first , 2025 ) atNoon equals: ( june first , 2025 ) atNoon;
     deny: ( june first , 2025 ) atNoon equals: ( june first , 2025 ) atMidnight;
-    deny: ( june first , 2026 ) atNoon equals: ( june first , 2025 ) atNoon
+    deny: ( june first , 2026 ) atNoon equals: ( june first , 2025 ) atNoon;
+    deny: ( june first , 2026 ) atNoon equals: ( june second , 2026 ) atNoon
 ]
 
 { #category : 'tests' }
@@ -92,17 +102,18 @@ GregorianDateTimeTest >> testCreationShortcut [
 { #category : 'tests' }
 GregorianDateTimeTest >> testGreaterThan [
 
+  | januaryFirst februaryFirst |
+  januaryFirst := january first , 2025.
+  februaryFirst := february first , 2025.
+
   self
-    assert: ( january first , 2025 ) atNoon greaterThan: ( january first , 2025 ) atMidnight;
-    assert: ( january first , 2025 ) atNoon
-    greaterThanOrEquals: ( january first , 2025 ) atMidnight;
-    assert: ( january first , 2025 ) atMidnight
-    greaterThanOrEquals: ( january first , 2025 ) atMidnight;
-    assert: ( february first , 2025 ) atMidnight greaterThan: ( january first , 2025 ) atMidnight;
-    assert: ( february first , 2025 ) atMidnight
-    greaterThanOrEquals: ( january first , 2025 ) atMidnight;
-    assert: ( february first , 2025 ) atMidnight
-    greaterThanOrEquals: ( february first , 2025 ) atMidnight
+    assert: januaryFirst atNoon isGreaterThan: januaryFirst atMidnight;
+    assert: januaryFirst atNoon isGreaterThanOrEquals: januaryFirst atMidnight;
+    assert: januaryFirst atMidnight isGreaterThanOrEquals: januaryFirst atMidnight;
+    assert: februaryFirst atMidnight isGreaterThan: januaryFirst atMidnight;
+    assert: februaryFirst atMidnight isGreaterThanOrEquals: januaryFirst atMidnight;
+    assert: februaryFirst atMidnight isGreaterThanOrEquals: februaryFirst atMidnight;
+    deny: februaryFirst atMidnight isGreaterThan: februaryFirst atNoon
 ]
 
 { #category : 'tests' }
@@ -165,15 +176,15 @@ GregorianDateTimeTest >> testJulianDayNumber [
 GregorianDateTimeTest >> testLessThan [
 
   self
-    assert: ( january first , 2024 ) atMidnight lessThan: ( january first , 2024 ) atNoon;
-    assert: ( january first , 2024 ) atMidnight lessThanOrEquals: ( january first , 2024 ) atNoon;
+    assert: ( january first , 2024 ) atMidnight isLessThan: ( january first , 2024 ) atNoon;
+    assert: ( january first , 2024 ) atMidnight isLessThanOrEquals: ( january first , 2024 ) atNoon;
     assert: ( january first , 2024 ) atMidnight
-    lessThanOrEquals: ( january first , 2024 ) atMidnight;
-    assert: ( january first , 2025 ) atMidnight lessThan: ( february first , 2025 ) atMidnight;
+    isLessThanOrEquals: ( january first , 2024 ) atMidnight;
+    assert: ( january first , 2025 ) atMidnight isLessThan: ( february first , 2025 ) atMidnight;
     assert: ( january first , 2025 ) atMidnight
-    lessThanOrEquals: ( february first , 2025 ) atMidnight;
-    deny: ( january first , 2025 ) atMidnight lessThan: ( january first , 0 ) atMidnight;
-    deny: ( february first , 2025 ) atNoon lessThan: ( january first , 2025 ) atNoon
+    isLessThanOrEquals: ( february first , 2025 ) atMidnight;
+    deny: ( january first , 2025 ) atMidnight isLessThan: ( january first , 0 ) atMidnight;
+    deny: ( february first , 2025 ) atNoon isLessThan: ( january first , 2025 ) atNoon
 ]
 
 { #category : 'tests' }

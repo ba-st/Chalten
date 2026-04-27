@@ -9,8 +9,12 @@ Class {
 IslamicDayOfMonthTest >> testCannotCreateWithMonthOfAnotherCalendar [
 
   self
-    should: [ CalendarDayOfMonth gregorianMonth: muharram dayNumber: 1 ] raise: AssertionFailed;
-    should: [ CalendarDayOfMonth islamicMonth: april dayNumber: 1 ] raise: AssertionFailed
+    should: [ CalendarDayOfMonth gregorianMonth: muharram dayNumber: 1 ]
+    raise: AssertionFailed
+    withMessageText: 'Cannot use non-gregorian months for days of gregorian months';
+    should: [ CalendarDayOfMonth islamicMonth: april dayNumber: 1 ]
+    raise: AssertionFailed
+    withMessageText: 'Cannot use non-islamic months for days of islamic months'
 ]
 
 { #category : 'tests' }

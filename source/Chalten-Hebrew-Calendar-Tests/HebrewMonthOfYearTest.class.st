@@ -80,27 +80,27 @@ HebrewMonthOfYearTest >> testCreationShortcutOnLeapYear [
 HebrewMonthOfYearTest >> testGreaterThan [
 
   self
-    assert: tishrei , 2 greaterThan: tishrei , 1;
-    assert: tishrei , 2 greaterThanOrEquals: tishrei , 1;
-    assert: tishrei , 1 greaterThanOrEquals: tishrei , 1;
-    assert: cheshvan , 1 greaterThan: tishrei , 1;
-    assert: cheshvan , 1 greaterThanOrEquals: tishrei , 1;
-    assert: cheshvan , 2 greaterThan: tishrei , 1;
-    deny: tishrei , 1 greaterThan: tishrei , 2025;
-    deny: tishrei , 1 greaterThan: cheshvan , 1
+    assert: tishrei , 2 isGreaterThan: tishrei , 1;
+    assert: tishrei , 2 isGreaterThanOrEquals: tishrei , 1;
+    assert: tishrei , 1 isGreaterThanOrEquals: tishrei , 1;
+    assert: cheshvan , 1 isGreaterThan: tishrei , 1;
+    assert: cheshvan , 1 isGreaterThanOrEquals: tishrei , 1;
+    assert: cheshvan , 2 isGreaterThan: tishrei , 1;
+    deny: tishrei , 1 isGreaterThan: tishrei , 2025;
+    deny: tishrei , 1 isGreaterThan: cheshvan , 1
 ]
 
 { #category : 'tests' }
 HebrewMonthOfYearTest >> testLessThan [
 
   self
-    assert: tishrei , 1 lessThan: tishrei , 2;
-    assert: tishrei , 1 lessThanOrEquals: tishrei , 2;
-    assert: tishrei , 1 lessThanOrEquals: tishrei , 1;
-    assert: tishrei , 1 lessThanOrEquals: cheshvan , 1;
-    assert: cheshvan , 1 lessThanOrEquals: tishrei , 2;
-    deny: tishrei , 2025 lessThan: tishrei , 1;
-    deny: cheshvan , 1 lessThan: tishrei , 1
+    assert: tishrei , 1 isLessThan: tishrei , 2;
+    assert: tishrei , 1 isLessThanOrEquals: tishrei , 2;
+    assert: tishrei , 1 isLessThanOrEquals: tishrei , 1;
+    assert: tishrei , 1 isLessThanOrEquals: cheshvan , 1;
+    assert: cheshvan , 1 isLessThanOrEquals: tishrei , 2;
+    deny: tishrei , 2025 isLessThan: tishrei , 1;
+    deny: cheshvan , 1 isLessThan: tishrei , 1
 ]
 
 { #category : 'tests' }
@@ -116,31 +116,31 @@ HebrewMonthOfYearTest >> testNext [
     assert: nextToBaseYear isDeficientYear.
 
   self
-    assert: baseYear tishrei nextIs: baseYear cheshvan;
-    assert: baseYear cheshvan nextIs: baseYear kislev;
-    assert: baseYear kislev nextIs: baseYear tevet;
-    assert: baseYear tevet nextIs: baseYear shevat;
-    assert: baseYear shevat nextIs: baseYear adar;
-    assert: baseYear adar nextIs: baseYear nisan;
-    assert: baseYear nisan nextIs: baseYear iyar;
-    assert: baseYear iyar nextIs: baseYear sivan;
-    assert: baseYear sivan nextIs: baseYear tammuz;
-    assert: baseYear tammuz nextIs: baseYear av;
-    assert: baseYear av nextIs: baseYear elul;
-    assert: baseYear elul nextIs: nextToBaseYear tishrei;
-    assert: nextToBaseYear tishrei nextIs: nextToBaseYear cheshvan;
-    assert: nextToBaseYear cheshvan nextIs: nextToBaseYear kislev;
-    assert: nextToBaseYear kislev nextIs: nextToBaseYear tevet;
-    assert: nextToBaseYear tevet nextIs: nextToBaseYear shevat;
-    assert: nextToBaseYear shevat nextIs: nextToBaseYear adarI;
-    assert: nextToBaseYear adarI nextIs: nextToBaseYear adarII;
-    assert: nextToBaseYear adarII nextIs: nextToBaseYear nisan;
-    assert: nextToBaseYear nisan nextIs: nextToBaseYear iyar;
-    assert: nextToBaseYear iyar nextIs: nextToBaseYear sivan;
-    assert: nextToBaseYear sivan nextIs: nextToBaseYear tammuz;
-    assert: nextToBaseYear tammuz nextIs: nextToBaseYear av;
-    assert: nextToBaseYear av nextIs: nextToBaseYear elul;
-    assert: nextToBaseYear elul nextIs: nextToBaseYear next tishrei.
+    assertNextOf: baseYear tishrei is: baseYear cheshvan;
+    assertNextOf: baseYear cheshvan is: baseYear kislev;
+    assertNextOf: baseYear kislev is: baseYear tevet;
+    assertNextOf: baseYear tevet is: baseYear shevat;
+    assertNextOf: baseYear shevat is: baseYear adar;
+    assertNextOf: baseYear adar is: baseYear nisan;
+    assertNextOf: baseYear nisan is: baseYear iyar;
+    assertNextOf: baseYear iyar is: baseYear sivan;
+    assertNextOf: baseYear sivan is: baseYear tammuz;
+    assertNextOf: baseYear tammuz is: baseYear av;
+    assertNextOf: baseYear av is: baseYear elul;
+    assertNextOf: baseYear elul is: nextToBaseYear tishrei;
+    assertNextOf: nextToBaseYear tishrei is: nextToBaseYear cheshvan;
+    assertNextOf: nextToBaseYear cheshvan is: nextToBaseYear kislev;
+    assertNextOf: nextToBaseYear kislev is: nextToBaseYear tevet;
+    assertNextOf: nextToBaseYear tevet is: nextToBaseYear shevat;
+    assertNextOf: nextToBaseYear shevat is: nextToBaseYear adarI;
+    assertNextOf: nextToBaseYear adarI is: nextToBaseYear adarII;
+    assertNextOf: nextToBaseYear adarII is: nextToBaseYear nisan;
+    assertNextOf: nextToBaseYear nisan is: nextToBaseYear iyar;
+    assertNextOf: nextToBaseYear iyar is: nextToBaseYear sivan;
+    assertNextOf: nextToBaseYear sivan is: nextToBaseYear tammuz;
+    assertNextOf: nextToBaseYear tammuz is: nextToBaseYear av;
+    assertNextOf: nextToBaseYear av is: nextToBaseYear elul;
+    assertNextOf: nextToBaseYear elul is: nextToBaseYear next tishrei.
 
   self
     assert: ( baseYear tishrei next: 12 * hebrewMonth ) equals: nextToBaseYear tishrei;
@@ -311,31 +311,31 @@ HebrewMonthOfYearTest >> testPrevious [
     assert: previousToBaseYear isCompleteYear.
 
   self
-    assert: baseYear cheshvan previousIs: baseYear tishrei;
-    assert: baseYear kislev previousIs: baseYear cheshvan;
-    assert: baseYear tevet previousIs: baseYear kislev;
-    assert: baseYear shevat previousIs: baseYear tevet;
-    assert: baseYear adarI previousIs: baseYear shevat;
-    assert: baseYear adarII previousIs: baseYear adarI;
-    assert: baseYear nisan previousIs: baseYear adarII;
-    assert: baseYear iyar previousIs: baseYear nisan;
-    assert: baseYear sivan previousIs: baseYear iyar;
-    assert: baseYear tammuz previousIs: baseYear sivan;
-    assert: baseYear av previousIs: baseYear tammuz;
-    assert: baseYear elul previousIs: baseYear av;
-    assert: baseYear tishrei previousIs: previousToBaseYear elul;
-    assert: previousToBaseYear cheshvan previousIs: previousToBaseYear tishrei;
-    assert: previousToBaseYear kislev previousIs: previousToBaseYear cheshvan;
-    assert: previousToBaseYear tevet previousIs: previousToBaseYear kislev;
-    assert: previousToBaseYear shevat previousIs: previousToBaseYear tevet;
-    assert: previousToBaseYear adar previousIs: previousToBaseYear shevat;
-    assert: previousToBaseYear nisan previousIs: previousToBaseYear adar;
-    assert: previousToBaseYear iyar previousIs: previousToBaseYear nisan;
-    assert: previousToBaseYear sivan previousIs: previousToBaseYear iyar;
-    assert: previousToBaseYear tammuz previousIs: previousToBaseYear sivan;
-    assert: previousToBaseYear av previousIs: previousToBaseYear tammuz;
-    assert: previousToBaseYear elul previousIs: previousToBaseYear av;
-    assert: previousToBaseYear next tishrei previousIs: previousToBaseYear elul.
+    assertPreviousOf: baseYear cheshvan is: baseYear tishrei;
+    assertPreviousOf: baseYear kislev is: baseYear cheshvan;
+    assertPreviousOf: baseYear tevet is: baseYear kislev;
+    assertPreviousOf: baseYear shevat is: baseYear tevet;
+    assertPreviousOf: baseYear adarI is: baseYear shevat;
+    assertPreviousOf: baseYear adarII is: baseYear adarI;
+    assertPreviousOf: baseYear nisan is: baseYear adarII;
+    assertPreviousOf: baseYear iyar is: baseYear nisan;
+    assertPreviousOf: baseYear sivan is: baseYear iyar;
+    assertPreviousOf: baseYear tammuz is: baseYear sivan;
+    assertPreviousOf: baseYear av is: baseYear tammuz;
+    assertPreviousOf: baseYear elul is: baseYear av;
+    assertPreviousOf: baseYear tishrei is: previousToBaseYear elul;
+    assertPreviousOf: previousToBaseYear cheshvan is: previousToBaseYear tishrei;
+    assertPreviousOf: previousToBaseYear kislev is: previousToBaseYear cheshvan;
+    assertPreviousOf: previousToBaseYear tevet is: previousToBaseYear kislev;
+    assertPreviousOf: previousToBaseYear shevat is: previousToBaseYear tevet;
+    assertPreviousOf: previousToBaseYear adar is: previousToBaseYear shevat;
+    assertPreviousOf: previousToBaseYear nisan is: previousToBaseYear adar;
+    assertPreviousOf: previousToBaseYear iyar is: previousToBaseYear nisan;
+    assertPreviousOf: previousToBaseYear sivan is: previousToBaseYear iyar;
+    assertPreviousOf: previousToBaseYear tammuz is: previousToBaseYear sivan;
+    assertPreviousOf: previousToBaseYear av is: previousToBaseYear tammuz;
+    assertPreviousOf: previousToBaseYear elul is: previousToBaseYear av;
+    assertPreviousOf: previousToBaseYear next tishrei is: previousToBaseYear elul.
 
   self
     assert: ( baseYear tishrei previous: 12 * hebrewMonth ) equals: previousToBaseYear tishrei;

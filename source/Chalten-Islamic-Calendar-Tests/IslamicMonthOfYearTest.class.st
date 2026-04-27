@@ -70,27 +70,27 @@ IslamicMonthOfYearTest >> testDateCreation [
 IslamicMonthOfYearTest >> testGreaterThan [
 
   self
-    assert: muharram , 2 greaterThan: muharram , 1;
-    assert: muharram , 2 greaterThanOrEquals: muharram , 1;
-    assert: muharram , 1 greaterThanOrEquals: muharram , 1;
-    assert: safar , 1 greaterThan: muharram , 1;
-    assert: safar , 1 greaterThanOrEquals: muharram , 1;
-    assert: safar , 2 greaterThan: muharram , 1;
-    deny: muharram , 1 greaterThan: muharram , 2025;
-    deny: muharram , 1 greaterThan: safar , 1
+    assert: muharram , 2 isGreaterThan: muharram , 1;
+    assert: muharram , 2 isGreaterThanOrEquals: muharram , 1;
+    assert: muharram , 1 isGreaterThanOrEquals: muharram , 1;
+    assert: safar , 1 isGreaterThan: muharram , 1;
+    assert: safar , 1 isGreaterThanOrEquals: muharram , 1;
+    assert: safar , 2 isGreaterThan: muharram , 1;
+    deny: muharram , 1 isGreaterThan: muharram , 2025;
+    deny: muharram , 1 isGreaterThan: safar , 1
 ]
 
 { #category : 'tests' }
 IslamicMonthOfYearTest >> testLessThan [
 
   self
-    assert: muharram , 1 lessThan: muharram , 2;
-    assert: muharram , 1 lessThanOrEquals: muharram , 2;
-    assert: muharram , 1 lessThanOrEquals: muharram , 1;
-    assert: muharram , 1 lessThanOrEquals: safar , 1;
-    assert: safar , 1 lessThanOrEquals: muharram , 2;
-    deny: muharram , 2025 lessThan: muharram , 1;
-    deny: safar , 1 lessThan: muharram , 1
+    assert: muharram , 1 isLessThan: muharram , 2;
+    assert: muharram , 1 isLessThanOrEquals: muharram , 2;
+    assert: muharram , 1 isLessThanOrEquals: muharram , 1;
+    assert: muharram , 1 isLessThanOrEquals: safar , 1;
+    assert: safar , 1 isLessThanOrEquals: muharram , 2;
+    deny: muharram , 2025 isLessThan: muharram , 1;
+    deny: safar , 1 isLessThan: muharram , 1
 ]
 
 { #category : 'tests' }
@@ -100,8 +100,8 @@ IslamicMonthOfYearTest >> testNext [
   baseYear := 2025 asIslamicYear.
 
   self
-    assert: baseYear muharram nextIs: baseYear safar;
-    assert: baseYear duAlHijjah nextIs: 2026 asIslamicYear muharram.
+    assertNextOf: baseYear muharram is: baseYear safar;
+    assertNextOf: baseYear duAlHijjah is: 2026 asIslamicYear muharram.
 
   self
     assert: ( 1 asIslamicYear muharram next: 2024 * islamicYear ) equals: baseYear muharram;
@@ -158,8 +158,8 @@ IslamicMonthOfYearTest >> testPrevious [
   baseYear := 2025 asIslamicYear.
 
   self
-    assert: baseYear muharram previousIs: 2024 asIslamicYear duAlHijjah;
-    assert: baseYear duAlHijjah previousIs: baseYear duAlQiDah.
+    assertPreviousOf: baseYear muharram is: 2024 asIslamicYear duAlHijjah;
+    assertPreviousOf: baseYear duAlHijjah is: baseYear duAlQiDah.
 
   self
     assert: ( baseYear muharram previous: 2024 * islamicYear ) equals: 1 asIslamicYear muharram;
