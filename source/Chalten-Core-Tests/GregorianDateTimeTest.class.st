@@ -108,11 +108,11 @@ GregorianDateTimeTest >> testGreaterThan [
 
   self
     assert: januaryFirst atNoon isGreaterThan: januaryFirst atMidnight;
-    assert: januaryFirst atNoon isGreaterThanOrEqualsTo: januaryFirst atMidnight;
-    assert: januaryFirst atMidnight isGreaterThanOrEqualsTo: januaryFirst atMidnight;
+    assert: januaryFirst atNoon isGreaterThanOrEqualTo: januaryFirst atMidnight;
+    assert: januaryFirst atMidnight isGreaterThanOrEqualTo: januaryFirst atMidnight;
     assert: februaryFirst atMidnight isGreaterThan: januaryFirst atMidnight;
-    assert: februaryFirst atMidnight isGreaterThanOrEqualsTo: januaryFirst atMidnight;
-    assert: februaryFirst atMidnight isGreaterThanOrEqualsTo: februaryFirst atMidnight;
+    assert: februaryFirst atMidnight isGreaterThanOrEqualTo: januaryFirst atMidnight;
+    assert: februaryFirst atMidnight isGreaterThanOrEqualTo: februaryFirst atMidnight;
     deny: februaryFirst atMidnight isGreaterThan: februaryFirst atNoon
 ]
 
@@ -177,12 +177,12 @@ GregorianDateTimeTest >> testLessThan [
 
   self
     assert: ( january first , 2024 ) atMidnight isLessThan: ( january first , 2024 ) atNoon;
-    assert: ( january first , 2024 ) atMidnight isLessThanOrEqualsTo: ( january first , 2024 ) atNoon;
+    assert: ( january first , 2024 ) atMidnight isLessThanOrEqualTo: ( january first , 2024 ) atNoon;
     assert: ( january first , 2024 ) atMidnight
-    isLessThanOrEqualsTo: ( january first , 2024 ) atMidnight;
+    isLessThanOrEqualTo: ( january first , 2024 ) atMidnight;
     assert: ( january first , 2025 ) atMidnight isLessThan: ( february first , 2025 ) atMidnight;
     assert: ( january first , 2025 ) atMidnight
-    isLessThanOrEqualsTo: ( february first , 2025 ) atMidnight;
+    isLessThanOrEqualTo: ( february first , 2025 ) atMidnight;
     deny: ( january first , 2025 ) atMidnight isLessThan: ( january first , 0 ) atMidnight;
     deny: ( february first , 2025 ) atNoon isLessThan: ( january first , 2025 ) atNoon
 ]

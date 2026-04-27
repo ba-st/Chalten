@@ -87,14 +87,14 @@ HebrewDateTimeTest >> testGreaterThan [
   self
     assert: ( tishrei first , 5675 ) atNoon isGreaterThan: ( tishrei first , 5675 ) atMidnight;
     assert: ( tishrei first , 5675 ) atNoon
-    isGreaterThanOrEqualsTo: ( tishrei first , 5675 ) atMidnight;
+    isGreaterThanOrEqualTo: ( tishrei first , 5675 ) atMidnight;
     assert: ( tishrei first , 5675 ) atMidnight
-    isGreaterThanOrEqualsTo: ( tishrei first , 5675 ) atMidnight;
+    isGreaterThanOrEqualTo: ( tishrei first , 5675 ) atMidnight;
     assert: ( cheshvan first , 5675 ) atMidnight isGreaterThan: ( tishrei first , 5675 ) atMidnight;
     assert: ( cheshvan first , 5675 ) atMidnight
-    isGreaterThanOrEqualsTo: ( tishrei first , 5675 ) atMidnight;
+    isGreaterThanOrEqualTo: ( tishrei first , 5675 ) atMidnight;
     assert: ( cheshvan first , 5675 ) atMidnight
-    isGreaterThanOrEqualsTo: ( cheshvan first , 5675 ) atMidnight
+    isGreaterThanOrEqualTo: ( cheshvan first , 5675 ) atMidnight
 ]
 
 { #category : 'tests' }
@@ -130,12 +130,12 @@ HebrewDateTimeTest >> testLessThan [
 
   self
     assert: ( tishrei first , 5679 ) atMidnight isLessThan: ( tishrei first , 5679 ) atNoon;
-    assert: ( tishrei first , 5679 ) atMidnight isLessThanOrEqualsTo: ( tishrei first , 5679 ) atNoon;
+    assert: ( tishrei first , 5679 ) atMidnight isLessThanOrEqualTo: ( tishrei first , 5679 ) atNoon;
     assert: ( tishrei first , 5679 ) atMidnight
-    isLessThanOrEqualsTo: ( tishrei first , 5679 ) atMidnight;
+    isLessThanOrEqualTo: ( tishrei first , 5679 ) atMidnight;
     assert: ( tishrei first , 5680 ) atMidnight isLessThan: ( cheshvan first , 5680 ) atMidnight;
     assert: ( tishrei first , 5680 ) atMidnight
-    isLessThanOrEqualsTo: ( cheshvan first , 5680 ) atMidnight;
+    isLessThanOrEqualTo: ( cheshvan first , 5680 ) atMidnight;
     deny: ( tishrei first , 5680 ) atMidnight isLessThan: ( tishrei first , 1 ) atMidnight;
     deny: ( cheshvan first , 5680 ) atNoon isLessThan: ( tishrei first , 5680 ) atNoon
 ]

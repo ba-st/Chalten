@@ -81,10 +81,10 @@ HebrewMonthOfYearTest >> testGreaterThan [
 
   self
     assert: tishrei , 2 isGreaterThan: tishrei , 1;
-    assert: tishrei , 2 isGreaterThanOrEqualsTo: tishrei , 1;
-    assert: tishrei , 1 isGreaterThanOrEqualsTo: tishrei , 1;
+    assert: tishrei , 2 isGreaterThanOrEqualTo: tishrei , 1;
+    assert: tishrei , 1 isGreaterThanOrEqualTo: tishrei , 1;
     assert: cheshvan , 1 isGreaterThan: tishrei , 1;
-    assert: cheshvan , 1 isGreaterThanOrEqualsTo: tishrei , 1;
+    assert: cheshvan , 1 isGreaterThanOrEqualTo: tishrei , 1;
     assert: cheshvan , 2 isGreaterThan: tishrei , 1;
     deny: tishrei , 1 isGreaterThan: tishrei , 2025;
     deny: tishrei , 1 isGreaterThan: cheshvan , 1
@@ -95,10 +95,10 @@ HebrewMonthOfYearTest >> testLessThan [
 
   self
     assert: tishrei , 1 isLessThan: tishrei , 2;
-    assert: tishrei , 1 isLessThanOrEqualsTo: tishrei , 2;
-    assert: tishrei , 1 isLessThanOrEqualsTo: tishrei , 1;
-    assert: tishrei , 1 isLessThanOrEqualsTo: cheshvan , 1;
-    assert: cheshvan , 1 isLessThanOrEqualsTo: tishrei , 2;
+    assert: tishrei , 1 isLessThanOrEqualTo: tishrei , 2;
+    assert: tishrei , 1 isLessThanOrEqualTo: tishrei , 1;
+    assert: tishrei , 1 isLessThanOrEqualTo: cheshvan , 1;
+    assert: cheshvan , 1 isLessThanOrEqualTo: tishrei , 2;
     deny: tishrei , 2025 isLessThan: tishrei , 1;
     deny: cheshvan , 1 isLessThan: tishrei , 1
 ]

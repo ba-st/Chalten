@@ -99,13 +99,13 @@ GregorianDateTest >> testGreaterThan [
 
   self
     assert: january first , 2025 isGreaterThan: january first , 2024;
-    assert: january first , 2025 isGreaterThanOrEqualsTo: january first , 2024;
-    assert: january first , 2025 isGreaterThanOrEqualsTo: january first , 2025;
+    assert: january first , 2025 isGreaterThanOrEqualTo: january first , 2024;
+    assert: january first , 2025 isGreaterThanOrEqualTo: january first , 2025;
     assert: february first , 2025 isGreaterThan: january first , 2025;
-    assert: february first , 2025 isGreaterThanOrEqualsTo: january first , 2025;
-    assert: january first , 2025 isGreaterThanOrEqualsTo: december first , 2024;
+    assert: february first , 2025 isGreaterThanOrEqualTo: january first , 2025;
+    assert: january first , 2025 isGreaterThanOrEqualTo: december first , 2024;
     assert: february second , 2025 isGreaterThan: february first , 2025;
-    assert: february second , 2025 isGreaterThanOrEqualsTo: february first , 2025;
+    assert: february second , 2025 isGreaterThanOrEqualTo: february first , 2025;
     deny: january first , 0 isGreaterThan: january first , 2025;
     deny: january first , 2025 isGreaterThan: february first , 2025
 ]
@@ -293,13 +293,13 @@ GregorianDateTest >> testLessThan [
 
   self
     assert: january first , 2024 isLessThan: january first , 2025;
-    assert: january first , 2024 isLessThanOrEqualsTo: january first , 2025;
-    assert: january first , 2025 isLessThanOrEqualsTo: january first , 2025;
+    assert: january first , 2024 isLessThanOrEqualTo: january first , 2025;
+    assert: january first , 2025 isLessThanOrEqualTo: january first , 2025;
     assert: january first , 2025 isLessThan: february first , 2025;
-    assert: january first , 2025 isLessThanOrEqualsTo: february first , 2025;
-    assert: december first , 2024 isLessThanOrEqualsTo: january first , 2025;
+    assert: january first , 2025 isLessThanOrEqualTo: february first , 2025;
+    assert: december first , 2024 isLessThanOrEqualTo: january first , 2025;
     assert: february first , 2025 isLessThan: february second , 2025;
-    assert: february first , 2025 isLessThanOrEqualsTo: february second , 2025;
+    assert: february first , 2025 isLessThanOrEqualTo: february second , 2025;
     deny: january first , 2025 isLessThan: january first , 0;
     deny: february first , 2025 isLessThan: january first , 2025
 ]

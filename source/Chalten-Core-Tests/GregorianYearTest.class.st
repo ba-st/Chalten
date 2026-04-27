@@ -35,8 +35,8 @@ GregorianYearTest >> testGreaterThan [
 
   self
     assert: 1 asGregorianYear isGreaterThan: 0 asGregorianYear;
-    assert: 1 asGregorianYear isGreaterThanOrEqualsTo: 0 asGregorianYear;
-    assert: 0 asGregorianYear isGreaterThanOrEqualsTo: 0 asGregorianYear;
+    assert: 1 asGregorianYear isGreaterThanOrEqualTo: 0 asGregorianYear;
+    assert: 0 asGregorianYear isGreaterThanOrEqualTo: 0 asGregorianYear;
     deny: 0 asGregorianYear isGreaterThan: 2025 asGregorianYear
 ]
 
@@ -78,8 +78,8 @@ GregorianYearTest >> testLessThan [
 
   self
     assert: 0 asGregorianYear isLessThan: 1 asGregorianYear;
-    assert: 0 asGregorianYear isLessThanOrEqualsTo: 1 asGregorianYear;
-    assert: 0 asGregorianYear isLessThanOrEqualsTo: 0 asGregorianYear;
+    assert: 0 asGregorianYear isLessThanOrEqualTo: 1 asGregorianYear;
+    assert: 0 asGregorianYear isLessThanOrEqualTo: 0 asGregorianYear;
     deny: 2025 asGregorianYear isLessThan: 0 asGregorianYear
 ]
 
