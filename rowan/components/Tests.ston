@@ -6,14 +6,16 @@ RwSimpleProjectLoadComponentV2 {
   ],
   #packageNames : [
     'Chalten-Core-Tests',
-    'Chalten-Timezones-Tests'
+    'Chalten-Timezones-Tests',
+    'Chalten-Formatting-Tests'
   ],
   #conditionalPackageMapSpecs : {
     'gemstone' : {
       'allusers' : {
         #packageNameToPlatformPropertiesMap : {
           'Chalten-Core-Tests' : { 'symbolDictName' : 'Chalten' },
-          'Chalten-Timezones-Tests' : { 'symbolDictName' : 'Chalten' }
+          'Chalten-Timezones-Tests' : { 'symbolDictName' : 'Chalten' },
+          'Chalten-Formatting-Tests' : { 'symbolDictName' : 'Chalten' }
         }
       }
     }

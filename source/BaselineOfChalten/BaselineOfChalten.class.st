@@ -60,7 +60,9 @@ BaselineOfChalten >> setUpCorePackages: spec [
     package: 'Chalten-Core-Extensions' with: [ spec requires: 'Chalten-Core' ];
     group: 'Core' with: 'Chalten-Core-Extensions';
     package: 'Chalten-Timezones' with: [ spec requires: 'Chalten-Core' ];
-    group: 'Core' with: 'Chalten-Timezones'
+    group: 'Core' with: 'Chalten-Timezones';
+    package: 'Chalten-Formatting' with: [ spec requires: 'Chalten-Core' ];
+    group: 'Core' with: 'Chalten-Formatting'
 ]
 
 { #category : 'baselines' }
@@ -121,7 +123,9 @@ BaselineOfChalten >> setUpTestPackages: spec [
     package: 'Chalten-Hebrew-Calendar-Tests' with: [ spec requires: #( 'Hebrew' 'Buoy-SUnit' ) ];
     group: 'Tests' with: 'Chalten-Hebrew-Calendar-Tests';
     package: 'Chalten-Islamic-Calendar-Tests' with: [ spec requires: #( 'Islamic' 'Buoy-SUnit' ) ];
-    group: 'Tests' with: 'Chalten-Islamic-Calendar-Tests'
+    group: 'Tests' with: 'Chalten-Islamic-Calendar-Tests';
+    package: 'Chalten-Formatting-Tests' with: [ spec requires: #( 'Core' 'Buoy-SUnit' ) ];
+    group: 'Tests' with: 'Chalten-Formatting-Tests'
 ]
 
 { #category : 'baselines' }

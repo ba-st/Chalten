@@ -11,7 +11,8 @@ RwSimpleProjectLoadComponentV2 {
     'Chalten-Core-Aconcagua-Extensions',
     'Chalten-Core-Extensions',
     'Chalten-Core-GS64-Extensions',
-    'Chalten-Timezones'
+    'Chalten-Timezones',
+    'Chalten-Formatting'
   ],
   #conditionalPackageMapSpecs : {
     'gemstone' : {
@@ -21,7 +22,8 @@ RwSimpleProjectLoadComponentV2 {
           'Chalten-Core-Aconcagua-Extensions' : { 'symbolDictName' : 'Aconcagua' },
           'Chalten-Core-Extensions' : { 'symbolDictName' : 'Globals' },
           'Chalten-Core-GS64-Extensions' : { 'symbolDictName' : 'Globals' },
-          'Chalten-Timezones' : { 'symbolDictName' : 'Chalten' }
+          'Chalten-Timezones' : { 'symbolDictName' : 'Chalten' },
+          'Chalten-Formatting' : { 'symbolDictName' : 'Chalten' }
         }
       }
     }
