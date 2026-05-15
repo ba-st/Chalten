@@ -8,5 +8,7 @@ Class {
 { #category : 'tests' }
 ISO8601DateFormatterTest >> testSuccessfulFormatting [
 
-  | date |  date := ( GregorianYear number: 2015 ) october third.  self assert: ( ISO8601DateFormatter new format: date ) equals: '2015-10-03'
+  | date |
+  date := ( GregorianYear number: 2016 ) october third.
+  self assert: ( ISO8601DateFormatter new format: date ) equals: '2016-10-03'
 ]

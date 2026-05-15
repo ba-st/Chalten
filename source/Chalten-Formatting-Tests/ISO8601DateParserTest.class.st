@@ -8,7 +8,9 @@ Class {
 { #category : 'tests' }
 ISO8601DateParserTest >> testSuccessfulParsing [
 
-  | date |  date := ( GregorianYear number: 2015 ) october third.  self assert: ( ISO8601DateParser new dateFrom: '2015-10-03' ) equals: date
+  | date |
+  date := ( GregorianYear number: 2016 ) october third.
+  self assert: ( ISO8601DateParser new dateFrom: '2016-10-03' ) equals: date
 ]
 
 { #category : 'tests' }
