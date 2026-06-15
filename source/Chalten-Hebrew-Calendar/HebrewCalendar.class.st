@@ -35,13 +35,13 @@ HebrewCalendar class >> initializeUnits [
   Units := Namespace new.
   year := BaseUnitOfMeasure
             measuring:
-            ( BaseDimension named: 'Relative years in the Hebrew Calendar Time escale' symbol: '✡️⏳' )
+            ( BasePhysicalDimension named: 'Relative years in the Hebrew Calendar Time escale' symbol: '✡️⏳' )
             singularNamed: 'hebrew year'
             pluralNamed: 'hebrew years'
             symbol: 'hyr'.
 month := BaseUnitOfMeasure
             measuring:
-            ( BaseDimension named: 'Relative months in the Hebrew Calendar Time escale' symbol: '✡️⏳' )
+            ( BasePhysicalDimension named: 'Relative months in the Hebrew Calendar Time escale' symbol: '✡️⏳' )
             singularNamed: 'hebrew month'
             pluralNamed: 'hebrew months'
             symbol: 'hmo'.
