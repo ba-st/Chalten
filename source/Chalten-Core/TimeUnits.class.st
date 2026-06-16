@@ -44,7 +44,7 @@ TimeUnits class >> initializeRelativeUnits [
   <ignoreForCoverage>
   | year |
   year := BaseUnitOfMeasure
-            measuring: ( BaseDimension named: 'Relative time' symbol: '⏳' )
+            measuring: ( BasePhysicalDimension named: 'Relative time' symbol: '⏳' )
             singularNamed: 'year'
             pluralNamed: 'years'
             symbol: 'yr'.

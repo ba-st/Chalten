@@ -33,7 +33,7 @@ IslamicCalendar class >> initializeUnits [
   Units := Namespace new.
   year := BaseUnitOfMeasure
             measuring:
-            ( BaseDimension named: 'Relative time in the Islamic Calendar Time escale' symbol: '☪️⏳' )
+            ( BasePhysicalDimension named: 'Relative time in the Islamic Calendar Time escale' symbol: '☪️⏳' )
             singularNamed: 'islamic year'
             pluralNamed: 'islamic years'
             symbol: 'iyr'.
