@@ -78,7 +78,13 @@ GregorianDateTest >> testDayOfWeek [
     assert: ( march first , 2025 ) dayOfWeek equals: DayOfWeek saturday;
     assert: ( january first , 2026 ) dayOfWeek equals: DayOfWeek thursday;
     assert: ( december thirtyFirst , 2008 ) dayOfWeek equals: DayOfWeek wednesday;
-    assert: ( january first , 2009 ) dayOfWeek equals: DayOfWeek thursday
+    assert: ( january first , 2009 ) dayOfWeek equals: DayOfWeek thursday;
+    assert: ( january second , 2009 ) dayOfWeek equals: DayOfWeek friday;
+    assert: ( january third , 2009 ) dayOfWeek equals: DayOfWeek saturday;
+    assert: ( january fourth , 2009 ) dayOfWeek equals: DayOfWeek sunday;
+    assert: ( january fifth , 2009 ) dayOfWeek equals: DayOfWeek monday;
+    assert: ( january sixth , 2009 ) dayOfWeek equals: DayOfWeek tuesday;
+    assert: ( january seventh , 2009 ) dayOfWeek equals: DayOfWeek wednesday
 ]
 
 { #category : 'tests' }
