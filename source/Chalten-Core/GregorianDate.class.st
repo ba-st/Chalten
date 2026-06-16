@@ -62,7 +62,7 @@ GregorianDate >> dayNumber [
 { #category : 'querying' }
 GregorianDate >> dayOfWeek [
 
-  ^ DayOfWeek dayAt: self atNoon julianDayNumber + 1 \\ 7
+  ^ DayOfWeek dayAt: (self atNoon julianDayNumber \\ 7) + 1
 ]
 
 { #category : 'comparing' }
