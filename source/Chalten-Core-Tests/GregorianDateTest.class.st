@@ -117,6 +117,21 @@ GregorianDateTest >> testGreaterThan [
 ]
 
 { #category : 'tests' }
+GregorianDateTest >> testISO8601Printing [
+
+  self
+    assert: ( self printAsISO8601String: ( january , 2025 ) twelfth ) equals: '2025-01-12';
+    assert: ( self printAsISO8601String: ( april , 2025 ) first ) equals: '2025-04-01';
+    assert: ( self printAsISO8601String: ( april , 0 ) first ) equals: '0000-04-01';
+    assert: ( self printAsISO8601String: ( april , 150 ) first ) equals: '0150-04-01';
+    assert: ( self printAsISO8601String: ( april , -1 ) first ) equals: '-0001-04-01';
+    assert: ( self printAsISO8601String: ( april , 10000 ) first ) equals: '+010000-04-01';
+    assert: ( self printAsISO8601String: ( april , -54000 ) first ) equals: '-054000-04-01';
+    assert: ( self printAsISO8601String: ( april , 9999000 ) first ) equals: '+9999000-04-01';
+    assert: ( self printAsISO8601String: ( april , -9999000 ) first ) equals: '-9999000-04-01'
+]
+
+{ #category : 'tests' }
 GregorianDateTest >> testInstanceCreationFor30DaysMonth [
 
   self

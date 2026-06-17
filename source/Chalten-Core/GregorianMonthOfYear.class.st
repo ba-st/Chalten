@@ -123,6 +123,14 @@ GregorianMonthOfYear >> previous: relativeTimeQuantity [
 ]
 
 { #category : 'printing' }
+GregorianMonthOfYear >> printAsISO8601On: stream [
+
+  year printAsISO8601On: stream.
+  stream nextPut: $-.
+  month printAsISO8601On: stream
+]
+
+{ #category : 'printing' }
 GregorianMonthOfYear >> printOn: stream [
 
   stream

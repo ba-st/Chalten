@@ -91,6 +91,15 @@ GregorianDate >> monthOfYear [
 ]
 
 { #category : 'printing' }
+GregorianDate >> printAsISO8601On: stream [
+
+  monthOfYear printAsISO8601On: stream.
+  stream
+    nextPut: $-;
+    nextPutAll: ( dayNumber printStringLength: 2 padded: true )
+]
+
+{ #category : 'printing' }
 GregorianDate >> printOn: stream [
 
   stream

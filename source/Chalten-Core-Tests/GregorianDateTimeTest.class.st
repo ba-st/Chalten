@@ -117,6 +117,14 @@ GregorianDateTimeTest >> testGreaterThan [
 ]
 
 { #category : 'tests' }
+GregorianDateTimeTest >> testISO8601Printing [
+
+  self
+    assert: ( self printAsISO8601String: ( june first , 2025 ) atNoon )
+    equals: '2025-06-01T12:00:00.000000'
+]
+
+{ #category : 'tests' }
 GregorianDateTimeTest >> testIn [
 
   | utcPlus3 utcMinus6 |

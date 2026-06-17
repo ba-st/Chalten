@@ -14,6 +14,12 @@ Class {
 	#package : 'Chalten-Core-Tests'
 }
 
+{ #category : 'printing' }
+TimeOfDayTest >> printAsISO8601String: calendarMagnitude [
+
+  ^ String streamContents: [ :stream | calendarMagnitude printAsISO8601On: stream ]
+]
+
 { #category : 'running' }
 TimeOfDayTest >> setUp [
 
@@ -103,6 +109,21 @@ TimeOfDayTest >> testComparing [
     assert: TimeOfDay halfOfDay >= TimeOfDay startOfDay;
     deny: TimeOfDay halfOfDay > TimeOfDay halfOfDay;
     assert: TimeOfDay halfOfDay >= TimeOfDay halfOfDay
+]
+
+{ #category : 'tests' }
+TimeOfDayTest >> testISO8601Printing [
+
+  self
+    assert: ( self printAsISO8601String: TimeOfDay halfOfDay ) equals: 'T12:00:00.000000';
+    assert: ( self printAsISO8601String: TimeOfDay startOfDay ) equals: 'T00:00:00.000000';
+    assert: ( self printAsISO8601String: ( TimeOfDay hours: 16 ) ) equals: 'T16:00:00.000000';
+    assert: ( self printAsISO8601String: ( TimeOfDay
+                hours: 16
+                minutes: 15
+                seconds: 12
+                microseconds: 1640 ) )
+    equals: 'T16:15:12.001640'
 ]
 
 { #category : 'tests' }

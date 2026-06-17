@@ -272,6 +272,12 @@ GregorianMonth >> previous: relativeTimeQuantity [
   ^ self class monthAt: nextMonthIndex
 ]
 
+{ #category : 'printing' }
+GregorianMonth >> printAsISO8601On: stream [
+
+  stream nextPutAll: ( positionInYear printStringLength: 2 padded: true )
+]
+
 { #category : 'accessing - days' }
 GregorianMonth >> thirtieth [
 

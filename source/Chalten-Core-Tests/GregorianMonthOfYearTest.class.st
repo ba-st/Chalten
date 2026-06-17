@@ -85,6 +85,21 @@ GregorianMonthOfYearTest >> testGreaterThan [
 ]
 
 { #category : 'tests' }
+GregorianMonthOfYearTest >> testISO8601Printing [
+
+  self
+    assert: ( self printAsISO8601String: october , 2026 ) equals: '2026-10';
+    assert: ( self printAsISO8601String: february , 2026 ) equals: '2026-02';
+    assert: ( self printAsISO8601String: february , 0 ) equals: '0000-02';
+    assert: ( self printAsISO8601String: february , 150 ) equals: '0150-02';
+    assert: ( self printAsISO8601String: february , -1 ) equals: '-0001-02';
+    assert: ( self printAsISO8601String: february , 10000 ) equals: '+010000-02';
+    assert: ( self printAsISO8601String: february , -54000 ) equals: '-054000-02';
+    assert: ( self printAsISO8601String: february , 9999000 ) equals: '+9999000-02';
+    assert: ( self printAsISO8601String: february , -9999000 ) equals: '-9999000-02'
+]
+
+{ #category : 'tests' }
 GregorianMonthOfYearTest >> testLessThan [
 
   self

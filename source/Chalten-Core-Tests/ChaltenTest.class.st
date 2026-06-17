@@ -96,6 +96,12 @@ ChaltenTest >> deny: calendricalMagnitude isLessThan: anotherCalendricalMagnitud
   self deny: calendricalMagnitude < anotherCalendricalMagnitude
 ]
 
+{ #category : 'private' }
+ChaltenTest >> printAsISO8601String: calendarMagnitude [
+
+  ^ String streamContents: [ :stream | calendarMagnitude printAsISO8601On: stream ]
+]
+
 { #category : 'running' }
 ChaltenTest >> setUp [
 

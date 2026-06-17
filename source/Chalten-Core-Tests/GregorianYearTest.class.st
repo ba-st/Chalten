@@ -41,6 +41,20 @@ GregorianYearTest >> testGreaterThan [
 ]
 
 { #category : 'tests' }
+GregorianYearTest >> testISO8601Printing [
+
+  self
+    assert: ( self printAsISO8601String: 2026 asGregorianYear ) equals: '2026';
+    assert: ( self printAsISO8601String: 0 asGregorianYear ) equals: '0000';
+    assert: ( self printAsISO8601String: 150 asGregorianYear ) equals: '0150';
+    assert: ( self printAsISO8601String: -1 asGregorianYear ) equals: '-0001';
+    assert: ( self printAsISO8601String: 10000 asGregorianYear ) equals: '+010000';
+    assert: ( self printAsISO8601String: -54000 asGregorianYear ) equals: '-054000';
+    assert: ( self printAsISO8601String: 9999000 asGregorianYear ) equals: '+9999000';
+    assert: ( self printAsISO8601String: -9999000 asGregorianYear ) equals: '-9999000'
+]
+
+{ #category : 'tests' }
 GregorianYearTest >> testInstanceCreation [
 
   self
