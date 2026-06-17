@@ -8,6 +8,18 @@ Class {
 	#package : 'Chalten-Core-Tests'
 }
 
+{ #category : 'private' }
+GregorianYearTest >> parseISO8601: string [
+
+  ^ self parseISO8601: string ifFail: [ self fail ]
+]
+
+{ #category : 'private' }
+GregorianYearTest >> parseISO8601: string ifFail: failBlock [
+
+  ^ ISO8601Parser new parseYear: string ifFail: failBlock
+]
+
 { #category : 'tests' }
 GregorianYearTest >> testBetweenAnd [
 
@@ -126,6 +138,30 @@ GregorianYearTest >> testNumberOfMonths [
 
   self assert: 2008 asGregorianYear numberOfMonths equals: 12 * month.
   self assert: 2007 asGregorianYear numberOfMonths equals: 12 * month
+]
+
+{ #category : 'tests' }
+GregorianYearTest >> testParseISO8601 [
+
+  self
+    assert: ( self parseISO8601: '2026' ) equals: 2026 asGregorianYear;
+    assert: ( self parseISO8601: '0000' ) equals: 0 asGregorianYear;
+    assert: ( self parseISO8601: '0150' ) equals: 150 asGregorianYear;
+    assert: ( self parseISO8601: '-0001' ) equals: -1 asGregorianYear;
+    assert: ( self parseISO8601: '+010000' ) equals: 10000 asGregorianYear;
+    assert: ( self parseISO8601: '-054000' ) equals: -54000 asGregorianYear;
+    assert: ( self parseISO8601: '+9999000' ) equals: 9999000 asGregorianYear;
+    assert: ( self parseISO8601: '-9999000' ) equals: -9999000 asGregorianYear.
+
+  #( 'A' '1E10' '' '++2026' '--2022' '+X' '2022.1' '2022-01' '-2022-' '1' '11' '111' ) do: [ :invalidString |
+      self parseISO8601: invalidString ifFail: [ :errorMessage |
+          self
+            assert: errorMessage
+            equals:
+              ( 'The provided year ''<1s>'' is invalid. Years must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000).'
+                  expandMacrosWith: invalidString )
+        ]
+    ]
 ]
 
 { #category : 'tests' }
