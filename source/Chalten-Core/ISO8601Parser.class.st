@@ -17,49 +17,55 @@ ISO8601Parser >> enforce: aFact because: aStringOrBlockExplanation [
 { #category : 'private' }
 ISO8601Parser >> errorMessageForDateParsing: string [
 
-  ^ 'The provided date ''<1s>'' is invalid. Dates must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000) for the year, exactly 2 digits for the month and exactly 2 digits for the day.'
-      expandMacrosWith: string
+  ^ 'The provided date ''{1}'' is invalid. Dates must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000) for the year, exactly 2 digits for the month and exactly 2 digits for the day.'
+      localizedWithAll: { string }
 ]
 
 { #category : 'private' }
 ISO8601Parser >> errorMessageForDateTimeParsing: string [
 
-  ^ 'The provided datetime ''<1s>'' is invalid.' expandMacrosWith: string
+  ^ 'The provided datetime ''{1}'' is invalid.' localizedWithAll: { string }
 ]
 
 { #category : 'private' }
 ISO8601Parser >> errorMessageForDayNumberParsing: string [
 
-  ^ 'The provided day number ''<1s>'' is invalid. Day numbers must be 2 digits between 01 and maximum of the month (e.g., 05).'
-      expandMacrosWith: string
+  ^ 'The provided day number ''{1}'' is invalid. Day numbers must be 2 digits between 01 and maximum of the month (e.g., 05).'
+      localizedWithAll: { string }
+]
+
+{ #category : 'private' }
+ISO8601Parser >> errorMessageForDurationParsing: string [
+
+  ^ 'The provided duration ''{1}'' is invalid.' localizedWithAll: { string }
 ]
 
 { #category : 'private' }
 ISO8601Parser >> errorMessageForMonthOfYearParsing: string [
 
-  ^ 'The provided month of year ''<1s>'' is invalid. Months of year must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000) for the year and exactly 2 digits for the month.'
-      expandMacrosWith: string
+  ^ 'The provided month of year ''{1}'' is invalid. Months of year must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000) for the year and exactly 2 digits for the month.'
+      localizedWithAll: { string }
 ]
 
 { #category : 'private' }
 ISO8601Parser >> errorMessageForMonthParsing: string [
 
-  ^ 'The provided month ''<1s>'' is invalid. Months must be 2 digits between 01 and 12 (e.g., 05).'
-      expandMacrosWith: string
+  ^ 'The provided month ''{1}'' is invalid. Months must be 2 digits between 01 and 12 (e.g., 05).'
+      localizedWithAll: { string }
 ]
 
 { #category : 'private' }
 ISO8601Parser >> errorMessageForTimeParsing: string [
 
-  ^ 'The provided time ''<1s>'' is invalid. Ensure it follows ISO 8601 (e.g., ''T14:30:00'').'
-      expandMacrosWith: string
+  ^ 'The provided time ''{1}'' is invalid. Ensure it follows ISO 8601 (e.g., ''T14:30:00'').'
+      localizedWithAll: { string }
 ]
 
 { #category : 'private' }
 ISO8601Parser >> errorMessageForYearParsing: string [
 
-  ^ 'The provided year ''<1s>'' is invalid. Years must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000).'
-      expandMacrosWith: string
+  ^ 'The provided year ''{1}'' is invalid. Years must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000).'
+      localizedWithAll: { string }
 ]
 
 { #category : 'parsing' }
@@ -101,6 +107,59 @@ ISO8601Parser >> parseDayNumber: string [
   ^ Integer
       readFrom: string
       ifFail: [ self signal: ( self errorMessageForDayNumberParsing: string ) ]
+]
+
+{ #category : 'parsing' }
+ISO8601Parser >> parseDuration: string [
+
+  ^ self parseDuration: string allowingSeveralTimePeriods: false
+]
+
+{ #category : 'parsing' }
+ISO8601Parser >> parseDuration: string allowingSeveralTimePeriods: allowSeveralTimePeriods [
+
+  | stringToParse terms currentToken readStream currentChar isInsideTimeSection |
+  self enforce: [ string beginsWith: 'P' ] because: [ self errorMessageForDurationParsing: string ].
+  stringToParse := string withoutFirst.
+  "Week durations are specially handled"
+  ( stringToParse endsWith: 'W' ) then: [ ^ self parseWeekDuration: stringToParse allButLast ].
+  terms := OrderedCollection new.
+  readStream := stringToParse readStream.
+  currentToken := String new writeStream.
+  isInsideTimeSection := false.
+  [ readStream atEnd ] whileFalse: [
+      currentChar := readStream next.
+      ( currentChar isDigit or: [ currentChar = $. ] )
+        then: [ "Accumulate digits and decimal points" currentToken nextPut: currentChar ]
+        otherwise: [
+            currentChar = $T
+              then: [ "Switch to time section" isInsideTimeSection := true ]
+              otherwise: [
+                  | number unit |
+                  number := Number
+                              readFrom: currentToken contents
+                              ifFail: [
+                                self signal: ( self errorMessageForDurationParsing: string ) ].
+                  currentToken reset.
+                  currentChar = $Y then: [ unit := TimeUnits units >> #year ].
+                  currentChar = $D then: [ unit := InternationalSystemOfUnits units >> #day ].
+                  currentChar = $M then: [ unit := TimeUnits units >> #month ].
+                  isInsideTimeSection then: [
+                      currentChar = $H then: [ unit := InternationalSystemOfUnits units >> #hour ].
+                      currentChar = $S then: [ unit := InternationalSystemOfUnits units >> #second ].
+                      currentChar = $M then: [ unit := InternationalSystemOfUnits units >> #minute ]
+                    ].
+                  unit ifNil: [ self signal: ( self errorMessageForDurationParsing: string ) ].
+                  terms add: number * unit
+                ]
+          ]
+    ].
+  terms ifEmpty: [ self signal: ( self errorMessageForDurationParsing: string ) ].
+  ^ allowSeveralTimePeriods then: [ terms ] otherwise: [
+        terms size = 1
+          then: [ terms anyOne ]
+          otherwise: [ self signal: 'Durations with several time periods are disallowed' ]
+      ]
 ]
 
 { #category : 'parsing' }
@@ -177,6 +236,17 @@ ISO8601Parser >> parseTimeOfDay: string [
       minutes: minutes
       seconds: seconds
       microseconds: microseconds
+]
+
+{ #category : 'private' }
+ISO8601Parser >> parseWeekDuration: string [
+
+  | number |
+  self enforce: [ string isAllDigits ] because: [ self errorMessageForDurationParsing: string ].
+  number := Integer
+              readFrom: string
+              ifFail: [ self signal: ( self errorMessageForDurationParsing: string ) ].
+  ^ number * ( InternationalSystemOfUnits units >> #week )
 ]
 
 { #category : 'parsing' }
