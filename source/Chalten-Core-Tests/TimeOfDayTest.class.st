@@ -14,6 +14,12 @@ Class {
 	#package : 'Chalten-Core-Tests'
 }
 
+{ #category : 'parsing' }
+TimeOfDayTest >> parseISO8601: string [
+
+  ^ ISO8601Parser new parseTimeOfDay: string
+]
+
 { #category : 'printing' }
 TimeOfDayTest >> printAsISO8601String: calendarMagnitude [
 
@@ -151,6 +157,65 @@ TimeOfDayTest >> testInvalidCreation [
       ]
     raise: InstanceCreationFailed
     withMessageText: 'Microseconds must be in the range 0-999999'
+]
+
+{ #category : 'tests' }
+TimeOfDayTest >> testParseISO8601 [
+
+  self
+    assert: ( self parseISO8601: 'T12:00:00.000000' ) equals: TimeOfDay halfOfDay;
+    assert: ( self parseISO8601: 'T12' ) equals: TimeOfDay halfOfDay;
+    assert: ( self parseISO8601: 'T12:00' ) equals: TimeOfDay halfOfDay;
+    assert: ( self parseISO8601: 'T12:00:00' ) equals: TimeOfDay halfOfDay;
+    assert: ( self parseISO8601: 'T00:00:00.000000' ) equals: TimeOfDay startOfDay;
+    assert: ( self parseISO8601: 'T16:00:00.000000' ) equals: ( TimeOfDay hours: 16 );
+    assert: ( self parseISO8601: 'T16:15:12.001640' ) equals: ( TimeOfDay
+          hours: 16
+          minutes: 15
+          seconds: 12
+          microseconds: 1640 );
+    assert: ( self parseISO8601: 'T23:59:59.999999' ) equals: ( TimeOfDay
+          hours: 23
+          minutes: 59
+          seconds: 59
+          microseconds: 999999 ).
+
+  #( 'T' 'T1' 'T12:' 'T12:1' 'T12:12:' 'T12:12:1' 'T12:12:12.' 'TXX:' 'T12:XX' 'T12:12:XX'
+     'T12:12:12.X' '00:00:00.000000' ) do: [ :invalidString |
+      self
+        should: [ self parseISO8601: invalidString ]
+        raise: InstanceCreationFailed
+        withMessageText:
+          ( 'The provided time ''<1s>'' is invalid. Ensure it follows ISO 8601 (e.g., ''T14:30:00'').'
+              expandMacrosWith: invalidString )
+    ].
+  #( 'T-1:00:00.000000' 'T24:00:00.000000' ) do: [ :invalidString |
+      self
+        should: [ self parseISO8601: invalidString ]
+        raise: InstanceCreationFailed
+        withMessageText: 'Hours must be in the range 0-23'
+    ].
+  #( 'T10:60:00.000000' ) do: [ :invalidString |
+      self
+        should: [ self parseISO8601: invalidString ]
+        raise: InstanceCreationFailed
+        withMessageText: 'Minutes must be in the range 0-59'
+    ].
+
+  #( 'T10:00:60.000000' ) do: [ :invalidString |
+      self
+        should: [ self parseISO8601: invalidString ]
+        raise: InstanceCreationFailed
+        withMessageText: 'Seconds must be in the range 0-59'
+    ].
+  #( 'T10:00:00.0000001' ) do: [ :invalidString |
+      self
+        should: [ self parseISO8601: invalidString ]
+        raise: InstanceCreationFailed
+        withMessageText:
+          ( 'The provided time ''<1s>'' is invalid. Ensure it follows ISO 8601 (e.g., ''T14:30:00'').'
+              expandMacrosWith: invalidString )
+    ]
 ]
 
 { #category : 'tests' }

@@ -11,13 +11,7 @@ Class {
 { #category : 'parsing' }
 GregorianMonthOfYearTest >> parseISO8601: string [
 
-  ^ self parseISO8601: string ifFail: [ self fail ]
-]
-
-{ #category : 'parsing' }
-GregorianMonthOfYearTest >> parseISO8601: string ifFail: failBlock [
-
-  ^ ISO8601Parser new parseMonthOfYear: string ifFail: failBlock
+  ^ ISO8601Parser new parseMonthOfYear: string
 ]
 
 { #category : 'tests' }
@@ -192,37 +186,32 @@ GregorianMonthOfYearTest >> testParseISO8601 [
     assert: ( self parseISO8601: '-9999000-01' ) equals: january , -9999000.
 
   #( 'A' '1E10' '' '++2026' '--2022' '+X' '2022.1' '-2022-' '1' '11' '111' '-12' '1-01' '11-01'
-     '111-01' '2026-' ) do: [ :invalidString |
-      self parseISO8601: invalidString ifFail: [ :errorMessage |
-          self
-            assert: errorMessage
-            equals:
-              ( 'The provided month of year ''<1s>'' is invalid. Months of year must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000) for the year and exactly 2 digits for the month.'
-                  expandMacrosWith: invalidString )
-        ]
+     '111-01' '2026-' ) do: [ :invalid |
+      self
+        should: [ self parseISO8601: invalid ]
+        raise: InstanceCreationFailed
+        withMessageText:
+          ( 'The provided month of year ''<1s>'' is invalid. Months of year must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000) for the year and exactly 2 digits for the month.'
+              expandMacrosWith: invalid )
     ].
-  #( '222-010' 'AAAA-01' 'z+a12-01' )
-    with: #( '222' 'AAAA' 'z+a12' )
-    do: [ :invalidString :yearString |
-        self parseISO8601: invalidString ifFail: [ :errorMessage |
-            self
-              assert: errorMessage
-              equals:
-                ( 'The provided year ''<1s>'' is invalid. Years must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000).'
-                    expandMacrosWith: yearString )
-          ]
-      ].
+  #( '222-010' 'AAAA-01' 'z+a12-01' ) with: #( '222' 'AAAA' 'z+a12' ) do: [ :invalid :yearString |
+      self
+        should: [ self parseISO8601: invalid ]
+        raise: InstanceCreationFailed
+        withMessageText:
+          ( 'The provided year ''<1s>'' is invalid. Years must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000).'
+              expandMacrosWith: yearString )
+    ].
   #( '2026-A1' '2026-1E' '2026-+2' '2026--2' '2026-+X' '2026-20' '2026-00' '2026-100' '2026-AA'
      '2026-111' )
     with: #( 'A1' '1E' '+2' '2' '+X' '20' '00' '100' 'AA' '111' )
-    do: [ :invalidString :monthString |
-        self parseISO8601: invalidString ifFail: [ :errorMessage |
-            self
-              assert: errorMessage
-              equals:
-                ( 'The provided month ''<1s>'' is invalid. Months must be 2 digits between 01 and 12 (e.g., 05).'
-                    expandMacrosWith: monthString )
-          ]
+    do: [ :invalid :monthString |
+        self
+          should: [ self parseISO8601: invalid ]
+          raise: InstanceCreationFailed
+          withMessageText:
+            ( 'The provided month ''<1s>'' is invalid. Months must be 2 digits between 01 and 12 (e.g., 05).'
+                expandMacrosWith: monthString )
       ]
 ]
 

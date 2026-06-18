@@ -11,13 +11,7 @@ Class {
 { #category : 'private' }
 GregorianYearTest >> parseISO8601: string [
 
-  ^ self parseISO8601: string ifFail: [ self fail ]
-]
-
-{ #category : 'private' }
-GregorianYearTest >> parseISO8601: string ifFail: failBlock [
-
-  ^ ISO8601Parser new parseYear: string ifFail: failBlock
+  ^ ISO8601Parser new parseYear: string
 ]
 
 { #category : 'tests' }
@@ -153,14 +147,14 @@ GregorianYearTest >> testParseISO8601 [
     assert: ( self parseISO8601: '+9999000' ) equals: 9999000 asGregorianYear;
     assert: ( self parseISO8601: '-9999000' ) equals: -9999000 asGregorianYear.
 
-  #( 'A' '1E10' '' '++2026' '--2022' '+X' '2022.1' '2022-01' '-2022-' '1' '11' '111' ) do: [ :invalidString |
-      self parseISO8601: invalidString ifFail: [ :errorMessage |
-          self
-            assert: errorMessage
-            equals:
-              ( 'The provided year ''<1s>'' is invalid. Years must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000).'
-                  expandMacrosWith: invalidString )
-        ]
+  #( 'A' '1E10' '' '++2026' '--2022' '+X' '2022.1' '2022-01' '-2022-' '1' '11' '111' ) do: [
+    :invalid |
+      self
+        should: [ self parseISO8601: invalid ]
+        raise: InstanceCreationFailed
+        withMessageText:
+          ( 'The provided year ''<1s>'' is invalid. Years must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000).'
+              expandMacrosWith: invalid )
     ]
 ]
 

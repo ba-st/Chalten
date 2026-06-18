@@ -9,6 +9,12 @@ Class {
 }
 
 { #category : 'private' }
+ISO8601Parser >> enforce: aFact because: aStringOrBlockExplanation [
+
+  AssertionChecker enforce: aFact because: aStringOrBlockExplanation raising: InstanceCreationFailed
+]
+
+{ #category : 'private' }
 ISO8601Parser >> errorMessageForDateParsing: string [
 
   ^ 'The provided date ''<1s>'' is invalid. Dates must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000) for the year, exactly 2 digits for the month and exactly 2 digits for the day.'
@@ -37,6 +43,13 @@ ISO8601Parser >> errorMessageForMonthParsing: string [
 ]
 
 { #category : 'private' }
+ISO8601Parser >> errorMessageForTimeParsing: string [
+
+  ^ 'The provided time ''<1s>'' is invalid. Ensure it follows ISO 8601 (e.g., ''T14:30:00'').'
+      expandMacrosWith: string
+]
+
+{ #category : 'private' }
 ISO8601Parser >> errorMessageForYearParsing: string [
 
   ^ 'The provided year ''<1s>'' is invalid. Years must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000).'
@@ -44,10 +57,10 @@ ISO8601Parser >> errorMessageForYearParsing: string [
 ]
 
 { #category : 'parsing' }
-ISO8601Parser >> parseDate: string ifFail: failBlock [
+ISO8601Parser >> parseDate: string [
 
   | sign parts yearString year month dayNumber |
-  string size < 10 then: [ ^ failBlock cull: ( self errorMessageForDateParsing: string ) ].
+  self enforce: [ string size >= 10 ] because: [ self errorMessageForDateParsing: string ].
   sign := ''.
   parts := string first = $-
              then: [
@@ -55,49 +68,42 @@ ISO8601Parser >> parseDate: string ifFail: failBlock [
                  string substrings: sign
                ]
              otherwise: [ string substrings: '-' ].
-  parts size ~= 3 then: [ ^ failBlock cull: ( self errorMessageForDateParsing: string ) ].
+  self enforce: [ parts size = 3 ] because: [ self errorMessageForDateParsing: string ].
   yearString := sign , parts first.
-  year := self
-            parseYear: yearString
-            ifFail: [ ^ failBlock cull: ( self errorMessageForYearParsing: yearString ) ].
-  month := self
-             parseMonth: parts second
-             ifFail: [ ^ failBlock cull: ( self errorMessageForMonthParsing: parts second ) ].
-  dayNumber := self parseDayNumber: parts third ifFail: [ :error | ^ failBlock cull: error ].
-  ^ [ ( year monthAt: month positionInYear ) dateAt: dayNumber ]
-      on: InstanceCreationFailed
-      do: [ :error | failBlock cull: error messageText ]
+  year := self parseYear: yearString.
+  month := self parseMonth: parts second.
+  dayNumber := self parseDayNumber: parts third.
+  ^ ( year monthAt: month positionInYear ) dateAt: dayNumber
 ]
 
 { #category : 'parsing' }
-ISO8601Parser >> parseDayNumber: string ifFail: failBlock [
+ISO8601Parser >> parseDayNumber: string [
 
-  string size = 2 ifFalse: [ ^ failBlock cull: ( self errorMessageForDayNumberParsing: string ) ].
-  string isAllDigits ifFalse: [ ^ failBlock cull: ( self errorMessageForDayNumberParsing: string ) ].
+  self enforce: [ string size = 2 ] because: [ self errorMessageForDayNumberParsing: string ].
+  self enforce: [ string isAllDigits ] because: [ self errorMessageForDayNumberParsing: string ].
   ^ Integer
       readFrom: string
-      ifFail: [ failBlock cull: ( self errorMessageForDayNumberParsing: string ) ]
+      ifFail: [ self signal: ( self errorMessageForDayNumberParsing: string ) ]
 ]
 
 { #category : 'parsing' }
-ISO8601Parser >> parseMonth: string ifFail: failBlock [
+ISO8601Parser >> parseMonth: string [
 
   | index |
-  string size = 2 ifFalse: [ ^ failBlock cull: ( self errorMessageForMonthParsing: string ) ].
-  string isAllDigits ifFalse: [ ^ failBlock cull: ( self errorMessageForMonthParsing: string ) ].
+  self enforce: [ string size = 2 ] because: [ self errorMessageForMonthParsing: string ].
+  self enforce: [ string isAllDigits ] because: [ self errorMessageForMonthParsing: string ].
   index := Integer
              readFrom: string
-             ifFail: [ ^ failBlock cull: ( self errorMessageForMonthParsing: string ) ].
-  ( index between: 1 and: 12 ) ifFalse: [
-      ^ failBlock cull: ( self errorMessageForMonthParsing: string ) ].
+             ifFail: [ self signal: ( self errorMessageForMonthParsing: string ) ].
+  self enforce: [ index between: 1 and: 12 ] because: [ self errorMessageForMonthParsing: string ].
   ^ GregorianMonth monthAt: index
 ]
 
 { #category : 'parsing' }
-ISO8601Parser >> parseMonthOfYear: string ifFail: failBlock [
+ISO8601Parser >> parseMonthOfYear: string [
 
   | sign parts yearString year month |
-  string size < 7 then: [ ^ failBlock cull: ( self errorMessageForMonthOfYearParsing: string ) ].
+  self enforce: [ string size >= 7 ] because: [ self errorMessageForMonthOfYearParsing: string ].
   sign := ''.
   parts := string first = $-
              then: [
@@ -105,22 +111,62 @@ ISO8601Parser >> parseMonthOfYear: string ifFail: failBlock [
                  string substrings: sign
                ]
              otherwise: [ string substrings: '-' ].
-  parts size ~= 2 then: [ ^ failBlock cull: ( self errorMessageForMonthOfYearParsing: string ) ].
+  self enforce: [ parts size = 2 ] because: [ self errorMessageForMonthOfYearParsing: string ].
   yearString := sign , parts first.
-  year := self
-            parseYear: yearString
-            ifFail: [ ^ failBlock cull: ( self errorMessageForYearParsing: yearString ) ].
-  month := self
-             parseMonth: parts second
-             ifFail: [ ^ failBlock cull: ( self errorMessageForMonthParsing: parts second ) ].
+  year := self parseYear: yearString.
+  month := self parseMonth: parts second.
   ^ year monthAt: month positionInYear
 ]
 
 { #category : 'parsing' }
-ISO8601Parser >> parseYear: string ifFail: failBlock [
+ISO8601Parser >> parseTimeOfDay: string [
+
+  | parts hoursPart hours minutesPart minutes secondsPart seconds microsecondsPart microseconds |
+  self enforce: [ string beginsWith: 'T' ] because: [ self errorMessageForTimeParsing: string ].
+  self refuse: [ string endsWith: ':' ] because: [ self errorMessageForTimeParsing: string ].
+  self refuse: [ string endsWith: '.' ] because: [ self errorMessageForTimeParsing: string ].
+  parts := string withoutFirst substrings: ':'.
+  self enforce: [ parts size <= 3 ] because: [ self errorMessageForTimeParsing: string ].
+  parts ifEmpty: [ self signal: ( self errorMessageForTimeParsing: string ) ].
+  hoursPart := parts first.
+  self enforce: [ hoursPart size = 2 ] because: [ self errorMessageForTimeParsing: string ].
+  hours := Integer
+             readFrom: hoursPart
+             ifFail: [ self signal: ( self errorMessageForTimeParsing: string ) ].
+  parts := parts withoutFirst.
+  parts ifEmpty: [ ^ TimeOfDay hours: hours ].
+  minutesPart := parts first.
+  self enforce: [ minutesPart size = 2 ] because: [ self errorMessageForTimeParsing: string ].
+  minutes := Integer
+               readFrom: minutesPart
+               ifFail: [ self signal: ( self errorMessageForTimeParsing: string ) ].
+  parts := parts withoutFirst.
+  parts ifEmpty: [ ^ TimeOfDay hours: hours minutes: minutes ].
+  parts := parts first substrings: '.'.
+  secondsPart := parts first.
+  self enforce: [ secondsPart size = 2 ] because: [ self errorMessageForTimeParsing: string ].
+  seconds := Integer
+               readFrom: secondsPart
+               ifFail: [ self signal: ( self errorMessageForTimeParsing: string ) ].
+  parts := parts withoutFirst.
+  parts ifEmpty: [ ^ TimeOfDay hours: hours minutes: minutes seconds: seconds ].
+  microsecondsPart := parts first.
+  self enforce: [ microsecondsPart size <= 6 ] because: [ self errorMessageForTimeParsing: string ].
+  microseconds := Integer
+                    readFrom: microsecondsPart
+                    ifFail: [ self signal: ( self errorMessageForTimeParsing: string ) ].
+  ^ TimeOfDay
+      hours: hours
+      minutes: minutes
+      seconds: seconds
+      microseconds: microseconds
+]
+
+{ #category : 'parsing' }
+ISO8601Parser >> parseYear: string [
 
   | sign number parsedString |
-  string size < 4 then: [ ^ failBlock cull: ( self errorMessageForYearParsing: string ) ].
+  self enforce: [ string size >= 4 ] because: [ self errorMessageForYearParsing: string ].
   parsedString := string.
   sign := 1.
   string first = $+ then: [ parsedString := string withoutFirst ].
@@ -128,9 +174,21 @@ ISO8601Parser >> parseYear: string ifFail: failBlock [
       parsedString := parsedString withoutFirst.
       sign := -1
     ].
-  parsedString isAllDigits ifFalse: [ ^ failBlock cull: ( self errorMessageForYearParsing: string ) ].
+  self enforce: [ parsedString isAllDigits ] because: [ self errorMessageForYearParsing: string ].
   number := Integer
               readFrom: parsedString
-              ifFail: [ ^ failBlock cull: ( self errorMessageForYearParsing: string ) ].
+              ifFail: [ self signal: ( self errorMessageForYearParsing: string ) ].
   ^ ( number * sign ) asGregorianYear
+]
+
+{ #category : 'private' }
+ISO8601Parser >> refuse: aFact because: aStringOrBlockExplanation [
+
+  AssertionChecker refuse: aFact because: aStringOrBlockExplanation raising: InstanceCreationFailed
+]
+
+{ #category : 'private' }
+ISO8601Parser >> signal: messageText [
+
+  InstanceCreationFailed signal: messageText
 ]

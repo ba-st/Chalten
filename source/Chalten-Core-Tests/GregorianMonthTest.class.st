@@ -11,13 +11,7 @@ Class {
 { #category : 'parsing' }
 GregorianMonthTest >> parseISO8601: string [
 
-  ^ self parseISO8601: string ifFail: [ self fail ]
-]
-
-{ #category : 'parsing' }
-GregorianMonthTest >> parseISO8601: string ifFail: failBlock [
-
-  ^ ISO8601Parser new parseMonth: string ifFail: failBlock
+  ^ ISO8601Parser new parseMonth: string
 ]
 
 { #category : 'tests' }
@@ -237,14 +231,13 @@ GregorianMonthTest >> testParseISO8601 [
     assert: ( self parseISO8601: '11' ) equals: november;
     assert: ( self parseISO8601: '12' ) equals: december.
 
-  #( 'A' '1E' '' '+2' '-2' '+X' '20' '00' '100' 'AA' '-1' '111' ) do: [ :invalidString |
-      self parseISO8601: invalidString ifFail: [ :errorMessage |
-          self
-            assert: errorMessage
-            equals:
-              ( 'The provided month ''<1s>'' is invalid. Months must be 2 digits between 01 and 12 (e.g., 05).'
-                  expandMacrosWith: invalidString )
-        ]
+  #( 'A' '1E' '' '+2' '-2' '+X' '20' '00' '100' 'AA' '-1' '111' ) do: [ :invalid |
+      self
+        should: [ self parseISO8601: invalid ]
+        raise: InstanceCreationFailed
+        withMessageText:
+          ( 'The provided month ''<1s>'' is invalid. Months must be 2 digits between 01 and 12 (e.g., 05).'
+              expandMacrosWith: invalid )
     ]
 ]
 
