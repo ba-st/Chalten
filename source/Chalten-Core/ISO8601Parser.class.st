@@ -68,6 +68,19 @@ ISO8601Parser >> errorMessageForYearParsing: string [
       localizedWithAll: { string }
 ]
 
+{ #category : 'private' }
+ISO8601Parser >> numberIn: numberStream parsing: string [
+
+  | numberString number |
+  numberString := numberStream contents.
+  numberString ifEmpty: [ self signal: ( self errorMessageForDurationParsing: string ) ].
+  number := Number
+              readFrom: numberString
+              ifFail: [ self signal: ( self errorMessageForDurationParsing: string ) ].
+  numberStream reset.
+  ^ number
+]
+
 { #category : 'parsing' }
 ISO8601Parser >> parseDate: string [
 
@@ -118,46 +131,19 @@ ISO8601Parser >> parseDuration: string [
 { #category : 'parsing' }
 ISO8601Parser >> parseDuration: string allowingSeveralTimePeriods: allowSeveralTimePeriods [
 
-  | stringToParse terms currentToken readStream currentChar isInsideTimeSection |
+  | stringToParse periods |
   self enforce: [ string beginsWith: 'P' ] because: [ self errorMessageForDurationParsing: string ].
   stringToParse := string withoutFirst.
   "Week durations are specially handled"
   ( stringToParse endsWith: 'W' ) then: [ ^ self parseWeekDuration: stringToParse allButLast ].
-  terms := OrderedCollection new.
-  readStream := stringToParse readStream.
-  currentToken := String new writeStream.
-  isInsideTimeSection := false.
-  [ readStream atEnd ] whileFalse: [
-      currentChar := readStream next.
-      ( currentChar isDigit or: [ currentChar = $. ] )
-        then: [ "Accumulate digits and decimal points" currentToken nextPut: currentChar ]
-        otherwise: [
-            currentChar = $T
-              then: [ "Switch to time section" isInsideTimeSection := true ]
-              otherwise: [
-                  | number unit |
-                  number := Number
-                              readFrom: currentToken contents
-                              ifFail: [
-                                self signal: ( self errorMessageForDurationParsing: string ) ].
-                  currentToken reset.
-                  currentChar = $Y then: [ unit := TimeUnits units >> #year ].
-                  currentChar = $D then: [ unit := InternationalSystemOfUnits units >> #day ].
-                  currentChar = $M then: [ unit := TimeUnits units >> #month ].
-                  isInsideTimeSection then: [
-                      currentChar = $H then: [ unit := InternationalSystemOfUnits units >> #hour ].
-                      currentChar = $S then: [ unit := InternationalSystemOfUnits units >> #second ].
-                      currentChar = $M then: [ unit := InternationalSystemOfUnits units >> #minute ]
-                    ].
-                  unit ifNil: [ self signal: ( self errorMessageForDurationParsing: string ) ].
-                  terms add: number * unit
-                ]
-          ]
-    ].
-  terms ifEmpty: [ self signal: ( self errorMessageForDurationParsing: string ) ].
-  ^ allowSeveralTimePeriods then: [ terms ] otherwise: [
-        terms size = 1
-          then: [ terms anyOne ]
+
+  "Handle non-week periods that can be combined"
+  periods := self parseTimePeriodsInDuration: string.
+  periods ifEmpty: [ self signal: ( self errorMessageForDurationParsing: string ) ].
+
+  ^ allowSeveralTimePeriods then: [ periods ] otherwise: [
+        periods size = 1
+          then: [ periods anyOne ]
           otherwise: [ self signal: 'Durations with several time periods are disallowed' ]
       ]
 ]
@@ -239,6 +225,39 @@ ISO8601Parser >> parseTimeOfDay: string [
 ]
 
 { #category : 'private' }
+ISO8601Parser >> parseTimePeriodsInDuration: string [
+
+  | periods readStream numberStream isInsideTimeSection |
+  periods := OrderedCollection new.
+
+  readStream := string withoutFirst readStream.
+  numberStream := String new writeStream.
+  isInsideTimeSection := false.
+
+  [ readStream atEnd ] whileFalse: [
+      | currentChar |
+      currentChar := readStream next.
+      ( currentChar isDigit or: [ currentChar = $. ] )
+        then: [ "Accumulate digits and decimal points" numberStream nextPut: currentChar ]
+        otherwise: [
+            currentChar = $T
+              then: [ "Switch to time section" isInsideTimeSection := true ]
+              otherwise: [
+                  | number unitOrNil |
+                  number := self numberIn: numberStream parsing: string.
+                  unitOrNil := self
+                                 unitFromDesignator: currentChar
+                                 insideTimeSection: isInsideTimeSection.
+                  unitOrNil
+                    ifNil: [ self signal: ( self errorMessageForDurationParsing: string ) ]
+                    ifNotNil: [ :unit | periods add: number * unit ]
+                ]
+          ]
+    ].
+  ^ periods
+]
+
+{ #category : 'private' }
 ISO8601Parser >> parseWeekDuration: string [
 
   | number |
@@ -278,4 +297,18 @@ ISO8601Parser >> refuse: aFact because: aStringOrBlockExplanation [
 ISO8601Parser >> signal: messageText [
 
   InstanceCreationFailed signal: messageText
+]
+
+{ #category : 'private' }
+ISO8601Parser >> unitFromDesignator: designator insideTimeSection: isInsideTimeSection [
+
+  isInsideTimeSection then: [
+      designator = $H then: [ ^ InternationalSystemOfUnits units >> #hour ].
+      designator = $S then: [ ^ InternationalSystemOfUnits units >> #second ].
+      designator = $M then: [ ^ InternationalSystemOfUnits units >> #minute ]
+    ].
+  designator = $Y then: [ ^ TimeUnits units >> #year ].
+  designator = $D then: [ ^ InternationalSystemOfUnits units >> #day ].
+  designator = $M then: [ ^ TimeUnits units >> #month ].
+  ^ nil
 ]
