@@ -73,18 +73,16 @@ GregorianDateTime >> julianDayNumber [
 ]
 
 { #category : 'printing' }
+GregorianDateTime >> printAsISO8601On: stream [
+
+  date printAsISO8601On: stream.
+  timeOfDay printAsISO8601On: stream
+]
+
+{ #category : 'printing' }
 GregorianDateTime >> printAsISO8601String [
 
-  ^ String streamContents: [ :stream |
-        stream
-          print: date yearNumber;
-          nextPut: $-;
-          nextPutAll: ( date monthNumber printStringLength: 2 padded: true );
-          nextPut: $-;
-          nextPutAll: ( date dayNumber printStringLength: 2 padded: true );
-          nextPut: $T;
-          print: timeOfDay
-      ]
+  ^ String streamContents: [ :stream | self printAsISO8601On: stream ]
 ]
 
 { #category : 'accessing' }

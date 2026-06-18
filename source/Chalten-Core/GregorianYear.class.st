@@ -199,6 +199,17 @@ GregorianYear >> october [
 ]
 
 { #category : 'printing' }
+GregorianYear >> printAsISO8601On: stream [
+
+  | minimumLength |
+  number positive
+    then: [ number > 9999 then: [ stream nextPut: $+ ] ]
+    otherwise: [ stream nextPut: $- ].
+  minimumLength := number abs > 9999 then: [ 6 ] otherwise: [ 4 ].
+  stream nextPutAll: ( number abs printStringLength: minimumLength padded: true )
+]
+
+{ #category : 'printing' }
 GregorianYear >> printOn: stream [
 
 	stream print: number 

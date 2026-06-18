@@ -20,6 +20,12 @@ GregorianDateTest >> assert: dayCount daysBefore: date is: anotherDate [
   self assert: ( date previous: dayCount * day ) equals: anotherDate
 ]
 
+{ #category : 'parsing' }
+GregorianDateTest >> parseISO8601: string [
+
+  ^ ISO8601Parser new parseDate: string
+]
+
 { #category : 'tests' }
 GregorianDateTest >> testAccessing [
 
@@ -114,6 +120,21 @@ GregorianDateTest >> testGreaterThan [
     assert: february second , 2025 isGreaterThanOrEqualTo: february first , 2025;
     deny: january first , 0 isGreaterThan: january first , 2025;
     deny: january first , 2025 isGreaterThan: february first , 2025
+]
+
+{ #category : 'tests' }
+GregorianDateTest >> testISO8601Printing [
+
+  self
+    assert: ( self printAsISO8601String: ( january , 2025 ) twelfth ) equals: '2025-01-12';
+    assert: ( self printAsISO8601String: ( april , 2025 ) first ) equals: '2025-04-01';
+    assert: ( self printAsISO8601String: ( april , 0 ) first ) equals: '0000-04-01';
+    assert: ( self printAsISO8601String: ( april , 150 ) first ) equals: '0150-04-01';
+    assert: ( self printAsISO8601String: ( april , -1 ) first ) equals: '-0001-04-01';
+    assert: ( self printAsISO8601String: ( april , 10000 ) first ) equals: '+010000-04-01';
+    assert: ( self printAsISO8601String: ( april , -54000 ) first ) equals: '-054000-04-01';
+    assert: ( self printAsISO8601String: ( april , 9999000 ) first ) equals: '+9999000-04-01';
+    assert: ( self printAsISO8601String: ( april , -9999000 ) first ) equals: '-9999000-04-01'
 ]
 
 { #category : 'tests' }
@@ -331,6 +352,67 @@ GregorianDateTest >> testNext [
   self
     assert: 365 + 366 + 365 + 365 daysAfter: january first , 2007 is: january first , 2011;
     assert: 365 + 366 + 365 + 365 + 31 + 28 daysAfter: january first , 2007 is: march first , 2011
+]
+
+{ #category : 'tests' }
+GregorianDateTest >> testParseISO8601 [
+
+  self
+    assert: ( self parseISO8601: '2026-01-01' ) equals: january first , 2026;
+    assert: ( self parseISO8601: '0000-01-02' ) equals: january second , 0;
+    assert: ( self parseISO8601: '0150-01-30' ) equals: january thirtieth , 150;
+    assert: ( self parseISO8601: '-0001-01-31' ) equals: january thirtyFirst , -1;
+    assert: ( self parseISO8601: '+010000-01-10' ) equals: january tenth , 10000;
+    assert: ( self parseISO8601: '-054000-01-15' ) equals: january fifteenth , -54000;
+    assert: ( self parseISO8601: '+9999000-01-20' ) equals: january twentieth , 9999000;
+    assert: ( self parseISO8601: '-9999000-02-12' ) equals: february twelfth , -9999000.
+
+  #( 'A' '1E10' '' '++2026' '--2022' '+X' '2022.1' '-2022-' '1' '11' '111' '-12' '1-01' '11-01'
+     '111-01' '2026-' '2026' '2026-01' '2026-01-' '2026-01-1' ) do: [ :invalidString |
+      self
+        should: [ self parseISO8601: invalidString ]
+        raise: InstanceCreationFailed
+        withMessageText:
+          ( 'The provided date ''<1s>'' is invalid. Dates must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000) for the year, exactly 2 digits for the month and exactly 2 digits for the day.'
+              expandMacrosWith: invalidString )
+    ].
+  #( '222-010-12' 'AAAA-01-12' 'z+a12-01-12' )
+    with: #( '222' 'AAAA' 'z+a12' )
+    do: [ :invalidString :yearString |
+        self
+          should: [ self parseISO8601: invalidString ]
+          raise: InstanceCreationFailed
+          withMessageText:
+            ( 'The provided year ''<1s>'' is invalid. Years must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000).'
+                expandMacrosWith: yearString )
+      ].
+  #( '2026-A1-12' '2026-1E-12' '2026-+2-12' '2026--2-12' '2026-+X-12' '2026-20-12' '2026-00-12'
+     '2026-100-12' '2026-AA-12' '2026-111-12' )
+    with: #( 'A1' '1E' '+2' '2' '+X' '20' '00' '100' 'AA' '111' )
+    do: [ :invalidString :monthString |
+        self
+          should: [ self parseISO8601: invalidString ]
+          raise: InstanceCreationFailed
+          withMessageText:
+            ( 'The provided month ''<1s>'' is invalid. Months must be 2 digits between 01 and 12 (e.g., 05).'
+                expandMacrosWith: monthString )
+      ].
+
+  #( '2026-02-00' '2026-02-32' '2026-02-29' '2026-02-30' )
+    with: #( '0' '32' '29' '30' )
+    do: [ :invalidString :monthString |
+        self
+          should: [ self parseISO8601: invalidString ]
+          raise: InstanceCreationFailed
+          withMessageText:
+          ( '<1s> is an invalid day number in February, 2026' expandMacrosWith: monthString )
+      ].
+
+  self
+    should: [ self parseISO8601: '2026-01-100' ]
+    raise: InstanceCreationFailed
+    withMessageText:
+    'The provided day number ''100'' is invalid. Day numbers must be 2 digits between 01 and maximum of the month (e.g., 05).'
 ]
 
 { #category : 'tests' }

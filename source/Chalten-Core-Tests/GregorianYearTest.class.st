@@ -8,6 +8,12 @@ Class {
 	#package : 'Chalten-Core-Tests'
 }
 
+{ #category : 'private' }
+GregorianYearTest >> parseISO8601: string [
+
+  ^ ISO8601Parser new parseYear: string
+]
+
 { #category : 'tests' }
 GregorianYearTest >> testBetweenAnd [
 
@@ -38,6 +44,20 @@ GregorianYearTest >> testGreaterThan [
     assert: 1 asGregorianYear isGreaterThanOrEqualTo: 0 asGregorianYear;
     assert: 0 asGregorianYear isGreaterThanOrEqualTo: 0 asGregorianYear;
     deny: 0 asGregorianYear isGreaterThan: 2025 asGregorianYear
+]
+
+{ #category : 'tests' }
+GregorianYearTest >> testISO8601Printing [
+
+  self
+    assert: ( self printAsISO8601String: 2026 asGregorianYear ) equals: '2026';
+    assert: ( self printAsISO8601String: 0 asGregorianYear ) equals: '0000';
+    assert: ( self printAsISO8601String: 150 asGregorianYear ) equals: '0150';
+    assert: ( self printAsISO8601String: -1 asGregorianYear ) equals: '-0001';
+    assert: ( self printAsISO8601String: 10000 asGregorianYear ) equals: '+010000';
+    assert: ( self printAsISO8601String: -54000 asGregorianYear ) equals: '-054000';
+    assert: ( self printAsISO8601String: 9999000 asGregorianYear ) equals: '+9999000';
+    assert: ( self printAsISO8601String: -9999000 asGregorianYear ) equals: '-9999000'
 ]
 
 { #category : 'tests' }
@@ -112,6 +132,30 @@ GregorianYearTest >> testNumberOfMonths [
 
   self assert: 2008 asGregorianYear numberOfMonths equals: 12 * month.
   self assert: 2007 asGregorianYear numberOfMonths equals: 12 * month
+]
+
+{ #category : 'tests' }
+GregorianYearTest >> testParseISO8601 [
+
+  self
+    assert: ( self parseISO8601: '2026' ) equals: 2026 asGregorianYear;
+    assert: ( self parseISO8601: '0000' ) equals: 0 asGregorianYear;
+    assert: ( self parseISO8601: '0150' ) equals: 150 asGregorianYear;
+    assert: ( self parseISO8601: '-0001' ) equals: -1 asGregorianYear;
+    assert: ( self parseISO8601: '+010000' ) equals: 10000 asGregorianYear;
+    assert: ( self parseISO8601: '-054000' ) equals: -54000 asGregorianYear;
+    assert: ( self parseISO8601: '+9999000' ) equals: 9999000 asGregorianYear;
+    assert: ( self parseISO8601: '-9999000' ) equals: -9999000 asGregorianYear.
+
+  #( 'A' '1E10' '' '++2026' '--2022' '+X' '2022.1' '2022-01' '-2022-' '1' '11' '111' ) do: [
+    :invalid |
+      self
+        should: [ self parseISO8601: invalid ]
+        raise: InstanceCreationFailed
+        withMessageText:
+          ( 'The provided year ''<1s>'' is invalid. Years must be 4 digits (e.g., 2026) or expanded ISO 8601 (e.g., +010000).'
+              expandMacrosWith: invalid )
+    ]
 ]
 
 { #category : 'tests' }

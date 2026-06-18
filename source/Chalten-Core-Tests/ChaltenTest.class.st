@@ -96,6 +96,12 @@ ChaltenTest >> deny: calendricalMagnitude isLessThan: anotherCalendricalMagnitud
   self deny: calendricalMagnitude < anotherCalendricalMagnitude
 ]
 
+{ #category : 'private' }
+ChaltenTest >> printAsISO8601String: calendarMagnitude [
+
+  ^ ISO8601Formatter new format: calendarMagnitude
+]
+
 { #category : 'running' }
 ChaltenTest >> setUp [
 

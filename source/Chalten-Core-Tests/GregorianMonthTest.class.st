@@ -8,6 +8,12 @@ Class {
 	#package : 'Chalten-Core-Tests'
 }
 
+{ #category : 'parsing' }
+GregorianMonthTest >> parseISO8601: string [
+
+  ^ ISO8601Parser new parseMonth: string
+]
+
 { #category : 'tests' }
 GregorianMonthTest >> testApril [
 
@@ -59,6 +65,15 @@ GregorianMonthTest >> testFebruary [
     assert: GregorianMonth february shortName equals: 'Feb';
     assert: GregorianMonth february numberOfDaysInLeapYear equals: 29 * day;
     assert: GregorianMonth february numberOfDaysInCommonYear equals: 28 * day
+]
+
+{ #category : 'tests' }
+GregorianMonthTest >> testISO8601Printing [
+
+  self
+    assert: ( GregorianMonth all collect: [ :each | self printAsISO8601String: each ] )
+    hasTheSameElementsInTheSameOrderThat:
+    #( '01' '02' '03' '04' '05' '06' '07' '08' '09' '10' '11' '12' )
 ]
 
 { #category : 'tests' }
@@ -197,6 +212,33 @@ GregorianMonthTest >> testOctober [
     assert: GregorianMonth october shortName equals: 'Oct';
     assert: GregorianMonth october numberOfDaysInLeapYear equals: 31 * day;
     assert: GregorianMonth october numberOfDaysInCommonYear equals: 31 * day
+]
+
+{ #category : 'tests' }
+GregorianMonthTest >> testParseISO8601 [
+
+  self
+    assert: ( self parseISO8601: '01' ) equals: january;
+    assert: ( self parseISO8601: '02' ) equals: february;
+    assert: ( self parseISO8601: '03' ) equals: march;
+    assert: ( self parseISO8601: '04' ) equals: april;
+    assert: ( self parseISO8601: '05' ) equals: may;
+    assert: ( self parseISO8601: '06' ) equals: june;
+    assert: ( self parseISO8601: '07' ) equals: july;
+    assert: ( self parseISO8601: '08' ) equals: august;
+    assert: ( self parseISO8601: '09' ) equals: september;
+    assert: ( self parseISO8601: '10' ) equals: october;
+    assert: ( self parseISO8601: '11' ) equals: november;
+    assert: ( self parseISO8601: '12' ) equals: december.
+
+  #( 'A' '1E' '' '+2' '-2' '+X' '20' '00' '100' 'AA' '-1' '111' ) do: [ :invalid |
+      self
+        should: [ self parseISO8601: invalid ]
+        raise: InstanceCreationFailed
+        withMessageText:
+          ( 'The provided month ''<1s>'' is invalid. Months must be 2 digits between 01 and 12 (e.g., 05).'
+              expandMacrosWith: invalid )
+    ]
 ]
 
 { #category : 'tests' }

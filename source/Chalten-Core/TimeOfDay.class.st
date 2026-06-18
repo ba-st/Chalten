@@ -178,6 +178,13 @@ TimeOfDay >> minutes [
 ]
 
 { #category : 'printing' }
+TimeOfDay >> printAsISO8601On: stream [
+
+  stream nextPut: $T.
+  self printOn: stream
+]
+
+{ #category : 'printing' }
 TimeOfDay >> printOn: stream [
 
   stream

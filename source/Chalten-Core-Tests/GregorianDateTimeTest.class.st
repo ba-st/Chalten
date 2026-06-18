@@ -8,6 +8,12 @@ Class {
 	#package : 'Chalten-Core-Tests'
 }
 
+{ #category : 'parsing' }
+GregorianDateTimeTest >> parseISO8601: string [
+
+  ^ ISO8601Parser new parseDateTime: string
+]
+
 { #category : 'tests' }
 GregorianDateTimeTest >> testAccessing [
 
@@ -114,6 +120,48 @@ GregorianDateTimeTest >> testGreaterThan [
     assert: februaryFirst atMidnight isGreaterThanOrEqualTo: januaryFirst atMidnight;
     assert: februaryFirst atMidnight isGreaterThanOrEqualTo: februaryFirst atMidnight;
     deny: februaryFirst atMidnight isGreaterThan: februaryFirst atNoon
+]
+
+{ #category : 'tests' }
+GregorianDateTimeTest >> testISO8601Parsing [
+
+  self
+    assert: ( self parseISO8601: '2026-01-01T00' ) equals: ( january first , 2026 ) atStartOfDay;
+    assert: ( self parseISO8601: '2026-01-01T00:00' ) equals: ( january first , 2026 ) atStartOfDay;
+    assert: ( self parseISO8601: '2026-01-01T00:00:00' )
+    equals: ( january first , 2026 ) atStartOfDay;
+    assert: ( self parseISO8601: '2026-01-01T00:00:00.000' )
+    equals: ( january first , 2026 ) atStartOfDay;
+    assert: ( self parseISO8601: '2026-01-01T00:00:00.000000' )
+    equals: ( january first , 2026 ) atStartOfDay;
+    assert: ( self parseISO8601: '0000-01-02T00' ) equals: ( january second , 0 ) atStartOfDay;
+    assert: ( self parseISO8601: '0150-01-30T00' ) equals: ( january thirtieth , 150 ) atStartOfDay;
+    assert: ( self parseISO8601: '-0001-01-31T00' )
+    equals: ( january thirtyFirst , -1 ) atStartOfDay;
+    assert: ( self parseISO8601: '+010000-01-10T00' )
+    equals: ( january tenth , 10000 ) atStartOfDay;
+    assert: ( self parseISO8601: '-054000-01-15T00' )
+    equals: ( january fifteenth , -54000 ) atStartOfDay;
+    assert: ( self parseISO8601: '+9999000-01-20T00' )
+    equals: ( january twentieth , 9999000 ) atStartOfDay;
+    assert: ( self parseISO8601: '-9999000-02-12T00' )
+    equals: ( february twelfth , -9999000 ) atStartOfDay.
+
+  #( '2026-01-01M00' ) do: [ :invalidString |
+      self
+        should: [ self parseISO8601: invalidString ]
+        raise: InstanceCreationFailed
+        withMessageText:
+        ( 'The provided datetime ''<1s>'' is invalid.' expandMacrosWith: invalidString )
+    ]
+]
+
+{ #category : 'tests' }
+GregorianDateTimeTest >> testISO8601Printing [
+
+  self
+    assert: ( self printAsISO8601String: ( june first , 2025 ) atNoon )
+    equals: '2025-06-01T12:00:00.000000'
 ]
 
 { #category : 'tests' }
