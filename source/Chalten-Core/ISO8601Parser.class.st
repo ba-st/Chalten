@@ -22,6 +22,12 @@ ISO8601Parser >> errorMessageForDateParsing: string [
 ]
 
 { #category : 'private' }
+ISO8601Parser >> errorMessageForDateTimeParsing: string [
+
+  ^ 'The provided datetime ''<1s>'' is invalid.' expandMacrosWith: string
+]
+
+{ #category : 'private' }
 ISO8601Parser >> errorMessageForDayNumberParsing: string [
 
   ^ 'The provided day number ''<1s>'' is invalid. Day numbers must be 2 digits between 01 and maximum of the month (e.g., 05).'
@@ -74,6 +80,17 @@ ISO8601Parser >> parseDate: string [
   month := self parseMonth: parts second.
   dayNumber := self parseDayNumber: parts third.
   ^ ( year monthAt: month positionInYear ) dateAt: dayNumber
+]
+
+{ #category : 'parsing' }
+ISO8601Parser >> parseDateTime: string [
+
+  | parts date timeOfDay |
+  parts := string substrings: 'T'.
+  self enforce: [ parts size = 2 ] because: [ self errorMessageForDateTimeParsing: string ].
+  date := self parseDate: parts first.
+  timeOfDay := self parseTimeOfDay: 'T' , parts second.
+  ^ date at: timeOfDay
 ]
 
 { #category : 'parsing' }
