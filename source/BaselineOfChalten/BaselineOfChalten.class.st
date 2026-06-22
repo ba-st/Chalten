@@ -114,13 +114,16 @@ BaselineOfChalten >> setUpIslamicPackages: spec [
 BaselineOfChalten >> setUpTestPackages: spec [
 
   spec
-    package: 'Chalten-Core-Tests' with: [ spec requires: #( 'Core' 'Buoy-SUnit' ) ];
+    package: 'Chalten-SUnit' with: [ spec requires: #( 'Core' 'Buoy-SUnit' ) ];
+    group: 'Dependent-SUnit-Extensions' with: 'Chalten-SUnit'.
+  spec
+    package: 'Chalten-Core-Tests' with: [ spec requires: #( 'Core' 'Chalten-SUnit' ) ];
     group: 'Tests' with: 'Chalten-Core-Tests';
-    package: 'Chalten-Timezones-Tests' with: [ spec requires: #( 'Core' 'Buoy-SUnit' ) ];
+    package: 'Chalten-Timezones-Tests' with: [ spec requires: #( 'Core' 'Chalten-SUnit' ) ];
     group: 'Tests' with: 'Chalten-Timezones-Tests';
-    package: 'Chalten-Hebrew-Calendar-Tests' with: [ spec requires: #( 'Hebrew' 'Buoy-SUnit' ) ];
+    package: 'Chalten-Hebrew-Calendar-Tests' with: [ spec requires: #( 'Hebrew' 'Chalten-SUnit' ) ];
     group: 'Tests' with: 'Chalten-Hebrew-Calendar-Tests';
-    package: 'Chalten-Islamic-Calendar-Tests' with: [ spec requires: #( 'Islamic' 'Buoy-SUnit' ) ];
+    package: 'Chalten-Islamic-Calendar-Tests' with: [ spec requires: #( 'Islamic' 'Chalten' ) ];
     group: 'Tests' with: 'Chalten-Islamic-Calendar-Tests'
 ]
 
