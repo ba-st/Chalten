@@ -123,7 +123,7 @@ BaselineOfChalten >> setUpTestPackages: spec [
     group: 'Tests' with: 'Chalten-Timezones-Tests';
     package: 'Chalten-Hebrew-Calendar-Tests' with: [ spec requires: #( 'Hebrew' 'Chalten-SUnit' ) ];
     group: 'Tests' with: 'Chalten-Hebrew-Calendar-Tests';
-    package: 'Chalten-Islamic-Calendar-Tests' with: [ spec requires: #( 'Islamic' 'Chalten' ) ];
+    package: 'Chalten-Islamic-Calendar-Tests' with: [ spec requires: #( 'Islamic' 'Chalten-SUnit' ) ];
     group: 'Tests' with: 'Chalten-Islamic-Calendar-Tests'
 ]
 
