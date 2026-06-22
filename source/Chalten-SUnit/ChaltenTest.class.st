@@ -20,8 +20,8 @@ Class {
 		'decade',
 		'hour'
 	],
-	#category : 'Chalten-Core-Tests',
-	#package : 'Chalten-Core-Tests'
+	#category : 'Chalten-SUnit',
+	#package : 'Chalten-SUnit'
 }
 
 { #category : 'testing' }
