@@ -2,11 +2,11 @@ RwSimpleProjectLoadComponentV2 {
   #name : 'Tests',
   #condition : 'tests',
   #componentNames : [
-    'Deployment'
+    'Deployment',
+    'Dependent-SUnit-Extensions'
   ],
   #packageNames : [
     'Chalten-Core-Tests',
-    'Chalten-SUnit',
     'Chalten-Timezones-Tests'
   ],
   #conditionalPackageMapSpecs : {
@@ -14,7 +14,6 @@ RwSimpleProjectLoadComponentV2 {
       'allusers' : {
         #packageNameToPlatformPropertiesMap : {
           'Chalten-Core-Tests' : { 'symbolDictName' : 'Chalten' },
-          'Chalten-SUnit' : { 'symbolDictName' : 'Chalten' },
           'Chalten-Timezones-Tests' : { 'symbolDictName' : 'Chalten' }
         }
       }
