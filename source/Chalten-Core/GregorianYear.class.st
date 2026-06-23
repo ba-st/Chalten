@@ -41,6 +41,18 @@ GregorianYear class >> number: anInteger [
   ^ years at: anInteger ifAbsentPut: [ self new initializeNumber: anInteger ]
 ]
 
+{ #category : 'arithmetic' }
+GregorianYear >> + aQuantity [
+
+  ^ self next: aQuantity
+]
+
+{ #category : 'arithmetic' }
+GregorianYear >> - aGregorianYear [
+
+  ^ number - aGregorianYear number * self class year
+]
+
 { #category : 'comparing' }
 GregorianYear >> = anObject [
 
@@ -96,6 +108,12 @@ GregorianYear >> initializeNumber: anInteger [
 GregorianYear >> isCentennialYear [
 
   ^ number \\ 100 = 0
+]
+
+{ #category : 'testing' }
+GregorianYear >> isComparableTo: aQuantity [
+
+  ^ aQuantity unit isCommensurableWith: self class year
 ]
 
 { #category : 'testing' }
@@ -219,4 +237,16 @@ GregorianYear >> printOn: stream [
 GregorianYear >> september [
 
   ^ self monthAt: 9
+]
+
+{ #category : 'instance creation' }
+GregorianYear >> to: aGregorianYear [
+
+  ^ self to: aGregorianYear by: 1 * self class year
+]
+
+{ #category : 'interval creation' }
+GregorianYear >> to: aGregorianYear by: step [
+
+  ^ DiscreteInterval from: self to: aGregorianYear by: step
 ]

@@ -84,6 +84,26 @@ GregorianYearTest >> testInstanceCreationShortcut [
 ]
 
 { #category : 'tests' }
+GregorianYearTest >> testInterval [
+
+  | interval |
+  interval := 2006 asGregorianYear to: 2026 asGregorianYear.
+  self assert: interval size equals: 21.
+  interval doWithIndex: [ :gregorianYear :index |
+      self assert: gregorianYear equals: ( 2005 + index ) asGregorianYear ]
+]
+
+{ #category : 'tests' }
+GregorianYearTest >> testIntervalWithStep [
+
+  | interval |
+  interval := 2006 asGregorianYear to: 2026 asGregorianYear by: 2 * year.
+  self assert: interval size equals: 11.
+  interval doWithIndex: [ :gregorianYear :index |
+      self assert: gregorianYear equals: ( 2006 + ( 2 * ( index - 1 ) ) ) asGregorianYear ]
+]
+
+{ #category : 'tests' }
 GregorianYearTest >> testIsLeapYear [
 
   #( -4 0 400 1600 1996 2000 2004 2008 2012 ) do: [ :number |
