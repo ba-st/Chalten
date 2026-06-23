@@ -80,6 +80,12 @@ CalendarDate >> isComparableTo: aQuantity [
   ^ aQuantity unit isCommensurableWith: self class day
 ]
 
+{ #category : 'testing' }
+CalendarDate >> isLastDayOfMonth [
+
+  ^ self monthOfYear last = self
+]
+
 { #category : 'accessing' }
 CalendarDate >> month [
 

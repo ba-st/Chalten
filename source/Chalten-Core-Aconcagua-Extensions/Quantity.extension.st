@@ -11,3 +11,9 @@ Quantity >> subtractionFromCalendarDate: aCalendarDate [
 
   ^ aCalendarDate previous: self
 ]
+
+{ #category : '*Chalten-Core-Aconcagua-Extensions' }
+Quantity >> subtractionFromCalendarYear: aCalendarYear [
+
+  ^ aCalendarYear previous: self
+]

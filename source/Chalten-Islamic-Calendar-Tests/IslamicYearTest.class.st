@@ -78,6 +78,16 @@ IslamicYearTest >> testInstanceCreationShortcut [
 ]
 
 { #category : 'tests' }
+IslamicYearTest >> testInterval [
+
+  | interval |
+  interval := 2006 asIslamicYear to: 2026 asIslamicYear.
+  self assert: interval size equals: 21.
+  interval doWithIndex: [ :calendarYear :index |
+      self assert: calendarYear equals: ( 2005 + index ) asIslamicYear ]
+]
+
+{ #category : 'tests' }
 IslamicYearTest >> testIsLeapYear [
 
   #( 1442 1445 1447 1450 1453 1456 1458 1461 1464 1466 ) do: [ :number |
@@ -158,4 +168,15 @@ IslamicYearTest >> testPrintString [
   self
     assert: 1445 asIslamicYear printString equals: '1445 AH';
     assert: 1 asIslamicYear printString equals: '1 AH'
+]
+
+{ #category : 'tests' }
+IslamicYearTest >> testYearsBetweenTwoYears [
+
+  self
+    assert: 1426 asIslamicYear - 1420 asIslamicYear equals: 6 * islamicYear;
+    assert: 1426 asIslamicYear - 1426 asIslamicYear equals: 0 * islamicYear;
+    should: [ 1408 asIslamicYear - 1409 asIslamicYear ]
+    raise: ArithmeticError
+    withMessageText: 'Cannot subtract two years when the second one is greater than the first one.'
 ]

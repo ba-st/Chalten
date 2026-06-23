@@ -35,6 +35,18 @@ CalendarYear class >> isAbstract [
   ^ self = CalendarYear
 ]
 
+{ #category : 'arithmetic' }
+CalendarYear >> + aQuantity [
+
+  ^ self next: aQuantity
+]
+
+{ #category : 'arithmetic' }
+CalendarYear >> - anObject [
+
+  ^ anObject subtractionFromCalendarYear: self
+]
+
 { #category : 'testing' }
 CalendarYear >> < aCalendarYear [
 
@@ -55,6 +67,12 @@ CalendarYear >> assertIsCommensurableWith: aCalendarYear [
 CalendarYear >> firstDate [
 
   ^ self subclassResponsibility
+]
+
+{ #category : 'testing' }
+CalendarYear >> isComparableTo: aQuantity [
+
+  ^ aQuantity unit isCommensurableWith: self class year
 ]
 
 { #category : 'testing' }
@@ -110,4 +128,27 @@ CalendarYear >> previous [
 CalendarYear >> previous: relativeTimeQuantity [
 
   ^ self next: relativeTimeQuantity negated
+]
+
+{ #category : 'private' }
+CalendarYear >> subtractionFromCalendarYear: aCalendarYear [
+
+  AssertionChecker
+    enforce: [ aCalendarYear >= self ]
+    because: [
+      'Cannot subtract two years when the second one is greater than the first one.' localized ]
+    raising: ArithmeticError.
+  ^ ( aCalendarYear number - self number ) * self class year
+]
+
+{ #category : 'instance creation' }
+CalendarYear >> to: aCalendarYear [
+
+  ^ self to: aCalendarYear by: 1 * self class year
+]
+
+{ #category : 'interval creation' }
+CalendarYear >> to: aCalendarYear by: step [
+
+  ^ DiscreteInterval from: self to: aCalendarYear by: step
 ]

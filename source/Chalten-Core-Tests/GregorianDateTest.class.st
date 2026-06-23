@@ -100,10 +100,11 @@ GregorianDateTest >> testDaysBetweenTwoDates [
     assert: ( ( january first , 2025 ) - ( january first , 2025 ) ) isZero;
     assert: ( january second , 2025 ) - ( january first , 2025 ) equals: 1 * day;
     assert: ( february first , 2025 ) - ( january first , 2025 ) equals: 31 * day;
-    assert: ( march first , 2025 ) - ( january first , 2025 ) equals: 31 + 28 * day;
+    assert: ( march first , 2025 ) - ( january first , 2025 ) equals: (31 + 28) * day;
     assert: ( january first , 2026 ) - ( january first , 2025 ) equals: 365 * day;
     assert: ( december thirtyFirst , 2008 ) - ( january first , 2008 ) equals: 365 * day;
-    assert: ( january first , 2009 ) - ( january first , 2008 ) equals: 366 * day
+    assert: ( january first , 2009 ) - ( january first , 2008 ) equals: 366 * day;
+    should: [ january first , 2008 - ( january first , 2009 ) ] raise: ArithmeticError
 ]
 
 { #category : 'tests' }
@@ -313,6 +314,17 @@ GregorianDateTest >> testIntervalWithStep [
         assert: date dayNumber equals: index * 2 - 1;
         assert: date monthOfYear equals: january , 2025
     ]
+]
+
+{ #category : 'tests' }
+GregorianDateTest >> testIsLastDayOfMonth [
+
+  self
+    assert: ( february twentyEighth , 2025 ) isLastDayOfMonth;
+    assert: ( february twentyNinth , 2000 ) isLastDayOfMonth;
+    assert: ( january thirtyFirst , 2025 ) isLastDayOfMonth;
+    deny: ( february twentyEighth , 2000 ) isLastDayOfMonth;
+    deny: ( january first , 2025 ) isLastDayOfMonth
 ]
 
 { #category : 'tests' }

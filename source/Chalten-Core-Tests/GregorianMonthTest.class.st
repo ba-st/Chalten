@@ -189,7 +189,9 @@ GregorianMonthTest >> testNext [
     assert: ( january next: 9 * month ) equals: october;
     assert: ( january next: 10 * month ) equals: november;
     assert: ( january next: 11 * month ) equals: december;
-    assert: ( january next: 12 * month ) equals: january
+    assert: ( january next: 12 * month ) equals: january;
+    assert: january next equals: february;
+    assert: december next equals: january
 ]
 
 { #category : 'tests' }

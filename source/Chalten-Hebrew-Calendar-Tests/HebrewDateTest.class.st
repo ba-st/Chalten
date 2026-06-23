@@ -438,6 +438,23 @@ HebrewDateTest >> testIntervalWithStep [
 ]
 
 { #category : 'tests' }
+HebrewDateTest >> testIsLastDayOfMonth [
+
+  self
+    assert: ( tevet twentyNinth , 2025 ) isLastDayOfMonth;
+    assert: ( nisan thirtieth , 2025 ) isLastDayOfMonth;
+    assert: ( cheshvan thirtieth , 5678 ) isLastDayOfMonth;
+    deny: ( cheshvan twentyNinth , 5678 ) isLastDayOfMonth;
+    assert: ( cheshvan twentyNinth , 5675 ) isLastDayOfMonth;
+    assert: ( cheshvan twentyNinth , 5674 ) isLastDayOfMonth;
+    assert: ( kislev thirtieth , 5678 ) isLastDayOfMonth;
+    deny: ( kislev twentyNinth , 5678 ) isLastDayOfMonth;
+    assert: ( kislev twentyNinth , 5675 ) isLastDayOfMonth;
+    assert: ( kislev thirtieth , 5674 ) isLastDayOfMonth;
+    deny: ( kislev twentyNinth , 5674 ) isLastDayOfMonth
+]
+
+{ #category : 'tests' }
 HebrewDateTest >> testLessThan [
 
   self

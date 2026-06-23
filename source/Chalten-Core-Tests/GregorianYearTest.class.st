@@ -202,3 +202,14 @@ GregorianYearTest >> testPrintString [
     assert: 0 asGregorianYear printString equals: '0';
     assert: -1 asGregorianYear printString equals: '-1'
 ]
+
+{ #category : 'tests' }
+GregorianYearTest >> testYearsBetweenTwoYears [
+
+  self
+    assert: 2026 asGregorianYear - 2020 asGregorianYear equals: 6 * year;
+    assert: 2026 asGregorianYear - 2026 asGregorianYear equals: 0 * year;
+    should: [ 2008 asGregorianYear - 2009 asGregorianYear ]
+    raise: ArithmeticError
+    withMessageText: 'Cannot subtract two years when the second one is greater than the first one.'
+]

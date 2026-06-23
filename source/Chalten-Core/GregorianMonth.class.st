@@ -233,6 +233,12 @@ GregorianMonth >> isGregorian [
 ]
 
 { #category : 'querying' }
+GregorianMonth >> next [
+
+  ^ self next: 1 * ( TimeUnits units >> #month )
+]
+
+{ #category : 'querying' }
 GregorianMonth >> next: relativeTimeQuantity [
 
   | numberOfMonths nextMonthIndex |

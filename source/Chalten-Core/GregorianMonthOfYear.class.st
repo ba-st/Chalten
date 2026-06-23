@@ -19,6 +19,12 @@ GregorianMonthOfYear class >> year: aGregorianYear month: aGregorianMonth [
   ^ self new initializeYear: aGregorianYear month: aGregorianMonth
 ]
 
+{ #category : 'arithmetic' }
+GregorianMonthOfYear >> - anObject [
+
+  ^ anObject subtractionFromGregorianMonthOfYear: self
+]
+
 { #category : 'testing' }
 GregorianMonthOfYear >> < aGregorianYearOfMonth [
 
@@ -138,6 +144,33 @@ GregorianMonthOfYear >> printOn: stream [
     nextPut: $,;
     space;
     print: year
+]
+
+{ #category : 'private' }
+GregorianMonthOfYear >> subtractionFromGregorianMonthOfYear: endMonthOfYear [
+  "Returns the time in months between two months of year"
+
+  | startMonthOfYear currentYear currentCount |
+  startMonthOfYear := self.
+  endMonthOfYear = startMonthOfYear then: [ ^ 0 * self class month ].
+  AssertionChecker
+    enforce: [ endMonthOfYear > startMonthOfYear ]
+    because: [
+      'Cannot subtract two months of year when the start month is greater than the end month.'
+        localized ]
+    raising: ArithmeticError.
+  "Are we in the same year, but different month?"
+  endMonthOfYear year = startMonthOfYear year then: [
+      ^ ( endMonthOfYear month positionInYear - startMonthOfYear month positionInYear )
+        * self class month ].
+  "We are in different years"
+  currentYear := startMonthOfYear year next.
+  currentCount := 12 - startMonthOfYear month positionInYear.
+  [ currentYear < endMonthOfYear year ] whileTrue: [
+      currentCount := currentCount + 12.
+      currentYear := currentYear next
+    ].
+  ^ ( endMonthOfYear month positionInYear + currentCount ) * self class month
 ]
 
 { #category : 'accessing - dates' }
