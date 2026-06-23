@@ -139,8 +139,7 @@ GregorianMonthOfYearTest >> testMonthsBetweenTwoMonthsOfYear [
     assert: ( july , 2027 ) - ( may , 2025 ) equals: 26 * month;
     should: [ december , 2008 - ( december , 2009 ) ]
     raise: ArithmeticError
-    withMessageText:
-      'Cannot subtract two months of year when the second one is greater than the first one.'
+    withMessageText: 'Cannot subtract two months of year when the start month is greater than the end month.'
 ]
 
 { #category : 'tests' }
