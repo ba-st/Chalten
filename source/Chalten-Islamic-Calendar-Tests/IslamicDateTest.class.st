@@ -281,6 +281,17 @@ IslamicDateTest >> testIntervalWithStep [
 ]
 
 { #category : 'tests' }
+IslamicDateTest >> testIsLastDayOfMonth [
+
+  self
+    assert: ( shawwal twentyNinth , 2025 ) isLastDayOfMonth;
+    assert: ( ramadan thirtieth , 2025 ) isLastDayOfMonth;
+    assert: ( duAlHijjah twentyNinth , 1443 ) isLastDayOfMonth;
+    assert: ( duAlHijjah thirtieth , 1442 ) isLastDayOfMonth;
+    deny: ( duAlHijjah twentyNinth , 1442 ) isLastDayOfMonth
+]
+
+{ #category : 'tests' }
 IslamicDateTest >> testLessThan [
 
   self

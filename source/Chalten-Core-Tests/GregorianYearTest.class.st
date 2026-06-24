@@ -84,6 +84,26 @@ GregorianYearTest >> testInstanceCreationShortcut [
 ]
 
 { #category : 'tests' }
+GregorianYearTest >> testInterval [
+
+  | interval |
+  interval := 2006 asGregorianYear to: 2026 asGregorianYear.
+  self assert: interval size equals: 21.
+  interval doWithIndex: [ :gregorianYear :index |
+      self assert: gregorianYear equals: ( 2005 + index ) asGregorianYear ]
+]
+
+{ #category : 'tests' }
+GregorianYearTest >> testIntervalWithStep [
+
+  | interval |
+  interval := 2006 asGregorianYear to: 2026 asGregorianYear by: 2 * year.
+  self assert: interval size equals: 11.
+  interval doWithIndex: [ :gregorianYear :index |
+      self assert: gregorianYear equals: ( 2006 + ( 2 * ( index - 1 ) ) ) asGregorianYear ]
+]
+
+{ #category : 'tests' }
 GregorianYearTest >> testIsLeapYear [
 
   #( -4 0 400 1600 1996 2000 2004 2008 2012 ) do: [ :number |
@@ -181,4 +201,15 @@ GregorianYearTest >> testPrintString [
     assert: 2025 asGregorianYear printString equals: '2025';
     assert: 0 asGregorianYear printString equals: '0';
     assert: -1 asGregorianYear printString equals: '-1'
+]
+
+{ #category : 'tests' }
+GregorianYearTest >> testYearsBetweenTwoYears [
+
+  self
+    assert: 2026 asGregorianYear - 2020 asGregorianYear equals: 6 * year;
+    assert: 2026 asGregorianYear - 2026 asGregorianYear equals: 0 * year;
+    should: [ 2008 asGregorianYear - 2009 asGregorianYear ]
+    raise: ArithmeticError
+    withMessageText: 'Cannot subtract two years when the second one is greater than the first one.'
 ]

@@ -19,6 +19,12 @@ GregorianMonthOfYear class >> year: aGregorianYear month: aGregorianMonth [
   ^ self new initializeYear: aGregorianYear month: aGregorianMonth
 ]
 
+{ #category : 'arithmetic' }
+GregorianMonthOfYear >> - anObject [
+
+  ^ anObject subtractionFromGregorianMonthOfYear: self
+]
+
 { #category : 'testing' }
 GregorianMonthOfYear >> < aGregorianYearOfMonth [
 
@@ -138,6 +144,26 @@ GregorianMonthOfYear >> printOn: stream [
     nextPut: $,;
     space;
     print: year
+]
+
+{ #category : 'private' }
+GregorianMonthOfYear >> subtractionFromGregorianMonthOfYear: endMonthOfYear [
+  "Returns the time in months between two months of year"
+
+  | yearsDifference monthsDifference |
+  endMonthOfYear = self then: [ ^ 0 * self class month ].
+  AssertionChecker
+    enforce: [ endMonthOfYear > self ]
+    because: [
+        'Cannot subtract two months of year when the start month is greater than the end month.'
+          localized ]
+    raising: ArithmeticError.
+
+  "Calculate the total month span in O(1) constant time"
+  yearsDifference := endMonthOfYear year - self year.
+  monthsDifference := endMonthOfYear month positionInYear - self month positionInYear.
+
+  ^ yearsDifference + ( monthsDifference * self class month )
 ]
 
 { #category : 'accessing - dates' }

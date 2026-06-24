@@ -75,6 +75,16 @@ HebrewYearTest >> testInstanceCreationShortcut [
 ]
 
 { #category : 'tests' }
+HebrewYearTest >> testInterval [
+
+  | interval |
+  interval := 2006 asHebrewYear to: 2026 asHebrewYear.
+  self assert: interval size equals: 21.
+  interval doWithIndex: [ :calendarYear :index |
+      self assert: calendarYear equals: ( 2005 + index ) asHebrewYear ]
+]
+
+{ #category : 'tests' }
 HebrewYearTest >> testIsCompleteYear [
 
   #( 5661 5663 5666 5669 5672 5678 5682 5685 5686 5693 5696 5702 5705 5709 5712 5713 5716 5720 5723
@@ -248,4 +258,15 @@ HebrewYearTest >> testPrintString [
   self
     assert: 1445 asHebrewYear printString equals: '1445 AM';
     assert: 1 asHebrewYear printString equals: '1 AM'
+]
+
+{ #category : 'tests' }
+HebrewYearTest >> testYearsBetweenTwoYears [
+
+  self
+    assert: 5726 asHebrewYear - 5720 asHebrewYear equals: 6 * hebrewYear;
+    assert: 5726 asHebrewYear - 5726 asHebrewYear equals: 0 * hebrewYear;
+    should: [ 5708 asHebrewYear - 5709 asHebrewYear ]
+    raise: ArithmeticError
+    withMessageText: 'Cannot subtract two years when the second one is greater than the first one.'
 ]

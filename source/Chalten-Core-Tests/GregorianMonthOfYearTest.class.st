@@ -119,6 +119,30 @@ GregorianMonthOfYearTest >> testLessThan [
 ]
 
 { #category : 'tests' }
+GregorianMonthOfYearTest >> testMonthsBetweenTwoMonthsOfYear [
+
+  self
+    assert: ( december , 2026 ) - ( december , 2026 ) equals: 0 * month;
+    assert: ( december , 2026 ) - ( november , 2026 ) equals: 1 * month;
+    assert: ( december , 2026 ) - ( october , 2026 ) equals: 2 * month;
+    assert: ( december , 2026 ) - ( september , 2026 ) equals: 3 * month;
+    assert: ( december , 2026 ) - ( august , 2026 ) equals: 4 * month;
+    assert: ( december , 2026 ) - ( july , 2026 ) equals: 5 * month;
+    assert: ( december , 2026 ) - ( june , 2026 ) equals: 6 * month;
+    assert: ( december , 2026 ) - ( may , 2026 ) equals: 7 * month;
+    assert: ( december , 2026 ) - ( april , 2026 ) equals: 8 * month;
+    assert: ( december , 2026 ) - ( march , 2026 ) equals: 9 * month;
+    assert: ( december , 2026 ) - ( february , 2026 ) equals: 10 * month;
+    assert: ( december , 2026 ) - ( january , 2026 ) equals: 11 * month;
+    assert: ( december , 2026 ) - ( december , 2025 ) equals: 12 * month;
+    assert: ( december , 2027 ) - ( december , 2025 ) equals: 24 * month;
+    assert: ( july , 2027 ) - ( may , 2025 ) equals: 26 * month;
+    should: [ december , 2008 - ( december , 2009 ) ]
+    raise: ArithmeticError
+    withMessageText: 'Cannot subtract two months of year when the start month is greater than the end month.'
+]
+
+{ #category : 'tests' }
 GregorianMonthOfYearTest >> testNext [
 
   | baseYear |
