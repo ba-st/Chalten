@@ -4,18 +4,9 @@ I'm a formatter of the ISO 8601 extended format for time periods (durations).
 Class {
 	#name : 'ISO8601DurationFormatter',
 	#superclass : 'Formatter',
-	#instVars : [
-		'decimalPlaces'
-	],
 	#category : 'Chalten-Core',
 	#package : 'Chalten-Core'
 }
-
-{ #category : 'instance creation' }
-ISO8601DurationFormatter class >> withDecimalPlaces: anInteger [
-
-  ^ self new decimalPlaces: anInteger
-]
 
 { #category : 'private - asserting' }
 ISO8601DurationFormatter >> assertHasIntegerValue: period unlessIsTheLastIn: remainingPeriods [
@@ -49,12 +40,6 @@ ISO8601DurationFormatter >> day [
   ^ InternationalSystemOfUnits units >> #day
 ]
 
-{ #category : 'private - accessing' }
-ISO8601DurationFormatter >> decimalPlaces: anInteger [
-
-  decimalPlaces := anInteger
-]
-
 { #category : 'formatting' }
 ISO8601DurationFormatter >> format: timePeriodOrPeriods on: stream [
 
@@ -73,9 +58,7 @@ ISO8601DurationFormatter >> formatSingleTimePeriod: timePeriod on: stream [
 
   | number |
   number := timePeriod numericalValue.
-  number isInteger
-    then: [ number printOn: stream ]
-    otherwise: [ number printOn: stream showingDecimalPlaces: decimalPlaces ].
+  number isInteger then: [ number printOn: stream ] otherwise: [ number asFloat printOn: stream ].
   stream nextPut: timePeriod unit symbol first asUppercase
 ]
 
@@ -110,13 +93,6 @@ ISO8601DurationFormatter >> formatTimePeriods: timePeriods on: stream [
 ISO8601DurationFormatter >> hour [
 
   ^ TimeOfDay hour
-]
-
-{ #category : 'initialization' }
-ISO8601DurationFormatter >> initialize [
-
-  super initialize.
-  self decimalPlaces: 6
 ]
 
 { #category : 'private - accessing' }

@@ -14,14 +14,6 @@ ISO8601DurationFormatterTest >> assertFormattingOf: timePeriodOrPeriods equals: 
   self assert: ( ISO8601DurationFormatter new format: timePeriodOrPeriods ) equals: expectedString
 ]
 
-{ #category : 'private - asserting' }
-ISO8601DurationFormatterTest >> assertFormattingOf: timePeriod withDecimalPlaces: decimalPlaces equals: expectedString [
-
-  self
-    assert: ( ( ISO8601DurationFormatter withDecimalPlaces: decimalPlaces ) format: timePeriod )
-    equals: expectedString
-]
-
 { #category : 'accessing' }
 ISO8601DurationFormatterTest >> minute [
 
@@ -90,10 +82,8 @@ ISO8601DurationFormatterTest >> testFormatDayDuration [
     assertFormattingOf: 0 * day equals: 'P0D';
     assertFormattingOf: 1 * day equals: 'P1D';
     assertFormattingOf: 100 * day equals: 'P100D';
-    assertFormattingOf: 1.5 * day equals: 'P1.500000D';
-    assertFormattingOf: 1.5 * day withDecimalPlaces: 1 equals: 'P1.5D';
-    assertFormattingOf: 1.52 * day withDecimalPlaces: 1 equals: 'P1.5D';
-    assertFormattingOf: 1.55 * day withDecimalPlaces: 1 equals: 'P1.6D'
+    assertFormattingOf: 1.5 * day equals: 'P1.5D';
+    assertFormattingOf: 1.52 * day equals: 'P1.52D'
 ]
 
 { #category : 'tests' }
@@ -103,10 +93,8 @@ ISO8601DurationFormatterTest >> testFormatHourDuration [
     assertFormattingOf: 0 * hour equals: 'PT0H';
     assertFormattingOf: 1 * hour equals: 'PT1H';
     assertFormattingOf: 100 * hour equals: 'PT100H';
-    assertFormattingOf: 1.5 * hour equals: 'PT1.500000H';
-    assertFormattingOf: 1.5 * hour withDecimalPlaces: 1 equals: 'PT1.5H';
-    assertFormattingOf: 1.52 * hour withDecimalPlaces: 1 equals: 'PT1.5H';
-    assertFormattingOf: 1.55 * hour withDecimalPlaces: 1 equals: 'PT1.6H'
+    assertFormattingOf: 1.5 * hour equals: 'PT1.5H';
+    assertFormattingOf: 1.52 * hour equals: 'PT1.52H'
 ]
 
 { #category : 'tests' }
@@ -115,11 +103,9 @@ ISO8601DurationFormatterTest >> testFormatMinuteDuration [
   self
     assertFormattingOf: 0 * self minute equals: 'PT0M';
     assertFormattingOf: 1 * self minute equals: 'PT1M';
-    assertFormattingOf: 100 * self minute equals: 'PT100M';
-    assertFormattingOf: 1.5 * self minute equals: 'PT1.500000M';
-    assertFormattingOf: 1.5 * self minute withDecimalPlaces: 1 equals: 'PT1.5M';
-    assertFormattingOf: 1.52 * self minute withDecimalPlaces: 1 equals: 'PT1.5M';
-    assertFormattingOf: 1.55 * self minute withDecimalPlaces: 1 equals: 'PT1.6M'
+    assertFormattingOf: 100 * self minute equals: 'PT100M'; 
+    assertFormattingOf: 1.5 * self minute equals: 'PT1.5M';
+    assertFormattingOf: 1.52 * self minute equals: 'PT1.52M'
 ]
 
 { #category : 'tests' }
@@ -128,11 +114,8 @@ ISO8601DurationFormatterTest >> testFormatMixedDuration [
   self
     assertFormattingOf:
       { 1.55 * self second . 3 * self minute . 2 * hour . 5 * month . 3 * year . 4 * day }
-    withDecimalPlaces: 2
     equals: 'P3Y5M4DT2H3M1.55S';
-    assertFormattingOf: { 1.55 * self second . 3 * self minute . 2 * hour }
-    withDecimalPlaces: 1
-    equals: 'PT2H3M1.6S'
+    assertFormattingOf: { 1.55 * self second . 3 * self minute . 2 * hour } equals: 'PT2H3M1.55S'
 ]
 
 { #category : 'tests' }
@@ -141,11 +124,9 @@ ISO8601DurationFormatterTest >> testFormatMonthDuration [
   self
     assertFormattingOf: 0 * month equals: 'P0M';
     assertFormattingOf: 1 * month equals: 'P1M';
-    assertFormattingOf: 100 * month equals: 'P100M';
-    assertFormattingOf: 1.5 * month equals: 'P1.500000M';
-    assertFormattingOf: 1.5 * month withDecimalPlaces: 1 equals: 'P1.5M';
-    assertFormattingOf: 1.52 * month withDecimalPlaces: 1 equals: 'P1.5M';
-    assertFormattingOf: 1.55 * month withDecimalPlaces: 1 equals: 'P1.6M'
+    assertFormattingOf: 100 * month equals: 'P100M'; 
+    assertFormattingOf: 1.5 * month equals: 'P1.5M';
+    assertFormattingOf: 1.52 * month equals: 'P1.52M' 
 ]
 
 { #category : 'tests' }
@@ -155,10 +136,8 @@ ISO8601DurationFormatterTest >> testFormatSecondDuration [
     assertFormattingOf: 0 * self second equals: 'PT0S';
     assertFormattingOf: 1 * self second equals: 'PT1S';
     assertFormattingOf: 100 * self second equals: 'PT100S';
-    assertFormattingOf: 1.5 * self second equals: 'PT1.500000S';
-    assertFormattingOf: 1.5 * self second withDecimalPlaces: 1 equals: 'PT1.5S';
-    assertFormattingOf: 1.52 * self second withDecimalPlaces: 1 equals: 'PT1.5S';
-    assertFormattingOf: 1.55 * self second withDecimalPlaces: 1 equals: 'PT1.6S'
+    assertFormattingOf: 1.5 * self second equals: 'PT1.5S';
+    assertFormattingOf: 1.52 * self second equals: 'PT1.52S'
 ]
 
 { #category : 'tests' }
@@ -168,10 +147,8 @@ ISO8601DurationFormatterTest >> testFormatWeekDuration [
     assertFormattingOf: 0 * self week equals: 'P0W';
     assertFormattingOf: 1 * self week equals: 'P1W';
     assertFormattingOf: 100 * self week equals: 'P100W';
-    assertFormattingOf: 1.5 * self week equals: 'P1.500000W';
-    assertFormattingOf: 1.5 * self week withDecimalPlaces: 1 equals: 'P1.5W';
-    assertFormattingOf: 1.52 * self week withDecimalPlaces: 1 equals: 'P1.5W';
-    assertFormattingOf: 1.55 * self week withDecimalPlaces: 1 equals: 'P1.6W'
+    assertFormattingOf: 1.5 * self week equals: 'P1.5W';
+    assertFormattingOf: 1.52 * self week equals: 'P1.52W'
 ]
 
 { #category : 'tests' }
@@ -181,10 +158,8 @@ ISO8601DurationFormatterTest >> testFormatYearDuration [
     assertFormattingOf: 0 * year equals: 'P0Y';
     assertFormattingOf: 1 * year equals: 'P1Y';
     assertFormattingOf: 100 * year equals: 'P100Y';
-    assertFormattingOf: 1.5 * year equals: 'P1.500000Y';
-    assertFormattingOf: 1.5 * year withDecimalPlaces: 1 equals: 'P1.5Y';
-    assertFormattingOf: 1.52 * year withDecimalPlaces: 1 equals: 'P1.5Y';
-    assertFormattingOf: 1.55 * year withDecimalPlaces: 1 equals: 'P1.6Y'
+    assertFormattingOf: 1.5 * year equals: 'P1.5Y';
+    assertFormattingOf: 1.52 * year equals: 'P1.52Y'
 ]
 
 { #category : 'accessing' }
