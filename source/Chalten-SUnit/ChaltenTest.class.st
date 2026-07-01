@@ -32,16 +32,6 @@ ChaltenTest class >> isAbstract [
 ]
 
 { #category : 'asserting' }
-ChaltenTest >> assert: actual equals: expected [
-
-  super assert: actual equals: expected.
-  super assert: expected equals: actual.
-  "If the objects are not equal the previous statement will signal a failure exception,
-	so we can assume that at this point the objects are equal"
-  self assert: actual hash = expected hash description: 'Hash of equal objects must be equal too'
-]
-
-{ #category : 'asserting' }
 ChaltenTest >> assert: calendricalMagnitude isGreaterThan: anotherCalendricalMagnitude [
 
   self assert: calendricalMagnitude > anotherCalendricalMagnitude
@@ -75,13 +65,6 @@ ChaltenTest >> assertNextOf: calendricalMagnitude is: anotherCalendricalMagnitud
 ChaltenTest >> assertPreviousOf: calendricalMagnitude is: anotherCalendricalMagnitude [
 
   self assert: calendricalMagnitude previous equals: anotherCalendricalMagnitude
-]
-
-{ #category : 'asserting' }
-ChaltenTest >> deny: actual equals: expected [
-
-  super deny: actual equals: expected.
-  super deny: expected equals: actual
 ]
 
 { #category : 'asserting' }
