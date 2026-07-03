@@ -4,6 +4,9 @@ I'm a parser of the ISO 8601 extended format
 Class {
 	#name : 'ISO8601Parser',
 	#superclass : 'Object',
+	#instVars : [
+		'numberReader'
+	],
 	#category : 'Chalten-Core',
 	#package : 'Chalten-Core'
 }
@@ -68,13 +71,20 @@ ISO8601Parser >> errorMessageForYearParsing: string [
       localizedWithAll: { string }
 ]
 
+{ #category : 'initialization' }
+ISO8601Parser >> initialize [
+
+  super initialize.
+  self readNumbersUsing: Number
+]
+
 { #category : 'private' }
 ISO8601Parser >> numberIn: numberStream parsing: string [
 
   | numberString number |
   numberString := numberStream contents.
   numberString ifEmpty: [ self signal: ( self errorMessageForDurationParsing: string ) ].
-  number := Number
+  number := numberReader
               readFrom: numberString
               ifFail: [ self signal: ( self errorMessageForDurationParsing: string ) ].
   numberStream reset.
@@ -285,6 +295,12 @@ ISO8601Parser >> parseYear: string [
               readFrom: parsedString
               ifFail: [ self signal: ( self errorMessageForYearParsing: string ) ].
   ^ ( number * sign ) asGregorianYear
+]
+
+{ #category : 'initialization' }
+ISO8601Parser >> readNumbersUsing: reader [
+
+  numberReader := reader
 ]
 
 { #category : 'private' }

@@ -102,6 +102,18 @@ ISO8601ParserTest >> testParseDayDuration [
 ]
 
 { #category : 'tests' }
+ISO8601ParserTest >> testParseDurationUsingNonDefaultNumberReader [
+
+  | parser |
+  parser := ISO8601Parser new readNumbersUsing: Integer.
+  self
+    assert: ( parser parseDuration: 'P0M' ) equals: 0 * month;
+    assert: ( parser parseDuration: 'P1M' ) equals: 1 * month;
+    assert: ( parser parseDuration: 'P6M' ) equals: 6 * month;
+    assert: ( parser parseDuration: 'P6.0M' ) equals: 6 * month
+]
+
+{ #category : 'tests' }
 ISO8601ParserTest >> testParseHourDuration [
 
   self
