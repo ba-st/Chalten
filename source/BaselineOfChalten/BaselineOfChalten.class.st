@@ -34,6 +34,15 @@ BaselineOfChalten >> configureCore [
 ]
 
 { #category : 'postload' }
+BaselineOfChalten >> loadLocaleConventions [
+
+  self withSourceDirectoryReferenceDo: [ :source |
+      ( self classNamed: #LocaleConventions ) current loadJSONChronologyConventionsFrom:
+        source parent / 'locales' / 'chronology.json'
+    ]
+]
+
+{ #category : 'postload' }
 BaselineOfChalten >> loadTranslationUnits [
 
   self withSourceDirectoryReferenceDo: [ :source |
@@ -57,6 +66,11 @@ BaselineOfChalten >> setUpCorePackages: spec [
     group: 'Core' with: 'Chalten-Core';
     package: 'Chalten-Core-Aconcagua-Extensions' with: [ spec requires: 'Chalten-Core' ];
     group: 'Core' with: 'Chalten-Core-Aconcagua-Extensions';
+    package: 'Chalten-Core-Buoy-Extensions' with: [
+        spec postLoadDoIt: #loadLocaleConventions.
+        spec requires: 'Chalten-Core'
+      ];
+    group: 'Core' with: 'Chalten-Core-Buoy-Extensions';
     package: 'Chalten-Core-Extensions' with: [ spec requires: 'Chalten-Core' ];
     group: 'Core' with: 'Chalten-Core-Extensions';
     package: 'Chalten-Timezones' with: [ spec requires: 'Chalten-Core' ];
