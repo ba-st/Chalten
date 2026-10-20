@@ -135,7 +135,9 @@ LocalizedChronologyFormatter >> medium [
 LocalizedChronologyFormatter >> part: aPartName of: parts [
 
   ^ parts at: aPartName ifAbsent: [
-        AssertionFailed signal:('The pattern needs a <1s> the formatted object doesn''t have' expandMacrosWith: aPartName asString)
+        AssertionFailed signal:
+          ( 'The pattern needs a <1s> the formatted object doesn''t have' expandMacrosWith:
+              aPartName asString )
       ]
 ]
 
