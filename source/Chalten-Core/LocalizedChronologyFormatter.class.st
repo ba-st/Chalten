@@ -49,20 +49,22 @@ LocalizedChronologyFormatter >> fieldWriters [
 
   ^ Dictionary new
       at: #year put: [ :parts :stream | stream print: ( self part: #year of: parts ) ];
-      at: #twoDigitYear
-      put: [ :parts :stream | self print: ( self part: #year of: parts ) \\ 100 paddedOn: stream ];
+      at: #twoDigitYear put: [ :parts :stream |
+          stream nextPutAll:
+              ( ( self part: #year of: parts ) \\ 100 printStringLength: 2 padded: true ) ];
       at: #month
       put: [ :parts :stream | stream print: ( self part: #month of: parts ) positionInYear ];
-      at: #twoDigitMonth
-      put: [ :parts :stream |
-          self print: ( self part: #month of: parts ) positionInYear paddedOn: stream ];
+      at: #twoDigitMonth put: [ :parts :stream |
+          stream nextPutAll:
+              ( ( self part: #month of: parts ) positionInYear printStringLength: 2 padded: true )
+        ];
       at: #monthShortName
       put: [ :parts :stream | stream nextPutAll: ( self part: #month of: parts ) shortName ];
       at: #monthName
       put: [ :parts :stream | stream nextPutAll: ( self part: #month of: parts ) name ];
       at: #day put: [ :parts :stream | stream print: ( self part: #day of: parts ) ];
-      at: #twoDigitDay
-      put: [ :parts :stream | self print: ( self part: #day of: parts ) paddedOn: stream ];
+      at: #twoDigitDay put: [ :parts :stream |
+          stream nextPutAll: ( ( self part: #day of: parts ) printStringLength: 2 padded: true ) ];
       at: #dayOfWeekShortName
       put: [ :parts :stream | stream nextPutAll: ( self part: #dayOfWeek of: parts ) shortName ];
       at: #dayOfWeekName
@@ -142,13 +144,6 @@ LocalizedChronologyFormatter >> print: aPattern with: parts on: aStream [
           ]
         ifFalse: [ aStream nextPutAll: element ]
     ]
-]
-
-{ #category : 'private' }
-LocalizedChronologyFormatter >> print: anInteger paddedOn: aStream [
-
-  anInteger < 10 ifTrue: [ aStream nextPut: $0 ].
-  aStream print: anInteger
 ]
 
 { #category : 'printing' }
