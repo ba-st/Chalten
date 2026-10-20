@@ -107,7 +107,8 @@ GregorianLocalizationTest >> testDaysOfWeek [
 GregorianLocalizationTest >> testFieldsTheFormatterDoesNotKnowYet [
 
   | conventions |
-  conventions := self conventionsWith: '{"*": {"mediumDateFormat": "d/M/y h:mm"}}'.
+  conventions := self conventionsWith:
+                   '{"*": {"mediumDateFormat": "d/M/y h:mm", "mediumYearMonthFormat": "MMM y", "mediumMonthDayFormat": "MMM d"}}'.
 
   self
     should: [ self format: march fifth , 2026 in: 'en' with: conventions ]
@@ -163,7 +164,8 @@ GregorianLocalizationTest >> testMonthsOfYear [
 GregorianLocalizationTest >> testPatternsNeedingPartsTheObjectDoesNotHave [
 
   | conventions |
-  conventions := self conventionsWith: '{"*": {"mediumMonthDayFormat": "d MMM y"}}'.
+  conventions := self conventionsWith:
+                   '{"*": {"mediumDateFormat": "MMM d, y", "mediumYearMonthFormat": "MMM y", "mediumMonthDayFormat": "d MMM y"}}'.
 
   self
     should: [ self format: march fifth in: 'en' with: conventions ]

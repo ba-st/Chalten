@@ -1,7 +1,7 @@
 "
 I format dates following the conventions of a locale, taken from the Unicode CLDR: the order of their parts and the separators between them.
 
-I lay out every object in one of CLDR's four styles, chosen with my configuration messages: `short`, `medium` (the default), `long` and `full`. Each object is laid out with the patterns of the style for what it is:
+I lay out every object in one of CLDR's four styles, chosen with my configuration messages: `short`, `medium` (the default), `long` and `full`. Each of them takes the patterns of its style from the locale conventions, so formatting only applies them. Each object is laid out with the pattern of the style for what it is:
 
 - a date, with the locale's date pattern;
 - a month of a year, with its month and year patterns: `yM`, `yMMM` and `yMMMM` in the short, medium and long styles, and `yMMMM` in the full one;
@@ -17,7 +17,11 @@ Class {
 	#instVars : [
 		'languageTag',
 		'conventions',
-		'style'
+		'fieldWriters',
+		'datePattern',
+		'yearMonthPattern',
+		'monthDayPattern',
+		'nameOf'
 	],
 	#category : 'Chalten-Core',
 	#package : 'Chalten-Core'
@@ -44,34 +48,6 @@ LocalizedChronologyFormatter class >> for: aLanguageTag in: aLocaleConventions c
   ^ formatter
 ]
 
-{ #category : 'private' }
-LocalizedChronologyFormatter >> fieldWriters [
-
-  ^ Dictionary new
-      at: #year put: [ :parts :stream | stream print: ( self part: #year of: parts ) ];
-      at: #twoDigitYear put: [ :parts :stream |
-          stream nextPutAll:
-              ( ( self part: #year of: parts ) \\ 100 printStringLength: 2 padded: true ) ];
-      at: #month
-      put: [ :parts :stream | stream print: ( self part: #month of: parts ) positionInYear ];
-      at: #twoDigitMonth put: [ :parts :stream |
-          stream nextPutAll:
-              ( ( self part: #month of: parts ) positionInYear printStringLength: 2 padded: true )
-        ];
-      at: #monthShortName
-      put: [ :parts :stream | stream nextPutAll: ( self part: #month of: parts ) shortName ];
-      at: #monthName
-      put: [ :parts :stream | stream nextPutAll: ( self part: #month of: parts ) name ];
-      at: #day put: [ :parts :stream | stream print: ( self part: #day of: parts ) ];
-      at: #twoDigitDay put: [ :parts :stream |
-          stream nextPutAll: ( ( self part: #day of: parts ) printStringLength: 2 padded: true ) ];
-      at: #dayOfWeekShortName
-      put: [ :parts :stream | stream nextPutAll: ( self part: #dayOfWeek of: parts ) shortName ];
-      at: #dayOfWeekName
-      put: [ :parts :stream | stream nextPutAll: ( self part: #dayOfWeek of: parts ) name ];
-      yourself
-]
-
 { #category : 'formatting' }
 LocalizedChronologyFormatter >> format: aChronologyObject on: aStream [
   "The month and weekday names are translated by the objects themselves, into the current locale"
@@ -81,8 +57,50 @@ LocalizedChronologyFormatter >> format: aChronologyObject on: aStream [
 
 { #category : 'configuring' }
 LocalizedChronologyFormatter >> full [
+  "There are no full patterns for months of a year and days of a month: they use the long ones"
 
-  style := #full
+  datePattern := self patternNamed: #fullDateFormat.
+  yearMonthPattern := self patternNamed: #longYearMonthFormat.
+  monthDayPattern := self patternNamed: #longMonthDayFormat.
+  nameOf := [ :named | named name ]
+]
+
+{ #category : 'initialization' }
+LocalizedChronologyFormatter >> initializeFieldWriters [
+
+  fieldWriters := Dictionary new
+                    at: #year
+                    put: [ :parts :stream | stream print: ( self part: #year of: parts ) ];
+                    at: #twoDigitYear put: [ :parts :stream |
+                        stream nextPutAll:
+                            ( ( self part: #year of: parts ) \\ 100
+                                printStringLength: 2
+                                padded: true ) ];
+                    at: #month
+                    put: [ :parts :stream |
+                        stream print: ( self part: #month of: parts ) positionInYear ];
+                    at: #twoDigitMonth put: [ :parts :stream |
+                        stream nextPutAll:
+                            ( ( self part: #month of: parts ) positionInYear
+                                printStringLength: 2
+                                padded: true )
+                      ];
+                    at: #monthShortName
+                    put: [ :parts :stream |
+                        stream nextPutAll: ( self part: #month of: parts ) shortName ];
+                    at: #monthName
+                    put: [ :parts :stream | stream nextPutAll: ( self part: #month of: parts ) name ];
+                    at: #day put: [ :parts :stream | stream print: ( self part: #day of: parts ) ];
+                    at: #twoDigitDay put: [ :parts :stream |
+                        stream nextPutAll:
+                            ( ( self part: #day of: parts ) printStringLength: 2 padded: true ) ];
+                    at: #dayOfWeekShortName
+                    put: [ :parts :stream |
+                        stream nextPutAll: ( self part: #dayOfWeek of: parts ) shortName ];
+                    at: #dayOfWeekName
+                    put: [ :parts :stream |
+                        stream nextPutAll: ( self part: #dayOfWeek of: parts ) name ];
+                    yourself
 ]
 
 { #category : 'initialization' }
@@ -90,25 +108,27 @@ LocalizedChronologyFormatter >> initializeFor: aLanguageTag in: aLocaleConventio
 
   languageTag := aLanguageTag asLanguageTag.
   conventions := aLocaleConventions.
-  style := #medium
-]
-
-{ #category : 'private' }
-LocalizedChronologyFormatter >> isAbbreviated [
-
-  ^ style = #short or: [ style = #medium ]
+  self
+    initializeFieldWriters;
+    medium
 ]
 
 { #category : 'configuring' }
 LocalizedChronologyFormatter >> long [
 
-  style := #long
+  datePattern := self patternNamed: #longDateFormat.
+  yearMonthPattern := self patternNamed: #longYearMonthFormat.
+  monthDayPattern := self patternNamed: #longMonthDayFormat.
+  nameOf := [ :named | named name ]
 ]
 
 { #category : 'configuring' }
 LocalizedChronologyFormatter >> medium [
 
-  style := #medium
+  datePattern := self patternNamed: #mediumDateFormat.
+  yearMonthPattern := self patternNamed: #mediumYearMonthFormat.
+  monthDayPattern := self patternNamed: #mediumMonthDayFormat.
+  nameOf := [ :named | named shortName ]
 ]
 
 { #category : 'private' }
@@ -129,8 +149,6 @@ LocalizedChronologyFormatter >> patternNamed: aName [
 { #category : 'private' }
 LocalizedChronologyFormatter >> print: aPattern with: parts on: aStream [
 
-  | fieldWriters |
-  fieldWriters := self fieldWriters.
   aPattern elements do: [ :element |
       element isSymbol
         ifTrue: [
@@ -150,7 +168,7 @@ LocalizedChronologyFormatter >> print: aPattern with: parts on: aStream [
 LocalizedChronologyFormatter >> printDate: aGregorianDate on: aStream [
 
   self
-    print: ( self patternNamed: style asString , 'DateFormat' )
+    print: datePattern
     with: ( Dictionary new
           at: #year put: aGregorianDate yearNumber;
           at: #month put: aGregorianDate month;
@@ -167,7 +185,7 @@ LocalizedChronologyFormatter >> printDayOfMonth: aCalendarDayOfMonth on: aStream
     enforce: [ aCalendarDayOfMonth month isGregorian ]
     because: 'Only days of Gregorian months can be localized'.
   self
-    print: ( self patternNamed: self wholeMonthStyle asString , 'MonthDayFormat' )
+    print: monthDayPattern
     with: ( Dictionary new
           at: #month put: aCalendarDayOfMonth month;
           at: #day put: aCalendarDayOfMonth dayNumber;
@@ -178,24 +196,20 @@ LocalizedChronologyFormatter >> printDayOfMonth: aCalendarDayOfMonth on: aStream
 { #category : 'printing' }
 LocalizedChronologyFormatter >> printDayOfWeek: aCalendarDayOfWeek on: aStream [
 
-  aStream nextPutAll: ( self isAbbreviated
-        ifTrue: [ aCalendarDayOfWeek shortName ]
-        ifFalse: [ aCalendarDayOfWeek name ] )
+  aStream nextPutAll: ( nameOf value: aCalendarDayOfWeek )
 ]
 
 { #category : 'printing' }
 LocalizedChronologyFormatter >> printMonth: aCalendarMonth on: aStream [
 
-  aStream nextPutAll: ( self isAbbreviated
-        ifTrue: [ aCalendarMonth shortName ]
-        ifFalse: [ aCalendarMonth name ] )
+  aStream nextPutAll: ( nameOf value: aCalendarMonth )
 ]
 
 { #category : 'printing' }
 LocalizedChronologyFormatter >> printMonthOfYear: aGregorianMonthOfYear on: aStream [
 
   self
-    print: ( self patternNamed: self wholeMonthStyle asString , 'YearMonthFormat' )
+    print: yearMonthPattern
     with: ( Dictionary new
           at: #year put: aGregorianMonthOfYear year number;
           at: #month put: aGregorianMonthOfYear month;
@@ -212,14 +226,8 @@ LocalizedChronologyFormatter >> printYear: aGregorianYear on: aStream [
 { #category : 'configuring' }
 LocalizedChronologyFormatter >> short [
 
-  style := #short
-]
-
-{ #category : 'private' }
-LocalizedChronologyFormatter >> wholeMonthStyle [
-  "The patterns of a month of a year and of a day of a month have no full style: they use the long one"
-
-  ^ style = #full
-      ifTrue: [ #long ]
-      ifFalse: [ style ]
+  datePattern := self patternNamed: #shortDateFormat.
+  yearMonthPattern := self patternNamed: #shortYearMonthFormat.
+  monthDayPattern := self patternNamed: #shortMonthDayFormat.
+  nameOf := [ :named | named shortName ]
 ]
