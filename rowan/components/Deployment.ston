@@ -9,6 +9,7 @@ RwSimpleProjectLoadComponentV2 {
   #packageNames : [
     'Chalten-Core',
     'Chalten-Core-Aconcagua-Extensions',
+    'Chalten-Core-Buoy-Extensions',
     'Chalten-Core-Extensions',
     'Chalten-Core-GS64-Extensions',
     'Chalten-Timezones'
@@ -19,6 +20,7 @@ RwSimpleProjectLoadComponentV2 {
         #packageNameToPlatformPropertiesMap : {
           'Chalten-Core' : { 'symbolDictName' : 'Chalten' },
           'Chalten-Core-Aconcagua-Extensions' : { 'symbolDictName' : 'Aconcagua' },
+          'Chalten-Core-Buoy-Extensions' : { 'symbolDictName' : 'Buoy' },
           'Chalten-Core-Extensions' : { 'symbolDictName' : 'Globals' },
           'Chalten-Core-GS64-Extensions' : { 'symbolDictName' : 'Globals' },
           'Chalten-Timezones' : { 'symbolDictName' : 'Chalten' }
