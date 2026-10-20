@@ -88,6 +88,18 @@ CalendarMonth >> isGregorian [
   ^ self subclassResponsibility
 ]
 
+{ #category : 'printing' }
+CalendarMonth >> localized [
+
+  ^ self localizedWith: [ :options |  ]
+]
+
+{ #category : 'printing' }
+CalendarMonth >> localizedWith: aBlock [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
+]
+
 { #category : 'accessing' }
 CalendarMonth >> name [
 
@@ -104,6 +116,12 @@ CalendarMonth >> nineteenth [
 CalendarMonth >> ninth [
 
   ^ self dayOfMonthAt: 9
+]
+
+{ #category : 'printing' }
+CalendarMonth >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
+
+  aLocalizedChronologyFormatter printMonth: self on: aStream
 ]
 
 { #category : 'printing' }
@@ -230,22 +248,4 @@ CalendarMonth >> twentySixth [
 CalendarMonth >> twentyThird [
 
   ^ self dayOfMonthAt: 23
-]
-
-{ #category : 'printing' }
-CalendarMonth >> localized [
-
-  ^ self localizedWith: [ :options |  ]
-]
-
-{ #category : 'printing' }
-CalendarMonth >> localizedWith: aBlock [
-
-  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
-]
-
-{ #category : 'printing' }
-CalendarMonth >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
-
-  aLocalizedChronologyFormatter printMonth: self on: aStream
 ]

@@ -63,6 +63,18 @@ CalendarDayOfWeek >> initializeNamed: aName shortNamed: aShortName positionInWee
   positionInWeek := anInteger
 ]
 
+{ #category : 'printing' }
+CalendarDayOfWeek >> localized [
+
+  ^ self localizedWith: [ :options |  ]
+]
+
+{ #category : 'printing' }
+CalendarDayOfWeek >> localizedWith: aBlock [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
+]
+
 { #category : 'accessing' }
 CalendarDayOfWeek >> name [
 
@@ -88,6 +100,12 @@ CalendarDayOfWeek >> previous [
 ]
 
 { #category : 'printing' }
+CalendarDayOfWeek >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
+
+  aLocalizedChronologyFormatter printDayOfWeek: self on: aStream
+]
+
+{ #category : 'printing' }
 CalendarDayOfWeek >> printOn: stream [
 
   stream nextPutAll: name
@@ -97,22 +115,4 @@ CalendarDayOfWeek >> printOn: stream [
 CalendarDayOfWeek >> shortName [
 
   ^ shortName localized
-]
-
-{ #category : 'printing' }
-CalendarDayOfWeek >> localized [
-
-  ^ self localizedWith: [ :options |  ]
-]
-
-{ #category : 'printing' }
-CalendarDayOfWeek >> localizedWith: aBlock [
-
-  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
-]
-
-{ #category : 'printing' }
-CalendarDayOfWeek >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
-
-  aLocalizedChronologyFormatter printDayOfWeek: self on: aStream
 ]

@@ -70,6 +70,18 @@ GregorianMonthOfYear >> initializeYear: aGregorianYear month: aGregorianMonth [
   dates := Array new: self numberOfDays numericalValue
 ]
 
+{ #category : 'printing' }
+GregorianMonthOfYear >> localized [
+
+  ^ self localizedWith: [ :options |  ]
+]
+
+{ #category : 'printing' }
+GregorianMonthOfYear >> localizedWith: aBlock [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
+]
+
 { #category : 'accessing' }
 GregorianMonthOfYear >> month [
 
@@ -137,6 +149,12 @@ GregorianMonthOfYear >> printAsISO8601On: stream [
 ]
 
 { #category : 'printing' }
+GregorianMonthOfYear >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
+
+  aLocalizedChronologyFormatter printMonthOfYear: self on: aStream
+]
+
+{ #category : 'printing' }
 GregorianMonthOfYear >> printOn: stream [
 
   stream
@@ -199,22 +217,4 @@ GregorianMonthOfYear >> when: relativeTimeQuantity isWholeYearsDo: wholeBlock ot
 GregorianMonthOfYear >> year [
 
   ^ year
-]
-
-{ #category : 'printing' }
-GregorianMonthOfYear >> localized [
-
-  ^ self localizedWith: [ :options |  ]
-]
-
-{ #category : 'printing' }
-GregorianMonthOfYear >> localizedWith: aBlock [
-
-  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
-]
-
-{ #category : 'printing' }
-GregorianMonthOfYear >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
-
-  aLocalizedChronologyFormatter printMonthOfYear: self on: aStream
 ]

@@ -36,15 +36,6 @@ HebrewDayOfMonthTest >> testInstanceCreation [
 ]
 
 { #category : 'tests' }
-HebrewDayOfMonthTest >> testLocalizationIsNotSupported [
-
-  self
-    should: [ tishrei first localized ]
-    raise: AssertionFailed
-    withMessageText: 'Only days of Gregorian months can be localized'
-]
-
-{ #category : 'tests' }
 HebrewDayOfMonthTest >> testInstanceCreationShortcut [
 
   | dayOfMonth |
@@ -556,6 +547,15 @@ HebrewDayOfMonthTest >> testInstanceCreationShortcutForTishrei [
     assert: ( tishrei twentyEighth , 5793 ) printString equals: 'Tishrei 28, 5793 AM';
     assert: ( tishrei twentyNinth , 5793 ) printString equals: 'Tishrei 29, 5793 AM';
     assert: ( tishrei thirtieth , 5793 ) printString equals: 'Tishrei 30, 5793 AM'
+]
+
+{ #category : 'tests' }
+HebrewDayOfMonthTest >> testLocalizationIsNotSupported [
+
+  self
+    should: [ tishrei first localized ]
+    raise: AssertionFailed
+    withMessageText: 'Only days of Gregorian months can be localized'
 ]
 
 { #category : 'tests' }

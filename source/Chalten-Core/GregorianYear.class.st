@@ -144,6 +144,18 @@ GregorianYear >> lastDate [
   ^ self december last
 ]
 
+{ #category : 'printing' }
+GregorianYear >> localized [
+
+  ^ self localizedWith: [ :options |  ]
+]
+
+{ #category : 'printing' }
+GregorianYear >> localizedWith: aBlock [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
+]
+
 { #category : 'accessing - months' }
 GregorianYear >> march [
 
@@ -210,6 +222,12 @@ GregorianYear >> printAsISO8601On: stream [
 ]
 
 { #category : 'printing' }
+GregorianYear >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
+
+  aLocalizedChronologyFormatter printYear: self on: aStream
+]
+
+{ #category : 'printing' }
 GregorianYear >> printOn: stream [
 
 	stream print: number 
@@ -219,22 +237,4 @@ GregorianYear >> printOn: stream [
 GregorianYear >> september [
 
   ^ self monthAt: 9
-]
-
-{ #category : 'printing' }
-GregorianYear >> localized [
-
-  ^ self localizedWith: [ :options |  ]
-]
-
-{ #category : 'printing' }
-GregorianYear >> localizedWith: aBlock [
-
-  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
-]
-
-{ #category : 'printing' }
-GregorianYear >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
-
-  aLocalizedChronologyFormatter printYear: self on: aStream
 ]
