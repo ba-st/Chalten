@@ -98,3 +98,21 @@ CalendarDayOfWeek >> shortName [
 
   ^ shortName localized
 ]
+
+{ #category : 'printing' }
+CalendarDayOfWeek >> localized [
+
+  ^ self localizedWith: [ :options |  ]
+]
+
+{ #category : 'printing' }
+CalendarDayOfWeek >> localizedWith: aBlock [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
+]
+
+{ #category : 'printing' }
+CalendarDayOfWeek >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
+
+  aLocalizedChronologyFormatter printDayOfWeek: self on: aStream
+]

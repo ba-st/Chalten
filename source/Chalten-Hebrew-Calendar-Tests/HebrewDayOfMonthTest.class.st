@@ -36,6 +36,15 @@ HebrewDayOfMonthTest >> testInstanceCreation [
 ]
 
 { #category : 'tests' }
+HebrewDayOfMonthTest >> testLocalizationIsNotSupported [
+
+  self
+    should: [ tishrei first localized ]
+    raise: AssertionFailed
+    withMessageText: 'Only days of Gregorian months can be localized'
+]
+
+{ #category : 'tests' }
 HebrewDayOfMonthTest >> testInstanceCreationShortcut [
 
   | dayOfMonth |

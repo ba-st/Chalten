@@ -200,3 +200,21 @@ GregorianMonthOfYear >> year [
 
   ^ year
 ]
+
+{ #category : 'printing' }
+GregorianMonthOfYear >> localized [
+
+  ^ self localizedWith: [ :options |  ]
+]
+
+{ #category : 'printing' }
+GregorianMonthOfYear >> localizedWith: aBlock [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
+]
+
+{ #category : 'printing' }
+GregorianMonthOfYear >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
+
+  aLocalizedChronologyFormatter printMonthOfYear: self on: aStream
+]

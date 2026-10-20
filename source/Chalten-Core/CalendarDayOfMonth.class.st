@@ -93,3 +93,21 @@ CalendarDayOfMonth >> printOn: stream [
     space;
     print: dayNumber
 ]
+
+{ #category : 'printing' }
+CalendarDayOfMonth >> localized [
+
+  ^ self localizedWith: [ :options |  ]
+]
+
+{ #category : 'printing' }
+CalendarDayOfMonth >> localizedWith: aBlock [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
+]
+
+{ #category : 'printing' }
+CalendarDayOfMonth >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
+
+  aLocalizedChronologyFormatter printDayOfMonth: self on: aStream
+]
