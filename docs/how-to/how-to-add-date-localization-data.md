@@ -190,12 +190,24 @@ locales=$(
     ' "$@"
 )
 
+# GemStone/S 64 can't load characters beyond U+FFFF, written in JSON as
+# surrogate pairs, so the locales needing them are left out.
+fits_in_16_bits() {
+  jq --exit-status '[.conventions[] | explode[]] | all(. < 65536)' \
+    > /dev/null <<< "$1"
+}
+
 # "*" comes from CLDR's root locale, und. Each language keeps what differs
 # from "*", and each regional variant what differs from its language.
 {
   conventions_of und
   for locale in ${locales}; do
-    conventions_of "${locale}"
+    conventions=$(conventions_of "${locale}")
+    if fits_in_16_bits "${conventions}"; then
+      echo "${conventions}"
+    else
+      echo "Leaving out ${locale}: it needs characters beyond U+FFFF" >&2
+    fi
   done
 } | jq --slurp --raw-output '
   def without($base): with_entries(select(.value != $base[.key]));
@@ -205,13 +217,7 @@ locales=$(
     | map("0123456789ABCDEF"[.:. + 1]) | join("");
   def ascii:
     explode
-    | map(
-        if . < 128 then [.] | implode
-        elif . < 65536 then "\\u" + hex4
-        else (. - 65536) as $c
-          | "\\u" + (55296 + ($c / 1024 | floor) | hex4)
-            + "\\u" + (56320 + $c % 1024 | hex4)
-        end)
+    | map(if . < 128 then [.] | implode else "\\u" + hex4 end)
     | join("");
   def entry:
     (.value | to_entries | map("\(.key | tojson): \(.value | tojson)"))
@@ -241,6 +247,10 @@ Run it with the languages to add:
 ```bash
 bash cldr-date-conventions.sh fr de > locales/chronology.json
 ```
+
+The script leaves out, with a message, the locales needing characters beyond
+U+FFFF, which GemStone/S 64 can't load: in English, `en-Dsrt` and `en-Shaw`,
+written in the Deseret and Shavian alphabets.
 
 The output always starts with `*`, CLDR's defaults. Each language keeps only
 what differs from `*`, and each regional variant only what differs from its
