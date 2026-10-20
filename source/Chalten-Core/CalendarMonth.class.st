@@ -91,7 +91,7 @@ CalendarMonth >> isGregorian [
 { #category : 'printing' }
 CalendarMonth >> localized [
 
-  ^ self localizedWith: [ :options |  ]
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value ) format: self
 ]
 
 { #category : 'printing' }

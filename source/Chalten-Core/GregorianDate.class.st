@@ -81,7 +81,7 @@ GregorianDate >> initalizeMonthOfYear: aGregorianMonthOfYear dayNumber: aDayNumb
 { #category : 'printing' }
 GregorianDate >> localized [
 
-  ^ self localizedWith: [ :options |  ]
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value ) format: self
 ]
 
 { #category : 'printing' }

@@ -66,7 +66,7 @@ CalendarDayOfWeek >> initializeNamed: aName shortNamed: aShortName positionInWee
 { #category : 'printing' }
 CalendarDayOfWeek >> localized [
 
-  ^ self localizedWith: [ :options |  ]
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value ) format: self
 ]
 
 { #category : 'printing' }

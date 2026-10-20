@@ -147,7 +147,7 @@ GregorianYear >> lastDate [
 { #category : 'printing' }
 GregorianYear >> localized [
 
-  ^ self localizedWith: [ :options |  ]
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value ) format: self
 ]
 
 { #category : 'printing' }

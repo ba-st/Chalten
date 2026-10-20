@@ -82,7 +82,7 @@ CalendarDayOfMonth >> initalizeMonth: aCalendarMonth dayNumber: aDayNumber [
 { #category : 'printing' }
 CalendarDayOfMonth >> localized [
 
-  ^ self localizedWith: [ :options |  ]
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value ) format: self
 ]
 
 { #category : 'printing' }

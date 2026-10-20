@@ -73,7 +73,7 @@ GregorianMonthOfYear >> initializeYear: aGregorianYear month: aGregorianMonth [
 { #category : 'printing' }
 GregorianMonthOfYear >> localized [
 
-  ^ self localizedWith: [ :options |  ]
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value ) format: self
 ]
 
 { #category : 'printing' }
