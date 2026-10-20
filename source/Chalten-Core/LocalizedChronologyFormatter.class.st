@@ -21,7 +21,7 @@ Class {
 		'datePattern',
 		'yearMonthPattern',
 		'monthDayPattern',
-		'nameOf'
+		'nameAccessor'
 	],
 	#category : 'Chalten-Core',
 	#package : 'Chalten-Core'
@@ -62,7 +62,7 @@ LocalizedChronologyFormatter >> full [
   datePattern := self patternNamed: #fullDateFormat.
   yearMonthPattern := self patternNamed: #longYearMonthFormat.
   monthDayPattern := self patternNamed: #longMonthDayFormat.
-  nameOf := [ :named | named name ]
+  nameAccessor := [ :named | named name ]
 ]
 
 { #category : 'initialization' }
@@ -119,7 +119,7 @@ LocalizedChronologyFormatter >> long [
   datePattern := self patternNamed: #longDateFormat.
   yearMonthPattern := self patternNamed: #longYearMonthFormat.
   monthDayPattern := self patternNamed: #longMonthDayFormat.
-  nameOf := [ :named | named name ]
+  nameAccessor := [ :named | named name ]
 ]
 
 { #category : 'configuring' }
@@ -128,15 +128,14 @@ LocalizedChronologyFormatter >> medium [
   datePattern := self patternNamed: #mediumDateFormat.
   yearMonthPattern := self patternNamed: #mediumYearMonthFormat.
   monthDayPattern := self patternNamed: #mediumMonthDayFormat.
-  nameOf := [ :named | named shortName ]
+  nameAccessor := [ :named | named shortName ]
 ]
 
 { #category : 'private' }
 LocalizedChronologyFormatter >> part: aPartName of: parts [
 
   ^ parts at: aPartName ifAbsent: [
-        AssertionFailed signal:
-          'The pattern needs a ' , aPartName asString , ' the formatted object doesn''t have'
+        AssertionFailed signal:('The pattern needs a <1s> the formatted object doesn''t have' expandMacrosWith: aPartName asString)
       ]
 ]
 
@@ -152,13 +151,13 @@ LocalizedChronologyFormatter >> print: aPattern with: parts on: aStream [
   aPattern elements do: [ :element |
       element isSymbol
         ifTrue: [
-            ( fieldWriters
-                at: element
-                ifAbsent: [
-                  AssertionFailed signal:
-                    'The field ' , element asString , ' can''t be formatted yet' ] )
-              value: parts
-              value: aStream
+            | writer |
+            writer := fieldWriters at: element ifAbsent: [
+                          AssertionFailed signal:
+                            ( 'The field <1s> can''t be formatted yet' expandMacrosWith:
+                                element asString )
+                        ].
+            writer value: parts value: aStream
           ]
         ifFalse: [ aStream nextPutAll: element ]
     ]
@@ -196,13 +195,13 @@ LocalizedChronologyFormatter >> printDayOfMonth: aCalendarDayOfMonth on: aStream
 { #category : 'printing' }
 LocalizedChronologyFormatter >> printDayOfWeek: aCalendarDayOfWeek on: aStream [
 
-  aStream nextPutAll: ( nameOf value: aCalendarDayOfWeek )
+  aStream nextPutAll: ( nameAccessor value: aCalendarDayOfWeek )
 ]
 
 { #category : 'printing' }
 LocalizedChronologyFormatter >> printMonth: aCalendarMonth on: aStream [
 
-  aStream nextPutAll: ( nameOf value: aCalendarMonth )
+  aStream nextPutAll: ( nameAccessor value: aCalendarMonth )
 ]
 
 { #category : 'printing' }
@@ -229,5 +228,5 @@ LocalizedChronologyFormatter >> short [
   datePattern := self patternNamed: #shortDateFormat.
   yearMonthPattern := self patternNamed: #shortYearMonthFormat.
   monthDayPattern := self patternNamed: #shortMonthDayFormat.
-  nameOf := [ :named | named shortName ]
+  nameAccessor := [ :named | named shortName ]
 ]
