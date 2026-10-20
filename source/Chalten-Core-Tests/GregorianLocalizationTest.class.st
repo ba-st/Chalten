@@ -176,10 +176,10 @@ GregorianLocalizationTest >> testYears [
 
   #( 'en' 'en-GB' 'es' 'es-AR' ) do: [ :languageTag |
       self
-        assertLocalizationsOf: ( GregorianYear number: 2026 )
+        assertLocalizationsOf: 2026 asGregorianYear
         in: languageTag
         are: #( '2026' '2026' '2026' '2026' );
-        assertLocalizationsOf: ( GregorianYear number: 12026 )
+        assertLocalizationsOf: 12026 asGregorianYear
         in: languageTag
         are: #( '12026' '12026' '12026' '12026' )
     ]
