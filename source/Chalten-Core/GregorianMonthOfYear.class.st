@@ -70,6 +70,18 @@ GregorianMonthOfYear >> initializeYear: aGregorianYear month: aGregorianMonth [
   dates := Array new: self numberOfDays numericalValue
 ]
 
+{ #category : 'printing' }
+GregorianMonthOfYear >> localized [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value ) format: self
+]
+
+{ #category : 'printing' }
+GregorianMonthOfYear >> localizedWith: aBlock [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
+]
+
 { #category : 'accessing' }
 GregorianMonthOfYear >> month [
 
@@ -134,6 +146,12 @@ GregorianMonthOfYear >> printAsISO8601On: stream [
   year printAsISO8601On: stream.
   stream nextPut: $-.
   month printAsISO8601On: stream
+]
+
+{ #category : 'printing' }
+GregorianMonthOfYear >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
+
+  aLocalizedChronologyFormatter printMonthOfYear: self on: aStream
 ]
 
 { #category : 'printing' }

@@ -144,6 +144,18 @@ GregorianYear >> lastDate [
   ^ self december last
 ]
 
+{ #category : 'printing' }
+GregorianYear >> localized [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value ) format: self
+]
+
+{ #category : 'printing' }
+GregorianYear >> localizedWith: aBlock [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
+]
+
 { #category : 'accessing - months' }
 GregorianYear >> march [
 
@@ -207,6 +219,12 @@ GregorianYear >> printAsISO8601On: stream [
     otherwise: [ stream nextPut: $- ].
   minimumLength := number abs > 9999 then: [ 6 ] otherwise: [ 4 ].
   stream nextPutAll: ( number abs printStringLength: minimumLength padded: true )
+]
+
+{ #category : 'printing' }
+GregorianYear >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
+
+  aLocalizedChronologyFormatter printYear: self on: aStream
 ]
 
 { #category : 'printing' }

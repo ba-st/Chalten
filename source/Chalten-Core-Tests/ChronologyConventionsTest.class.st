@@ -103,6 +103,17 @@ ChronologyConventionsTest >> testPropertyNames [
 ]
 
 { #category : 'tests' }
+ChronologyConventionsTest >> testPropertyNotDefined [
+
+  self load: '{"es": {"shortDateFormat": "d/M/yy"}}'.
+
+  self
+    should: [ self propertyNamed: #longDateFormat for: 'es-AR' ]
+    raise: ObjectNotFound
+    withMessageText: 'There''s no longDateFormat convention for es-AR'
+]
+
+{ #category : 'tests' }
 ChronologyConventionsTest >> testPropertyResolvedFromTheMostSpecificRange [
 
   self loadSpanishConventions.
@@ -115,17 +126,6 @@ ChronologyConventionsTest >> testPropertyResolvedFromTheMostSpecificRange [
     assert: ( self propertyNamed: #amMark for: 'es-AR' ) equals: 'a. m.';
     assert: ( self propertyNamed: #shortDateFormat for: 'en' ) equals: 'y-MM-dd';
     assert: ( self propertyNamed: #amMark for: 'en-GB' ) equals: 'AM'
-]
-
-{ #category : 'tests' }
-ChronologyConventionsTest >> testPropertyNotDefined [
-
-  self load: '{"es": {"shortDateFormat": "d/M/yy"}}'.
-
-  self
-    should: [ self propertyNamed: #longDateFormat for: 'es-AR' ]
-    raise: ObjectNotFound
-    withMessageText: 'There''s no longDateFormat convention for es-AR'
 ]
 
 { #category : 'tests' }

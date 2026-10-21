@@ -79,10 +79,28 @@ CalendarDayOfMonth >> initalizeMonth: aCalendarMonth dayNumber: aDayNumber [
   dayNumber := aDayNumber
 ]
 
+{ #category : 'printing' }
+CalendarDayOfMonth >> localized [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value ) format: self
+]
+
+{ #category : 'printing' }
+CalendarDayOfMonth >> localizedWith: aBlock [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
+]
+
 { #category : 'accessing' }
 CalendarDayOfMonth >> month [
 
   ^ month
+]
+
+{ #category : 'printing' }
+CalendarDayOfMonth >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
+
+  aLocalizedChronologyFormatter printDayOfMonth: self on: aStream
 ]
 
 { #category : 'printing' }
