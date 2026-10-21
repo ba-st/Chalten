@@ -165,6 +165,18 @@ TimeOfDay >> initializeOffsetFromStartOfDay: timeQuantity [
   timeFromStartOfDay := timeQuantity
 ]
 
+{ #category : 'printing' }
+TimeOfDay >> localized [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value ) format: self
+]
+
+{ #category : 'printing' }
+TimeOfDay >> localizedWith: aBlock [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
+]
+
 { #category : 'accessing' }
 TimeOfDay >> microseconds [
 
@@ -182,6 +194,12 @@ TimeOfDay >> printAsISO8601On: stream [
 
   stream nextPut: $T.
   self printOn: stream
+]
+
+{ #category : 'printing' }
+TimeOfDay >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
+
+  aLocalizedChronologyFormatter printTimeOfDay: self on: aStream
 ]
 
 { #category : 'printing' }

@@ -71,10 +71,31 @@ TimeOffsetAwareGregorianDateTime >> julianDayNumber [
   ^ ( instant next: appliedOffset ) julianDayNumber
 ]
 
+{ #category : 'printing' }
+TimeOffsetAwareGregorianDateTime >> localized [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value ) format: self
+]
+
+{ #category : 'printing' }
+TimeOffsetAwareGregorianDateTime >> localizedWith: aBlock [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
+]
+
 { #category : 'accessing' }
 TimeOffsetAwareGregorianDateTime >> microsecondsSinceEpoch [
 
   ^ instant microsecondsSinceEpoch
+]
+
+{ #category : 'printing' }
+TimeOffsetAwareGregorianDateTime >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
+
+  aLocalizedChronologyFormatter
+    printDateTime: self asRelativePointInTime
+    offsetBy: appliedOffset
+    on: aStream
 ]
 
 { #category : 'printing' }

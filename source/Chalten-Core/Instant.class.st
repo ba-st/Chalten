@@ -155,6 +155,18 @@ Instant >> julianDayNumberOfEpoch [
 	^ self class julianDayNumberOfEpoch
 ]
 
+{ #category : 'printing' }
+Instant >> localized [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value ) format: self
+]
+
+{ #category : 'printing' }
+Instant >> localizedWith: aBlock [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
+]
+
 { #category : 'accessing' }
 Instant >> microsecondsSinceEpoch [
 
@@ -179,6 +191,15 @@ Instant >> previous: timePeriod [
 
   ^ self class microsecondsSinceEpoch:
       microsecondsSinceEpoch - ( timePeriod convertTo: self class microsecond )
+]
+
+{ #category : 'printing' }
+Instant >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
+  "Instants are defined on UTC, so they are shown as a date and time with no offset"
+
+  self asGregorianDateTimeInCoordinatedUniversalTime
+    printLocalizedOn: aStream
+    using: aLocalizedChronologyFormatter
 ]
 
 { #category : 'printing' }
