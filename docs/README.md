@@ -38,6 +38,8 @@ expand your understanding over specific topics:
 - **Islamic Calendar**:
   See the [related documentation.](reference/Islamic.md)
 - **Timezones**: See the [related documentation.](reference/Timezones.md)
+- **Localization**: Dates and times laid out following the conventions of a
+  locale. See the [related documentation.](reference/Localization.md)
 
 ---
 
@@ -45,3 +47,7 @@ To use the project as a dependency of your project, take a look at:
 
 - [Pharo: How to use Chalten as a dependency](how-to/how-to-use-as-dependency-in-pharo.md)
 - [Baseline groups & components reference](reference/Baseline-groups.md)
+
+To localize dates and times in other languages, take a look at:
+
+- [How to add date localization data](how-to/how-to-add-date-localization-data.md)

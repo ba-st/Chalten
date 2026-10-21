@@ -15,6 +15,9 @@ In essence, it treats the Gregorian rules (leap years every 4 years, except for
 centuries not divisible by 400) as if they had always existed, even during eras
 when the world was actually using the Julian calendar or other systems.
 
+Gregorian dates, times and their parts can be shown following the conventions
+of a locale, like `'5 de Marzo de 2026'`: see [Localization](Localization.md).
+
 ## `GregorianYear`
 
 A year in the Gregorian Calendar. On common years, the Gregorian year has 365 days;
