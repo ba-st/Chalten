@@ -1,5 +1,7 @@
 "
 I test the date and time conventions shipped with Chalten, loaded into the current locale conventions when Chalten is loaded.
+
+The expected values are written with Buoy's escape sequences for invisible characters, like `\u{202F}` for the narrow no-break space.
 "
 Class {
 	#name : 'ShippedChronologyConventionsTest',
@@ -14,11 +16,11 @@ ShippedChronologyConventionsTest >> assertConventionsFor: aLanguageTag areDates:
   #( #shortDateFormat #mediumDateFormat #longDateFormat #fullDateFormat )
     with: dateFormats
     do: [ :name :format |
-      self assert: ( self propertyNamed: name for: aLanguageTag ) equals: format ].
+        self assert: ( self propertyNamed: name for: aLanguageTag ) equals: format unescaped ].
   #( #shortTimeFormat #mediumTimeFormat #longTimeFormat #fullTimeFormat )
     with: timeFormats
     do: [ :name :format |
-      self assert: ( self propertyNamed: name for: aLanguageTag ) equals: format ]
+        self assert: ( self propertyNamed: name for: aLanguageTag ) equals: format unescaped ]
 ]
 
 { #category : 'private' }
@@ -27,11 +29,11 @@ ShippedChronologyConventionsTest >> assertConventionsFor: aLanguageTag areYearMo
   #( #shortYearMonthFormat #mediumYearMonthFormat #longYearMonthFormat )
     with: yearMonthFormats
     do: [ :name :format |
-      self assert: ( self propertyNamed: name for: aLanguageTag ) equals: format ].
+        self assert: ( self propertyNamed: name for: aLanguageTag ) equals: format unescaped ].
   #( #shortMonthDayFormat #mediumMonthDayFormat #longMonthDayFormat )
     with: monthDayFormats
     do: [ :name :format |
-      self assert: ( self propertyNamed: name for: aLanguageTag ) equals: format ]
+        self assert: ( self propertyNamed: name for: aLanguageTag ) equals: format unescaped ]
 ]
 
 { #category : 'private' }
@@ -45,14 +47,8 @@ ShippedChronologyConventionsTest >> assertDateTimeFormatsFor: aLanguageTag are: 
 ShippedChronologyConventionsTest >> assertMarksFor: aLanguageTag are: amMark and: pmMark [
 
   self
-    assert: ( self propertyNamed: #amMark for: aLanguageTag ) equals: amMark;
-    assert: ( self propertyNamed: #pmMark for: aLanguageTag ) equals: pmMark
-]
-
-{ #category : 'private' }
-ShippedChronologyConventionsTest >> narrowNoBreakSpace [
-
-  ^ String with: ( Character codePoint: 16r202F )
+    assert: ( self propertyNamed: #amMark for: aLanguageTag ) equals: amMark unescaped;
+    assert: ( self propertyNamed: #pmMark for: aLanguageTag ) equals: pmMark unescaped
 ]
 
 { #category : 'private' }
@@ -64,18 +60,15 @@ ShippedChronologyConventionsTest >> propertyNamed: aName for: aLanguageTag [
 { #category : 'tests' }
 ShippedChronologyConventionsTest >> testArgentinianSpanish [
 
-  | space |
-  space := self narrowNoBreakSpace.
   self
     assertConventionsFor: 'es-AR'
     areDates: #( 'd/M/yy' 'd MMM y' 'd ''de'' MMMM ''de'' y' 'EEEE, d ''de'' MMMM ''de'' y' )
-    times: { 'h:mm' , space , 'a' . 'h:mm:ss' , space , 'a' . 'h:mm:ss' , space , 'a z' .
-        'h:mm:ss' , space , 'a zzzz' };
+    times: #( 'h:mm\u{202F}a' 'h:mm:ss\u{202F}a' 'h:mm:ss\u{202F}a z' 'h:mm:ss\u{202F}a zzzz' );
     assertConventionsFor: 'es-AR'
     areYearMonths: #( 'M-y' 'MMM y' 'MMMM ''de'' y' )
     monthDays: #( 'd/M' 'd MMM' 'd ''de'' MMMM' );
     assertDateTimeFormatsFor: 'es-AR' are: '{1}, {0}';
-    assertMarksFor: 'es-AR' are: 'a.' , space , 'm.' and: 'p.' , space , 'm.'
+    assertMarksFor: 'es-AR' are: 'a.\u{202F}m.' and: 'p.\u{202F}m.'
 ]
 
 { #category : 'tests' }
@@ -109,14 +102,11 @@ ShippedChronologyConventionsTest >> testDefaults [
 { #category : 'tests' }
 ShippedChronologyConventionsTest >> testEnglish [
 
-  | space |
-  space := self narrowNoBreakSpace.
   #( 'en' 'en-US' ) do: [ :languageTag |
       self
         assertConventionsFor: languageTag
         areDates: #( 'M/d/yy' 'MMM d, y' 'MMMM d, y' 'EEEE, MMMM d, y' )
-        times: { 'h:mm' , space , 'a' . 'h:mm:ss' , space , 'a' . 'h:mm:ss' , space , 'a z' .
-            'h:mm:ss' , space , 'a zzzz' };
+        times: #( 'h:mm\u{202F}a' 'h:mm:ss\u{202F}a' 'h:mm:ss\u{202F}a z' 'h:mm:ss\u{202F}a zzzz' );
         assertConventionsFor: languageTag
         areYearMonths: #( 'M/y' 'MMM y' 'MMMM y' )
         monthDays: #( 'M/d' 'MMM d' 'MMMM d' );
@@ -128,8 +118,6 @@ ShippedChronologyConventionsTest >> testEnglish [
 { #category : 'tests' }
 ShippedChronologyConventionsTest >> testSpanish [
 
-  | space |
-  space := self narrowNoBreakSpace.
   #( 'es' 'es-ES' ) do: [ :languageTag |
       self
         assertConventionsFor: languageTag
@@ -139,6 +127,6 @@ ShippedChronologyConventionsTest >> testSpanish [
         areYearMonths: #( 'M/y' 'MMM y' 'MMMM ''de'' y' )
         monthDays: #( 'd/M' 'd MMM' 'd ''de'' MMMM' );
         assertDateTimeFormatsFor: languageTag are: '{1}, {0}';
-        assertMarksFor: languageTag are: 'a.' , space , 'm.' and: 'p.' , space , 'm.'
+        assertMarksFor: languageTag are: 'a.\u{202F}m.' and: 'p.\u{202F}m.'
     ]
 ]

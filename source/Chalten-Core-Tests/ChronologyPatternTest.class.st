@@ -81,9 +81,8 @@ ChronologyPatternTest >> testLiterals [
     hasElements:
       #( #hourOf24HourClock ':' #twoDigitMinute ':' #twoDigitSecond ' (' #longOffset ')' );
     assertPattern: 'dd-MMM-y' hasElements: #( #twoDigitDay '-' #monthShortName '-' #year );
-    assertPattern: 'h:mm' , ( String with: ( Character codePoint: 16r202F ) ) , 'a'
-    hasElements:
-      { #hourOf12HourClock . ':' . #twoDigitMinute . String with: ( Character codePoint: 16r202F ) .
+    assertPattern: 'h:mm\u{202F}a' unescaped
+    hasElements: { #hourOf12HourClock . ':' . #twoDigitMinute . '\u{202F}' unescaped .
         #dayPeriod }
 ]
 
@@ -119,9 +118,9 @@ ChronologyPatternTest >> testMonth [
 ChronologyPatternTest >> testNonASCIILettersAreLiteral [
 
   | year month day |
-  year := String with: ( Character codePoint: 16r5E74 ).
-  month := String with: ( Character codePoint: 16r6708 ).
-  day := String with: ( Character codePoint: 16r65E5 ).
+  year := '\u{5E74}' unescaped.
+  month := '\u{6708}' unescaped.
+  day := '\u{65E5}' unescaped.
 
   self
     assertPattern: 'y' , year , 'M' , month , 'd' , day

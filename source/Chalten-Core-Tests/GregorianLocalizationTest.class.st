@@ -11,11 +11,10 @@ Class {
 { #category : 'private - asserting' }
 GregorianLocalizationTest >> assertLocalizationsOf: aChronologyObject in: aLanguageTag are: expected [
   "expected holds the short, medium, long and full localizations, in that order,
-	with ~ standing for the narrow no-break spaces CLDR puts before AM and PM"
+	with Buoy's escape sequences for invisible characters, like \u{202F} for the narrow no-break space before AM and PM"
 
   | localizations |
-  localizations := expected collect: [ :localization |
-                       localization copyReplaceAll: '~' with: self narrowNoBreakSpace ].
+  localizations := expected collect: [ :localization | localization unescaped ].
   CurrentLocale use: aLanguageTag during: [
       #( #short #medium #long #full ) with: localizations do: [ :style :localization |
           self
@@ -68,12 +67,6 @@ GregorianLocalizationTest >> marchFifthAt: aTimeOfDay [
 ]
 
 { #category : 'private' }
-GregorianLocalizationTest >> narrowNoBreakSpace [
-
-  ^ String with: ( Character codePoint: 16r202F )
-]
-
-{ #category : 'private' }
 GregorianLocalizationTest >> offsetAwareDateTime [
   "March 5, 2026 at 14:30:45, three hours behind UTC"
 
@@ -89,8 +82,9 @@ GregorianLocalizationTest >> testDateTimes [
   self
     assertLocalizationsOf: dateTime
     in: 'en'
-    are: #( '3/5/26, 2:30~PM' 'Mar 5, 2026, 2:30:45~PM' 'March 5, 2026, 2:30:45~PM'
-         'Thursday, March 5, 2026, 2:30:45~PM' );
+    are:
+      #( '3/5/26, 2:30\u{202F}PM' 'Mar 5, 2026, 2:30:45\u{202F}PM' 'March 5, 2026, 2:30:45\u{202F}PM'
+         'Thursday, March 5, 2026, 2:30:45\u{202F}PM' );
     assertLocalizationsOf: dateTime
     in: 'en-GB'
     are:
@@ -102,8 +96,9 @@ GregorianLocalizationTest >> testDateTimes [
          'Jueves, 5 de Marzo de 2026, 14:30:45' );
     assertLocalizationsOf: dateTime
     in: 'es-AR'
-    are: #( '5/3/26, 2:30~p.~m.' '5 Mar 2026, 2:30:45~p.~m.' '5 de Marzo de 2026, 2:30:45~p.~m.'
-         'Jueves, 5 de Marzo de 2026, 2:30:45~p.~m.' )
+    are: #( '5/3/26, 2:30\u{202F}p.\u{202F}m.' '5 Mar 2026, 2:30:45\u{202F}p.\u{202F}m.'
+         '5 de Marzo de 2026, 2:30:45\u{202F}p.\u{202F}m.'
+         'Jueves, 5 de Marzo de 2026, 2:30:45\u{202F}p.\u{202F}m.' )
 ]
 
 { #category : 'tests - dates' }
@@ -193,8 +188,9 @@ GregorianLocalizationTest >> testInstants [
   self
     assertLocalizationsOf: instant
     in: 'en'
-    are: #( '3/5/26, 5:30~PM' 'Mar 5, 2026, 5:30:45~PM' 'March 5, 2026, 5:30:45~PM UTC'
-         'Thursday, March 5, 2026, 5:30:45~PM UTC' );
+    are:
+      #( '3/5/26, 5:30\u{202F}PM' 'Mar 5, 2026, 5:30:45\u{202F}PM' 'March 5, 2026, 5:30:45\u{202F}PM UTC'
+         'Thursday, March 5, 2026, 5:30:45\u{202F}PM UTC' );
     assertLocalizationsOf: instant
     in: 'en-GB'
     are: #( '05/03/2026, 17:30' '5 Mar 2026, 17:30:45' '5 March 2026, 17:30:45 UTC'
@@ -205,9 +201,9 @@ GregorianLocalizationTest >> testInstants [
          'Jueves, 5 de Marzo de 2026, 17:30:45 (UTC)' );
     assertLocalizationsOf: instant
     in: 'es-AR'
-    are:
-      #( '5/3/26, 5:30~p.~m.' '5 Mar 2026, 5:30:45~p.~m.' '5 de Marzo de 2026, 5:30:45~p.~m. UTC'
-         'Jueves, 5 de Marzo de 2026, 5:30:45~p.~m. UTC' )
+    are: #( '5/3/26, 5:30\u{202F}p.\u{202F}m.' '5 Mar 2026, 5:30:45\u{202F}p.\u{202F}m.'
+         '5 de Marzo de 2026, 5:30:45\u{202F}p.\u{202F}m. UTC'
+         'Jueves, 5 de Marzo de 2026, 5:30:45\u{202F}p.\u{202F}m. UTC' )
 ]
 
 { #category : 'tests - instants' }
@@ -220,8 +216,9 @@ GregorianLocalizationTest >> testInstantsAreShownOnTheirUTCDate [
   self
     assertLocalizationsOf: instant
     in: 'en'
-    are: #( '3/6/26, 1:00~AM' 'Mar 6, 2026, 1:00:00~AM' 'March 6, 2026, 1:00:00~AM UTC'
-         'Friday, March 6, 2026, 1:00:00~AM UTC' )
+    are:
+      #( '3/6/26, 1:00\u{202F}AM' 'Mar 6, 2026, 1:00:00\u{202F}AM' 'March 6, 2026, 1:00:00\u{202F}AM UTC'
+         'Friday, March 6, 2026, 1:00:00\u{202F}AM UTC' )
 ]
 
 { #category : 'tests - times of day' }
@@ -230,10 +227,10 @@ GregorianLocalizationTest >> testMidnightAndNoon [
   self
     assertLocalizationsOf: TimeOfDay startOfDay
     in: 'en'
-    are: #( '12:00~AM' '12:00:00~AM' '12:00:00~AM' '12:00:00~AM' );
+    are: #( '12:00\u{202F}AM' '12:00:00\u{202F}AM' '12:00:00\u{202F}AM' '12:00:00\u{202F}AM' );
     assertLocalizationsOf: ( TimeOfDay hours: 12 )
     in: 'en'
-    are: #( '12:00~PM' '12:00:00~PM' '12:00:00~PM' '12:00:00~PM' );
+    are: #( '12:00\u{202F}PM' '12:00:00\u{202F}PM' '12:00:00\u{202F}PM' '12:00:00\u{202F}PM' );
     assertLocalizationsOf: ( TimeOfDay hours: 0 minutes: 5 )
     in: 'en-GB'
     are: #( '00:05' '00:05:00' '00:05:00' '00:05:00' );
@@ -242,7 +239,9 @@ GregorianLocalizationTest >> testMidnightAndNoon [
     are: #( '0:05' '0:05:00' '0:05:00' '0:05:00' );
     assertLocalizationsOf: ( TimeOfDay hours: 12 )
     in: 'es-AR'
-    are: #( '12:00~p.~m.' '12:00:00~p.~m.' '12:00:00~p.~m.' '12:00:00~p.~m.' )
+    are:
+      #( '12:00\u{202F}p.\u{202F}m.' '12:00:00\u{202F}p.\u{202F}m.' '12:00:00\u{202F}p.\u{202F}m.'
+         '12:00:00\u{202F}p.\u{202F}m.' )
 ]
 
 { #category : 'tests - months' }
@@ -285,8 +284,9 @@ GregorianLocalizationTest >> testOffsetAwareDateTimes [
   self
     assertLocalizationsOf: dateTime
     in: 'en'
-    are: #( '3/5/26, 2:30~PM' 'Mar 5, 2026, 2:30:45~PM' 'March 5, 2026, 2:30:45~PM UTC-3'
-         'Thursday, March 5, 2026, 2:30:45~PM UTC-03:00' );
+    are:
+      #( '3/5/26, 2:30\u{202F}PM' 'Mar 5, 2026, 2:30:45\u{202F}PM' 'March 5, 2026, 2:30:45\u{202F}PM UTC-3'
+         'Thursday, March 5, 2026, 2:30:45\u{202F}PM UTC-03:00' );
     assertLocalizationsOf: dateTime
     in: 'en-GB'
     are: #( '05/03/2026, 14:30' '5 Mar 2026, 14:30:45' '5 March 2026, 14:30:45 UTC-3'
@@ -297,9 +297,9 @@ GregorianLocalizationTest >> testOffsetAwareDateTimes [
          'Jueves, 5 de Marzo de 2026, 14:30:45 (UTC-03:00)' );
     assertLocalizationsOf: dateTime
     in: 'es-AR'
-    are:
-      #( '5/3/26, 2:30~p.~m.' '5 Mar 2026, 2:30:45~p.~m.' '5 de Marzo de 2026, 2:30:45~p.~m. UTC-3'
-         'Jueves, 5 de Marzo de 2026, 2:30:45~p.~m. UTC-03:00' )
+    are: #( '5/3/26, 2:30\u{202F}p.\u{202F}m.' '5 Mar 2026, 2:30:45\u{202F}p.\u{202F}m.'
+         '5 de Marzo de 2026, 2:30:45\u{202F}p.\u{202F}m. UTC-3'
+         'Jueves, 5 de Marzo de 2026, 2:30:45\u{202F}p.\u{202F}m. UTC-03:00' )
 ]
 
 { #category : 'tests - date times' }
@@ -359,7 +359,7 @@ GregorianLocalizationTest >> testTimesOfDay [
   self
     assertLocalizationsOf: self timeOfDay
     in: 'en'
-    are: #( '2:30~PM' '2:30:45~PM' '2:30:45~PM' '2:30:45~PM' );
+    are: #( '2:30\u{202F}PM' '2:30:45\u{202F}PM' '2:30:45\u{202F}PM' '2:30:45\u{202F}PM' );
     assertLocalizationsOf: self timeOfDay
     in: 'en-GB'
     are: #( '14:30' '14:30:45' '14:30:45' '14:30:45' );
@@ -368,7 +368,8 @@ GregorianLocalizationTest >> testTimesOfDay [
     are: #( '14:30' '14:30:45' '14:30:45' '14:30:45' );
     assertLocalizationsOf: self timeOfDay
     in: 'es-AR'
-    are: #( '2:30~p.~m.' '2:30:45~p.~m.' '2:30:45~p.~m.' '2:30:45~p.~m.' )
+    are: #( '2:30\u{202F}p.\u{202F}m.' '2:30:45\u{202F}p.\u{202F}m.' '2:30:45\u{202F}p.\u{202F}m.'
+         '2:30:45\u{202F}p.\u{202F}m.' )
 ]
 
 { #category : 'tests - years' }
