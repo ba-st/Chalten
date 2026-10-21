@@ -119,8 +119,7 @@ ChronologyConventionsTest >> testPropertyResolvedFromTheMostSpecificRange [
   self loadSpanishConventions.
 
   self
-    assert: ( self propertyNamed: #shortTimeFormat for: 'es-AR' )
-    equals: 'h:mm' , ( String with: ( Character codePoint: 16r202F ) ) , 'a';
+    assert: ( self propertyNamed: #shortTimeFormat for: 'es-AR' ) equals: 'h:mm\u{202F}a' unescaped;
     assert: ( self propertyNamed: #shortDateFormat for: 'es-AR' ) equals: 'd/M/yy';
     assert: ( self propertyNamed: #shortTimeFormat for: 'es-ES' ) equals: 'H:mm';
     assert: ( self propertyNamed: #amMark for: 'es-AR' ) equals: 'a. m.';

@@ -12,7 +12,7 @@ The fields I support are:
 - `h`: `#hourOf12HourClock`; `hh`: `#twoDigitHourOf12HourClock`; `H`: `#hourOf24HourClock`; `HH`: `#twoDigitHourOf24HourClock`; `a`: `#dayPeriod`
 - `m`: `#minute`; `mm`: `#twoDigitMinute`; `s`: `#second`; `ss`: `#twoDigitSecond`
 - `z`, `zz`, `zzz`, `O`: `#shortOffset`; `zzzz`, `OOOO`: `#longOffset`
-- `{1}`: `#date` and `{0}`: `#time`, the placeholders of the patterns combining a date and a time
+- `{1}`: `#date` and `{0}`: `#time`, the placeholders of the patterns combining a date and a time, replaced by `replacingDateWith:andTimeWith:`
 
 Text between single quotes is literal, and two single quotes stand for one. Any other ASCII letter is a field I don't support, and I refuse to be created with it.
 
@@ -72,6 +72,12 @@ ChronologyPattern class >> fromString: aString [
   ^ self new initializeFromString: aString
 ]
 
+{ #category : 'private - instance creation' }
+ChronologyPattern class >> withElements: anArray [
+
+  ^ self new initializeWithElements: anArray
+]
+
 { #category : 'accessing' }
 ChronologyPattern >> elements [
   "Answers the literal strings and the field names, in order"
@@ -116,6 +122,12 @@ ChronologyPattern >> initializeFromString: aString [
     ].
   literalStream contents ifNotEmpty: [ :literal | elements add: literal ].
   elements := elements asArray
+]
+
+{ #category : 'initialization' }
+ChronologyPattern >> initializeWithElements: anArray [
+
+  elements := anArray
 ]
 
 { #category : 'private' }
@@ -169,4 +181,19 @@ ChronologyPattern >> parseQuotedLiteralFrom: stream on: literalStream [
         stream peek ~= $'
       ]
   ] whileFalse: [ literalStream nextPut: stream next ]
+]
+
+{ #category : 'combining' }
+ChronologyPattern >> replacingDateWith: aDatePattern andTimeWith: aTimePattern [
+  "Answers the pattern combining a date and a time with its placeholders replaced by the elements of the given patterns"
+
+  | replacements combined |
+  replacements := IdentityDictionary new
+                    at: #date put: aDatePattern elements;
+                    at: #time put: aTimePattern elements;
+                    yourself.
+  combined := OrderedCollection new.
+  elements do: [ :element |
+      combined addAll: ( replacements at: element ifAbsent: [ Array with: element ] ) ].
+  ^ self class withElements: combined asArray
 ]

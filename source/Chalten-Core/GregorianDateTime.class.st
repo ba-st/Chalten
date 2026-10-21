@@ -73,6 +73,18 @@ GregorianDateTime >> julianDayNumber [
 ]
 
 { #category : 'printing' }
+GregorianDateTime >> localized [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value ) format: self
+]
+
+{ #category : 'printing' }
+GregorianDateTime >> localizedWith: aBlock [
+
+  ^ ( LocalizedChronologyFormatter for: CurrentLocale value configuredBy: aBlock ) format: self
+]
+
+{ #category : 'printing' }
 GregorianDateTime >> printAsISO8601On: stream [
 
   date printAsISO8601On: stream.
@@ -83,6 +95,12 @@ GregorianDateTime >> printAsISO8601On: stream [
 GregorianDateTime >> printAsISO8601String [
 
   ^ String streamContents: [ :stream | self printAsISO8601On: stream ]
+]
+
+{ #category : 'printing' }
+GregorianDateTime >> printLocalizedOn: aStream using: aLocalizedChronologyFormatter [
+
+  aLocalizedChronologyFormatter printDateTime: self on: aStream
 ]
 
 { #category : 'accessing' }

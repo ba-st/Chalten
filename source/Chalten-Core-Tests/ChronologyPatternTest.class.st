@@ -9,15 +9,21 @@ Class {
 }
 
 { #category : 'private - asserting' }
-ChronologyPatternTest >> assertPattern: aString hasElements: anArray [
+ChronologyPatternTest >> assertElementsOf: aChronologyPattern are: anArray [
   "Field names are symbols and literals are strings, which may be equal in some dialects, so the kinds are compared too"
 
   | elements |
-  elements := ( ChronologyPattern fromString: aString ) elements.
+  elements := aChronologyPattern elements.
   self assert: elements equals: anArray.
   elements
     with: anArray
     do: [ :element :expected | self assert: element isSymbol equals: expected isSymbol ]
+]
+
+{ #category : 'private - asserting' }
+ChronologyPatternTest >> assertPattern: aString hasElements: anArray [
+
+  self assertElementsOf: ( ChronologyPattern fromString: aString ) are: anArray
 ]
 
 { #category : 'private - asserting' }
@@ -75,9 +81,8 @@ ChronologyPatternTest >> testLiterals [
     hasElements:
       #( #hourOf24HourClock ':' #twoDigitMinute ':' #twoDigitSecond ' (' #longOffset ')' );
     assertPattern: 'dd-MMM-y' hasElements: #( #twoDigitDay '-' #monthShortName '-' #year );
-    assertPattern: 'h:mm' , ( String with: ( Character codePoint: 16r202F ) ) , 'a'
-    hasElements:
-      { #hourOf12HourClock . ':' . #twoDigitMinute . String with: ( Character codePoint: 16r202F ) .
+    assertPattern: 'h:mm\u{202F}a' unescaped
+    hasElements: { #hourOf12HourClock . ':' . #twoDigitMinute . '\u{202F}' unescaped .
         #dayPeriod }
 ]
 
@@ -113,9 +118,9 @@ ChronologyPatternTest >> testMonth [
 ChronologyPatternTest >> testNonASCIILettersAreLiteral [
 
   | year month day |
-  year := String with: ( Character codePoint: 16r5E74 ).
-  month := String with: ( Character codePoint: 16r6708 ).
-  day := String with: ( Character codePoint: 16r65E5 ).
+  year := '\u{5E74}' unescaped.
+  month := '\u{6708}' unescaped.
+  day := '\u{65E5}' unescaped.
 
   self
     assertPattern: 'y' , year , 'M' , month , 'd' , day
@@ -148,6 +153,25 @@ ChronologyPatternTest >> testQuotedLiterals [
     hasElements: #( #hourOf12HourClock ' o''clock ' #dayPeriod );
     assertPattern: 'h''''a' hasElements: #( #hourOf12HourClock '''' #dayPeriod );
     assertPattern: '''''' hasElements: #( '''' )
+]
+
+{ #category : 'tests' }
+ChronologyPatternTest >> testReplacingDateAndTime [
+
+  | date time |
+  date := ChronologyPattern fromString: 'd/M/y'.
+  time := ChronologyPattern fromString: 'H:mm'.
+
+  self
+    assertElementsOf:
+      ( ( ChronologyPattern fromString: '{1}, {0}' ) replacingDateWith: date andTimeWith: time )
+    are: #( #day '/' #month '/' #year ', ' #hourOf24HourClock ':' #twoDigitMinute );
+    assertElementsOf: ( ( ChronologyPattern fromString: '''date'' {1} ''time'' {0}' )
+          replacingDateWith: date
+          andTimeWith: time )
+    are: #( 'date ' #day '/' #month '/' #year ' time ' #hourOf24HourClock ':' #twoDigitMinute );
+    assertElementsOf: ( date replacingDateWith: time andTimeWith: time )
+    are: #( #day '/' #month '/' #year )
 ]
 
 { #category : 'tests' }
